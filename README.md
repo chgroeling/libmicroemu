@@ -1,4 +1,4 @@
-# Libmicroemu - ARM Microcontroller Emulator Library
+# ARM Microcontroller Emulator Library
 _libmicroemu_ is a lightweight, embeddable library for ARM microcontroller emulation, currently supporting the ARMv7-M architecture with plans to extend to additional ARM architectures. It is designed for:
 
 - **Accelerating development** by enabling local testing of ARM programs
@@ -86,8 +86,9 @@ The application provides logs showing register states, memory operations, and de
 
 ## Embedding libmicroemu in Your Project
 
-libmicroemu can be embedded directly in C++ projects to emulate ARM code. 
+_libmicroemu_ is designed to be easily integrated into larger C++ projects to provide ARM emulation capabilities. Below is a basic example demonstrating how to set up and execute an ELF binary using the library.
 
+### Example: Integrating libmicroemu
 ```cpp
 #include <iostream>
 #include <vector>
@@ -126,8 +127,21 @@ int main()
     }
     return 0;
 }
+```
 
-````
+### Embedding Considerations
+- **CMake Integration**: You can include _libmicroemu_ directly in your project by adding it as a CMake subdirectory:
+  
+  ```cmake
+  add_subdirectory(path/to/libmicroemu)
+  target_link_libraries(your_project PRIVATE libmicroemu)
+  ```
+
+- **Precompiled Libraries**: For convenience, precompiled versions of _libmicroemu_ are available. These can be linked to your project to save build time and simplify integration.
+
+- **Memory Configuration**: Ensure you allocate and set up code and RAM segments properly to emulate the ARM memory layout accurately.
+- **Integration Points**: _libmicroemu_ can be seamlessly embedded into any C++ project, supporting both development testing and deployment phases.
+- **Custom Enhancements**: Depending on your application, you can extend memory configurations, include peripheral simulation, or adapt the emulator for specific use cases.
 
 ## Contributing
 
