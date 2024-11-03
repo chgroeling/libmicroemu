@@ -1,0 +1,12 @@
+[settings]
+compiler=clang
+compiler.version=17
+os = {{platform.system()}}
+arch = x86_64
+build_type=Release
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Unix Makefiles
+tools.cmake.cmaketoolchain:user_toolchain = {{[os.path.join(profile_dir, "clang.cmake")]}}
+
+[tool_requires]

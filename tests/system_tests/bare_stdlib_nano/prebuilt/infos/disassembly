@@ -1,0 +1,194 @@
+
+/Users/cgg/microemu/tests/system_tests/bare_stdlib_nano/build/bare_stdlib_nano.elf:     file format elf32-littlearm
+
+
+Disassembly of section .init:
+
+00008000 <_init>:
+    8000:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    8002:	bf00      	nop
+    8004:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    8006:	bc08      	pop	{r3}
+    8008:	469e      	mov	lr, r3
+    800a:	4770      	bx	lr
+
+Disassembly of section .text:
+
+0000800c <exit>:
+    800c:	b508      	push	{r3, lr}
+    800e:	4b07      	ldr	r3, [pc, #28]	; (802c <exit+0x20>)
+    8010:	4604      	mov	r4, r0
+    8012:	b113      	cbz	r3, 801a <exit+0xe>
+    8014:	2100      	movs	r1, #0
+    8016:	f3af 8000 	nop.w
+    801a:	4b05      	ldr	r3, [pc, #20]	; (8030 <exit+0x24>)
+    801c:	6818      	ldr	r0, [r3, #0]
+    801e:	6a83      	ldr	r3, [r0, #40]	; 0x28
+    8020:	b103      	cbz	r3, 8024 <exit+0x18>
+    8022:	4798      	blx	r3
+    8024:	4620      	mov	r0, r4
+    8026:	f000 f86a 	bl	80fe <_exit>
+    802a:	bf00      	nop
+    802c:	00000000 	.word	0x00000000
+    8030:	00008174 	.word	0x00008174
+
+00008034 <__do_global_dtors_aux>:
+    8034:	b510      	push	{r4, lr}
+    8036:	4c05      	ldr	r4, [pc, #20]	; (804c <__do_global_dtors_aux+0x18>)
+    8038:	7823      	ldrb	r3, [r4, #0]
+    803a:	b933      	cbnz	r3, 804a <__do_global_dtors_aux+0x16>
+    803c:	4b04      	ldr	r3, [pc, #16]	; (8050 <__do_global_dtors_aux+0x1c>)
+    803e:	b113      	cbz	r3, 8046 <__do_global_dtors_aux+0x12>
+    8040:	4804      	ldr	r0, [pc, #16]	; (8054 <__do_global_dtors_aux+0x20>)
+    8042:	f3af 8000 	nop.w
+    8046:	2301      	movs	r3, #1
+    8048:	7023      	strb	r3, [r4, #0]
+    804a:	bd10      	pop	{r4, pc}
+    804c:	000181ec 	.word	0x000181ec
+    8050:	00000000 	.word	0x00000000
+    8054:	00008180 	.word	0x00008180
+
+00008058 <frame_dummy>:
+    8058:	b508      	push	{r3, lr}
+    805a:	4b03      	ldr	r3, [pc, #12]	; (8068 <frame_dummy+0x10>)
+    805c:	b11b      	cbz	r3, 8066 <frame_dummy+0xe>
+    805e:	4903      	ldr	r1, [pc, #12]	; (806c <frame_dummy+0x14>)
+    8060:	4803      	ldr	r0, [pc, #12]	; (8070 <frame_dummy+0x18>)
+    8062:	f3af 8000 	nop.w
+    8066:	bd08      	pop	{r3, pc}
+    8068:	00000000 	.word	0x00000000
+    806c:	000181f0 	.word	0x000181f0
+    8070:	00008180 	.word	0x00008180
+
+00008074 <_stack_init>:
+    8074:	f5a3 3a80 	sub.w	sl, r3, #65536	; 0x10000
+    8078:	4770      	bx	lr
+    807a:	bf00      	nop
+
+0000807c <_mainCRTStartup>:
+    807c:	4b17      	ldr	r3, [pc, #92]	; (80dc <_mainCRTStartup+0x60>)
+    807e:	2b00      	cmp	r3, #0
+    8080:	bf08      	it	eq
+    8082:	4b13      	ldreq	r3, [pc, #76]	; (80d0 <_mainCRTStartup+0x54>)
+    8084:	469d      	mov	sp, r3
+    8086:	f7ff fff5 	bl	8074 <_stack_init>
+    808a:	2100      	movs	r1, #0
+    808c:	468b      	mov	fp, r1
+    808e:	460f      	mov	r7, r1
+    8090:	4813      	ldr	r0, [pc, #76]	; (80e0 <_mainCRTStartup+0x64>)
+    8092:	4a14      	ldr	r2, [pc, #80]	; (80e4 <_mainCRTStartup+0x68>)
+    8094:	1a12      	subs	r2, r2, r0
+    8096:	f000 f85f 	bl	8158 <memset>
+    809a:	4b0e      	ldr	r3, [pc, #56]	; (80d4 <_mainCRTStartup+0x58>)
+    809c:	2b00      	cmp	r3, #0
+    809e:	d000      	beq.n	80a2 <_mainCRTStartup+0x26>
+    80a0:	4798      	blx	r3
+    80a2:	4b0d      	ldr	r3, [pc, #52]	; (80d8 <_mainCRTStartup+0x5c>)
+    80a4:	2b00      	cmp	r3, #0
+    80a6:	d000      	beq.n	80aa <_mainCRTStartup+0x2e>
+    80a8:	4798      	blx	r3
+    80aa:	2000      	movs	r0, #0
+    80ac:	2100      	movs	r1, #0
+    80ae:	0004      	movs	r4, r0
+    80b0:	000d      	movs	r5, r1
+    80b2:	480d      	ldr	r0, [pc, #52]	; (80e8 <_mainCRTStartup+0x6c>)
+    80b4:	2800      	cmp	r0, #0
+    80b6:	d002      	beq.n	80be <_mainCRTStartup+0x42>
+    80b8:	480c      	ldr	r0, [pc, #48]	; (80ec <_mainCRTStartup+0x70>)
+    80ba:	f3af 8000 	nop.w
+    80be:	f000 f827 	bl	8110 <__libc_init_array>
+    80c2:	0020      	movs	r0, r4
+    80c4:	0029      	movs	r1, r5
+    80c6:	f000 f813 	bl	80f0 <main>
+    80ca:	f7ff ff9f 	bl	800c <exit>
+    80ce:	bf00      	nop
+    80d0:	00080000 	.word	0x00080000
+	...
+    80e0:	000181ec 	.word	0x000181ec
+    80e4:	00018208 	.word	0x00018208
+	...
+
+000080f0 <main>:
+#include <stdio.h>
+#include <stdlib.h>
+
+    80f0:	b480      	push	{r7}
+    80f2:	af00      	add	r7, sp, #0
+    80f4:	2301      	movs	r3, #1
+    80f6:	4618      	mov	r0, r3
+    80f8:	46bd      	mov	sp, r7
+    80fa:	bc80      	pop	{r7}
+    80fc:	4770      	bx	lr
+
+000080fe <_exit>:
+///
+/// @param status User supplied argument to exit() call.
+///
+/// @returns This function does not return.
+/// @ingroup SystemCalls
+void _exit(int status) {
+    80fe:	b480      	push	{r7}
+    8100:	b083      	sub	sp, #12
+    8102:	af00      	add	r7, sp, #0
+    8104:	6078      	str	r0, [r7, #4]
+  __asm__("MOV r0, %[exit_code] \n"
+    8106:	687b      	ldr	r3, [r7, #4]
+    8108:	4618      	mov	r0, r3
+    810a:	df01      	svc	1
+          "SVC #0x01           \n"
+          :
+          : [exit_code] "r"(status)
+          : "r0");
+  while (1) {
+    810c:	e7fe      	b.n	810c <_exit+0xe>
+	...
+
+00008110 <__libc_init_array>:
+    8110:	b570      	push	{r4, r5, r6, lr}
+    8112:	2600      	movs	r6, #0
+    8114:	4d0c      	ldr	r5, [pc, #48]	; (8148 <__libc_init_array+0x38>)
+    8116:	4c0d      	ldr	r4, [pc, #52]	; (814c <__libc_init_array+0x3c>)
+    8118:	1b64      	subs	r4, r4, r5
+    811a:	10a4      	asrs	r4, r4, #2
+    811c:	42a6      	cmp	r6, r4
+    811e:	d109      	bne.n	8134 <__libc_init_array+0x24>
+    8120:	f7ff ff6e 	bl	8000 <_init>
+    8124:	2600      	movs	r6, #0
+    8126:	4d0a      	ldr	r5, [pc, #40]	; (8150 <__libc_init_array+0x40>)
+    8128:	4c0a      	ldr	r4, [pc, #40]	; (8154 <__libc_init_array+0x44>)
+    812a:	1b64      	subs	r4, r4, r5
+    812c:	10a4      	asrs	r4, r4, #2
+    812e:	42a6      	cmp	r6, r4
+    8130:	d105      	bne.n	813e <__libc_init_array+0x2e>
+    8132:	bd70      	pop	{r4, r5, r6, pc}
+    8134:	f855 3b04 	ldr.w	r3, [r5], #4
+    8138:	4798      	blx	r3
+    813a:	3601      	adds	r6, #1
+    813c:	e7ee      	b.n	811c <__libc_init_array+0xc>
+    813e:	f855 3b04 	ldr.w	r3, [r5], #4
+    8142:	4798      	blx	r3
+    8144:	3601      	adds	r6, #1
+    8146:	e7f2      	b.n	812e <__libc_init_array+0x1e>
+    8148:	00018184 	.word	0x00018184
+    814c:	00018184 	.word	0x00018184
+    8150:	00018184 	.word	0x00018184
+    8154:	00018188 	.word	0x00018188
+
+00008158 <memset>:
+    8158:	4603      	mov	r3, r0
+    815a:	4402      	add	r2, r0
+    815c:	4293      	cmp	r3, r2
+    815e:	d100      	bne.n	8162 <memset+0xa>
+    8160:	4770      	bx	lr
+    8162:	f803 1b01 	strb.w	r1, [r3], #1
+    8166:	e7f9      	b.n	815c <memset+0x4>
+
+Disassembly of section .fini:
+
+00008168 <_fini>:
+    8168:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    816a:	bf00      	nop
+    816c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    816e:	bc08      	pop	{r3}
+    8170:	469e      	mov	lr, r3
+    8172:	4770      	bx	lr

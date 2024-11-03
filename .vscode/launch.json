@@ -1,0 +1,44 @@
+{
+  "configurations": [
+    {
+      "name": "microemu_mac",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/Debug/src/microemu/microemu",
+      "args": [
+        "-p",
+        "1",
+       // "-t", // enable trace
+        "-e", // load entry point from elf file
+        "--log",
+        "--log-level",
+        "TRACE",
+        "--log-file",
+        "${workspaceFolder}/build/Debug/src/microemu/microemu.log",
+        "./tests/system_tests/testbench/prebuilt/bin/testbench.elf",
+      //  ">",
+      //  "testbench.trace"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "MIMode": "lldb"
+    },
+    {
+      "name": "microemu_win",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/Debug/src/microemu/microemu",
+      "args": [
+        "-p",
+        "1",
+        "-e", // load entry point from elf file
+        "./tests/system_tests/testbench/prebuilt/bin/testbench.elf"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+    }
+  ],
+  "version": "2.0.0"
+}

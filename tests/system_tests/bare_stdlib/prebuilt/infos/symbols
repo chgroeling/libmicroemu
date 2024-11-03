@@ -1,0 +1,124 @@
+
+Symbol table '.symtab' contains 121 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00008000     0 SECTION LOCAL  DEFAULT    1 
+     2: 0000800c     0 SECTION LOCAL  DEFAULT    2 
+     3: 00008398     0 SECTION LOCAL  DEFAULT    3 
+     4: 000083a4     0 SECTION LOCAL  DEFAULT    4 
+     5: 000083a8     0 SECTION LOCAL  DEFAULT    5 
+     6: 000083b0     0 SECTION LOCAL  DEFAULT    6 
+     7: 000183b4     0 SECTION LOCAL  DEFAULT    7 
+     8: 000183bc     0 SECTION LOCAL  DEFAULT    8 
+     9: 000183c0     0 SECTION LOCAL  DEFAULT    9 
+    10: 000187ec     0 SECTION LOCAL  DEFAULT   10 
+    11: 000187ec     0 SECTION LOCAL  DEFAULT   11 
+    12: 0001880c     0 SECTION LOCAL  DEFAULT   12 
+    13: 00000000     0 SECTION LOCAL  DEFAULT   13 
+    14: 00000000     0 SECTION LOCAL  DEFAULT   14 
+    15: 00000000     0 SECTION LOCAL  DEFAULT   15 
+    16: 00000000     0 SECTION LOCAL  DEFAULT   16 
+    17: 00000000     0 SECTION LOCAL  DEFAULT   17 
+    18: 00000000     0 SECTION LOCAL  DEFAULT   18 
+    19: 00000000     0 SECTION LOCAL  DEFAULT   19 
+    20: 00000000     0 SECTION LOCAL  DEFAULT   20 
+    21: 00000000     0 FILE    LOCAL  DEFAULT  ABS crti.o
+    22: 00008000     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    23: 00008398     0 NOTYPE  LOCAL  DEFAULT    3 $t
+    24: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtn.o
+    25: 00008004     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    26: 0000839c     0 NOTYPE  LOCAL  DEFAULT    3 $t
+    27: 00000000     0 FILE    LOCAL  DEFAULT  ABS exit.c
+    28: 0000800c     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    29: 00008028     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    30: 00000000     0 FILE    LOCAL  DEFAULT  ABS __call_atexit.c
+    31: 0000802c     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    32: 0000802d    20 FUNC    LOCAL  DEFAULT    2 register_fini
+    33: 00008038     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    34: 000183b4     0 NOTYPE  LOCAL  DEFAULT    7 $d
+    35: 00008208     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    36: 000082c4     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    37: 000187e8     0 NOTYPE  LOCAL  DEFAULT    9 $d
+    38: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    39: 000083b0     0 OBJECT  LOCAL  DEFAULT    6 
+    40: 00008040     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    41: 00008041     0 FUNC    LOCAL  DEFAULT    2 __do_global_dtors_aux
+    42: 00008058     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    43: 000187ec     1 NOTYPE  LOCAL  DEFAULT   11 completed.1
+    44: 000183bc     0 NOTYPE  LOCAL  DEFAULT    8 $d
+    45: 000183bc     0 OBJECT  LOCAL  DEFAULT    8 __do_global_dtors_aux_fini_array_entry
+    46: 00008064     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    47: 00008065     0 FUNC    LOCAL  DEFAULT    2 frame_dummy
+    48: 00008074     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    49: 000187f0    24 NOTYPE  LOCAL  DEFAULT   11 object.0
+    50: 000183b8     0 NOTYPE  LOCAL  DEFAULT    7 $d
+    51: 000183b8     0 OBJECT  LOCAL  DEFAULT    7 __frame_dummy_init_array_entry
+    52: 000187ec     0 NOTYPE  LOCAL  DEFAULT   11 $d
+    53: 00000000     0 FILE    LOCAL  DEFAULT  ABS crt0.o
+    54: 00008080     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    55: 000083a8     0 NOTYPE  LOCAL  DEFAULT    5 $d
+    56: 000080dc     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    57: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.cpp
+    58: 000080fc     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    59: 000083b0     0 NOTYPE  LOCAL  DEFAULT    5 $d
+    60: 00000000     0 FILE    LOCAL  DEFAULT  ABS syscalls.c
+    61: 0000810a     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    62: 00000000     0 FILE    LOCAL  DEFAULT  ABS init.c
+    63: 0000811c     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    64: 00008154     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    65: 00000000     0 FILE    LOCAL  DEFAULT  ABS memset.c
+    66: 00008164     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    67: 00000000     0 FILE    LOCAL  DEFAULT  ABS atexit.c
+    68: 000082cc     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    69: 00000000     0 FILE    LOCAL  DEFAULT  ABS fini.c
+    70: 000082d8     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    71: 000082fc     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    72: 00000000     0 FILE    LOCAL  DEFAULT  ABS lock.c
+    73: 00008304     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    74: 00008308     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    75: 00018808     0 NOTYPE  LOCAL  DEFAULT   11 $d
+    76: 00000000     0 FILE    LOCAL  DEFAULT  ABS __atexit.c
+    77: 0000830c     0 NOTYPE  LOCAL  DEFAULT    2 $t
+    78: 00008390     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    79: 00000000     0 FILE    LOCAL  DEFAULT  ABS impure.c
+    80: 000183c0  1064 OBJECT  LOCAL  DEFAULT    9 impure_data
+    81: 000183c0     0 NOTYPE  LOCAL  DEFAULT    9 $d
+    82: 000083a4     0 NOTYPE  LOCAL  DEFAULT    4 $d
+    83: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    84: 000083b0     0 NOTYPE  LOCAL  DEFAULT    6 $d
+    85: 000083b0     0 OBJECT  LOCAL  DEFAULT    6 __FRAME_END__
+    86: 00000000     0 FILE    LOCAL  DEFAULT  ABS 
+    87: 000183c0     0 NOTYPE  LOCAL  DEFAULT    8 __fini_array_end
+    88: 000183bc     0 NOTYPE  LOCAL  DEFAULT    8 __fini_array_start
+    89: 000183bc     0 NOTYPE  LOCAL  DEFAULT    7 __init_array_end
+    90: 000183b4     0 NOTYPE  LOCAL  DEFAULT    7 __preinit_array_end
+    91: 000183b4     0 NOTYPE  LOCAL  DEFAULT    7 __init_array_start
+    92: 000183b4     0 NOTYPE  LOCAL  DEFAULT    7 __preinit_array_start
+    93: 00018808     1 OBJECT  GLOBAL DEFAULT   11 __lock___atexit_recursive_mutex
+    94: 000187e8     4 OBJECT  GLOBAL DEFAULT    9 __atexit_recursive_mutex
+    95: 0001880c     0 NOTYPE  GLOBAL DEFAULT   11 _bss_end__
+    96: 000187ec     0 NOTYPE  GLOBAL DEFAULT   11 __bss_start__
+    97: 000083a4     4 OBJECT  GLOBAL DEFAULT    4 _global_impure_ptr
+    98: 0000811d    72 FUNC    GLOBAL DEFAULT    2 __libc_init_array
+    99: 00008089     0 FUNC    GLOBAL DEFAULT    2 _mainCRTStartup
+   100: 00008001     0 FUNC    GLOBAL DEFAULT    1 _init
+   101: 000082d9    44 FUNC    GLOBAL DEFAULT    2 __libc_fini_array
+   102: 00008309     2 FUNC    GLOBAL DEFAULT    2 __retarget_lock_release_recursive
+   103: 0001880c     0 NOTYPE  GLOBAL DEFAULT   11 __bss_end__
+   104: 00008209   196 FUNC    GLOBAL DEFAULT    2 __call_exitprocs
+   105: 00008089     0 FUNC    GLOBAL DEFAULT    2 _start
+   106: 0000830d   140 FUNC    GLOBAL DEFAULT    2 __register_exitproc
+   107: 00008081     0 FUNC    WEAK   DEFAULT    2 _stack_init
+   108: 00008305     2 FUNC    GLOBAL DEFAULT    2 __retarget_lock_acquire_recursive
+   109: 000187ec     0 NOTYPE  GLOBAL DEFAULT   11 __bss_start
+   110: 00008165   164 FUNC    GLOBAL DEFAULT    2 memset
+   111: 000080fd    14 FUNC    GLOBAL DEFAULT    2 main
+   112: 0001880c     0 NOTYPE  GLOBAL DEFAULT   11 __end__
+   113: 00008399     0 FUNC    GLOBAL DEFAULT    3 _fini
+   114: 000082cd    12 FUNC    GLOBAL DEFAULT    2 atexit
+   115: 000187ec     0 NOTYPE  GLOBAL DEFAULT    9 _edata
+   116: 0001880c     0 NOTYPE  GLOBAL DEFAULT   11 _end
+   117: 0000800d    32 FUNC    GLOBAL DEFAULT    2 exit
+   118: 0000810b    16 FUNC    GLOBAL DEFAULT    2 _exit
+   119: 00080000     0 NOTYPE  GLOBAL DEFAULT   12 _stack
+   120: 000183c0     0 NOTYPE  GLOBAL DEFAULT    9 __data_start

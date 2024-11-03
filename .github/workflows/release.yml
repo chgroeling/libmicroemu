@@ -1,0 +1,108 @@
+name: release on multiple platforms
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on tags starting with "v" (e.g., v1.0.0)
+  
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
+      fail-fast: false
+
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        build_type: [Release]
+        c_compiler: [clang]
+        include:
+          - os: windows-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+          - os: macos-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+          - os: ubuntu-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set reusable strings
+      # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+    - uses: actions/setup-python@v5
+      with:
+          python-version: '3.13'
+          cache: 'pip' # caching pip dependencies
+    - run: pip install -r requirements.txt
+    - name : Install Dependencies Conan
+      run: | 
+        conan profile detect
+        conan install . -pr ${{ github.workspace }}/profiles/${{ matrix.build_type }}-${{ matrix.os }}-${{ matrix.c_compiler }} --build=missing -o build_tests=True -o build_microemu=True
+    - name: CMake configuration
+      run: |
+            cmake -B ${{github.workspace}}/build/Release --preset conan-release
+    - name: Build
+      run: |
+            cmake --build ${{github.workspace}}/build/Release 
+    - name: Test
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: ctest --test-dir ${{github.workspace}}/build/Release 
+    - name: Install with CMake
+      run: cmake --install ${{github.workspace}}/build/Release --prefix install_dir
+    - name: Upload microemu artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: microemu-${{ matrix.build_type }}-${{ matrix.os }}-${{ matrix.c_compiler }}
+        path: install_dir/bin
+    - name: Upload libmicroemu artifact
+      uses: actions/upload-artifact@v4
+      with:
+          name: libmicroemu-${{ matrix.build_type }}-${{ matrix.os }}-${{ matrix.c_compiler }}
+          path: |
+            install_dir/
+            !install_dir/bin/*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - name: Check out the code
+          uses: actions/checkout@v4    
+        - name: Download Artifacts
+          uses: actions/download-artifact@v4
+          with:
+            path: downloaded-artifacts  # Download all artifacts into a specific directory 
+        - name: Display structure of downloaded files
+          run: ls -R downloaded-artifacts 
+        - name: Iterate Over Directories
+          run: |
+            mkdir -p compressed  # Create a directory to store compressed artifacts
+            
+            # Navigate to the directory with the downloaded artifacts
+            cd downloaded-artifacts
+            
+            # Iterate over all directories
+            for dir in */ ; do
+              echo "Directory: $dir"
+
+              # Hack: Find and set executable permissions on files that need it
+              find "$dir" -type f -name "microemu" -exec chmod +x {} \;
+
+              # Compress each directory into a separate ZIP archive
+              zip -r "../compressed/${dir%/}.zip" "$dir"
+            done
+            
+        - name: Create GitHub Release
+          uses: softprops/action-gh-release@v2
+          with:
+            files: compressed/*  # Attach all downloaded artifacts to the release
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  

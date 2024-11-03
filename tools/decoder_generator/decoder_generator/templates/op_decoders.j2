@@ -1,0 +1,120 @@
+#pragma once
+
+#include "libmicroemu/internal/decoder/instr.h"
+#include "libmicroemu/internal/utils/bit_manip.h"
+#include "libmicroemu/internal/logic/thumb.h"
+#include "libmicroemu/register_details.h"
+#include "libmicroemu/internal/fetcher/raw_instr.h"
+#include "libmicroemu/result.h"
+#include "libmicroemu/types.h"
+#include <cstdint>
+#include <assert.h>
+
+
+namespace microemu {
+namespace internal {
+
+using Bm8 = BitManip<u8>;
+using Bm16 = BitManip<u16>;
+using Bm32 = BitManip<u32>;
+
+static constexpr u32 kDecodersOpCodeLast = 15u;
+static constexpr u32 kDecodersOpCodeFirst = 11u;
+
+template<typename TProcessorStates, typename TItOps, typename TSpecRegOps> 
+static Result<Instr> InvalidInstrDecoder(const RawInstr& rinstr,  TProcessorStates& pstates) {
+  static_cast<void>(rinstr);
+  static_cast<void>(pstates); // prevents warning when pstate is not used
+  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+}
+
+{{""}}
+{%- for k, i in data['decoders'].items() %}
+    {%-if i['name_enum'] != "kInvalid" %}
+template<typename TProcessorStates, typename TItOps, typename TSpecRegOps> 
+static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TProcessorStates& pstates) {
+  static_cast<void>(pstates); // prevents warning when pstates is not used
+  const InstrId iid{InstrId::{{i['name_enum']}} };
+  u8 flags = 0x0u;
+   {{""}}
+        {%- if 'pre_block' in i %}
+            {%- for line in i['pre_block'] %}
+  {{line}}
+            {%- endfor %}
+        {%- endif %}
+  {{""}}
+        {%- for name, l in i['def'].items() %}
+            {%- if 'flag_decoder' in l %}
+                {%- for line in l['flag_decoder'] %}
+  {{line}}
+                {%- endfor %}
+            {%- endif %}
+            {%- if 'decoder' in l %}
+                {%- for line in l['decoder'] %}
+  {{line}}
+                {%- endfor %}
+            {%- endif %}
+        {%- endfor %}
+        {{""}}
+        {%- if 'post_block' in i %}
+            {%- for line in i['post_block'] %}
+  {{line}}
+            {%- endfor %}
+        {%- endif %}
+
+        {%-if '32bit' in i['flags'] %}
+        flags |= static_cast<u8>(InstrFlags::k32Bit);
+        {%- endif %}
+        {{""}}
+        {#- Return of result as part of an union #}
+  return Ok(Instr{ {{i['name_struct']}}{iid, flags,  
+        {#-#}
+        {%- for name, l in i['def'].items() %}
+            {%- if 'decoder' in l %}
+                {{-name}}{%if not loop.last%}, {%endif%}
+            {%- endif %}
+        {%- endfor %}
+        {#-#}} });
+}
+        {{""}}
+    {%- endif %}
+{%- endfor %}
+
+{{""}}
+
+{%- for k, i in data['splitters'].items() %}
+template<typename TProcessorStates, typename TItOps, typename TSpecRegOps> 
+static Result<Instr> Splitter{{k}}(const RawInstr& rinstr,TProcessorStates& pstates) {
+    {%- for line in i['splitters'] %}
+    {{line}}
+    {%- endfor %}
+    return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+}
+{%- endfor %}
+
+{{""}}
+
+template<typename TProcessorStates, typename TItOps, typename TSpecRegOps> 
+static Result<Instr> call_decoder(const RawInstr& rinstr, TProcessorStates& pstates) {
+const u16 opc =
+        Bm32::Slice1R<kDecodersOpCodeLast, kDecodersOpCodeFirst>(rinstr.low);
+   switch(opc) {
+{%- for k, i in data['opcodes'].items() %}
+    case 0b{{i['bin']}}u: {
+    {#-#} return 
+    {#-#} {{i['name_decoder']}}<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates)
+    {#-#} ;}
+    {#-#}{%if not loop.last%}{%endif%}
+{%- endfor %}
+    default: {
+        assert(false);
+    // should not happen
+    break;
+    }
+    }
+    return InvalidInstrDecoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+};
+
+
+} // namespace internal
+} // namespace microemu

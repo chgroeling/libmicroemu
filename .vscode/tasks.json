@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build/Debug",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Generated task for building the project"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/Debug/src/microemu/microemu",
+            "args": [
+                "-p",
+                "1",
+                //"-t", // enable trace
+                "-e", // load entry point from elf file
+                "--log",
+                "--log-level",
+                "TRACE",
+                "--log-file",
+                "${workspaceFolder}/build/Debug/src/microemu/microemu.log",
+                "./tests/system_tests/testbench/prebuilt/bin/testbench.elf",
+                //">",
+                //"testbench.trace"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": "build",
+            "problemMatcher": []
+        }
+    ]
+}

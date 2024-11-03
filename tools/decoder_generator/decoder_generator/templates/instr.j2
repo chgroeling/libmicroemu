@@ -1,0 +1,55 @@
+#pragma once
+
+#include "libmicroemu/internal/logic/thumb_immediate_result.h"
+#include "libmicroemu/internal/logic/imm_shift_results.h"
+#include "libmicroemu/internal/decoder/instr_flags.h"
+#include "libmicroemu/types.h"
+
+namespace microemu {
+namespace internal {
+
+enum class InstrId : u8 {
+    {%- for name, i in data['instructions'].items() %}
+        {%-if i['name_enum'] != "kInvalid" %}
+  {{i['name_enum']}},
+        {%- endif %}
+    {%- endfor %}
+  kInvalid
+};
+{{""}}
+{%- for name, i in data['instructions'].items() %}
+    {%-if i['name_enum'] != "kInvalid"%}
+struct {{i['name_struct']}} {
+  InstrId id;  // base_type: u8
+  InstrFlagsSet flags; // base_type: u8
+    {%- for name, l in i['def'].items() %}
+  {{l['type']}} {{name}}
+        {#- #}{{l['opt_bits']}}
+        {#- #};
+    {%- endfor %}
+};
+    {%- endif %}
+{%- endfor %}
+
+union Instr {
+    {%- for name, i in data['instructions'].items() %}
+        {%- if i['name_enum'] != "kInvalid"%}
+  {{i['name_struct']}} {{name}};
+        {%- endif %}
+    {%- endfor %}
+  InstrId id; // the decoded opcode ... used to identify the struct
+  Instr() : id(InstrId::kInvalid){
+  }
+  Instr(const InstrId& arg) : id(arg){
+  }
+  {%- for name, i in data['instructions'].items() %}
+        {%- if i['name_enum'] != "kInvalid"%}
+  Instr(const {{i['name_struct']}}& arg) : {{name}}(arg) {
+  }
+        {%- endif %}
+    {%- endfor %}
+};
+
+
+} // namespace internal
+} // namespace microemu

@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+    branches:
+    - main
+    tags-ignore:
+    - 'v*'
+  
+jobs:
+  do_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set reusable strings
+      # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+    - uses: actions/setup-python@v5
+      with:
+          python-version: '3.13'
+          cache: 'pip' # caching pip dependencies
+    - run: pip install -r requirements.txt
+    - name : Install Dependencies Conan
+      run: | 
+        conan profile detect
+        conan install . -pr ${{ github.workspace }}/profiles/Release-ubuntu-latest-clang --build=missing -o build_tests=True  -o build_microemu=True
+    - name: CMake configuration
+      run: |
+            cmake -B ${{github.workspace}}/build/Release --preset conan-release
+    - name: Build
+      run: |
+            cmake --build ${{github.workspace}}/build/Release 
+    - name: Test
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: ctest --test-dir ${{github.workspace}}/build/Release 
