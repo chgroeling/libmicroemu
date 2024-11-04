@@ -58,7 +58,7 @@ _libmicroemu_ is currently under active development and can already execute a si
     conan install . -pr ./profiles/<your_build_profile> -o build_tests=True -o build_microemu=True --build=missing
     ```
 
-    Replace <your_build_profile> with the appropriate profile names for your setup.
+    Replace <your_build_profile> with the appropriate profile names for your setup.  This version uses the conan -o option for enabling _build_tests_ and _build_microemu_ when installing dependencies.
 3. **Build the Project with CMake:**
     Create a build directory, configure the project, and compile it:
 
@@ -74,7 +74,7 @@ _libmicroemu_ is currently under active development and can already execute a si
     ctest
     ```
 
-    This version uses the conan -o option for enabling build_tests and build_microemu when installing dependencies.
+   
 
 ### Running the Emulator
 With the build complete, you can run ARM binaries using _microemu_:
