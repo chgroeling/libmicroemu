@@ -50,8 +50,7 @@ class LibMicroEmu(ConanFile):
         tc.generate()
 
     def build_requirements(self):
-        self.tool_requires("cmake/3.23.5")
-        self.tool_requires("make/4.4.1")
+        pass
 
     def build(self):
         cmake = CMake(self)
