@@ -6,6 +6,9 @@ on:
     - main
     tags-ignore:
     - 'v*'
+  pull_request:
+    branches:
+    - main
   
 jobs:
   do_tests:
