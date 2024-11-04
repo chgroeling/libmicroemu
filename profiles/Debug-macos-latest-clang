@@ -10,3 +10,5 @@ tools.cmake.cmaketoolchain:generator=Unix Makefiles
 tools.cmake.cmaketoolchain:user_toolchain = {{[os.path.join(profile_dir, "clang.cmake")]}}
 
 [tool_requires]
+cmake/3.23.5
+make/4.4.1
