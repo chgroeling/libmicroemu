@@ -19,6 +19,10 @@ _libmicroemu_ provides ARM emulation with simplicity and flexibility for embeddi
   Integrate easily into any C++ project or use it as a standalone emulator.
 - **Accurate ARM Cortex-M Simulation**  
   Emulates ARMv7-M with full exception support (e.g., UsageFault, HardFault, SysTick). Future plans include ARMv7-A and support for the NVIC.
+- **Predictable and Deterministic Behavior**  
+  The emulator ensures consistent execution by avoiding dynamic memory allocation and non-deterministic algorithms, making it suitable for applications requiring repeatable outcomes.
+- **No C++ Exceptions**  
+  The emulator is implemented without the use of C++ exceptions, providing a predictable control flow and simplifying integration into projects that avoid exception handling.
 - **Optional Command-Line Interface**  
   The companion CLI app microemu simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while libmicroemu itself remains dependency-free.
 
