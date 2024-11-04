@@ -23,7 +23,7 @@ _libmicroemu_ provides ARM emulation with simplicity and flexibility for embeddi
   The companion CLI app microemu simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while libmicroemu itself remains dependency-free.
 ## Development Status
 
-_libmicroemu_ is currently under active development and can already execute a significant range of ARMv7-M programs. Floating-point functionality is not natively supported in the emulator at this time, but it can be achieved by compiling programs with `-softfp`, allowing software-based floating-point emulation within the binary itself.
+_libmicroemu_ is currently under active development and can already execute a significant range of ARMv7-M programs. Floating-point functionality is not natively supported in the emulator at this time, but it can be achieved by compiling programs with `-mfloat-abi=soft`, allowing software-based floating-point emulation within the binary itself.
 
 ### Roadmap
 - **ARM Core Completion** – Prioritize complete ARMv7-M functionality, then expand to other architectures like ARMv7-A.
