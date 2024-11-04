@@ -140,7 +140,7 @@ int main()
 - **Integration Points**: _libmicroemu_ can be seamlessly embedded into any C++ project, supporting both development testing and deployment phases.
 - **Custom Enhancements**: Depending on your application, you can extend memory configurations, include peripheral simulation, or adapt the emulator for specific use cases.
 
-### Performance Results
+## Performance Results
 The CoreMark benchmark for a 2K performance run yielded **162.73 CoreMarks** on the emulator (detailed report follows), roughly equivalent to a Cortex-M4 at 50 MHz. This baseline result was measured on a MacBook Air with an M1 processor. Currently, the focus is on completing ARMv7-M support, with performance optimizations planned for future updates.
 
 **Background**: CoreMark is a widely recognized benchmark used to assess the performance of microcontrollers and processors. For comparison, a typical ARM Cortex-M4 running at 100 MHz might score between 250 to 350 CoreMarks, assuming linear scaling with clock speed.
