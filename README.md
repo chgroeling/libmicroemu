@@ -37,7 +37,6 @@ _libmicroemu_ is currently under active development and can already execute a si
 
 ## Getting Started
 ### Installation
-
 1. **Clone the Repository:**
     Clone the repository to your local machine and navigate into the project directory:
 
@@ -78,6 +77,9 @@ With the build complete, you can run ARM binaries using microemu:
 ```
 
 The application provides logs showing register states, memory operations, and decoded instructions to assist with debugging. Use the "--help" command line option to learn more.
+
+### Precompiled Libraries and Releases
+**libmicroemu** includes precompiled libraries in its releases, tagged using semantic versioning (e.g., `v1.0.0`). These binaries simplify integration and reduce build time, allowing for quick use without the need for compiling from source. Available on the [GitHub releases page](https://github.com/chgroeling/libmicroemu/releases), they include platform-specific static libraries and the `microemu` CLI program. For custom needs, building from source remains an option to meet specific configuration requirements.
 
 ## Embedding libmicroemu in Your Project
 _libmicroemu_ is designed to be easily integrated into larger C++ projects to provide ARM emulation capabilities. Below is a basic example demonstrating how to set up and execute an ELF binary using the library.
