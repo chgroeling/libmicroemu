@@ -91,31 +91,31 @@ _libmicroemu_ is designed to be easily integrated into larger C++ projects to pr
 
 #include "libmicroemu/microemu.h"
 
-constexpr static const char *elf_loc = "<elf_file>";
+constexpr static const char *kElfPath = "<path/to/your-binary.elf>";
+constexpr static microemu::me_adr_t kCodeSetVadr = 0x0U;
+constexpr static microemu::me_adr_t kRam1SetVadr = 0x20000000U;
 
 int main()
 {
-    // CODE Segment
-    auto code_seg = std::vector<uint8_t>(0x20000u);
-    auto code_seg_size = static_cast<uint32_t>(code_seg.size());
-    auto code_seg_vadr = 0x0U;
-
-    // RAM1 Segment
-    auto ram1_seg = std::vector<uint8_t>(0x40000u);
-    auto ram1_seg_size = static_cast<uint32_t>(ram1_seg.size());
-    auto ram1_seg_vadr = 0x20000000U;
-
     microemu::MicroEmu lib;
-    lib.SetCodeSection(code_seg.data(), code_seg_size, code_seg_vadr);
-    lib.SetRam1Section(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
 
-    auto res = lib.Load(elf_loc, true);
+    auto code_seg = std::vector<uint8_t>(0x20000u); // allocate 128KB for code segment
+    auto ram1_seg = std::vector<uint8_t>(0x40000u); // allocate 256KB for RAM1 segment
+
+    // Set the code and RAM1 segments in the emulator
+    lib.SetCodeSection(code_seg.data(), code_seg.size(), kCodeSetVadr);
+    lib.SetRam1Section(ram1_seg.data(), ram1_seg.size(), kRam1SetVadr);
+
+    // Load the ELF file and set the entry point to the one given in the ELF file
+    auto res = lib.Load(kElfPath, true);
     if (res.IsErr())
     {
         std::cerr << "Failed to load ELF file." << std::endl;
         return EXIT_FAILURE;
     }
-    auto res_exec = lib.Exec(-1);
+
+    // Execute the ELF file
+    auto res_exec = lib.Exec();
     if (res_exec.IsErr())
     {
         std::cerr << "Failed to load execute ELF file." << std::endl;
