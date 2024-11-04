@@ -21,8 +21,8 @@ _libmicroemu_ provides ARM emulation with simplicity and flexibility for embeddi
   Emulates ARMv7-M with full exception support (e.g., UsageFault, HardFault, SysTick). Future plans include ARMv7-A and support for the NVIC.
 - **Optional Command-Line Interface**  
   The companion CLI app microemu simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while libmicroemu itself remains dependency-free.
-## Development Status
 
+## Development Status
 _libmicroemu_ is currently under active development and can already execute a significant range of ARMv7-M programs. Floating-point functionality is not natively supported in the emulator at this time, but it can be achieved by compiling programs with `-mfloat-abi=soft`, allowing software-based floating-point emulation within the binary itself.
 
 ### Roadmap
@@ -36,7 +36,6 @@ _libmicroemu_ is currently under active development and can already execute a si
 - **Vendor-Specific Chip Support** - Expand support for vendor-specific peripherals and features (e.g. STM and Renesas chips)
 
 ## Getting Started
-
 ### Installation
 
 1. **Clone the Repository:**
@@ -46,7 +45,6 @@ _libmicroemu_ is currently under active development and can already execute a si
     git clone https://github.com/chgroeling/libmicroemu
     cd libmicroemu
     ```
-
 2. **Install Dependencies:**
     libmicroemu uses Conan 2 for dependency management, with profiles for different machines stored in the ./profiles directory. While Conan is primarily needed for the microemu CLI, it also installs toolchains and GTest, making its use advisable. Run the following command to install dependencies and set options for building standalone components:
 
@@ -55,7 +53,6 @@ _libmicroemu_ is currently under active development and can already execute a si
     ```
 
     Replace <your_build_profile> with the appropriate profile names for your setup.
-
 3. **Build the Project with CMake:**
     Create a build directory, configure the project, and compile it:
 
@@ -64,7 +61,6 @@ _libmicroemu_ is currently under active development and can already execute a si
     cmake .
     cmake --build .
     ```
-
 4.	**Run the Tests:**
     To verify that everything is set up correctly, run the tests:
 
@@ -75,7 +71,6 @@ _libmicroemu_ is currently under active development and can already execute a si
     This version uses the conan -o option for enabling build_tests and build_microemu when installing dependencies.
 
 ### Running the Emulator
-
 With the build complete, you can run ARM binaries using microemu:
 
 ```bash
@@ -85,7 +80,6 @@ With the build complete, you can run ARM binaries using microemu:
 The application provides logs showing register states, memory operations, and decoded instructions to assist with debugging. Use the "--help" command line option to learn more.
 
 ## Embedding libmicroemu in Your Project
-
 _libmicroemu_ is designed to be easily integrated into larger C++ projects to provide ARM emulation capabilities. Below is a basic example demonstrating how to set up and execute an ELF binary using the library.
 
 ### Example: Integrating libmicroemu
@@ -165,7 +159,6 @@ CoreMark 1.0 : 162.733930 / GCC10.3.1 20210824 (release) -g / STACK
 ```
 
 ## Contributing
-
 Contributions are welcome! Please follow the Google C++ Style Guide, and ensure all new code includes documentation and test cases.
 
 1. Fork the repository.
@@ -174,5 +167,4 @@ Contributions are welcome! Please follow the Google C++ Style Guide, and ensure 
 4. Open a pull request.
 
 ## License
-
 This project is licensed under the MIT License.
