@@ -7,12 +7,12 @@ _libmicroemu_ is a lightweight, embeddable library for ARM microcontroller emula
 
 While shipped with a command-line application (_microemu_), _libmicroemu_ can be used independently, allowing for flexible integration.
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/chgroeling/libmicroemu?label=release&sort=semver)](https://github.com/chgroeling/libmicroemu/releases)[![tests](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml/badge.svg)](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 _libmicroemu_ provides ARM emulation with simplicity and flexibility for embedding in C++ applications.
 
-### Key Features
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/chgroeling/libmicroemu?label=release&sort=semver)](https://github.com/chgroeling/libmicroemu/releases)[![tests](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml/badge.svg)](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+
+### Key Features
 - **Dependency-Free Core**  
   No external libraries are needed to use libmicroemu.
 - **Embeddable Design**  
