@@ -14,7 +14,7 @@ _libmicroemu_ provides ARM emulation with simplicity and flexibility for embeddi
 
 ### Key Features
 - **Dependency-Free Core**  
-  No external libraries are needed to use libmicroemu.
+  No external libraries are needed to use _libmicroemu_.
 - **Embeddable Design**  
   Integrate easily into any C++ project or use it as a standalone emulator.
 - **Accurate ARM Cortex-M Simulation**  
@@ -24,7 +24,7 @@ _libmicroemu_ provides ARM emulation with simplicity and flexibility for embeddi
 - **No C++ Exceptions**  
   The emulator is implemented without the use of C++ exceptions, providing a predictable control flow and simplifying integration into projects that avoid exception handling.
 - **Optional Command-Line Interface**  
-  The companion CLI app microemu simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while libmicroemu itself remains dependency-free.
+  The companion CLI program _microemu_ simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while _libmicroemu_ itself remains dependency-free.
 
 ## Development Status
 _libmicroemu_ is currently under active development and can already execute a significant range of ARMv7-M programs. Floating-point functionality is not natively supported in the emulator at this time, but it can be achieved by compiling programs with `-mfloat-abi=soft`, allowing software-based floating-point emulation within the binary itself.
@@ -49,7 +49,7 @@ _libmicroemu_ is currently under active development and can already execute a si
     cd libmicroemu
     ```
 2. **Install Dependencies:**
-    libmicroemu uses Conan 2 for dependency management, with profiles for different machines stored in the ./profiles directory. While Conan is primarily needed for the microemu CLI, it also installs toolchains and GTest, making its use advisable. Run the following command to install dependencies and set options for building standalone components:
+    _libmicroemu_ uses Conan 2 for dependency management, with profiles for different machines stored in the ./profiles directory. While Conan is primarily needed for the _microemu_ CLI, it also installs toolchains and GTest, making its use advisable. Run the following command to install dependencies and set options for building standalone components:
 
     ```bash
     conan install . -pr ./profiles/<your_build_profile> -o build_tests=True -o build_microemu=True --build=missing
@@ -74,7 +74,7 @@ _libmicroemu_ is currently under active development and can already execute a si
     This version uses the conan -o option for enabling build_tests and build_microemu when installing dependencies.
 
 ### Running the Emulator
-With the build complete, you can run ARM binaries using microemu:
+With the build complete, you can run ARM binaries using _microemu_:
 
 ```bash
 ./microemu path/to/your-binary.elf
@@ -83,7 +83,7 @@ With the build complete, you can run ARM binaries using microemu:
 The application provides logs showing register states, memory operations, and decoded instructions to assist with debugging. Use the "--help" command line option to learn more.
 
 ### Precompiled Libraries and Releases
-**libmicroemu** includes precompiled libraries in its releases, tagged using semantic versioning (e.g., `v1.0.0`). These binaries simplify integration and reduce build time, allowing for quick use without the need for compiling from source. Available on the [GitHub releases page](https://github.com/chgroeling/libmicroemu/releases), they include platform-specific static libraries and the `microemu` CLI program. For custom needs, building from source remains an option to meet specific configuration requirements.
+_libmicroemu_ includes precompiled libraries in its releases, tagged using semantic versioning (e.g., `v1.0.0`). These binaries simplify integration and reduce build time, allowing for quick use without the need for compiling from source. Available on the [GitHub releases page](https://github.com/chgroeling/libmicroemu/releases), they include platform-specific static libraries and the _microemu_ CLI program. For custom needs, building from source remains an option to meet specific configuration requirements.
 
 ## Embedding libmicroemu in Your Project
 _libmicroemu_ is designed to be easily integrated into larger C++ projects to provide ARM emulation capabilities. Below is a basic example demonstrating how to set up and execute an ELF binary using the library.
