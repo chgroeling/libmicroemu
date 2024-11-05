@@ -122,7 +122,7 @@ int main(int argc, const char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  // CODE Segment
+  // Flash Segment
   std::vector<uint8_t> flash_seg;
   uint32_t flash_seg_size{0x0u};
   uint32_t flash_seg_vadr{0x0u};
