@@ -11,6 +11,10 @@
 #include <stdarg.h>
 #include <vector>
 
+// Check defined log levels
+static const std::set<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO",
+                                                      "WARNING", "ERROR", "CRITICAL"};
+
 void LoggingCallback(microemu::LogLevel level, const char *format, ...) {
   // Initialize variadic argument list
   va_list args;
@@ -147,12 +151,10 @@ int main(int argc, const char *argv[]) {
     std::cerr << "microemu: instr_limit must be greater than or equal to -1\n";
     return EXIT_FAILURE;
   }
-  // Check defined log levels
-  std::set<std::string> valid_log_levels = {"TRACE",   "DEBUG", "INFO",
-                                            "WARNING", "ERROR", "CRITICAL"};
+
   std::string log_level = result["log-level"].as<std::string>();
 
-  if (valid_log_levels.find(log_level) == valid_log_levels.end()) {
+  if (kValidLogLevels.find(log_level) == kValidLogLevels.end()) {
     fmt::print(
         stderr,
         "Error: Invalid log level '{}'. Valid options are: TRACE, DEBUG, INFO, WARNING, ERROR, "
