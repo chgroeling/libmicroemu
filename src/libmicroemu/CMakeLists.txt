@@ -48,6 +48,7 @@ target_compile_definitions(${LIB_NAME} PUBLIC "$<$<CONFIG:RELEASE>:${RELEASE_LOG
 target_compile_options(${LIB_NAME}
     PRIVATE
     ${COMPILER_WARNING_SWITCHES}
+    -fno-exceptions
 )
 
 target_compile_options(${LIB_NAME} PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_COMPILE_OPTIONS}>")
