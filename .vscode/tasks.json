@@ -23,7 +23,7 @@
             "type": "shell",
             "command": "${workspaceFolder}/build/Debug/src/microemu/microemu",
             "args": [
-                "-p",
+                "-m",
                 "MINIMAL",
                 //"-t", // enable trace
                 "-e", // load entry point from elf file
