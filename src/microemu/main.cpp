@@ -14,7 +14,7 @@
 static const std::vector<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO",
                                                          "WARNING", "ERROR", "CRITICAL"};
 
-static const std::vector<std::string> kValidProfiles = {"NONE", "STDLIB", "MINIMAL"};
+static const std::vector<std::string> kValidMemoryConfigs = {"NONE", "STDLIB", "MINIMAL"};
 
 std::string CreateCommaSeparatedString(const std::vector<std::string> &input_set) {
   std::ostringstream oss;
@@ -76,15 +76,15 @@ void LoggingCallback(microemu::LogLevel level, const char *format, ...) {
 int main(int argc, const char *argv[]) {
   // Parse command line options
   cxxopts::Options options("microemu", "Armv7-m  emulator");
-  // TODO: Fix weird error message when no positional argument is given
   options.positional_help("<elf_file>");
   // TODO: Add register dump per instruction trace option
 
   const std::string kLogLevelOption =
       fmt::format("Set the log level ({})", CreateCommaSeparatedString(kValidLogLevels));
 
-  const std::string kProfileOption =
-      fmt::format("Set the emulation profile ({})", CreateCommaSeparatedString(kValidProfiles));
+  const std::string kMemoryConfigOption =
+      fmt::format("Set the emulation memory configuration ({})",
+                  CreateCommaSeparatedString(kValidMemoryConfigs));
 
   // clang-format off
   options.add_options()
@@ -100,8 +100,9 @@ int main(int argc, const char *argv[]) {
     ("e,elf_ep", "Load and set entry point from ELF file.")
     ("i,instr_limit", "Set the maximum number of instructions to execute.", 
         cxxopts::value<int>()) 
-    ("p,profile", kProfileOption, 
+    ("m,memory-config", kMemoryConfigOption, 
         cxxopts::value<std::string>()->default_value("NONE"))
+
     ("elf_file", "Path to the executable to load.",
         cxxopts::value<std::string>())
   ;
@@ -156,11 +157,12 @@ int main(int argc, const char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  // Check defined profiles
-  std::string profile = result["profile"].as<std::string>();
-  if (std::find(kValidProfiles.begin(), kValidProfiles.end(), profile) == kValidProfiles.end()) {
-    fmt::print(stderr, "Error: Invalid profile '{}'. Valid profiles are: {}\n", profile,
-               CreateCommaSeparatedString(kValidProfiles));
+  // Check defined memory-configs
+  std::string memory_config = result["memory-config"].as<std::string>();
+  if (std::find(kValidMemoryConfigs.begin(), kValidMemoryConfigs.end(), memory_config) ==
+      kValidMemoryConfigs.end()) {
+    fmt::print(stderr, "Error: Invalid memory-config '{}'. Valid memory-configs are: {}\n",
+               memory_config, CreateCommaSeparatedString(kValidMemoryConfigs));
     return EXIT_FAILURE;
   }
 
@@ -229,10 +231,10 @@ int main(int argc, const char *argv[]) {
     microemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
   }
 
-  // TODO: Profiles should be moved to yaml file
-  if (profile == "NONE") {
-    // Do nothing ... default profile
-  } else if (profile == "STDLIB") {
+  // TODO: memory-configs should be moved to yaml file
+  if (memory_config == "NONE") {
+    // Do nothing ... default memory-config
+  } else if (memory_config == "STDLIB") {
     flash_seg = std::vector<uint8_t>(0x10000u);
     flash_seg_size = static_cast<uint32_t>(flash_seg.size());
     flash_seg_vadr = 0x0;
@@ -247,7 +249,7 @@ int main(int argc, const char *argv[]) {
     lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
     lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
     lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
-  } else if (profile == "MINIMAL") {
+  } else if (memory_config == "MINIMAL") {
     flash_seg = std::vector<uint8_t>(0x20000u);
     flash_seg_size = static_cast<uint32_t>(flash_seg.size());
     flash_seg_vadr = 0x0;
