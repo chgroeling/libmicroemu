@@ -301,6 +301,8 @@ int main(int argc, const char *argv[]) {
   lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
   lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
 
+  // Check if the entry point should be set from the ELF file
+  // If not set, the entry point is set through the vector tabledoc:
   bool is_elf_entry_point = false;
   if (result.count("elf_ep")) {
     is_elf_entry_point = true;
