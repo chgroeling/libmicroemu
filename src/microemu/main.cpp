@@ -2,22 +2,22 @@
 #include "libmicroemu/microemu.h"
 #include "reg_printer.h"
 #include "spdlog/sinks/basic_file_sink.h"
+#include <algorithm>
 #include <cxxopts.hpp>
 #include <fmt/core.h>
 #include <iostream>
 #include <memory>
-#include <set>
 #include <spdlog/spdlog.h>
 #include <stdarg.h>
 #include <vector>
 
 // Check defined log levels
-static const std::set<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO",
-                                                      "WARNING", "ERROR", "CRITICAL"};
+static const std::vector<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO",
+                                                         "WARNING", "ERROR", "CRITICAL"};
 
-static const std::set<std::string> kValidProfiles = {"NONE", "STDLIB", "MINIMAL"};
+static const std::vector<std::string> kValidProfiles = {"NONE", "STDLIB", "MINIMAL"};
 
-std::string CreateCommaSeparatedString(const std::set<std::string> &input_set) {
+std::string CreateCommaSeparatedString(const std::vector<std::string> &input_set) {
   std::ostringstream oss;
   for (auto it = input_set.begin(); it != input_set.end(); ++it) {
     if (it != input_set.begin()) {
@@ -146,7 +146,7 @@ int main(int argc, const char *argv[]) {
   }
 
   std::string profile = result["profile"].as<std::string>();
-  if (kValidProfiles.find(profile) == kValidProfiles.end()) {
+  if (std::find(kValidProfiles.begin(), kValidProfiles.end(), profile) == kValidProfiles.end()) {
     fmt::print(stderr, "Error: Invalid profile '{}'. Valid profiles are: {}\n", profile,
                CreateCommaSeparatedString(kValidProfiles));
     return EXIT_FAILURE;
@@ -178,7 +178,8 @@ int main(int argc, const char *argv[]) {
   }
 
   std::string log_level = result["log-level"].as<std::string>();
-  if (kValidLogLevels.find(log_level) == kValidLogLevels.end()) {
+  if (std::find(kValidLogLevels.begin(), kValidLogLevels.end(), log_level) ==
+      kValidLogLevels.end()) {
     fmt::print(stderr, "Error: Invalid log level '{}'. Valid log levels are: {}\n", log_level,
                CreateCommaSeparatedString(kValidLogLevels));
     return EXIT_FAILURE;
