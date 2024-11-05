@@ -119,9 +119,9 @@ int main(int argc, const char *argv[]) {
   }
 
   // CODE Segment
-  std::vector<uint8_t> code_seg;
-  uint32_t code_seg_size{0x0u};
-  uint32_t code_seg_vadr{0x0u};
+  std::vector<uint8_t> flash_seg;
+  uint32_t flash_seg_size{0x0u};
+  uint32_t flash_seg_vadr{0x0u};
 
   // RAM1 Segment
   std::vector<uint8_t> ram1_seg;
@@ -191,12 +191,13 @@ int main(int argc, const char *argv[]) {
   }
 
   microemu::MicroEmu lib;
+
   // TODO: Profiles should be moved to json file
   switch (profile) {
   default: {
-    code_seg = std::vector<uint8_t>(0x10000u);
-    code_seg_size = static_cast<uint32_t>(code_seg.size());
-    code_seg_vadr = 0x0;
+    flash_seg = std::vector<uint8_t>(0x10000u);
+    flash_seg_size = static_cast<uint32_t>(flash_seg.size());
+    flash_seg_vadr = 0x0;
 
     ram1_seg = std::vector<uint8_t>(0x20000u);
     ram1_seg_size = static_cast<uint32_t>(ram1_seg.size());
@@ -205,22 +206,22 @@ int main(int argc, const char *argv[]) {
     ram2_seg = std::vector<uint8_t>(0x10000u);
     ram2_seg_size = static_cast<uint32_t>(ram2_seg.size());
     ram2_seg_vadr = 0x70000u;
-    lib.SetCodeSection(code_seg.data(), code_seg_size, code_seg_vadr);
-    lib.SetRam1Section(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
-    lib.SetRam2Section(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
+    lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
+    lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
+    lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
     break;
   }
   case 1u: {
-    code_seg = std::vector<uint8_t>(0x20000u);
-    code_seg_size = static_cast<uint32_t>(code_seg.size());
-    code_seg_vadr = 0x0;
+    flash_seg = std::vector<uint8_t>(0x20000u);
+    flash_seg_size = static_cast<uint32_t>(flash_seg.size());
+    flash_seg_vadr = 0x0;
 
     ram1_seg = std::vector<uint8_t>(0x40000u);
     ram1_seg_size = static_cast<uint32_t>(ram1_seg.size());
     ram1_seg_vadr = 0x20000000u;
 
-    lib.SetCodeSection(code_seg.data(), code_seg_size, code_seg_vadr);
-    lib.SetRam1Section(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
+    lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
+    lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
     break;
   }
   }

@@ -91,25 +91,26 @@ public:
 
   Emulator(TProcessorStates &pstates) : pstates_(pstates) {}
 
-  void SetCodeSection(const u8 *section_ptr, me_size_t section_size) {
-    code_ = section_ptr;
-    code_size_ = section_size;
+  void SetFlashSegment(const u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+    flash_ = seg_ptr;
+    flash_size_ = seg_size;
+    flash_vadr_ = seg_vadr;
   }
 
-  void SetRam1Section(u8 *section_ptr, me_size_t section_size, me_adr_t vadr) {
-    ram1_ = section_ptr;
-    ram1_size_ = section_size;
-    ram1_vadr_ = vadr;
+  void SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+    ram1_ = seg_ptr;
+    ram1_size_ = seg_size;
+    ram1_vadr_ = seg_vadr;
   }
 
-  void SetRam2Section(u8 *section_ptr, me_size_t section_size, me_adr_t vadr) {
-    ram2_ = section_ptr;
-    ram2_size_ = section_size;
-    ram2_vadr_ = vadr;
+  void SetRam2Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+    ram2_ = seg_ptr;
+    ram2_size_ = seg_size;
+    ram2_vadr_ = seg_vadr;
   }
 
   Bus BuildBus() {
-    Flash code_access(const_cast<u8 *>(code_), code_size_, 0x0U);
+    Flash code_access(const_cast<u8 *>(flash_), flash_size_, flash_vadr_);
     Ram0 rw_mem_access(ram1_, ram1_size_, ram1_vadr_);
     Ram1 rw_stack_access(ram2_, ram2_size_, ram2_vadr_);
     Peripherals peripheral_access;
@@ -216,8 +217,9 @@ private:
     auto &operator=(ExceptionReturn &&) = delete;
   };
 
-  const u8 *code_{nullptr};
-  me_size_t code_size_{0U};
+  const u8 *flash_{nullptr};
+  me_size_t flash_size_{0U};
+  me_adr_t flash_vadr_{0U};
 
   u8 *ram1_{nullptr};
   me_size_t ram1_size_{0U};
