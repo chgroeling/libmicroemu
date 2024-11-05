@@ -150,11 +150,11 @@ int main(int argc, const char *argv[]) {
 
   const auto elf_file = result["elf_file"].as<std::string>();
 
-  bool trace = result["trace"].as<bool>();
-  bool trace_regs = result["trace-regs"].as<bool>();
-  bool trace_changed_regs = result["trace-changed-regs"].as<bool>();
+  bool is_trace = result["trace"].as<bool>();
+  bool is_trace_regs = result["trace-regs"].as<bool>();
+  bool is_trace_changed_regs = result["trace-changed-regs"].as<bool>();
 
-  if (trace_regs && trace_changed_regs) {
+  if (is_trace_regs && is_trace_changed_regs) {
     std::cerr << "microemu: --trace-regs and --trace-changed-regs are mutually exclusive\n";
     return EXIT_FAILURE;
   }
@@ -331,9 +331,9 @@ int main(int argc, const char *argv[]) {
   }
 
   // Evaluate the initial state in case of trace
-  if (trace == true) {
+  if (is_trace == true) {
     // Evaluate the initial state
-    if (trace_regs || trace_changed_regs) {
+    if (is_trace_regs || is_trace_changed_regs) {
       lib.EvaluateState(initial_state_cb);
     }
   }
@@ -360,38 +360,40 @@ int main(int argc, const char *argv[]) {
 
   microemu::FPostExecStepCallback post_exec_instr_trace_regs =
       [&regs_from_last_step](microemu::EmuContext &ectx) {
-        const auto &pc = ectx.GetPc();
         const auto &reg_access = ectx.GetRegisterAccess();
         const auto &spec_reg_access = ectx.GetSpecialRegisterAccess();
 
         auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
         RegPrinter::PrintRegs(sampled_regs);
-        regs_from_last_step = sampled_regs; // Update the last sampled registers
+
+        // Update the last sampled registers. Not needed here. Just in case.
+        regs_from_last_step = sampled_regs;
       };
 
   microemu::FPostExecStepCallback post_exec_instr_trace_changed_regs =
       [&regs_from_last_step](microemu::EmuContext &ectx) {
-        const auto &pc = ectx.GetPc();
         const auto &reg_access = ectx.GetRegisterAccess();
         const auto &spec_reg_access = ectx.GetSpecialRegisterAccess();
 
         auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
         RegPrinter::PrintRegDiffs(sampled_regs, regs_from_last_step);
-        regs_from_last_step = sampled_regs; // Update the last sampled registers
+
+        // Update the last sampled registers
+        regs_from_last_step = sampled_regs;
       };
 
   microemu::FPreExecStepCallback pre_instr{nullptr};
   microemu::FPostExecStepCallback post_instr{nullptr};
 
-  if (trace == true) {
+  if (is_trace == true) {
     pre_instr = pre_exec_instr_trace;
 
-    if (trace_regs) {
+    if (is_trace_regs) {
       post_instr = post_exec_instr_trace_regs;
-    }
-
-    if (trace_changed_regs) {
+    } else if (is_trace_changed_regs) {
       post_instr = post_exec_instr_trace_changed_regs;
+    } else {
+      post_instr = nullptr;
     }
   }
 
