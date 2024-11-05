@@ -2,8 +2,6 @@ cmake_minimum_required (VERSION 3.5.0)
 
 message("Building with CMake version: ${CMAKE_VERSION}")
 
-#include(cmake/print_target_properties.cmake)
-
 # Project name and a few useful settings. Other commands can pick up the results
 project(
   libmicroemu 
