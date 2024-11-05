@@ -65,10 +65,12 @@ enum class ExceptionType {
 static constexpr auto kNoOfExternalIrqs = 32u;
 static constexpr auto kLastInternalException = ExceptionType::kSysTick;
 
-static constexpr u32 CountInternalExceptions() {
+static constexpr u32 CountInternalExceptions() noexcept {
   return static_cast<u32>(kLastInternalException) + 1u;
 };
 
-static constexpr u32 CountExceptions() { return CountInternalExceptions() + kNoOfExternalIrqs; };
+static constexpr u32 CountExceptions() noexcept {
+  return CountInternalExceptions() + kNoOfExternalIrqs;
+};
 
 } // namespace microemu

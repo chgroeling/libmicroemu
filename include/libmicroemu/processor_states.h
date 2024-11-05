@@ -25,32 +25,32 @@ public:
   };
 
   /// \brief Destructor
-  ~ProcessorStates() = default;
+  ~ProcessorStates() noexcept = default;
 
   /// \brief Copy constructor for Registers.
   /// \param r_src the object to be copied
-  ProcessorStates(ProcessorStates &r_src) = default;
+  ProcessorStates(ProcessorStates &r_src) noexcept = default;
 
   /// \brief Copy assignment operator for Registers.
   /// \param r_src the object to be copied
-  ProcessorStates &operator=(const ProcessorStates &r_src) = default;
+  ProcessorStates &operator=(const ProcessorStates &r_src) noexcept = default;
 
   /// \brief Move constructor for Registers.
   /// \param r_src the object to be copied
-  ProcessorStates(ProcessorStates &&r_src) = default;
+  ProcessorStates(ProcessorStates &&r_src) noexcept = default;
 
   /// \brief Move assignment operator for Registers.
   /// \param r_src the object to be copied
-  ProcessorStates &operator=(ProcessorStates &&r_src) = default;
+  ProcessorStates &operator=(ProcessorStates &&r_src) noexcept = default;
 
-  auto &GetRegisters() { return registers_; }
-  const auto &GetRegisters() const { return registers_; }
+  inline auto &GetRegisters() noexcept { return registers_; }
+  inline const auto &GetRegisters() const noexcept { return registers_; }
 
-  auto &GetSpecialRegisters() { return special_registers_; }
-  const auto &GetSpecialRegisters() const { return special_registers_; }
+  inline auto &GetSpecialRegisters() noexcept { return special_registers_; }
+  inline const auto &GetSpecialRegisters() const noexcept { return special_registers_; }
 
-  auto &GetExceptionStates() { return exception_states_; }
-  const auto &GetExceptionStates() const { return exception_states_; }
+  inline auto &GetExceptionStates() noexcept { return exception_states_; }
+  inline const auto &GetExceptionStates() const noexcept { return exception_states_; }
 
 private:
   std::array<u32, kNoOfRegisters> registers_;

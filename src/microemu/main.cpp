@@ -27,7 +27,7 @@ std::string CreateCommaSeparatedString(const std::vector<std::string> &input_set
   return oss.str();
 }
 
-void LoggingCallback(microemu::LogLevel level, const char *format, ...) {
+void LoggingCallback(microemu::LogLevel level, const char *format, ...) noexcept {
   // Initialize variadic argument list
   va_list args;
   va_start(args, format);

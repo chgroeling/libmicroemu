@@ -59,7 +59,7 @@ constexpr auto kLastSpecialRegister = kLastRuntimeSpecialRegister;
  *
  * @return The number of persistent special registers.
  */
-static constexpr u32 CountPersistentSpecialRegisters() {
+static constexpr u32 CountPersistentSpecialRegisters() noexcept {
   return static_cast<u32>(kLastPersistentSpecialRegister) + 1u;
 };
 
@@ -70,7 +70,7 @@ static constexpr u32 CountPersistentSpecialRegisters() {
  *
  * @return The number of special registers.
  */
-static constexpr u32 CountSpecialRegisters() {
+static constexpr u32 CountSpecialRegisters() noexcept {
   return static_cast<u32>(kLastSpecialRegister) + 1u;
 };
 

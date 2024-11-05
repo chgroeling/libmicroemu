@@ -23,18 +23,29 @@ struct SingleExceptionState {
 
   SingleExceptionState() : priority{0}, number{0}, flags{0} {}
 
-  inline bool IsPending() const {
+  inline bool IsPending() const noexcept {
     return (flags & static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending)) != 0u;
   }
 
-  inline void ClearPending() { flags &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending); }
-  inline void SetPending() { flags |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending); }
+  inline void ClearPending() noexcept {
+    flags &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending);
+  }
 
-  inline bool IsActive() const {
+  inline void SetPending() noexcept {
+    flags |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending);
+  }
+
+  inline bool IsActive() const noexcept {
     return (flags & static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive)) != 0u;
   }
-  inline void ClearActive() { flags &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive); }
-  inline void SetActive() { flags |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive); }
+
+  inline void ClearActive() noexcept {
+    flags &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive);
+  }
+
+  inline void SetActive() noexcept {
+    flags |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive);
+  }
 };
 
 struct ExceptionStates {
