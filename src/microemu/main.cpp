@@ -15,6 +15,8 @@
 static const std::set<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO",
                                                       "WARNING", "ERROR", "CRITICAL"};
 
+static const std::set<std::string> kValidProfiles = {"NONE", "STDLIB", "MINIMAL"};
+
 void LoggingCallback(microemu::LogLevel level, const char *format, ...) {
   // Initialize variadic argument list
   va_list args;
@@ -72,16 +74,20 @@ int main(int argc, const char *argv[]) {
   options.add_options()
     ("h,help", "Print usage information.")
     ("l,log", "Enable logging")
-    ("log-level", "Set the log level (TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL)", 
-             cxxopts::value<std::string>()->default_value("INFO"))
-    ("log-file", "Specify log file path.", cxxopts::value<std::string>())
+    ("log-level", "Set the log level (TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL).", 
+        cxxopts::value<std::string>()->default_value("INFO"))
+    ("log-file", "Specify log file path.", 
+        cxxopts::value<std::string>())
     ("t,trace", "Print instruction trace to stdout") 
     ("trace-regs", "Enable output of all register states during the trace.")
     ("trace-changed-regs", "Enable output of registers that have changed during the trace.")
     ("e,elf_ep", "Load and set entry point from ELF file.")
-    ("i,instr_limit", "Set the maximum number of instructions to execute.", cxxopts::value<int>()) 
-    ("p,profile", "Specify the emulation profile.", cxxopts::value<int>())
-    ("elf_file", "Path to the executable to load.",cxxopts::value<std::string>())
+    ("i,instr_limit", "Set the maximum number of instructions to execute.", 
+        cxxopts::value<int>()) 
+    ("p,profile", "Specify the emulation profile (NONE, STDLIB, MINIMAL).", 
+        cxxopts::value<std::string>()->default_value("NONE"))
+    ("elf_file", "Path to the executable to load.",
+        cxxopts::value<std::string>())
   ;
   // clang-format on
 
@@ -122,6 +128,13 @@ int main(int argc, const char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  std::string profile = result["profile"].as<std::string>();
+  if (kValidProfiles.find(profile) == kValidProfiles.end()) {
+    fmt::print(stderr, "Error: Invalid profile '{}'. Valid profiles are: NONE, STDLIB, MINIMAL ",
+               profile);
+    return EXIT_FAILURE; // Fehlercode zurückgeben
+  }
+
   // Flash Segment
   std::vector<uint8_t> flash_seg;
   uint32_t flash_seg_size{0x0u};
@@ -137,11 +150,6 @@ int main(int argc, const char *argv[]) {
   uint32_t ram2_seg_size{0x0u};
   uint32_t ram2_seg_vadr{0x0u};
 
-  auto profile = 0;
-  if (result.count("profile")) {
-    profile = result["profile"].as<int>();
-  }
-
   int32_t instr_limit = -1; // <0 means infinite
 
   if (result.count("instr_limit")) {
@@ -153,14 +161,13 @@ int main(int argc, const char *argv[]) {
   }
 
   std::string log_level = result["log-level"].as<std::string>();
-
   if (kValidLogLevels.find(log_level) == kValidLogLevels.end()) {
     fmt::print(
         stderr,
         "Error: Invalid log level '{}'. Valid options are: TRACE, DEBUG, INFO, WARNING, ERROR, "
         "CRITICAL.\n",
         log_level);
-    return 1; // Fehlercode zurückgeben
+    return EXIT_FAILURE; // Fehlercode zurückgeben
   }
 
   if (result.count("log")) {
@@ -195,8 +202,8 @@ int main(int argc, const char *argv[]) {
   microemu::MicroEmu lib;
 
   // TODO: Profiles should be moved to json file
-  switch (profile) {
-  default: {
+  if (profile == "NONE") {
+  } else if (profile == "STDLIB") {
     flash_seg = std::vector<uint8_t>(0x10000u);
     flash_seg_size = static_cast<uint32_t>(flash_seg.size());
     flash_seg_vadr = 0x0;
@@ -211,9 +218,7 @@ int main(int argc, const char *argv[]) {
     lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
     lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
     lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
-    break;
-  }
-  case 1u: {
+  } else if (profile == "MINIMAL") {
     flash_seg = std::vector<uint8_t>(0x20000u);
     flash_seg_size = static_cast<uint32_t>(flash_seg.size());
     flash_seg_vadr = 0x0;
@@ -224,8 +229,6 @@ int main(int argc, const char *argv[]) {
 
     lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
     lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
-    break;
-  }
   }
 
   bool is_elf_entry_point = false;

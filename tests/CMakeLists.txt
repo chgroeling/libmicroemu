@@ -51,16 +51,16 @@ set(SYSTEST_OUTPUT_DIR ${CMAKE_BINARY_DIR}/system_tests/)
 
 add_test(
     NAME SystemTests.bare_stdlib 
-    COMMAND ${SYSTEST_SCRIPT} $<TARGET_FILE:microemu> "-p 0" ${SYSTEST_INPUT_DIR} ${SYSTEST_OUTPUT_DIR} bare_stdlib
+    COMMAND ${SYSTEST_SCRIPT} $<TARGET_FILE:microemu> "-p STDLIB" ${SYSTEST_INPUT_DIR} ${SYSTEST_OUTPUT_DIR} bare_stdlib
 )
 
 add_test(
     NAME SystemTests.bare_stdlib_nano 
-    COMMAND ${SYSTEST_SCRIPT} $<TARGET_FILE:microemu> "-p 0" ${SYSTEST_INPUT_DIR} ${SYSTEST_OUTPUT_DIR} bare_stdlib_nano
+    COMMAND ${SYSTEST_SCRIPT} $<TARGET_FILE:microemu> "-p STDLIB" ${SYSTEST_INPUT_DIR} ${SYSTEST_OUTPUT_DIR} bare_stdlib_nano
 )
 
 add_test(
     NAME SystemTests.printf_rdimon 
-    COMMAND ${SYSTEST_SCRIPT} $<TARGET_FILE:microemu> "-p 1" ${SYSTEST_INPUT_DIR} ${SYSTEST_OUTPUT_DIR} printf_rdimon
+    COMMAND ${SYSTEST_SCRIPT} $<TARGET_FILE:microemu> "-p MINIMAL" ${SYSTEST_INPUT_DIR} ${SYSTEST_OUTPUT_DIR} printf_rdimon
 )
 

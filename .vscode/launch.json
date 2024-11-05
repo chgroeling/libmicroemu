@@ -7,7 +7,7 @@
       "program": "${workspaceFolder}/build/Debug/src/microemu/microemu",
       "args": [
         "-p",
-        "1",
+        "MINIMAL",
        // "-t", // enable trace
         "-e", // load entry point from elf file
         "--log",
@@ -31,7 +31,7 @@
       "program": "${workspaceFolder}/build/Debug/src/microemu/microemu",
       "args": [
         "-p",
-        "1",
+        "MINIMAL",
         "-e", // load entry point from elf file
         "./tests/system_tests/testbench/prebuilt/bin/testbench.elf"
       ],
