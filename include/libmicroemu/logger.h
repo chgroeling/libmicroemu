@@ -1,9 +1,9 @@
 #pragma once
+#include <initializer_list>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <initializer_list>
- 
+
 namespace microemu {
 
 enum class LogLevel { kTrace, kDebug, kInfo, kWarn, kError, kCritical };
@@ -11,68 +11,68 @@ enum class LogLevel { kTrace, kDebug, kInfo, kWarn, kError, kCritical };
 class StaticLogger {
 
 public:
-  template <typename... Args> static void Info(const char *format, Args &&...args) {
+  template <typename... Args> static void Info(const char *format, Args &&...args) noexcept {
     if (callback_) {
       callback_(LogLevel::kInfo, format, std::forward<Args>(args)...);
     }
   }
-  template <typename... Args> static void Debug(const char *format, Args &&...args) {
+  template <typename... Args> static void Debug(const char *format, Args &&...args) noexcept {
     if (callback_) {
       callback_(LogLevel::kDebug, format, std::forward<Args>(args)...);
     }
   }
-  template <typename... Args> static void Trace(const char *format, Args &&...args) {
+  template <typename... Args> static void Trace(const char *format, Args &&...args) noexcept {
     if (callback_) {
       callback_(LogLevel::kTrace, format, std::forward<Args>(args)...);
     }
   }
-  template <typename... Args> static void Warn(const char *format, Args &&...args) {
+  template <typename... Args> static void Warn(const char *format, Args &&...args) noexcept {
     if (callback_) {
       callback_(LogLevel::kWarn, format, std::forward<Args>(args)...);
     }
   }
-  template <typename... Args> static void Error(const char *format, Args &&...args) {
+  template <typename... Args> static void Error(const char *format, Args &&...args) noexcept {
     if (callback_) {
       callback_(LogLevel::kError, format, std::forward<Args>(args)...);
     }
   }
-  template <typename... Args> static void Critical(const char *format, Args &&...args) {
+  template <typename... Args> static void Critical(const char *format, Args &&...args) noexcept {
     if (callback_) {
       callback_(LogLevel::kCritical, format, std::forward<Args>(args)...);
     }
   }
 
   static void RegisterLoggerCallback(void (*callback)(microemu::LogLevel level, const char *,
-                                                      ...)) {
+                                                      ...) noexcept) noexcept {
     callback_ = callback;
   };
 
 private:
-  static void (*callback_)(microemu::LogLevel level, const char *, ...);
+  static void (*callback_)(microemu::LogLevel level, const char *, ...) noexcept;
 };
 class NullLogger {
 public:
-  template <typename... Args> static void Info(const char *format, Args &&...args) {
+  template <typename... Args> static void Info(const char *format, Args &&...args) noexcept {
     static_cast<void>(format);
     (void)std::initializer_list<int>{(static_cast<void>(args), 0)...}; // "Verbraucht" alle Args
   }
-  template <typename... Args> static void Debug(const char *format, Args &&...args) {
+  template <typename... Args> static void Debug(const char *format, Args &&...args) noexcept {
     static_cast<void>(format);
     (void)std::initializer_list<int>{(static_cast<void>(args), 0)...};
   }
-  template <typename... Args> static void Trace(const char *format, Args &&...args) {
+  template <typename... Args> static void Trace(const char *format, Args &&...args) noexcept {
     static_cast<void>(format);
     (void)std::initializer_list<int>{(static_cast<void>(args), 0)...};
   }
-  template <typename... Args> static void Warn(const char *format, Args &&...args) {
+  template <typename... Args> static void Warn(const char *format, Args &&...args) noexcept {
     static_cast<void>(format);
     (void)std::initializer_list<int>{(static_cast<void>(args), 0)...};
   }
-  template <typename... Args> static void Error(const char *format, Args &&...args) {
+  template <typename... Args> static void Error(const char *format, Args &&...args) noexcept {
     static_cast<void>(format);
     (void)std::initializer_list<int>{(static_cast<void>(args), 0)...};
   }
-  template <typename... Args> static void Critical(const char *format, Args &&...args) {
+  template <typename... Args> static void Critical(const char *format, Args &&...args) noexcept {
     static_cast<void>(format);
     (void)std::initializer_list<int>{(static_cast<void>(args), 0)...};
   }

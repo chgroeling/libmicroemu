@@ -45,7 +45,7 @@ enum class StatusCode : u32 {
   // clang-format on
 };
 
-static constexpr const char *StatusCodeToString(const StatusCode &status_code) {
+static constexpr const char *StatusCodeToString(const StatusCode &status_code) noexcept {
   switch (status_code) {
   case StatusCode::kScSuccess: {
     return "Success";
@@ -118,33 +118,33 @@ template <typename T, typename TStatusCode = StatusCode> struct Result {
   const StatusCode status_code;
   const Content content;
 
-  constexpr bool IsOk() const { return status_code == StatusCode::kScSuccess; }
-  constexpr bool IsErr() const { return status_code != StatusCode::kScSuccess; }
+  constexpr bool IsOk() const noexcept { return status_code == StatusCode::kScSuccess; }
+  constexpr bool IsErr() const noexcept { return status_code != StatusCode::kScSuccess; }
 
-  constexpr bool operator==(Result<T> const &rhs) const {
+  constexpr bool operator==(Result<T> const &rhs) const noexcept {
     return (rhs.status_code == this->status_code) && (rhs.content == this->content);
   }
 
-  constexpr const Content &Unwrap() const {
+  constexpr const Content &Unwrap() const noexcept {
     if (IsErr()) {
       abort();
     }
     return content;
   }
 
-  const char *ToString() const { return StatusCodeToString(status_code); }
+  const char *ToString() const noexcept { return StatusCodeToString(status_code); }
 
-  explicit constexpr Result(StatusCode status_code, Content content)
+  explicit constexpr Result(StatusCode status_code, Content content) noexcept
       : status_code(status_code), content(content) {}
 
   // Move Constructor
-  constexpr Result(Result &&r) = default;
+  constexpr Result(Result &&r) noexcept = default;
 
   // Move Assignment
   constexpr Result &operator=(Result &&r) = delete; // not assignable
 
   // Copy Constructor
-  constexpr Result(const Result &r) = default;
+  constexpr Result(const Result &r) noexcept = default;
 
   // Copy Assignment
   constexpr Result &operator=(const Result &r) = delete;
@@ -155,58 +155,58 @@ template <> struct Result<void> {
 
   const StatusCode status_code;
 
-  constexpr bool IsOk() const { return status_code == StatusCode::kScSuccess; }
-  constexpr bool IsErr() const { return status_code != StatusCode::kScSuccess; }
+  constexpr bool IsOk() const noexcept { return status_code == StatusCode::kScSuccess; }
+  constexpr bool IsErr() const noexcept { return status_code != StatusCode::kScSuccess; }
 
-  constexpr bool operator==(Result<void> const &rhs) const {
+  constexpr bool operator==(Result<void> const &rhs) const noexcept {
     return (rhs.status_code == this->status_code);
   }
 
-  constexpr void Unwrap() const {
+  constexpr void Unwrap() const noexcept {
     if (IsErr()) {
       abort();
     }
   }
 
-  constexpr const char *ToString() const { return StatusCodeToString(status_code); }
+  constexpr const char *ToString() const noexcept { return StatusCodeToString(status_code); }
 
-  constexpr Result(StatusCode status_code) : status_code(status_code) {}
+  constexpr Result(StatusCode status_code) noexcept : status_code(status_code) {}
 
   // Move Constructor
-  constexpr Result(Result &&r) = default;
+  constexpr Result(Result &&r) noexcept = default;
 
   // Move Assignment
   constexpr Result &operator=(Result &&r) = delete; // not assignable
 
   // Copy Constructor
-  constexpr Result(const Result &r) = default;
+  constexpr Result(const Result &r) noexcept = default;
 
   // Copy Assignment
   constexpr Result &operator=(const Result &r) = delete; // not assignable
 };
 
 // convience function
-template <typename T> static constexpr Result<T> Ok(const T &content) {
+template <typename T> static constexpr Result<T> Ok(const T &content) noexcept {
   return Result<T>(StatusCode::kScSuccess, content);
 }
-static constexpr Result<void> Ok() { return Result<void>(StatusCode::kScSuccess); }
+static constexpr Result<void> Ok() noexcept { return Result<void>(StatusCode::kScSuccess); }
 
 // convience function
-template <typename T> static constexpr Result<T> Err(const StatusCode &sc) {
+template <typename T> static constexpr Result<T> Err(const StatusCode &sc) noexcept {
   return Result<T>(sc, T());
 }
 
-static constexpr Result<void> Err(const StatusCode &sc) { return Result<void>(sc); }
+static constexpr Result<void> Err(const StatusCode &sc) noexcept { return Result<void>(sc); }
 
 template <typename TIn, typename TRet>
 static constexpr std::enable_if_t<!std::is_same_v<TRet, void>, Result<TRet>>
-Err(const Result<TIn> &res) {
+Err(const Result<TIn> &res) noexcept {
   return Result<TRet>(res.status_code, TRet());
 }
 
 template <typename TIn, typename TRet>
 static constexpr std::enable_if_t<std::is_same_v<TRet, void>, Result<TRet>>
-Err(const Result<TIn> &res) {
+Err(const Result<TIn> &res) noexcept {
   return Result<TRet>(res.status_code);
 }
 

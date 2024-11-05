@@ -21,10 +21,10 @@ Emulator<ProcessorStates> MicroEmu::BuildEmulator() {
   return emu;
 }
 
-MicroEmu::MicroEmu() {};
-MicroEmu::~MicroEmu() {};
+MicroEmu::MicroEmu() noexcept {};
+MicroEmu::~MicroEmu() noexcept {};
 
-Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) {
+Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) noexcept {
 
   std::fill(ram1_, ram1_ + ram1_size_, 0xFFu);
   std::fill(ram2_, ram2_ + ram2_size_, 0xFFu);
@@ -89,38 +89,38 @@ Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) {
   return Ok();
 }
 
-void MicroEmu::SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+void MicroEmu::SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept {
   flash_ = seg_ptr;
   flash_size_ = seg_size;
   flash_vadr_ = seg_vadr;
 }
 
-void MicroEmu::SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+void MicroEmu::SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept {
   ram1_ = seg_ptr;
   ram1_size_ = seg_size;
   ram1_vadr_ = seg_vadr;
 }
 
-void MicroEmu::SetRam2Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+void MicroEmu::SetRam2Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept {
   ram2_ = seg_ptr;
   ram2_size_ = seg_size;
   ram2_vadr_ = seg_vadr;
 }
 
-Result<void> MicroEmu::Reset() {
+Result<void> MicroEmu::Reset() noexcept {
   auto emu = BuildEmulator();
   TRY(void, emu.Reset());
   return Ok();
 }
 
 Result<EmuResult> MicroEmu::Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
-                                 FPostExecStepCallback cb_post_exec) {
+                                 FPostExecStepCallback cb_post_exec) noexcept {
   auto emu = BuildEmulator();
   auto res = emu.Exec(instr_limit, cb_pre_exec, cb_post_exec);
   return res;
 }
 
-void MicroEmu::EvaluateState(FStateCallback cb) {
+void MicroEmu::EvaluateState(FStateCallback cb) noexcept {
 
   auto emu = BuildEmulator();
   using TProcessorStates = decltype(emu)::ProcessorStates;
@@ -133,7 +133,7 @@ void MicroEmu::EvaluateState(FStateCallback cb) {
 }
 
 void MicroEmu::RegisterLoggerCallback(void (*callback)(microemu::LogLevel level, const char *,
-                                                       ...)) {
+                                                       ...) noexcept) noexcept {
   StaticLogger::RegisterLoggerCallback(callback);
 }
 } // namespace microemu

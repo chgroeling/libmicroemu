@@ -41,22 +41,24 @@ public:
 class EmuContext {
 public:
   EmuContext(const me_adr_t &pc, const OpCode &op_code, const IInstrToMnemonic &instr_decoder,
-             IRegisterAccess &reg_access, ISpecialRegAccess &spec_reg_access)
+             IRegisterAccess &reg_access, ISpecialRegAccess &spec_reg_access) noexcept
 
       : pc_(pc), op_code_(op_code), instr_decoder_(instr_decoder), reg_access_(reg_access),
         spec_reg_access_(spec_reg_access) {}
 
-  inline me_adr_t GetPc() const { return pc_; }
-  IRegisterAccess &GetRegisterAccess() { return reg_access_; }
-  ISpecialRegAccess &GetSpecialRegisterAccess() { return spec_reg_access_; }
-  inline const OpCode &GetOpCode() const { return op_code_; }
+  inline me_adr_t GetPc() const noexcept { return pc_; }
+  inline IRegisterAccess &GetRegisterAccess() noexcept { return reg_access_; }
+  inline ISpecialRegAccess &GetSpecialRegisterAccess() noexcept { return spec_reg_access_; }
+  inline const OpCode &GetOpCode() const noexcept { return op_code_; }
 
   /// @brief  Builds the mnemonic of the instruction
   /// This takes the current instruction and decodes it into a human readable string.
   /// Attention this is a resource intensive operation.
   /// @param buf
   /// @param buf_len
-  inline void BuildMnemonic(char *buf, size_t buf_len) const { instr_decoder_.Build(buf, buf_len); }
+  inline void BuildMnemonic(char *buf, size_t buf_len) const noexcept {
+    instr_decoder_.Build(buf, buf_len);
+  }
 
 private:
   const me_adr_t &pc_;
