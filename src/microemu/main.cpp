@@ -11,7 +11,6 @@
 #include <stdarg.h>
 #include <vector>
 
-// Check defined log levels
 static const std::vector<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO",
                                                          "WARNING", "ERROR", "CRITICAL"};
 
@@ -127,6 +126,9 @@ int main(int argc, const char *argv[]) {
     return EXIT_SUCCESS;
   }
 
+  // Checking command line options
+  // ---
+
   // Check if the elf_file argument is present
   if (!result.count("elf_file")) {
     std::cerr << "microemu: Missing required positional argument <elf_file>\n";
@@ -145,12 +147,37 @@ int main(int argc, const char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  // Check defined log levels
+  std::string log_level = result["log-level"].as<std::string>();
+  if (std::find(kValidLogLevels.begin(), kValidLogLevels.end(), log_level) ==
+      kValidLogLevels.end()) {
+    fmt::print(stderr, "Error: Invalid log level '{}'. Valid log levels are: {}\n", log_level,
+               CreateCommaSeparatedString(kValidLogLevels));
+    return EXIT_FAILURE;
+  }
+
+  // Check defined profiles
   std::string profile = result["profile"].as<std::string>();
   if (std::find(kValidProfiles.begin(), kValidProfiles.end(), profile) == kValidProfiles.end()) {
     fmt::print(stderr, "Error: Invalid profile '{}'. Valid profiles are: {}\n", profile,
                CreateCommaSeparatedString(kValidProfiles));
     return EXIT_FAILURE;
   }
+
+  if (result.count("instr_limit")) {
+    auto instr_limit = result["instr_limit"].as<int>();
+
+    if (instr_limit < -1) {
+      std::cerr << "microemu: instr_limit must be greater than or equal to -1\n";
+      return EXIT_FAILURE;
+    }
+  }
+
+  // Emulator initialization
+  // ---
+
+  microemu::MicroEmu lib;
+  SampledRegs regs_from_last_step{};
 
   // Flash Segment
   std::vector<uint8_t> flash_seg;
@@ -170,19 +197,7 @@ int main(int argc, const char *argv[]) {
   int32_t instr_limit = -1; // <0 means infinite
 
   if (result.count("instr_limit")) {
-    instr_limit = result["instr_limit"].as<int>();
-  }
-  if (instr_limit < -1) {
-    std::cerr << "microemu: instr_limit must be greater than or equal to -1\n";
-    return EXIT_FAILURE;
-  }
-
-  std::string log_level = result["log-level"].as<std::string>();
-  if (std::find(kValidLogLevels.begin(), kValidLogLevels.end(), log_level) ==
-      kValidLogLevels.end()) {
-    fmt::print(stderr, "Error: Invalid log level '{}'. Valid log levels are: {}\n", log_level,
-               CreateCommaSeparatedString(kValidLogLevels));
-    return EXIT_FAILURE;
+    auto instr_limit = result["instr_limit"].as<int>();
   }
 
   if (result.count("log")) {
@@ -214,10 +229,9 @@ int main(int argc, const char *argv[]) {
     microemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
   }
 
-  microemu::MicroEmu lib;
-
-  // TODO: Profiles should be moved to json file
+  // TODO: Profiles should be moved to yaml file
   if (profile == "NONE") {
+    // Do nothing ... default profile
   } else if (profile == "STDLIB") {
     flash_seg = std::vector<uint8_t>(0x10000u);
     flash_seg_size = static_cast<uint32_t>(flash_seg.size());
@@ -247,20 +261,34 @@ int main(int argc, const char *argv[]) {
   }
 
   bool is_elf_entry_point = false;
-  bool print_differences = true;
-  bool first_trace = true;
-
-  SampledRegs regs_from_last_step{};
-
   if (result.count("elf_ep")) {
     is_elf_entry_point = true;
   }
 
+  microemu::FStateCallback initial_state_cb =
+      [&regs_from_last_step](microemu::IRegisterAccess &reg_access,
+                             microemu::ISpecialRegAccess &spec_reg_access) {
+        // Print the initial state
+        fmt::print(stdout, "Initial register states:\n");
+        auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
+        RegPrinter::PrintRegs(sampled_regs);
+        regs_from_last_step = sampled_regs;
+      };
+
+  // Load the ELF file
   auto res = lib.Load(elf_file.c_str(), is_elf_entry_point);
   if (res.IsErr()) {
     fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", res.ToString(),
                static_cast<uint32_t>(res.status_code));
     return EXIT_FAILURE;
+  }
+
+  // Evaluate the initial state in case of trace
+  if (trace == true) {
+    // Evaluate the initial state
+    if (trace_regs || trace_changed_regs) {
+      lib.EvaluateState(initial_state_cb);
+    }
   }
 
   microemu::FPreExecStepCallback pre_exec_instr_trace = [](microemu::EmuContext &ectx) {
@@ -305,18 +333,9 @@ int main(int argc, const char *argv[]) {
         regs_from_last_step = sampled_regs; // Update the last sampled registers
       };
 
-  microemu::FStateCallback initial_state_cb =
-      [&regs_from_last_step](microemu::IRegisterAccess &reg_access,
-                             microemu::ISpecialRegAccess &spec_reg_access) {
-        // Print the initial state
-        fmt::print(stdout, "Initial register states:\n");
-        auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
-        RegPrinter::PrintRegs(sampled_regs);
-        regs_from_last_step = sampled_regs;
-      };
-
   microemu::FPreExecStepCallback pre_instr{nullptr};
   microemu::FPostExecStepCallback post_instr{nullptr};
+
   if (trace == true) {
     pre_instr = pre_exec_instr_trace;
 
@@ -327,13 +346,9 @@ int main(int argc, const char *argv[]) {
     if (trace_changed_regs) {
       post_instr = post_exec_instr_trace_changed_regs;
     }
-
-    // Evaluate the initial state
-    if (trace_regs || trace_changed_regs) {
-      lib.EvaluateState(initial_state_cb);
-    }
   }
 
+  // Execute the emulator
   auto res_exec = lib.Exec(instr_limit, pre_instr, post_instr);
 
   if (res_exec.IsErr()) {
