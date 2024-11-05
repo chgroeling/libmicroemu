@@ -43,8 +43,28 @@ public:
   Result<EmuResult> Exec(i32 max_instructions = -1, FPreExecStepCallback cb_pre_exec = nullptr,
                          FPostExecStepCallback cb_post_exec = nullptr);
 
+  /// @brief Sets the Flash segment
+  /// The flash segment is were a microcontroller stores its program code. A flash
+  /// segment is read-only.
+  /// @param seg_ptr Pointer to the flash segment
+  /// @param seg_size Size of the flash segment
+  /// @param seg_vadr Virtual address of the flash segment
   void SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr);
+
+  /// @brief Sets the RAM1 segment
+  /// The RAM1 segment is were a microcontroller stores its data. A RAM1 segment
+  /// is read-write.
+  /// @param seg_ptr Pointer to the RAM1 segment
+  /// @param seg_size Size of the RAM1 segment
+  /// @param seg_vadr Virtual address of the RAM1 segment
   void SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr);
+
+  /// @brief Sets the RAM2 segment
+  /// The RAM2 segment is were a microcontroller stores its data. A RAM2 segment
+  /// is read-write.
+  /// @param seg_ptr Pointer to the RAM2 segment
+  /// @param seg_size Size of the RAM2 segment
+  /// @param seg_vadr Virtual address of the RAM2 segment
   void SetRam2Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr);
 
   void EvaluateState(FStateCallback cb);
