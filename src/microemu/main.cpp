@@ -77,7 +77,6 @@ int main(int argc, const char *argv[]) {
   // Parse command line options
   cxxopts::Options options("microemu", "Armv7-m  emulator");
   options.positional_help("<elf_file>");
-  // TODO: Add register dump per instruction trace option
 
   const std::string kLogLevelOption =
       fmt::format("Set the log level ({})", CreateCommaSeparatedString(kValidLogLevels));
@@ -231,7 +230,7 @@ int main(int argc, const char *argv[]) {
     microemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
   }
 
-  // TODO: memory-configs should be moved to yaml file
+  // TODO: More complex memory-configs should be moved to yaml file
   if (memory_config == "NONE") {
     // Do nothing ... default memory-config
   } else if (memory_config == "STDLIB") {
