@@ -5,7 +5,7 @@ _libmicroemu_ is a lightweight, embeddable library for ARM microcontroller emula
 - **Creating digital twins** for commissioning without physical hardware
 - **Embedding ARM emulation** seamlessly into larger projects
 
-While shipped with a command-line application (_microemu_), _libmicroemu_ can be used independently, allowing for flexible integration.
+While shipped with a command-line application (called _microemu_), _libmicroemu_ can be used independently, allowing for flexible integration.
 
 _libmicroemu_ provides ARM emulation with simplicity and flexibility for embedding in C++ applications.
 
