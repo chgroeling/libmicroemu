@@ -101,9 +101,20 @@ int main(int argc, const char *argv[]) {
         cxxopts::value<int>()) 
     ("m,memory-config", kMemoryConfigOption, 
         cxxopts::value<std::string>()->default_value("NONE"))
-
     ("elf_file", "Path to the executable to load.",
         cxxopts::value<std::string>())
+    ("flash-size", "Override the flash segment size (in bytes).", 
+        cxxopts::value<uint32_t>())
+    ("flash-vaddr", "Override the flash segment virtual address.", 
+        cxxopts::value<uint32_t>())
+    ("ram1-size", "Override the RAM1 segment size (in bytes).", 
+        cxxopts::value<uint32_t>())
+    ("ram1-vaddr", "Override the RAM1 segment virtual address.", 
+        cxxopts::value<uint32_t>())
+    ("ram2-size", "Override the RAM2 segment size (in bytes).", 
+        cxxopts::value<uint32_t>())
+    ("ram2-vaddr", "Override the RAM2 segment virtual address.", 
+        cxxopts::value<uint32_t>());
   ;
   // clang-format on
 
@@ -126,8 +137,9 @@ int main(int argc, const char *argv[]) {
     return EXIT_SUCCESS;
   }
 
+  // =====================================
   // Checking command line options
-  // ---
+  // =====================================
 
   // Check if the elf_file argument is present
   if (!result.count("elf_file")) {
@@ -174,8 +186,9 @@ int main(int argc, const char *argv[]) {
     }
   }
 
-  // Emulator initialization
-  // ---
+  // =====================================
+  // Emulator configuration
+  // =====================================
 
   microemu::MicroEmu lib;
   SampledRegs regs_from_last_step{};
@@ -230,41 +243,72 @@ int main(int argc, const char *argv[]) {
     microemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
   }
 
+  // Memory configuration
+
   // TODO: More complex memory-configs should be moved to yaml file
-  if (memory_config == "NONE") {
-    // Do nothing ... default memory-config
-  } else if (memory_config == "STDLIB") {
-    flash_seg = std::vector<uint8_t>(0x10000u);
-    flash_seg_size = static_cast<uint32_t>(flash_seg.size());
+  if (memory_config == "STDLIB") {
+    flash_seg_size = 0x10000u;
     flash_seg_vadr = 0x0;
 
-    ram1_seg = std::vector<uint8_t>(0x20000u);
-    ram1_seg_size = static_cast<uint32_t>(ram1_seg.size());
+    ram1_seg_size = 0x20000u;
     ram1_seg_vadr = 0x10000u;
 
-    ram2_seg = std::vector<uint8_t>(0x10000u);
-    ram2_seg_size = static_cast<uint32_t>(ram2_seg.size());
+    ram2_seg_size = 0x10000u;
     ram2_seg_vadr = 0x70000u;
-    lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
-    lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
-    lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
+
   } else if (memory_config == "MINIMAL") {
-    flash_seg = std::vector<uint8_t>(0x20000u);
-    flash_seg_size = static_cast<uint32_t>(flash_seg.size());
+    flash_seg_size = 0x20000u;
     flash_seg_vadr = 0x0;
 
-    ram1_seg = std::vector<uint8_t>(0x40000u);
-    ram1_seg_size = static_cast<uint32_t>(ram1_seg.size());
+    ram1_seg_size = 0x40000u;
     ram1_seg_vadr = 0x20000000u;
 
-    lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
-    lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
+    // No RAM2 segment
+    ram2_seg_size = 0x0u;
+    ram2_seg_vadr = 0x0u;
+  } else {
+    // default or NONE
+    // Do nothing
   }
+
+  // Override memory configuration if command line options are present
+  if (result.count("flash-size")) {
+    flash_seg_size = result["flash-size"].as<uint32_t>();
+  }
+  if (result.count("flash-vaddr")) {
+    flash_seg_vadr = result["flash-vaddr"].as<uint32_t>();
+  }
+  if (result.count("ram1-size")) {
+    ram1_seg_size = result["ram1-size"].as<uint32_t>();
+  }
+  if (result.count("ram1-vaddr")) {
+    ram1_seg_vadr = result["ram1-vaddr"].as<uint32_t>();
+  }
+  if (result.count("ram2-size")) {
+    ram2_seg_size = result["ram2-size"].as<uint32_t>();
+  }
+  if (result.count("ram2-vaddr")) {
+    ram2_seg_vadr = result["ram2-vaddr"].as<uint32_t>();
+  }
+
+  // Allocate memory for the segments
+  flash_seg = std::vector<uint8_t>(flash_seg_size);
+  ram1_seg = std::vector<uint8_t>(ram1_seg_size);
+  ram2_seg = std::vector<uint8_t>(ram2_seg_size);
+
+  // Set the memory segments
+  lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
+  lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
+  lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
 
   bool is_elf_entry_point = false;
   if (result.count("elf_ep")) {
     is_elf_entry_point = true;
   }
+
+  // =====================================
+  // Emulator - Load elf file
+  // =====================================
 
   microemu::FStateCallback initial_state_cb =
       [&regs_from_last_step](microemu::IRegisterAccess &reg_access,
@@ -292,6 +336,10 @@ int main(int argc, const char *argv[]) {
     }
   }
 
+  // =====================================
+  // Emulator execution
+  // =====================================
+
   microemu::FPreExecStepCallback pre_exec_instr_trace = [](microemu::EmuContext &ectx) {
     // TODO: Add heuristic: is_32bit_instr?
     const auto &pc = ectx.GetPc();
@@ -310,8 +358,6 @@ int main(int argc, const char *argv[]) {
 
   microemu::FPostExecStepCallback post_exec_instr_trace_regs =
       [&regs_from_last_step](microemu::EmuContext &ectx) {
-        // TODO: INCLUDE ABORT ON SPECIFIC ADDRESS COMMAND LINE OPTION
-        // TODO: Count number of instructions executed and time taken
         const auto &pc = ectx.GetPc();
         const auto &reg_access = ectx.GetRegisterAccess();
         const auto &spec_reg_access = ectx.GetSpecialRegisterAccess();
@@ -323,8 +369,6 @@ int main(int argc, const char *argv[]) {
 
   microemu::FPostExecStepCallback post_exec_instr_trace_changed_regs =
       [&regs_from_last_step](microemu::EmuContext &ectx) {
-        // TODO: INCLUDE ABORT ON SPECIFIC ADDRESS COMMAND LINE OPTION
-        // TODO: Count number of instructions executed and time taken
         const auto &pc = ectx.GetPc();
         const auto &reg_access = ectx.GetRegisterAccess();
         const auto &spec_reg_access = ectx.GetSpecialRegisterAccess();
@@ -349,7 +393,10 @@ int main(int argc, const char *argv[]) {
     }
   }
 
-  // Execute the emulator
+  // TODO: INCLUDE ABORT ON SPECIFIC ADDRESS COMMAND LINE OPTION
+  // TODO: Count number of instructions executed and time taken
+
+  // Here we execute the arm code
   auto res_exec = lib.Exec(instr_limit, pre_instr, post_instr);
 
   if (res_exec.IsErr()) {
@@ -368,5 +415,7 @@ int main(int argc, const char *argv[]) {
   if ((emu_flags & static_cast<microemu::EmuFlagsSet>(microemu::EmuFlags::kEmuTerminated)) != 0) {
     return res_exec.content.status_code;
   }
+
+  // in case the emulator was not terminated gracefully, return failure
   return EXIT_FAILURE;
 }
