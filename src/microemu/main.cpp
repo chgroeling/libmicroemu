@@ -17,6 +17,17 @@ static const std::set<std::string> kValidLogLevels = {"TRACE",   "DEBUG", "INFO"
 
 static const std::set<std::string> kValidProfiles = {"NONE", "STDLIB", "MINIMAL"};
 
+std::string CreateCommaSeparatedString(const std::set<std::string> &input_set) {
+  std::ostringstream oss;
+  for (auto it = input_set.begin(); it != input_set.end(); ++it) {
+    if (it != input_set.begin()) {
+      oss << ", ";
+    }
+    oss << *it;
+  }
+  return oss.str();
+}
+
 void LoggingCallback(microemu::LogLevel level, const char *format, ...) {
   // Initialize variadic argument list
   va_list args;
@@ -70,11 +81,17 @@ int main(int argc, const char *argv[]) {
   options.positional_help("<elf_file>");
   // TODO: Add register dump per instruction trace option
 
+  const std::string kLogLevelOption =
+      fmt::format("Set the log level ({})", CreateCommaSeparatedString(kValidLogLevels));
+
+  const std::string kProfileOption =
+      fmt::format("Set the emulation profile ({})", CreateCommaSeparatedString(kValidProfiles));
+
   // clang-format off
   options.add_options()
     ("h,help", "Print usage information.")
     ("l,log", "Enable logging")
-    ("log-level", "Set the log level (TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL).", 
+    ("log-level" , kLogLevelOption, 
         cxxopts::value<std::string>()->default_value("INFO"))
     ("log-file", "Specify log file path.", 
         cxxopts::value<std::string>())
@@ -84,7 +101,7 @@ int main(int argc, const char *argv[]) {
     ("e,elf_ep", "Load and set entry point from ELF file.")
     ("i,instr_limit", "Set the maximum number of instructions to execute.", 
         cxxopts::value<int>()) 
-    ("p,profile", "Specify the emulation profile (NONE, STDLIB, MINIMAL).", 
+    ("p,profile", kProfileOption, 
         cxxopts::value<std::string>()->default_value("NONE"))
     ("elf_file", "Path to the executable to load.",
         cxxopts::value<std::string>())
@@ -130,9 +147,9 @@ int main(int argc, const char *argv[]) {
 
   std::string profile = result["profile"].as<std::string>();
   if (kValidProfiles.find(profile) == kValidProfiles.end()) {
-    fmt::print(stderr, "Error: Invalid profile '{}'. Valid profiles are: NONE, STDLIB, MINIMAL ",
-               profile);
-    return EXIT_FAILURE; // Fehlercode zurückgeben
+    fmt::print(stderr, "Error: Invalid profile '{}'. Valid profiles are: {}\n", profile,
+               CreateCommaSeparatedString(kValidProfiles));
+    return EXIT_FAILURE;
   }
 
   // Flash Segment
@@ -162,12 +179,9 @@ int main(int argc, const char *argv[]) {
 
   std::string log_level = result["log-level"].as<std::string>();
   if (kValidLogLevels.find(log_level) == kValidLogLevels.end()) {
-    fmt::print(
-        stderr,
-        "Error: Invalid log level '{}'. Valid options are: TRACE, DEBUG, INFO, WARNING, ERROR, "
-        "CRITICAL.\n",
-        log_level);
-    return EXIT_FAILURE; // Fehlercode zurückgeben
+    fmt::print(stderr, "Error: Invalid log level '{}'. Valid log levels are: {}\n", log_level,
+               CreateCommaSeparatedString(kValidLogLevels));
+    return EXIT_FAILURE;
   }
 
   if (result.count("log")) {
