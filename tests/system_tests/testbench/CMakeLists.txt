@@ -1,16 +1,13 @@
 
 cmake_minimum_required (VERSION 3.5.0)
 
-#include(cmake/print_target_properties.cmake)
-
 # Project name and a few useful settings. Other commands can pick up the results
 project(
-  bare_stdlib 
+  testbench 
   VERSION 0.0.1
   DESCRIPTION "Embeddedable emulator on microcontrollers"
   LANGUAGES CXX C ASM
 )
-
 set(TARGET_NAME testbench)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
