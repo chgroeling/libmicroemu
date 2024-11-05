@@ -15,9 +15,9 @@ using namespace internal;
 Emulator<ProcessorStates> MicroEmu::BuildEmulator() {
   auto emu = Emulator<ProcessorStates>(pstates_);
 
-  emu.SetCodeSection(code_, code_size_);
-  emu.SetRam1Section(ram1_, ram1_size_, ram1_vadr_);
-  emu.SetRam2Section(ram2_, ram2_size_, ram2_vadr_);
+  emu.SetFlashSegment(flash_, flash_size_, flash_vadr_);
+  emu.SetRam1Segment(ram1_, ram1_size_, ram1_vadr_);
+  emu.SetRam2Segment(ram2_, ram2_size_, ram2_vadr_);
   return emu;
 }
 
@@ -49,12 +49,12 @@ Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) {
 
       // CODE SEGMENT - READ-ONLY, EXECUTE
       if (((flags & PF_X) != 0u) && ((flags & PF_R) != 0u) && ((flags & PF_W) == 0u)) {
-        if ((phdr.p_vaddr < code_vadr_) ||
-            (phdr.p_vaddr + phdr.p_filesz >= code_vadr_ + code_size_)) {
+        if ((phdr.p_vaddr < flash_vadr_) ||
+            (phdr.p_vaddr + phdr.p_filesz >= flash_vadr_ + flash_size_)) {
           // size of buffer is not big enough
           return Err(StatusCode::kScBufferTooSmall);
         }
-        auto res = reader.GetSegmentData(phdr, code_, phdr.p_filesz, 0x0, 0x0);
+        auto res = reader.GetSegmentData(phdr, flash_, phdr.p_filesz, 0x0, 0x0);
         if (res.IsErr()) {
           return Err<void, void>(res);
         }
@@ -89,22 +89,22 @@ Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) {
   return Ok();
 }
 
-void MicroEmu::SetCodeSection(u8 *section_ptr, me_size_t section_size, me_adr_t vadr) {
-  code_ = section_ptr;
-  code_size_ = section_size;
-  code_vadr_ = vadr;
+void MicroEmu::SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+  flash_ = seg_ptr;
+  flash_size_ = seg_size;
+  flash_vadr_ = seg_vadr;
 }
 
-void MicroEmu::SetRam1Section(u8 *section_ptr, me_size_t section_size, me_adr_t vadr) {
-  ram1_ = section_ptr;
-  ram1_size_ = section_size;
-  ram1_vadr_ = vadr;
+void MicroEmu::SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+  ram1_ = seg_ptr;
+  ram1_size_ = seg_size;
+  ram1_vadr_ = seg_vadr;
 }
 
-void MicroEmu::SetRam2Section(u8 *section_ptr, me_size_t section_size, me_adr_t vadr) {
-  ram2_ = section_ptr;
-  ram2_size_ = section_size;
-  ram2_vadr_ = vadr;
+void MicroEmu::SetRam2Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
+  ram2_ = seg_ptr;
+  ram2_size_ = seg_size;
+  ram2_vadr_ = seg_vadr;
 }
 
 Result<void> MicroEmu::Reset() {
