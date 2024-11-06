@@ -14,8 +14,11 @@ public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
+
+  /// TODO: Introduce  TArg0, TArg1 for every builder in this directory
+  template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const u8 &d, const u8 &n,
+                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n,
                     const ThumbImmediateResult &imm_carry) {
 
     const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0u;
@@ -27,10 +30,10 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d)).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
     }
 
-    mctx.builder.AddString(Reg::GetRegisterName(n))
+    mctx.builder.AddString(Reg::GetRegisterName(n.Get()))
         .AddString(", #")
         .AddUInt(imm_carry.out)
         .Terminate();

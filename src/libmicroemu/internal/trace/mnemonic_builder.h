@@ -23,6 +23,7 @@
 #include "libmicroemu/internal/trace/instr/str_builder_variadic_loadstore_instr.h"
 #include "libmicroemu/internal/trace/mnemonic_builder_context.h"
 #include "libmicroemu/internal/trace/mnemonic_builder_flags.h"
+#include "libmicroemu/internal/utils/arg.h"
 #include "libmicroemu/types.h"
 
 namespace microemu {
@@ -466,7 +467,7 @@ public:
       const auto &iargs = instr.bic_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImmCarry<TMnemonicBuilderContext>::Build(
-          "BIC", mctx, bflags, iargs.flags, iargs.d, iargs.n, iargs.imm32_carry);
+          "BIC", mctx, bflags, iargs.flags, Arg(iargs.d), Arg(iargs.n), iargs.imm32_carry);
       break;
     }
     case InstrId::kStrdImmediate: {
@@ -509,21 +510,21 @@ public:
       const auto &iargs = instr.eor_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImmCarry<TMnemonicBuilderContext>::Build(
-          "EOR", mctx, bflags, iargs.flags, iargs.d, iargs.n, iargs.imm32_carry);
+          "EOR", mctx, bflags, iargs.flags, Arg(iargs.d), Arg(iargs.n), iargs.imm32_carry);
       break;
     }
     case InstrId::kOrrImmediate: {
       const auto &iargs = instr.orr_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImmCarry<TMnemonicBuilderContext>::Build(
-          "ORR", mctx, bflags, iargs.flags, iargs.d, iargs.n, iargs.imm32_carry);
+          "ORR", mctx, bflags, iargs.flags, Arg(iargs.d), Arg(iargs.n), iargs.imm32_carry);
       break;
     }
     case InstrId::kAndImmediate: {
       const auto &iargs = instr.and_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImmCarry<TMnemonicBuilderContext>::Build(
-          "AND", mctx, bflags, iargs.flags, iargs.d, iargs.n, iargs.imm32_carry);
+          "AND", mctx, bflags, iargs.flags, Arg(iargs.d), Arg(iargs.n), iargs.imm32_carry);
       break;
     }
     case InstrId::kStrhImmediate: {
