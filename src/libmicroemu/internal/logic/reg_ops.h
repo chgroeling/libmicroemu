@@ -7,6 +7,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 namespace microemu {
 namespace internal {
@@ -16,6 +17,12 @@ class RegOps {
 public:
   using SReg = TSpecRegOps;
 
+  static const char *GetRegisterName(const RegisterId &id) {
+
+    using enum_type = std::underlying_type<RegisterId>::type;
+    const enum_type rid = static_cast<enum_type>(id);
+    return GetRegisterName(rid);
+  }
   static const char *GetRegisterName(const u8 &reg_id) {
     switch (reg_id) {
     case 0x0u:
@@ -163,6 +170,37 @@ public:
     return 0u;
   }
 
+  static inline u32 ReadRegister(const TProcessorStates &pstates, RegisterId id) {
+    // Retrieve the register array from the processor state
+    const auto &registers = pstates.GetRegisters();
+    using enum_type = std::underlying_type<RegisterId>::type;
+    const enum_type rid = static_cast<enum_type>(id);
+
+    // Registers R0 to R12
+    if (rid <= 12u) {
+      return registers[id];
+    }
+
+    // Stack Pointer (SP)
+    if (rid == static_cast<u8>(RegisterId::kSp)) {
+      return ReadSP(pstates);
+    }
+
+    // Link Register (LR)
+    if (rid == 14u) {
+      return registers[id];
+    }
+
+    // Program Counter (PC)
+    if (rid == static_cast<u8>(RegisterId::kPc)) {
+      return ReadPC(pstates);
+    }
+
+    assert(false && "Invalid register id");
+    // Default: out of range, return 0
+    return 0u;
+  }
+
   template <u8 Id, int U = 0U>
   static inline void WriteRegister(TProcessorStates &pstates, u32 value) {
     static_assert(Id < 16u, "Invalid register id");
@@ -195,6 +233,35 @@ public:
   static inline void WriteRegister(TProcessorStates &pstates, const u32 &value) {
     static_assert(static_cast<u8>(Id) < kNoOfRegisters, "Invalid register id");
     WriteRegister<static_cast<u8>(Id)>(pstates, value);
+  }
+
+  static inline void WriteRegister(TProcessorStates &pstates, RegisterId id, u32 value) {
+    auto &registers = pstates.GetRegisters();
+    using enum_type = std::underlying_type<RegisterId>::type;
+    const enum_type rid = static_cast<enum_type>(id);
+
+    // Registers R0 to R12
+    if (rid <= 12u) {
+      registers[id] = value;
+      return;
+    }
+
+    // Stack Pointer (SP)
+    if (rid == static_cast<u8>(RegisterId::kSp)) {
+      WriteSP(pstates, value);
+      return;
+    }
+
+    // Link Register (LR)
+    if (rid == 14u) {
+      registers[id] = value;
+      return;
+    }
+
+    // Program Counter (PC) - Not assignable
+
+    assert(false && "Invalid register id");
+    // No action needed for out-of-range or unhandled IDs
   }
 
   static inline void WriteRegister(TProcessorStates &pstates, u8 id, u32 value) {

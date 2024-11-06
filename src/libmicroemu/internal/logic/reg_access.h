@@ -52,36 +52,29 @@ public:
    */
   RegAccess &operator=(RegAccess &&) = default;
 
-  const char *GetRegisterName(const uint8_t &reg_id) const override {
-    return Reg::GetRegisterName(reg_id);
+  /// @copydoc IRegAccess::GetRegisterName
+  const char *GetRegisterName(const RegisterId &id) const override {
+    const RegisterId eid = static_cast<RegisterId>(id);
+    return Reg::GetRegisterName(eid);
   }
-  /**
-   * @brief Reads the value of the specified register.
-   *
-   * @param reg_id The ID of the register to be read. Must be in the range of 0-15.
-   * @return The value of the register.
-   *
-   * @note If the given register ID is greater than or equal to 16, the method returns 0.
-   */
-  u32 ReadRegister(const uint8_t &reg_id) const override {
-    if (reg_id < 16u) {
-      return Reg::ReadRegister(pstates_, reg_id);
+
+  /// @copydoc IRegAccess::ReadRegister
+  u32 ReadRegister(const RegisterId &id) const override {
+    using enum_type = std::underlying_type<RegisterId>::type;
+    const enum_type rid = static_cast<enum_type>(id);
+    if (rid < 16u) {
+      return Reg::ReadRegister(pstates_, rid);
     } else {
       return 0;
     }
   }
 
-  /**
-   * @brief Writes the value to the specified register.
-   *
-   * @param reg_id The ID of the register to be written. Must be in the range of 0-15.
-   * @param value The value to be written to the register.
-   *
-   * @note If the given register ID is greater than or equal to 16, the method does nothing.
-   */
-  void WriteRegister(const uint8_t &reg_id, u32 value) override {
-    if (reg_id < 16u) {
-      Reg::WriteRegister(pstates_, reg_id, value);
+  /// @copydoc IRegAccess::WriteRegister
+  void WriteRegister(const RegisterId &id, u32 value) override {
+    using enum_type = std::underlying_type<RegisterId>::type;
+    const enum_type rid = static_cast<enum_type>(id);
+    if (rid < 16u) {
+      Reg::WriteRegister(pstates_, rid, value);
     } else {
       // Edge case: Register ID is greater than or equal to 16.
       // Do nothing.
