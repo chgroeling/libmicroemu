@@ -1,6 +1,7 @@
 #pragma once
 
 #include "libmicroemu/processor_states.h"
+#include "libmicroemu/register_id.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 #include <cstddef> // Add header for size_t
@@ -21,19 +22,54 @@ public:
 
 class IRegAccess {
 public:
-  // TODO: Add methods for raw types
-  virtual const char *GetRegisterName(const uint8_t &reg_id) const = 0;
+  /**
+   * @brief Gets the name of the specified register.
+   * @param id The ID of the register.
+   * @return The name of the register.
+   */
+  virtual const char *GetRegisterName(const RegisterId &reg_id) const = 0;
 
-  virtual u32 ReadRegister(const uint8_t &reg_id) const = 0;
-  virtual void WriteRegister(const uint8_t &reg_id, u32 value) = 0;
+  /**
+   * @brief Reads the value of the specified register.
+   * @param reg_id The ID of the register to be read.
+   * @return The value of the register.
+   */
+  virtual u32 ReadRegister(const RegisterId &reg_id) const = 0;
+
+  /**
+   * @brief Writes the value to the specified register.
+   * @param reg_id The ID of the register to be written.
+   * @param value The value to be written to the register.
+   */
+  virtual void WriteRegister(const RegisterId &reg_id, u32 value) = 0;
 };
 
 class ISpecialRegAccess {
 public:
-  virtual const char *GetRegisterName(const uint8_t &reg_id) const = 0;
+  // TODO: Switch to std::string_view
+
+  /**
+   * @brief Gets the name of the specified special register.
+   *
+   * @param reg_id The ID of the special register.
+   * @return The name of the special register.
+   */
   virtual const char *GetRegisterName(const SpecialRegisterId &reg_id) const = 0;
 
+  /**
+   * @brief Reads the value of the specified special register.
+   *
+   * @param reg_id The ID of the special register to be read.
+   * @return The value of the special register.
+   */
   virtual u32 ReadRegister(const SpecialRegisterId &reg_id) const = 0;
+
+  /**
+   * @brief Writes the value to the specified special register.
+   *
+   * @param reg_id The ID of the special register to be written.
+   * @param value The value to be written to the special register.
+   */
   virtual void WriteRegister(const SpecialRegisterId &reg_id, u32 value) = 0;
 };
 

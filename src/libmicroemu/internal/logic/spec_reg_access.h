@@ -52,30 +52,17 @@ public:
    */
   SpecialRegAccess &operator=(SpecialRegAccess &&) = default;
 
-  const char *GetRegisterName(const uint8_t &reg_id) const override {
-    return SReg::GetRegisterName(static_cast<SpecialRegisterId>(reg_id));
-  }
-
+  /// @copydoc ISpecialRegAccess::GetRegisterName
   const char *GetRegisterName(const SpecialRegisterId &reg_id) const override {
     return SReg::GetRegisterName(reg_id);
   }
 
-  /**
-   * @brief Reads the value of the specified special register.
-   *
-   * @param reg_id The ID of the special register to be read.
-   * @return The value of the special register.
-   */
+  /// @copydoc ISpecialRegAccess::ReadRegister
   u32 ReadRegister(const SpecialRegisterId &reg_id) const override {
     return SReg::ReadRegister(pstates_, reg_id);
   }
 
-  /**
-   * @brief Writes the value to the specified special register.
-   *
-   * @param reg_id The ID of the special register to be written.
-   * @param value The value to be written to the special register.
-   */
+  /// @copydoc ISpecialRegAccess::WriteRegister
   void WriteRegister(const SpecialRegisterId &reg_id, u32 value) override {
     return SReg::WriteRegister(pstates_, reg_id, value);
   }

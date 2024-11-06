@@ -21,9 +21,10 @@ public:
     SampledRegs sampled_regs{};
     for (uint8_t reg_id = 0x0u; reg_id < kRegCount; reg_id += 1U) {
       if (reg_id < 16u) {
-        auto value = reg_access.ReadRegister(reg_id);
+        auto value = reg_access.ReadRegister(static_cast<microemu::RegisterId>(reg_id));
         sampled_regs.values[reg_id] = value;
-        sampled_regs.names[reg_id] = reg_access.GetRegisterName(reg_id);
+        sampled_regs.names[reg_id] =
+            reg_access.GetRegisterName(static_cast<microemu::RegisterId>(reg_id));
       } else {
         switch (reg_id) {
         case 16u: {
