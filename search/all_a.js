@@ -5,7 +5,7 @@ var searchData=
   ['libmicroemu_20in_20your_20project_2',['Embedding libmicroemu in Your Project',['../index.html#autotoc_md8',1,'']]],
   ['libraries_20and_20releases_3',['Precompiled Libraries and Releases',['../index.html#autotoc_md7',1,'']]],
   ['library_4',['ARM Microcontroller Emulator Library',['../index.html',1,'']]],
-  ['license_5',['License',['../index.html#autotoc_md13',1,'']]],
+  ['license_5',['License',['../index.html#autotoc_md14',1,'']]],
   ['littletolittleendianconverter_6',['LittleToLittleEndianConverter',['../classmicroemu_1_1internal_1_1_little_to_little_endian_converter.html',1,'microemu::internal']]],
   ['load_7',['Load',['../classmicroemu_1_1_micro_emu.html#a8a49ef644cf26df91ab86e9bb42a7745',1,'microemu::MicroEmu']]],
   ['loadmemexu32_8',['LoadMemExU32',['../classmicroemu_1_1internal_1_1_load_mem_ex_u32.html',1,'microemu::internal']]],
