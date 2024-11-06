@@ -59,26 +59,13 @@ public:
   }
 
   /// @copydoc IRegAccess::ReadRegister
-  u32 ReadRegister(const RegisterId &id) const override {
-    using enum_type = std::underlying_type<RegisterId>::type;
-    const enum_type rid = static_cast<enum_type>(id);
-    if (rid < 16u) {
-      return Reg::ReadRegister(pstates_, rid);
-    } else {
-      return 0;
-    }
-  }
+  u32 ReadRegister(const RegisterId &id) const override { return Reg::ReadRegister(pstates_, id); }
 
   /// @copydoc IRegAccess::WriteRegister
   void WriteRegister(const RegisterId &id, u32 value) override {
     using enum_type = std::underlying_type<RegisterId>::type;
     const enum_type rid = static_cast<enum_type>(id);
-    if (rid < 16u) {
-      Reg::WriteRegister(pstates_, rid, value);
-    } else {
-      // Edge case: Register ID is greater than or equal to 16.
-      // Do nothing.
-    }
+    Reg::WriteRegister(pstates_, static_cast<RegisterId>(rid), value);
   }
 
 private:

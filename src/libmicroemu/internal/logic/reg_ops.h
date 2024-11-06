@@ -18,11 +18,11 @@ public:
   using SReg = TSpecRegOps;
 
   static const char *GetRegisterName(const RegisterId &id) {
-
     using enum_type = std::underlying_type<RegisterId>::type;
     const enum_type rid = static_cast<enum_type>(id);
     return GetRegisterName(rid);
   }
+
   static const char *GetRegisterName(const u8 &reg_id) {
     switch (reg_id) {
     case 0x0u:
@@ -141,35 +141,6 @@ public:
     return 0u;
   }
 
-  static inline u32 ReadRegister(const TProcessorStates &pstates, u8 id) {
-    // Retrieve the register array from the processor state
-    const auto &registers = pstates.GetRegisters();
-
-    // Registers R0 to R12
-    if (id <= 12u) {
-      return registers[id];
-    }
-
-    // Stack Pointer (SP)
-    if (id == static_cast<u8>(RegisterId::kSp)) {
-      return ReadSP(pstates);
-    }
-
-    // Link Register (LR)
-    if (id == 14u) {
-      return registers[id];
-    }
-
-    // Program Counter (PC)
-    if (id == static_cast<u8>(RegisterId::kPc)) {
-      return ReadPC(pstates);
-    }
-
-    assert(false && "Invalid register id");
-    // Default: out of range, return 0
-    return 0u;
-  }
-
   static inline u32 ReadRegister(const TProcessorStates &pstates, RegisterId id) {
     // Retrieve the register array from the processor state
     const auto &registers = pstates.GetRegisters();
@@ -178,7 +149,7 @@ public:
 
     // Registers R0 to R12
     if (rid <= 12u) {
-      return registers[id];
+      return registers[rid];
     }
 
     // Stack Pointer (SP)
@@ -188,7 +159,7 @@ public:
 
     // Link Register (LR)
     if (rid == 14u) {
-      return registers[id];
+      return registers[rid];
     }
 
     // Program Counter (PC)
@@ -242,7 +213,7 @@ public:
 
     // Registers R0 to R12
     if (rid <= 12u) {
-      registers[id] = value;
+      registers[rid] = value;
       return;
     }
 
@@ -254,7 +225,7 @@ public:
 
     // Link Register (LR)
     if (rid == 14u) {
-      registers[id] = value;
+      registers[rid] = value;
       return;
     }
 
@@ -263,35 +234,6 @@ public:
     assert(false && "Invalid register id");
     // No action needed for out-of-range or unhandled IDs
   }
-
-  static inline void WriteRegister(TProcessorStates &pstates, u8 id, u32 value) {
-    auto &registers = pstates.GetRegisters();
-
-    // Registers R0 to R12
-    if (id <= 12u) {
-      registers[id] = value;
-      return;
-    }
-
-    // Stack Pointer (SP)
-    if (id == static_cast<u8>(RegisterId::kSp)) {
-      WriteSP(pstates, value);
-      return;
-    }
-
-    // Link Register (LR)
-    if (id == 14u) {
-      registers[id] = value;
-      return;
-    }
-
-    // Program Counter (PC) - Not assignable
-
-    assert(false && "Invalid register id");
-    // No action needed for out-of-range or unhandled IDs
-  }
-
-  // ---
 
 private:
   RegOps() = delete;

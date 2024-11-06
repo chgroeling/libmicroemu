@@ -40,10 +40,10 @@ public:
     for (u32 reg = 0u; reg <= 14u; ++reg) {
       u32 bm = 0x1u << reg;
       if ((registers & bm) != 0u) {
-        if ((reg == arg_n.Get()) && (is_wback) && (lowest_bit_set == reg)) {
+        if ((reg == static_cast<u32>(arg_n.Get())) && (is_wback) && (lowest_bit_set == reg)) {
           return Err<ExecResult>(StatusCode::kScExecutorUndefined);
         } else {
-          const auto r = Reg::ReadRegister(ictx.pstates, reg);
+          const auto r = Reg::ReadRegister(ictx.pstates, static_cast<RegisterId>(reg));
           TRY(ExecResult,
               ictx.bus.template WriteOrRaise<u32>(ictx.pstates, address, r,
                                                   BusExceptionType::kRaisePreciseDataBusError));

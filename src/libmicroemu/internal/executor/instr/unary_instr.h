@@ -77,7 +77,7 @@ public:
     const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
     auto result = TOp::Call(ictx, rm);
 
-    if (arg_d.Get() == static_cast<u8>(RegisterId::kPc)) {
+    if (arg_d.Get() == RegisterId::kPc) {
       Pc::ALUWritePC(ictx.pstates, result.value);
       It::ITAdvance(ictx.pstates);
       return Ok(ExecResult{eflags});

@@ -366,7 +366,7 @@ public:
     }
     auto r0 = Reg::template ReadRegister<0u>(pstates_);
     TRY_ASSIGN(sh_res, u8, CallSemihost(r0));
-    Reg::WriteRegister(pstates_, 0u, sh_res.ret_r0);
+    Reg::WriteRegister(pstates_, RegisterId::kR0, sh_res.ret_r0);
 
     return Ok(sh_res.bkpt_flags);
   }

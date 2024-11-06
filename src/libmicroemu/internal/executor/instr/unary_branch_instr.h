@@ -38,7 +38,7 @@ public:
     static_cast<void>(ictx);
     const me_adr_t next_instr_address = static_cast<me_adr_t>(pc - 2u);
 
-    Reg::WriteRegister(ictx.pstates, static_cast<u8>(RegisterId::kLr),
+    Reg::WriteRegister(ictx.pstates, RegisterId::kLr,
                        static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1u));
     // TODO BLXWrite instead of BXWrite
     return BranchOpResult{static_cast<me_adr_t>(rm)};

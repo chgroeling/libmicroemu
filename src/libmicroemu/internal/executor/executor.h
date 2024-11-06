@@ -445,9 +445,9 @@ public:
       const auto &iargs = instr.sub_sp_minus_immediate;
       using TOp = Sub1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
-      TRY_ASSIGN(out_flags, ExecResult,
-                 TInstr::Call(ictx, iargs.flags, ArgConst<u8, static_cast<u8>(RegisterId::kSp)>(),
-                              Arg(iargs.d), iargs.imm32));
+      TRY_ASSIGN(
+          out_flags, ExecResult,
+          TInstr::Call(ictx, iargs.flags, ArgConst<RegisterId::kSp>(), Arg(iargs.d), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -483,9 +483,9 @@ public:
       const auto &iargs = instr.add_sp_plus_immediate;
       using TOp = Add1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
-      TRY_ASSIGN(out_flags, ExecResult,
-                 TInstr::Call(ictx, iargs.flags, ArgConst<u8, static_cast<u8>(RegisterId::kSp)>(),
-                              Arg(iargs.d), iargs.imm32));
+      TRY_ASSIGN(
+          out_flags, ExecResult,
+          TInstr::Call(ictx, iargs.flags, ArgConst<RegisterId::kSp>(), Arg(iargs.d), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -670,8 +670,7 @@ public:
       iflags |= iargs.flags & InstrFlags::k32Bit; // copy 32bit flag
 
       TRY_ASSIGN(stm_flags, ExecResult,
-                 TInstr::Call(ictx, iflags, ArgConst<u8, static_cast<u8>(RegisterId::kSp)>(),
-                              iargs.registers));
+                 TInstr::Call(ictx, iflags, ArgConst<RegisterId::kSp>(), iargs.registers));
 
       flags |= stm_flags.flags;
       break;
@@ -706,8 +705,7 @@ public:
       iflags |= iargs.flags & InstrFlags::k32Bit; // copy 32bit flag
 
       TRY_ASSIGN(ldm_flags, ExecResult,
-                 TInstr::Call(ictx, iflags, ArgConst<u8, static_cast<u8>(RegisterId::kSp)>(),
-                              iargs.registers));
+                 TInstr::Call(ictx, iflags, ArgConst<RegisterId::kSp>(), iargs.registers));
 
       flags |= ldm_flags.flags;
       break;
