@@ -40,7 +40,7 @@ public:
     for (u32 reg = 0u; reg <= 14u; ++reg) {
       u32 bm = 0x1u << reg;
       if ((registers & bm) != 0u) {
-        const auto r = Reg::ReadRegister(ictx.pstates, reg);
+        const auto r = Reg::ReadRegister(ictx.pstates, static_cast<RegisterId>(reg));
         TRY(ExecResult, ictx.bus.template WriteOrRaise<u32>(
                             ictx.pstates, address, r, BusExceptionType::kRaisePreciseDataBusError));
         address += 4u;

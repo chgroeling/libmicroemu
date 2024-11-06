@@ -47,7 +47,7 @@ public:
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_addr);
     }
 
-    if (arg_t.Get() == static_cast<u8>(RegisterId::kPc)) {
+    if (arg_t.Get() == RegisterId::kPc) {
       // When the given address was unaligend the behaviour is
       // unpredtictable
       if ((address & 0x3u) == 0u) {

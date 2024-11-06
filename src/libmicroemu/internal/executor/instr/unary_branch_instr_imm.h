@@ -39,8 +39,7 @@ public:
                                     const me_adr_t &imm32) {
     static_cast<void>(ictx);
 
-    Reg::WriteRegister(ictx.pstates, static_cast<u8>(RegisterId::kLr),
-                       static_cast<uint32_t>((pc & ~0x1u) | 0x1u));
+    Reg::WriteRegister(ictx.pstates, RegisterId::kLr, static_cast<uint32_t>((pc & ~0x1u) | 0x1u));
     return BranchOpResult{pc + imm32};
   }
 };

@@ -1,11 +1,12 @@
 #pragma once
 
+#include "libmicroemu/register_id.h"
 #include <cstddef>
 #include <cstdint>
 
-template <typename T, int N> class ArgConst {
+template <microemu::RegisterId N> class ArgConst {
 public:
-  constexpr T Get() const { return static_cast<T>(N); }
+  constexpr microemu::RegisterId Get() const { return N; }
 
   /// \brief Constructor
   constexpr ArgConst() = default;
@@ -54,7 +55,7 @@ public:
   /// \param r_src the object to be copied
   Arg &operator=(Arg &&r_src) = default;
 
-  inline T Get() const { return val_; }
+  inline microemu::RegisterId Get() const { return static_cast<microemu::RegisterId>(val_); }
 
 private:
   T val_;

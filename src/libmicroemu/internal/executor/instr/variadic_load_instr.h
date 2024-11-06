@@ -43,7 +43,7 @@ public:
         TRY_ASSIGN(rdat, ExecResult,
                    ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
                                                       BusExceptionType::kRaisePreciseDataBusError));
-        Reg::WriteRegister(ictx.pstates, rid, rdat);
+        Reg::WriteRegister(ictx.pstates, static_cast<RegisterId>(rid), rdat);
         address += static_cast<me_adr_t>(4u);
       }
     }
@@ -66,7 +66,7 @@ public:
     // mem_view.print(0x80000 - 0x32, 0x64);
 
     const bool is_wback = (iflags & kWBack) != 0u;
-    const auto n_mask = 1u << arg_n.Get();
+    const auto n_mask = 1u << static_cast<u32>(arg_n.Get());
     const bool is_rn_in_set = (registers & n_mask) != 0;
 
     if ((is_wback) && (!is_rn_in_set)) {
