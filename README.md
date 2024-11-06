@@ -1,4 +1,4 @@
-# ARM Microcontroller Emulator Library
+# ARM Microcontroller Emulator Library  {#mainpage}
 _libmicroemu_ is a lightweight, embeddable library for ARM microcontroller emulation, currently supporting the ARMv7-M architecture with plans to extend to additional ARM architectures. It is designed for:
 
 - **Accelerating development** by enabling local testing of ARM programs
