@@ -16,7 +16,7 @@ struct SampledRegs {
 class RegPrinter {
 public:
   // Copyies the register values to the buffer
-  static SampledRegs SampleRegs(const microemu::IRegisterAccess &reg_access,
+  static SampledRegs SampleRegs(const microemu::IRegAccess &reg_access,
                                 const microemu::ISpecialRegAccess &spec_reg_access) {
     SampledRegs sampled_regs{};
     for (uint8_t reg_id = 0x0u; reg_id < kRegCount; reg_id += 1U) {

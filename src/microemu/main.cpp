@@ -313,7 +313,7 @@ int main(int argc, const char *argv[]) {
   // =====================================
 
   microemu::FStateCallback initial_state_cb =
-      [&regs_from_last_step](microemu::IRegisterAccess &reg_access,
+      [&regs_from_last_step](microemu::IRegAccess &reg_access,
                              microemu::ISpecialRegAccess &spec_reg_access) {
         // Print the initial state
         fmt::print(stdout, "Initial register states:\n");

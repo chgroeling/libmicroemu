@@ -1,5 +1,5 @@
 #include "libmicroemu/emu_context.h"
-// Write implementation of IRegisterAccess
+// Write implementation of IRegAccess
 namespace microemu {
 namespace internal {
 /**
@@ -15,7 +15,7 @@ namespace internal {
  * @tparam TRegOps The type of the register operations used by the RegAccess object.
  */
 template <typename TProcessorStates, typename TRegOps, typename TSpecRegOps>
-class RegAccess : public IRegisterAccess {
+class RegAccess : public IRegAccess {
 public:
   using PState = TProcessorStates;
   using Reg = TRegOps;

@@ -19,8 +19,7 @@ public:
   virtual void Build(char *buf, size_t buf_len) const = 0;
 };
 
-// TODO: Rename to IRegAccess
-class IRegisterAccess {
+class IRegAccess {
 public:
   // TODO: Add methods for raw types
   virtual const char *GetRegisterName(const uint8_t &reg_id) const = 0;
@@ -41,13 +40,13 @@ public:
 class EmuContext {
 public:
   EmuContext(const me_adr_t &pc, const OpCode &op_code, const IInstrToMnemonic &instr_decoder,
-             IRegisterAccess &reg_access, ISpecialRegAccess &spec_reg_access) noexcept
+             IRegAccess &reg_access, ISpecialRegAccess &spec_reg_access) noexcept
 
       : pc_(pc), op_code_(op_code), instr_decoder_(instr_decoder), reg_access_(reg_access),
         spec_reg_access_(spec_reg_access) {}
 
   inline me_adr_t GetPc() const noexcept { return pc_; }
-  inline IRegisterAccess &GetRegisterAccess() noexcept { return reg_access_; }
+  inline IRegAccess &GetRegisterAccess() noexcept { return reg_access_; }
   inline ISpecialRegAccess &GetSpecialRegisterAccess() noexcept { return spec_reg_access_; }
   inline const OpCode &GetOpCode() const noexcept { return op_code_; }
 
@@ -64,7 +63,7 @@ private:
   const me_adr_t &pc_;
   const OpCode &op_code_;
   const IInstrToMnemonic &instr_decoder_;
-  IRegisterAccess &reg_access_;
+  IRegAccess &reg_access_;
 
   //  TODO: Rename to accessor
   ISpecialRegAccess &spec_reg_access_;
