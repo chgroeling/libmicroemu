@@ -6,10 +6,10 @@ import semver
 
 
 class LibMicroEmu(ConanFile):
-    name = "microemu"
+    name = "libmicroemu"
     url = ""
-    author: "cgg"
-    copyright = "Intern"
+    author = "Christian Gröling"
+    copyright = "MIT"
     description = ""
     homepage = ""
     topics = ("embedded", "parameter", "data model")
@@ -22,21 +22,19 @@ class LibMicroEmu(ConanFile):
     options = {
         "build_tests": [True, False],
         "build_microemu": [True, False],
-        "cpptest": [True, False],
-        "doxygen": [True, False],
     }
     default_options = {
         "build_tests": False,
         "build_microemu": False,
-        "cpptest": False,
-        "doxygen": False,
     }
 
     def requirements(self):
-        self.requires("fmt/10.2.1")
-        self.requires("cxxopts/3.2.0")
-        self.requires("spdlog/1.14.1")
-        self.requires("gtest/[*]")
+        # only require fmt, cxxopts, spdlog, gtest if not doxygen_only
+        if not self.conf.get("user.build:docs_only", default=False):
+            self.requires("fmt/10.2.1")
+            self.requires("cxxopts/3.2.0")
+            self.requires("spdlog/1.14.1")
+            self.requires("gtest/[*]")
 
     def layout(self):
         cmake_layout(self)

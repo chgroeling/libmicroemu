@@ -1,18 +1,15 @@
-name: tests
+name: docs
 
 on:
   push:
     branches:
-    - main
-    tags-ignore:
-    - 'v*'
-  pull_request:
-    branches:
-    - main
+    - cggg/update_readme
   
 jobs:
-  do_tests:
+  make_docs:
     runs-on: ubuntu-latest
+    permissions:
+        contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Set reusable strings
@@ -26,16 +23,18 @@ jobs:
           python-version: '3.13'
           cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
+    - uses: ssciwr/doxygen-install@v1
     - name : Install Dependencies Conan
       run: | 
         conan profile detect
-        conan install . -pr ${{ github.workspace }}/profiles/Release-ubuntu-latest-clang --build=missing
+        conan install . -pr ${{ github.workspace }}/profiles/Doxygen-only --build=missing 
     - name: CMake configuration
       run: |
             cmake -B ${{github.workspace}}/build/Release --preset conan-release
-    - name: Build
+    - name: Build docs
       run: |
-            cmake --build ${{github.workspace}}/build/Release 
-    - name: Test
-      working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: ctest --test-dir ${{github.workspace}}/build/Release 
+            cmake --build ${{github.workspace}}/build/Release -t docs
+    - uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir:  ${{github.workspace}}/build/docs/html

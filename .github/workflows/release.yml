@@ -44,7 +44,7 @@ jobs:
     - name : Install Dependencies Conan
       run: | 
         conan profile detect
-        conan install . -pr ${{ github.workspace }}/profiles/${{ matrix.build_type }}-${{ matrix.os }}-${{ matrix.c_compiler }} --build=missing -o build_tests=True -o build_microemu=True
+        conan install . -pr ${{ github.workspace }}/profiles/${{ matrix.build_type }}-${{ matrix.os }}-${{ matrix.c_compiler }} --build=missing
     - name: CMake configuration
       run: |
             cmake -B ${{github.workspace}}/build/Release --preset conan-release
