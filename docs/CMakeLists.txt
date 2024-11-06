@@ -1,7 +1,11 @@
 
+message(STATUS "Adding target \"docs\" to generate Doxygen documentation")
 
-message(STATUS "Generating Doxygen documentation")
+set(DOXYGEN_CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf")
 
-doxygen_add_docs(docs
-                 CONFIG_FILE "${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf"
-                 WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
+add_custom_target(docs
+    COMMAND "${DOXYGEN_EXECUTABLE}" "${DOXYGEN_CONFIG_FILE}"
+    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+    COMMENT "Generating API documentation with Doxygen"
+    VERBATIM
+)

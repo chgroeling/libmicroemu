@@ -9,7 +9,7 @@ While shipped with a command-line application (called _microemu_), _libmicroemu_
 
 _libmicroemu_ provides ARM emulation with simplicity and flexibility for embedding in C++ applications.
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/chgroeling/libmicroemu?label=release&sort=semver)](https://github.com/chgroeling/libmicroemu/releases)[![tests](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml/badge.svg)](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/chgroeling/libmicroemu?label=release&sort=semver)](https://github.com/chgroeling/libmicroemu/releases)[![tests](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml/badge.svg)](https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml)[![docs](https://github.com/chgroeling/libmicroemu/actions/workflows/docs.yml/badge.svg)](https://chgroeling.github.io/libmicroemu)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 ### Key Features
@@ -41,6 +41,7 @@ _libmicroemu_ is currently under active development and can already execute a si
 - **Remote Debugging Support** – Planned GDB integration for interactive debugging capabilities.
 - **Broader Configuration Options** – Further flexibility for custom peripherals and memory configurations.
 - **Vendor-Specific Chip Support** - Expand support for vendor-specific peripherals and features (e.g. STM and Renesas chips)
+- **Doxygen Documentation Improvement** – Enhance Doxygen documentation to improve usability and clarity, adding detailed descriptions for modules, functions, and configuration options to assist developers and users.
 
 ## Getting Started
 ### Installation
@@ -166,6 +167,8 @@ seedcrc          : 0xe9f5
 Correct operation validated. See README.md for run and reporting rules.
 CoreMark 1.0 : 162.733930 / GCC10.3.1 20210824 (release) -g / STACK
 ```
+## Documentation
+[Latest build - Doxygen documentation](https://chgroeling.github.io/libmicroemu)
 
 ## Contributing
 Contributions are welcome! Please follow the Google C++ Style Guide, and ensure all new code includes documentation and test cases.
