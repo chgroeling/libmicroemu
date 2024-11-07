@@ -126,7 +126,7 @@ int main()
     auto res_exec = lib.Exec();
     if (res_exec.IsErr())
     {
-        std::cerr << "Failed to load execute ELF file." << std::endl;
+        std::cerr << "Failed to execute ELF file." << std::endl;
         return EXIT_FAILURE;
     }
     return 0;
