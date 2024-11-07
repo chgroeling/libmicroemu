@@ -99,20 +99,20 @@ _libmicroemu_ is designed to be easily integrated into larger C++ projects to pr
 
 #include "libmicroemu/microemu.h"
 
-constexpr static const char *kElfPath = "<path/to/your-binary.elf>";
-constexpr static microemu::me_adr_t kCodeSetVadr = 0x0U;
-constexpr static microemu::me_adr_t kRam1SetVadr = 0x20000000U;
+constexpr static const char *kElfPath = "coremark/prebuilt/bin/coremark.elf";
+constexpr static microemu::me_adr_t kFlashSegVadr = 0x0U;
+constexpr static microemu::me_adr_t kRam1SegVadr = 0x20000000U;
 
 int main()
 {
     microemu::MicroEmu lib;
 
-    auto code_seg = std::vector<uint8_t>(0x20000u); // allocate 128KB for code segment
-    auto ram1_seg = std::vector<uint8_t>(0x40000u); // allocate 256KB for RAM1 segment
+    auto flash_seg = std::vector<uint8_t>(0x20000u); // allocate 128KB for FLASH segment
+    auto ram1_seg = std::vector<uint8_t>(0x40000u);  // allocate 256KB for RAM1 segment
 
-    // Set the code and RAM1 segments in the emulator
-    lib.SetCodeSection(code_seg.data(), code_seg.size(), kCodeSetVadr);
-    lib.SetRam1Section(ram1_seg.data(), ram1_seg.size(), kRam1SetVadr);
+    // Set the FLASH and RAM1 segments in the emulator
+    lib.SetFlashSegment(flash_seg.data(), flash_seg.size(), kFlashSegVadr);
+    lib.SetRam1Segment(ram1_seg.data(), ram1_seg.size(), kRam1SegVadr);
 
     // Load the ELF file and set the entry point to the one given in the ELF file
     auto res = lib.Load(kElfPath, true);
