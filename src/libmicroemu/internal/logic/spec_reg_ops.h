@@ -41,120 +41,77 @@ public:
     }
   }
 
-  inline static u32 ReadRegister(const TProcessorStates &pstates, const u8 reg_id) {
-    // Persistent special register access
-    if (reg_id < CountPersistentSpecialRegisters()) {
-      return pstates.GetSpecialRegisters()[reg_id];
-    }
-
-    // Runtime special register access
-    if (reg_id == static_cast<u8>(SpecialRegisterId::kEpsr)) {
-      return ReadEpsr(pstates);
-    }
-    if (reg_id == static_cast<u8>(SpecialRegisterId::kXpsr)) {
-      return ReadXpsr(pstates);
-    }
-    if (reg_id == static_cast<u8>(SpecialRegisterId::kControl)) {
-      return ReadControl(pstates);
-    }
-
-    assert(false && "Runtime special register access out of range");
-    // Default case: out of range
-    return 0u;
-  }
-
-  template <u8 RegId, int U = 0U> static inline u32 ReadRegister(const TProcessorStates &pstates) {
+  template <SpecialRegisterId SId> static inline u32 ReadRegister(const TProcessorStates &pstates) {
+    constexpr auto RegId = static_cast<u8>(SId);
     static_assert(RegId < CountSpecialRegisters(), "Invalid special register id");
 
-    // Persistent special register access
-    if constexpr (RegId < CountPersistentSpecialRegisters()) {
+    switch (SId) {
+    case SpecialRegisterId::kEpsr:
+      return ReadEpsr(pstates);
+    case SpecialRegisterId::kXpsr:
+      return ReadXpsr(pstates);
+    case SpecialRegisterId::kControl:
+      return ReadControl(pstates);
+    default:
+      // Persistent special register access
       return pstates.GetSpecialRegisters()[RegId];
     }
-
-    // Runtime special register access
-    if constexpr (RegId == static_cast<u8>(SpecialRegisterId::kEpsr)) {
-      return ReadEpsr(pstates);
-    }
-    if constexpr (RegId == static_cast<u8>(SpecialRegisterId::kXpsr)) {
-      return ReadXpsr(pstates);
-    }
-    if constexpr (RegId == static_cast<u8>(SpecialRegisterId::kControl)) {
-      return ReadControl(pstates);
-    }
-
-    assert(false && "Runtime special register access out of range");
-
-    // Default case: out of range
+    // Not reachable
     return 0u;
-  }
-
-  template <SpecialRegisterId SId> static inline u32 ReadRegister(const TProcessorStates &pstates) {
-    return ReadRegister<static_cast<u32>(SId)>(pstates);
   }
 
   static inline u32 ReadRegister(const TProcessorStates &pstates, const SpecialRegisterId &reg_id) {
-    return ReadRegister(pstates, static_cast<u8>(reg_id));
-  }
-
-  template <u8 RegId, int U = 0U>
-  static inline void WriteRegister(TProcessorStates &pstates, u32 value) {
-    static_assert(RegId < CountSpecialRegisters(), "Invalid special register id");
-
-    // Persistent special register access
-    if constexpr (RegId < CountPersistentSpecialRegisters()) {
-      pstates.GetSpecialRegisters()[RegId] = value;
-      return;
+    assert(static_cast<u8>(reg_id) < CountSpecialRegisters() && "Invalid special register id");
+    switch (reg_id) {
+    case SpecialRegisterId::kEpsr:
+      return ReadEpsr(pstates);
+    case SpecialRegisterId::kXpsr:
+      return ReadXpsr(pstates);
+    case SpecialRegisterId::kControl:
+      return ReadControl(pstates);
+    default:
+      // Persistent special register access
+      return pstates.GetSpecialRegisters()[static_cast<u8>(reg_id)];
     }
-    // Runtime special register access
-    if constexpr (RegId == static_cast<u8>(SpecialRegisterId::kEpsr)) {
-      WriteEpsr(pstates, value);
-      return;
-    }
-    if constexpr (RegId == static_cast<u8>(SpecialRegisterId::kXpsr)) {
-      WriteXpsr(pstates, value);
-      return;
-    }
-    if constexpr (RegId == static_cast<u8>(SpecialRegisterId::kControl)) {
-      WriteControl(pstates, value);
-      return;
-    }
-    assert(false && "Runtime special register access out of range");
-    // No need for else, out-of-range will do nothing
-  }
-
-  static inline void WriteRegister(TProcessorStates &pstates, u8 reg_id, u32 value) {
-    // Persistent special register access
-    if (reg_id < CountPersistentSpecialRegisters()) {
-      pstates.GetSpecialRegisters()[reg_id] = value;
-      return;
-    }
-
-    // Runtime special register access
-    if (reg_id == static_cast<u8>(SpecialRegisterId::kEpsr)) {
-      WriteEpsr(pstates, value);
-      return;
-    }
-    if (reg_id == static_cast<u8>(SpecialRegisterId::kXpsr)) {
-      WriteXpsr(pstates, value);
-      return;
-    }
-
-    if (reg_id == static_cast<u8>(SpecialRegisterId::kControl)) {
-      WriteControl(pstates, value);
-      return;
-    }
-    assert(false && "Runtime special register access out of range");
-    // If reg_id is greater than CountSpecialRegisters(), do nothing (out-of-range)
+    // Not reachable
+    return 0u;
   }
 
   template <SpecialRegisterId SId>
   static inline void WriteRegister(TProcessorStates &pstates, u32 value) {
-    WriteRegister<static_cast<u32>(SId)>(pstates, value);
+    constexpr auto RegId = static_cast<u8>(SId);
+    static_assert(RegId < CountSpecialRegisters(), "Invalid special register id");
+
+    switch (SId) {
+    case SpecialRegisterId::kEpsr:
+      return WriteEpsr(pstates, value);
+    case SpecialRegisterId::kXpsr:
+      return WriteXpsr(pstates, value);
+    case SpecialRegisterId::kControl:
+      return WriteControl(pstates, value);
+    default:
+      // Persistent special register access
+      pstates.GetSpecialRegisters()[RegId] = value;
+    }
+
+    // not reachable
   }
 
   static inline void WriteRegister(TProcessorStates &pstates, const SpecialRegisterId &reg_id,
                                    u32 value) {
-    WriteRegister(pstates, static_cast<u8>(reg_id), value);
+    assert(static_cast<u8>(reg_id) < CountSpecialRegisters() && "Invalid special register id");
+    switch (reg_id) {
+    case SpecialRegisterId::kEpsr:
+      return WriteEpsr(pstates, value);
+    case SpecialRegisterId::kXpsr:
+      return WriteXpsr(pstates, value);
+    case SpecialRegisterId::kControl:
+      return WriteControl(pstates, value);
+    default:
+      const auto rid = static_cast<u8>(reg_id);
+      // Persistent special register access
+      pstates.GetSpecialRegisters()[rid] = value;
+    }
   }
 
   static inline u32 ReadEpsr(const TProcessorStates &pstates) {
