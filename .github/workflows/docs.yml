@@ -3,7 +3,8 @@ name: docs
 on:
   push:
     branches:
-    - cggg/update_readme
+    - main
+    
   
 jobs:
   make_docs:
