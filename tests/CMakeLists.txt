@@ -42,9 +42,6 @@ set(TEST_SOURCES
 
 package_add_test(ptest ${TEST_SOURCES})
 
-add_custom_target(system_tests)
-add_dependencies(system_tests microemu)
-
 set(SYSTEST_SCRIPT python ${CMAKE_SOURCE_DIR}/tests/system_tests/system_test.py)
 set(SYSTEST_INPUT_DIR ${CMAKE_SOURCE_DIR}/tests/system_tests/)
 set(SYSTEST_OUTPUT_DIR ${CMAKE_BINARY_DIR}/system_tests/)
