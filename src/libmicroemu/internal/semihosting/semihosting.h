@@ -103,19 +103,19 @@ public:
   template <u32 N> Result<std::array<u32, N>> ReadR1Words();
 
   template <> Result<std::array<u32, 3>> ReadR1Words<3u>() {
-    auto r1 = Reg::template ReadRegister<1u>(pstates_);
+    auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
     auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1, r1 + 0x4, r1 + 0x8);
     return mem;
   }
 
   template <> Result<std::array<u32, 2>> ReadR1Words<2u>() {
-    auto r1 = Reg::template ReadRegister<1u>(pstates_);
+    auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
     auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1, r1 + 0x4);
     return mem;
   }
 
   template <> Result<std::array<u32, 1>> ReadR1Words<1u>() {
-    auto r1 = Reg::template ReadRegister<1u>(pstates_);
+    auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
     auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1);
     return mem;
   }
@@ -279,7 +279,7 @@ public:
       break;
     }
     case kSysClock: {
-      auto reason_code = Reg::template ReadRegister<1u>(pstates_);
+      auto reason_code = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
       if (reason_code != 0x0) {
         return Err<SemihostResult>(StatusCode::kScUnexpected);
       }
@@ -299,7 +299,7 @@ public:
     case kSysExit: {
       LOG_INFO(TLogger, "kSysExit(0x%0x)", r0);
 
-      auto reason_code = Reg::template ReadRegister<1u>(pstates_);
+      auto reason_code = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
       status_code_ = 0u; // no status code available
       if (reason_code == static_cast<u32>(ReasonCodes::kADPStoppedApplicationExit)) {
         bkpt_flags |= static_cast<BkptFlagsSet>(BkptFlags::kRequestExit);
@@ -364,7 +364,7 @@ public:
     if (imm32 != 0xabu) {
       return Ok<u8>(0u); // no semihosting call
     }
-    auto r0 = Reg::template ReadRegister<0u>(pstates_);
+    auto r0 = Reg::template ReadRegister<RegisterId::kR0>(pstates_);
     TRY_ASSIGN(sh_res, u8, CallSemihost(r0));
     Reg::WriteRegister(pstates_, RegisterId::kR0, sh_res.ret_r0);
 

@@ -106,132 +106,75 @@ public:
 
   template <RegisterId Id> static inline u32 ReadRegister(const TProcessorStates &pstates) {
     static_assert(static_cast<u8>(Id) < kNoOfRegisters, "Invalid register id");
-    return ReadRegister<static_cast<u8>(Id), 0U>(pstates);
-  }
 
-  // U is used to make the signature unique
-  template <u8 Id, int U = 0U> static inline u32 ReadRegister(const TProcessorStates &pstates) {
-    static_assert(Id < 16u, "Invalid register id");
+    using enum_type = std::underlying_type<RegisterId>::type;
 
-    // Retrieve the register tuple from the processor state
-    const auto &registers = pstates.GetRegisters();
-
-    // Registers R0 to R12
-    if constexpr (Id <= 12u) {
-      return std::get<Id>(registers);
-    }
-
-    // Stack Pointer (SP)
-    if constexpr (Id == static_cast<u8>(RegisterId::kSp)) {
+    switch (Id) {
+    case RegisterId::kSp:
       return ReadSP(pstates);
-    }
-
-    // Link Register (LR)
-    if constexpr (Id == 14u) {
-      return std::get<14u>(registers);
-    }
-
-    // Program Counter (PC)
-    if constexpr (Id == static_cast<u8>(RegisterId::kPc)) {
+    case RegisterId::kPc:
       return ReadPC(pstates);
+    default:
+      // Retrieve the register array from the processor state
+      const auto &registers = pstates.GetRegisters();
+      return registers[static_cast<enum_type>(Id)];
     }
-
-    assert(false && "Invalid register id");
     // Should not happen, but returns 0u if somehow out of range
-    return 0u;
+    return 0;
   }
 
   static inline u32 ReadRegister(const TProcessorStates &pstates, RegisterId id) {
-    // Retrieve the register array from the processor state
-    const auto &registers = pstates.GetRegisters();
     using enum_type = std::underlying_type<RegisterId>::type;
-    const enum_type rid = static_cast<enum_type>(id);
-
-    // Registers R0 to R12
-    if (rid <= 12u) {
-      return registers[rid];
-    }
-
-    // Stack Pointer (SP)
-    if (rid == static_cast<u8>(RegisterId::kSp)) {
+    assert(static_cast<enum_type>(id) < kNoOfRegisters && "Invalid register id");
+    switch (id) {
+    case RegisterId::kSp:
       return ReadSP(pstates);
-    }
-
-    // Link Register (LR)
-    if (rid == 14u) {
-      return registers[rid];
-    }
-
-    // Program Counter (PC)
-    if (rid == static_cast<u8>(RegisterId::kPc)) {
+    case RegisterId::kPc:
       return ReadPC(pstates);
+    default:
+      // Retrieve the register array from the processor state
+      const auto &registers = pstates.GetRegisters();
+      return registers[static_cast<enum_type>(id)];
     }
 
-    assert(false && "Invalid register id");
-    // Default: out of range, return 0
+    // Not reachable
     return 0u;
-  }
-
-  template <u8 Id, int U = 0U>
-  static inline void WriteRegister(TProcessorStates &pstates, u32 value) {
-    static_assert(Id < 16u, "Invalid register id");
-    static_assert(Id != static_cast<u8>(RegisterId::kPc), "PC is not assignable by this function");
-    auto &registers = pstates.GetRegisters();
-
-    // Registers R0 to R12
-    if constexpr (Id <= 12u) {
-      registers[Id] = value;
-      return;
-    }
-
-    // Stack Pointer (SP)
-    if constexpr (Id == static_cast<u8>(RegisterId::kSp)) {
-      WriteSP(pstates, value);
-      return;
-    }
-
-    // Link Register (LR)
-    if constexpr (Id == 14u) {
-      registers[14u] = value;
-      return;
-    }
-
-    assert(false && "Invalid register id");
-    // Do nothing for invalid cases (though this should never happen due to static_assert)
   }
 
   template <RegisterId Id>
   static inline void WriteRegister(TProcessorStates &pstates, const u32 &value) {
     static_assert(static_cast<u8>(Id) < kNoOfRegisters, "Invalid register id");
-    WriteRegister<static_cast<u8>(Id)>(pstates, value);
+    static_assert(Id != RegisterId::kPc, "PC is not assignable by this function");
+
+    using enum_type = std::underlying_type<RegisterId>::type;
+
+    switch (Id) {
+    case RegisterId::kSp:
+      return WriteSP(pstates, value);
+    default:
+      // Retrieve the register array from the processor state
+      auto &registers = pstates.GetRegisters();
+      registers[static_cast<enum_type>(Id)] = value;
+    }
+    // No action needed for out-of-range or unhandled IDs
   }
 
   static inline void WriteRegister(TProcessorStates &pstates, RegisterId id, u32 value) {
-    auto &registers = pstates.GetRegisters();
     using enum_type = std::underlying_type<RegisterId>::type;
-    const enum_type rid = static_cast<enum_type>(id);
 
-    // Registers R0 to R12
-    if (rid <= 12u) {
-      registers[rid] = value;
-      return;
+    assert(static_cast<enum_type>(id) < kNoOfRegisters && "Invalid register id");
+
+    switch (id) {
+    case RegisterId::kSp:
+      return WriteSP(pstates, value);
+    case RegisterId::kPc:
+      assert(false && "PC is not assignable by this function");
+      break;
+    default:
+      // Retrieve the register array from the processor state
+      auto &registers = pstates.GetRegisters();
+      registers[static_cast<enum_type>(id)] = value;
     }
-
-    // Stack Pointer (SP)
-    if (rid == static_cast<u8>(RegisterId::kSp)) {
-      WriteSP(pstates, value);
-      return;
-    }
-
-    // Link Register (LR)
-    if (rid == 14u) {
-      registers[rid] = value;
-      return;
-    }
-
-    // Program Counter (PC) - Not assignable
-
-    assert(false && "Invalid register id");
     // No action needed for out-of-range or unhandled IDs
   }
 
