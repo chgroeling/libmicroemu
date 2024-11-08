@@ -19,9 +19,9 @@ public:
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)))
         .AddString(", #")
         .AddUInt(imm_carry.out)
         .Terminate();

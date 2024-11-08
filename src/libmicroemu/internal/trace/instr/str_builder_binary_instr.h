@@ -23,15 +23,14 @@ public:
 
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ');
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
-          .AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d))).AddString(", ");
     }
-    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)))
         .Terminate();
   }
 

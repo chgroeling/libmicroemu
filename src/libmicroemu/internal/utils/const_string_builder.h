@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <string_view>
 
 namespace microemu {
 namespace internal {
@@ -16,9 +17,8 @@ public:
   /// @brief Add a string to the buffer
   /// @param str The string to add
   /// @return A reference to the current object
-  ConstStringBuilder &AddString(const char *str) {
-    // TODO: Add string view instead of const char*
-    for (std::size_t i = 0U; i < strlen(str); ++i) {
+  ConstStringBuilder &AddString(const std::string_view &str) {
+    for (std::size_t i = 0U; i < str.length(); ++i) {
       if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
         return *this;
       }

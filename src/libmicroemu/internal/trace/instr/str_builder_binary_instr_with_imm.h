@@ -25,13 +25,13 @@ public:
 
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d.Get()).data()).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
     }
-    mctx.builder.AddString(Reg::GetRegisterName(n.Get()).data())
+    mctx.builder.AddString(Reg::GetRegisterName(n.Get()))
         .AddString(", #")
         .AddUInt(imm32)
         .Terminate();

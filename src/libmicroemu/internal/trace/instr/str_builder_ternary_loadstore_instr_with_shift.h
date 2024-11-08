@@ -19,13 +19,13 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)))
         .AddString(", [")
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data());
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)));
 
     if (shift_res.value != 0U) {
       mctx.builder.AddString(", LSL #").AddUInt(shift_res.value);
