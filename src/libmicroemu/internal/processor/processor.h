@@ -130,8 +130,8 @@ public:
       const auto is_32bit = (raw_instr.flags & kRaw32BitMsk) == kRaw32BitMsk;
       auto op_code = OpCode{raw_instr.low, raw_instr.high, is_32bit};
       auto instr_to_mnemonic = InstrToMnemonic<TProcessorStates, It, Reg, SReg>(pstates, instr);
-      auto reg_access = RegAccess<TProcessorStates, Reg, SReg>(pstates);
-      auto spec_reg_access = SpecialRegAccess<TProcessorStates, SReg>(pstates);
+      auto reg_access = RegAccessor<TProcessorStates, Reg, SReg>(pstates);
+      auto spec_reg_access = SpecialRegAccessor<TProcessorStates, SReg>(pstates);
 
       auto emu_ctx =
           EmuContext(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);
@@ -150,8 +150,8 @@ public:
       const auto is_32bit = (raw_instr.flags & kRaw32BitMsk) == kRaw32BitMsk;
       auto op_code = OpCode{raw_instr.low, raw_instr.high, is_32bit};
       auto instr_to_mnemonic = InstrToMnemonic<TProcessorStates, It, Reg, SReg>(pstates, instr);
-      auto reg_access = RegAccess<TProcessorStates, Reg, SReg>(pstates);
-      auto spec_reg_access = SpecialRegAccess<TProcessorStates, SReg>(pstates);
+      auto reg_access = RegAccessor<TProcessorStates, Reg, SReg>(pstates);
+      auto spec_reg_access = SpecialRegAccessor<TProcessorStates, SReg>(pstates);
       auto emu_ctx =
           EmuContext(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);
       delegates.PostExec(emu_ctx);

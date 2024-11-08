@@ -126,8 +126,8 @@ void MicroEmu::EvaluateState(FStateCallback cb) noexcept {
   using TProcessorStates = decltype(emu)::ProcessorStates;
   using Reg = decltype(emu)::RegOps;
   using SReg = decltype(emu)::SpecRegOps;
-  auto reg_access = RegAccess<TProcessorStates, Reg, SReg>(pstates_);
-  auto spec_reg_access = SpecialRegAccess<TProcessorStates, SReg>(pstates_);
+  auto reg_access = RegAccessor<TProcessorStates, Reg, SReg>(pstates_);
+  auto spec_reg_access = SpecialRegAccessor<TProcessorStates, SReg>(pstates_);
 
   cb(reg_access, spec_reg_access);
 }
