@@ -620,7 +620,7 @@ public:
       ClearExceptionActive(pstates, static_cast<ExceptionType>(ret_exception_n));
 
       // PopStack(frameptr, EXC_RETURN);
-      TRY(void, (PopStack(pstates, bus, frameptr, exc_return)));
+      TRY(void, PopStack(pstates, bus, frameptr, exc_return));
 
       const auto ipsr_8_0 =
           SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
@@ -1021,7 +1021,7 @@ public:
     auto e_preemp_exc_type = static_cast<ExceptionType>(preempt_exc_type);
 
     ClearExceptionPending(pstates, e_preemp_exc_type);
-    TRY(bool, (ExceptionEntry<ExcInstant>(pstates, bus, e_preemp_exc_type, context)));
+    TRY(bool, ExceptionEntry<ExcInstant>(pstates, bus, e_preemp_exc_type, context));
 
     return Ok(true);
   };

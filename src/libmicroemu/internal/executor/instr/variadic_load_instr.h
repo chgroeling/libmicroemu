@@ -53,7 +53,7 @@ public:
                  ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
                                                     BusExceptionType::kRaisePreciseDataBusError));
       It::ITAdvance(ictx.pstates);
-      TRY(ExecResult, (Pc::LoadWritePC(ictx.pstates, ictx.bus, rdat)));
+      TRY(ExecResult, Pc::LoadWritePC(ictx.pstates, ictx.bus, rdat));
 
       //  do not advance pc
     } else {
