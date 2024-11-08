@@ -184,21 +184,21 @@ public:
       return ImmShiftResults{SRType::SRType_LSL, imm5};
     }
     case 0b01U: {
-      if (imm5 == 0x0) {
+      if (imm5 == 0x0U) {
         return ImmShiftResults{SRType::SRType_LSR, 32U};
       } else {
         return ImmShiftResults{SRType::SRType_LSR, imm5};
       }
     }
     case 0b10U: {
-      if (imm5 == 0x0) {
+      if (imm5 == 0x0U) {
         return ImmShiftResults{SRType::SRType_ASR, 32U};
       } else {
         return ImmShiftResults{SRType::SRType_ASR, imm5};
       }
     }
     case 0b11U: {
-      if (imm5 == 0x0) {
+      if (imm5 == 0x0U) {
         return ImmShiftResults{SRType::SRType_RRX, 1U};
       } else {
         return ImmShiftResults{SRType::SRType_ROR, imm5};
