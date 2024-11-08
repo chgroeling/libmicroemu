@@ -4,7 +4,7 @@
 #include "libmicroemu/register_id.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
-#include <cstddef> // Add header for size_t
+#include <cstddef>
 
 namespace microemu {
 
@@ -16,8 +16,7 @@ struct OpCode {
 
 class IInstrToMnemonic {
 public:
-  // TODO: Use std::size_t instead of size_t
-  virtual void Build(char *buf, size_t buf_len) const = 0;
+  virtual void Build(char *buf, std::size_t buf_len) const = 0;
 };
 
 class IRegAccess {
@@ -91,7 +90,7 @@ public:
   /// Attention this is a resource intensive operation.
   /// @param buf
   /// @param buf_len
-  inline void BuildMnemonic(char *buf, size_t buf_len) const noexcept {
+  inline void BuildMnemonic(char *buf, std::size_t buf_len) const noexcept {
     instr_decoder_.Build(buf, buf_len);
   }
 

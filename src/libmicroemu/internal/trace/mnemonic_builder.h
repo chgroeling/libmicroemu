@@ -25,6 +25,7 @@
 #include "libmicroemu/internal/trace/mnemonic_builder_flags.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/types.h"
+#include <cstddef>
 
 namespace microemu {
 namespace internal {
@@ -33,7 +34,7 @@ class MnemonicBuilder {
 public:
   template <typename TProcessorStates, typename TItOps, typename TRegOps, typename TSpecRegOps>
   static void Build(const TProcessorStates &pstates, const Instr &instr, char *buf,
-                    size_t buf_len) {
+                    std::size_t buf_len) {
     auto cstr_builder = ConstStringBuilder(buf, buf_len);
     using TMnemonicBuilderContext =
         MnemonicBuilderContext<TProcessorStates, TItOps, TRegOps, TSpecRegOps>;
