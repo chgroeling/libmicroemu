@@ -5424,8 +5424,7 @@
                 },
                 "shift_res": {
                     "decoder": [
-                        "// TODO: use ImmShiftResults for all occureces",
-                        "const auto shift_res = Alu32::DecodeImmShift(0b00, 0);"
+                        "const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};"
                     ]
                 }
             },
@@ -5565,7 +5564,7 @@
                 },
                 "shift_res": {
                     "decoder": [
-                        "const auto shift_res = Alu32::DecodeImmShift(0b00, 0);"
+                        "const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};"
                     ]
                 }
             },
@@ -5655,7 +5654,7 @@
                 },
                 "shift_res": {
                     "decoder": [
-                        "const auto shift_res = Alu32::DecodeImmShift(0b00, 0);"
+                        "const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};"
                     ]
                 }
             },

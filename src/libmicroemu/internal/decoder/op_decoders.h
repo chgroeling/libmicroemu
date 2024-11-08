@@ -2943,8 +2943,7 @@ static Result<Instr> EorRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   const u8 d = static_cast<u8>(Rd);
   const u16 Rm = Bm16::Slice1R<5U, 3U>(rinstr.low);
   const u8 m = static_cast<u8>(Rm);
-  // TODO: use ImmShiftResults for all occureces
-  const auto shift_res = Alu32::DecodeImmShift(0b00, 0);
+  const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};
 
   return Ok(Instr{InstrEorRegister{iid, flags, n, d, m, shift_res}});
 }
@@ -3026,7 +3025,7 @@ static Result<Instr> OrrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   const u8 d = static_cast<u8>(Rd);
   const u16 Rm = Bm16::Slice1R<5U, 3U>(rinstr.low);
   const u8 m = static_cast<u8>(Rm);
-  const auto shift_res = Alu32::DecodeImmShift(0b00, 0);
+  const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};
 
   return Ok(Instr{InstrOrrRegister{iid, flags, n, d, m, shift_res}});
 }
@@ -3078,7 +3077,7 @@ static Result<Instr> AndRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   const u8 d = static_cast<u8>(Rd);
   const u16 Rm = Bm16::Slice1R<5U, 3U>(rinstr.low);
   const u8 m = static_cast<u8>(Rm);
-  const auto shift_res = Alu32::DecodeImmShift(0b00, 0);
+  const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};
 
   return Ok(Instr{InstrAndRegister{iid, flags, n, d, m, shift_res}});
 }
