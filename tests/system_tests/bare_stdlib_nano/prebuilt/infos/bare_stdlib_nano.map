@@ -415,10 +415,10 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.
  .debug_abbrev  0x0000000000000000      0x195 CMakeFiles/bare_stdlib_nano.dir/main.cpp.obj
  .debug_abbrev  0x0000000000000195       0x4f CMakeFiles/bare_stdlib_nano.dir/syscalls.c.obj
 
-.debug_line     0x0000000000000000      0x26d
+.debug_line     0x0000000000000000      0x273
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000      0x1ef CMakeFiles/bare_stdlib_nano.dir/main.cpp.obj
- .debug_line    0x00000000000001ef       0x7e CMakeFiles/bare_stdlib_nano.dir/syscalls.c.obj
+ .debug_line    0x0000000000000000      0x1f2 CMakeFiles/bare_stdlib_nano.dir/main.cpp.obj
+ .debug_line    0x00000000000001f2       0x81 CMakeFiles/bare_stdlib_nano.dir/syscalls.c.obj
 
 .debug_frame    0x0000000000000000       0xd0
  *(.debug_frame)
@@ -428,12 +428,12 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.
  .debug_frame   0x0000000000000084       0x2c /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-init.o)
  .debug_frame   0x00000000000000b0       0x20 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memset.o)
 
-.debug_str      0x0000000000000000      0x347
+.debug_str      0x0000000000000000      0x350
  *(.debug_str)
- .debug_str     0x0000000000000000      0x29e CMakeFiles/bare_stdlib_nano.dir/main.cpp.obj
-                                        0x2fd (size before relaxing)
- .debug_str     0x000000000000029e       0xa9 CMakeFiles/bare_stdlib_nano.dir/syscalls.c.obj
-                                         0xe7 (size before relaxing)
+ .debug_str     0x0000000000000000      0x2a4 CMakeFiles/bare_stdlib_nano.dir/main.cpp.obj
+                                        0x303 (size before relaxing)
+ .debug_str     0x00000000000002a4       0xac CMakeFiles/bare_stdlib_nano.dir/syscalls.c.obj
+                                         0xed (size before relaxing)
 
 .debug_loc
  *(.debug_loc)
