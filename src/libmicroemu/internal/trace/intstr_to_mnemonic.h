@@ -2,6 +2,7 @@
 #include "libmicroemu/internal/trace/mnemonic_builder.h"
 #include "libmicroemu/microemu.h"
 #include "libmicroemu/types.h"
+#include <cstddef>
 
 namespace microemu {
 namespace internal {
@@ -17,7 +18,7 @@ public:
   InstrToMnemonic(InstrToMnemonic &&r_src) = delete;
   InstrToMnemonic &operator=(InstrToMnemonic &&r_src) = delete;
 
-  void Build(char *buf, size_t buf_len) const override {
+  void Build(char *buf, std::size_t buf_len) const override {
     MnemonicBuilder::Build<TProcessorStates, TItOps, TRegOps, TSpecRegOps>(pstates_, instr_, buf,
                                                                            buf_len);
   }
