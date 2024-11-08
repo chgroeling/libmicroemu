@@ -25,7 +25,7 @@ public:
 
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {

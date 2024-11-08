@@ -24,7 +24,7 @@ public:
 
     if (is_tbh) {
       mctx.builder.AddString("TBH")
-          .AddString(It::GetConditionAsStr(mctx.pstates))
+          .AddString(It::GetConditionAsStr(mctx.pstates).data())
           .AddString(" [")
           .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
           .AddString(", ")
@@ -33,7 +33,7 @@ public:
           .AddChar(']');
     } else {
       mctx.builder.AddString("TBB")
-          .AddString(It::GetConditionAsStr(mctx.pstates))
+          .AddString(It::GetConditionAsStr(mctx.pstates).data())
           .AddString(" [")
           .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
           .AddString(", ")
@@ -103,7 +103,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)).data())
         .AddString(", [PC, #")
@@ -171,7 +171,9 @@ public:
                        const u8 &d, const u8 &mask, const u8 &SYSm) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
-    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
+    mctx.builder.AddString(instr_spec)
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddChar(' ');
     mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data()).AddString(", ");
     BuildMsrMrs(mctx, mask, SYSm);
     mctx.builder.Terminate();
@@ -182,7 +184,9 @@ public:
                        const u8 &n, const u8 &mask, const u8 &SYSm) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
-    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
+    mctx.builder.AddString(instr_spec)
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddChar(' ');
     BuildMsrMrs(mctx, mask, SYSm);
     mctx.builder.AddString(", ")
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
@@ -195,7 +199,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d_lo)).data())
         .AddString(", ")
@@ -214,7 +218,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d_lo)).data())
         .AddString(", ")
@@ -233,7 +237,7 @@ public:
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)).data())
         .AddString(", ")
@@ -251,7 +255,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::ConditionToString(cond))
+        .AddString(It::ConditionToString(cond).data())
         .AddString(" #")
         .AddInt(static_cast<i32>(imm))
         .Terminate();
@@ -345,7 +349,7 @@ public:
         .AddString(y_spec)
         .AddString(z_spec)
         .AddChar(' ')
-        .AddString(It::ConditionToString(firstcond))
+        .AddString(It::ConditionToString(firstcond).data())
         .Terminate();
   }
 

@@ -6,6 +6,7 @@
 #include "libmicroemu/types.h"
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace microemu {
 namespace internal {
@@ -115,8 +116,7 @@ public:
     return static_cast<Condition>(cond & IstateRegister::kItBit3to0Msk);
   }
 
-  // TODO: string_view
-  static const char *ConditionToString(u8 cond) {
+  static std::string_view ConditionToString(u8 cond) {
     switch (DecodeCondition(cond)) {
 
     case Condition::kCondEq: // Equal
@@ -156,8 +156,7 @@ public:
     return "invalid";
   }
 
-  // TODO: string_view
-  static const char *GetConditionAsStr(const TProcessorStates &pstates) {
+  static std::string_view GetConditionAsStr(const TProcessorStates &pstates) {
     const auto r_cond = CurrentCond(pstates);
     if (r_cond.IsErr()) {
       return "invalid";

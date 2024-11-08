@@ -17,6 +17,7 @@ public:
   /// @param str The string to add
   /// @return A reference to the current object
   ConstStringBuilder &AddString(const char *str) {
+    // TODO: Add string view instead of const char*
     for (std::size_t i = 0U; i < strlen(str); ++i) {
       if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
         return *this;
