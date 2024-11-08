@@ -31,17 +31,9 @@ public:
   /// \param r_src the object to be copied
   ProcessorStates(ProcessorStates &r_src) noexcept = default;
 
-  /// \brief Copy assignment operator for Registers.
-  /// \param r_src the object to be copied
-  ProcessorStates &operator=(const ProcessorStates &r_src) noexcept = default;
-
   /// \brief Move constructor for Registers.
   /// \param r_src the object to be copied
   ProcessorStates(ProcessorStates &&r_src) noexcept = default;
-
-  /// \brief Move assignment operator for Registers.
-  /// \param r_src the object to be copied
-  ProcessorStates &operator=(ProcessorStates &&r_src) noexcept = default;
 
   inline auto &GetRegisters() noexcept { return registers_; }
   inline const auto &GetRegisters() const noexcept { return registers_; }
@@ -53,6 +45,14 @@ public:
   inline const auto &GetExceptionStates() const noexcept { return exception_states_; }
 
 private:
+  /// \brief Copy assignment operator for Registers.
+  /// \param r_src the object to be copied
+  ProcessorStates &operator=(const ProcessorStates &r_src) noexcept = delete;
+
+  /// \brief Move assignment operator for Registers.
+  /// \param r_src the object to be copied
+  ProcessorStates &operator=(ProcessorStates &&r_src) noexcept = delete;
+
   std::array<u32, kNoOfRegisters> registers_;
   std::array<u32, CountPersistentSpecialRegisters()> special_registers_;
   ExceptionStates exception_states_;

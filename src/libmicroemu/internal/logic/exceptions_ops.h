@@ -123,7 +123,7 @@ public:
               "EPSR = 0x%08X, "
               "XPSR = 0x%08X, "
               "SP = 0x%08X (%s)",
-              preamble, static_cast<uint32_t>(exception_type), selected_exception.priority,
+              preamble, static_cast<uint32_t>(exception_type), selected_exception.GetPriority(),
               mode_str, apsr, ipsr, epsr, xpsr, sp, stack_type);
 #else
     static_cast<void>(pstates);
@@ -139,15 +139,15 @@ public:
       auto e_type = static_cast<ExceptionType>(i + 1u);
       switch (e_type) {
       case ExceptionType::kReset: {
-        exceptions[i].priority = -3;
+        exceptions[i].SetPriority(-3);
         break;
       }
       case ExceptionType::kNMI: {
-        exceptions[i].priority = -2;
+        exceptions[i].SetPriority(-2);
         break;
       }
       case ExceptionType::kHardFault: {
-        exceptions[i].priority = -1;
+        exceptions[i].SetPriority(-1);
         break;
       }
       // For testing purposes
@@ -156,12 +156,11 @@ public:
       //   break;
       // }
       default: {
-        exceptions[i].priority = 0;
+        exceptions[i].SetPriority(0);
         break;
       }
       }
-      exceptions[i].flags = 0u;
-      exceptions[i].number = i;
+      exceptions[i].ClearFlags();
     }
   }
 
@@ -857,7 +856,7 @@ public:
     selected_exception.SetPending();
 
     LOG_TRACE(TLogger, "SetExceptionPending: exception_type = %d, priority = %d",
-              static_cast<uint32_t>(exception_type), selected_exception.priority);
+              static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
   static void ClearExceptionPending(TProcessorStates &pstates, ExceptionType exception_type) {
@@ -874,7 +873,7 @@ public:
     exception_states.pending_exceptions -= 1u;
 
     LOG_TRACE(TLogger, "ClearExceptionPending: exception_type = %d, priority = %d",
-              static_cast<uint32_t>(exception_type), selected_exception.priority);
+              static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
   static void SetExceptionActive(TProcessorStates &pstates, ExceptionType exception_type) {
@@ -887,7 +886,7 @@ public:
     selected_exception.SetActive();
 
     LOG_TRACE(TLogger, "SetExceptionActive: exception_type = %d, priority = %d",
-              static_cast<uint32_t>(exception_type), selected_exception.priority);
+              static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
   static void ClearExceptionActive(TProcessorStates &pstates, ExceptionType exception_type) {
@@ -900,7 +899,7 @@ public:
     selected_exception.ClearActive();
 
     LOG_TRACE(TLogger, "ClearExceptionActive: exception_type = %d, priority = %d",
-              static_cast<uint32_t>(exception_type), selected_exception.priority);
+              static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
   template <typename ExcInstant,
@@ -972,7 +971,7 @@ public:
     if (executing_exc_type != 0u) {
       assert(static_cast<u32>(executing_exc_type) >= 1u);
       assert(static_cast<u32>(executing_exc_type) <= CountExceptions());
-      executing_exc_priority = exception_states.exception[executing_exc_type - 1u].priority;
+      executing_exc_priority = exception_states.exception[executing_exc_type - 1u].GetPriority();
     }
 
     // TODO: Very inefficient priority handling by searching ... use queue instead
@@ -991,13 +990,13 @@ public:
           continue;
         }
 
-        if (exception.priority >= executing_exc_priority) {
+        if (exception.GetPriority() >= executing_exc_priority) {
           // Exception has lower or equal priority than the currently executing exception
           // ... skip
           continue;
         }
 
-        if (exception.priority > preempt_exc_priority) {
+        if (exception.GetPriority() > preempt_exc_priority) {
           // Exception has lower priority than the last found exception to preempt ... skip
 
           // when multiple exceptions with the same priority are pending, the one with the lowest
@@ -1005,7 +1004,7 @@ public:
           continue;
         }
         preempt_exc_type = i + 1u;
-        preempt_exc_priority = exception.priority;
+        preempt_exc_priority = exception.GetPriority();
       }
     }
 
