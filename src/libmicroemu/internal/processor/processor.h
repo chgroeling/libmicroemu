@@ -300,7 +300,7 @@ public:
     LOG_DEBUG(TLogger, "Set entry Point to 0x%08X / tbit:%i", entry_point, tbit);
 
     // CSR.STKALIGN = '1'; <-- added as default
-    /* stack alignment is 8-byte aligned */
+    /* stack alignment is 8-byte aligned per default*/
     auto ccr = SReg::template ReadRegister<SpecialRegisterId::kCcr>(pstates);
     ccr |= static_cast<u32>(CcrRegister::kStkAlignMsk);
     SReg::template WriteRegister<SpecialRegisterId::kCcr>(pstates, ccr);
