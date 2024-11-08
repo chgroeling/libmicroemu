@@ -48,7 +48,7 @@ public:
       // unpredtictable
       if ((address & 0x3U) == 0U) {
         It::ITAdvance(ictx.pstates);
-        TRY(ExecResult, (Pc::LoadWritePC(ictx.pstates, ictx.bus, data)));
+        TRY(ExecResult, Pc::LoadWritePC(ictx.pstates, ictx.bus, data));
 
         return Ok(ExecResult{eflags});
       } else {
