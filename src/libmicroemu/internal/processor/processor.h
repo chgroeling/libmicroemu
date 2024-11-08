@@ -295,7 +295,7 @@ public:
     SReg::template WriteRegister<SpecialRegisterId::kEpsr>(pstates, epsr);
 
     //   BranchTo(tmp AND 0xFFFFFFFE<31:0>); /* address of reset service routine */
-    auto entry_point = tmp & 0xFFFFFFFEu;
+    auto entry_point = tmp & 0xFFFFFFFEU;
     Pc::BranchTo(pstates, entry_point);
     LOG_DEBUG(TLogger, "Set entry Point to 0x%08X / tbit:%i", entry_point, tbit);
 

@@ -2871,7 +2871,7 @@
             "encoding": "t1",
             "flags": [],
             "pre_block": [
-                "assert((Bm16::Slice1R<11U, 8U>(rinstr.low)) == 0xFu);"
+                "assert((Bm16::Slice1R<11U, 8U>(rinstr.low)) == 0xFU);"
             ],
             "def": {
                 "firstcond": {
@@ -2889,7 +2889,7 @@
             },
             "post_block": [
                 "assert(mask != 0x0U);",
-                "if (firstcond == 0xFu || (firstcond == 0b1110U && Bm8::BitCount(mask) != 1U)) {",
+                "if (firstcond == 0xFU || (firstcond == 0b1110U && Bm8::BitCount(mask) != 1U)) {",
                 "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
                 "}",
                 "",
@@ -3306,7 +3306,7 @@
                 }
             },
             "post_block": [
-                "assert(!((d == 0xFu) && (S == 1U)) );",
+                "assert(!((d == 0xFU) && (S == 1U)) );",
                 "if (n == 0b1101U ) {",
                 "  return SubSpMinusImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);",
                 "}",
@@ -3407,8 +3407,8 @@
                 }
             },
             "post_block": [
-                "assert(!((d == 0xFu) && (S == 1U)) );",
-                "assert(n!=0xDu );",
+                "assert(!((d == 0xFU) && (S == 1U)) );",
+                "assert(n!=0xDU );",
                 "if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {",
                 "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
                 "}"
@@ -3655,7 +3655,7 @@
                 }
             },
             "post_block": [
-                "assert(!((d == 0xFu) && (S == 1U)) );",
+                "assert(!((d == 0xFU) && (S == 1U)) );",
                 "if (Rn == 0b1101U) {",
                 "    return AddSpPlusImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates); ",
                 "}",

@@ -16,7 +16,7 @@ void TestSprintf() {
   sprintf(buf, "  1234 == %u\n", test0);
   assert(strcmp(buf, "  1234 == 1234\n") == 0);
 
-  uint32_t test1{0xCAFEBABEu};
+  uint32_t test1{0xCAFEBABEU};
   sprintf(buf, "  0xCAFEBABE == 0x%X\n", test1);
   assert(strcmp(buf, "  0xCAFEBABE == 0xCAFEBABE\n") == 0);
 

@@ -1247,7 +1247,7 @@ static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TProcessorStates &pstat
   const InstrId iid{InstrId::kIt};
   u8 flags = 0x0U;
 
-  assert((Bm16::Slice1R<11U, 8U>(rinstr.low)) == 0xFu);
+  assert((Bm16::Slice1R<11U, 8U>(rinstr.low)) == 0xFU);
 
   const u32 firstcond_32 = Bm16::Slice1R<7U, 4U>(rinstr.low);
   const u8 firstcond = static_cast<u8>(firstcond_32);
@@ -1255,7 +1255,7 @@ static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TProcessorStates &pstat
   const u8 mask = static_cast<u8>(mask_32);
 
   assert(mask != 0x0U);
-  if (firstcond == 0xFu || (firstcond == 0b1110U && Bm8::BitCount(mask) != 1U)) {
+  if (firstcond == 0xFU || (firstcond == 0b1110U && Bm8::BitCount(mask) != 1U)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
 
@@ -1563,7 +1563,7 @@ static Result<Instr> SubImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm(imm12));
 
-  assert(!((d == 0xFu) && (S == 1U)));
+  assert(!((d == 0xFU) && (S == 1U)));
   if (n == 0b1101U) {
     return SubSpMinusImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
@@ -1632,8 +1632,8 @@ static Result<Instr> SbcImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm(imm12));
 
-  assert(!((d == 0xFu) && (S == 1U)));
-  assert(n != 0xDu);
+  assert(!((d == 0xFU) && (S == 1U)));
+  assert(n != 0xDU);
   if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
@@ -1794,7 +1794,7 @@ static Result<Instr> AddImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm(imm12));
 
-  assert(!((d == 0xFu) && (S == 1U)));
+  assert(!((d == 0xFU) && (S == 1U)));
   if (Rn == 0b1101U) {
     return AddSpPlusImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }

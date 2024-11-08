@@ -43,15 +43,15 @@ public:
       return "R8";
     case 0x9U:
       return "R9";
-    case 0xAu: // stack limit or scratch register (r10)
+    case 0xAU: // stack limit or scratch register (r10)
       return "SL";
-    case 0xBu: // frame pointer (r11)
+    case 0xBU: // frame pointer (r11)
       return "FP";
-    case 0xCu: // intra-procedure call scratch register (r12)
+    case 0xCU: // intra-procedure call scratch register (r12)
       return "IP";
     case static_cast<u8>(microemu::RegisterId::kSp): // stack-pointer (r13)
       return "SP";
-    case 0xEu: // link-register (r14)
+    case 0xEU: // link-register (r14)
       return "LR";
     case static_cast<u8>(microemu::RegisterId::kPc): // r15
       return "PC";

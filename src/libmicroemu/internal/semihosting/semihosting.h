@@ -24,11 +24,11 @@ enum {
   kSysWrite = 0x05U,  //- Write to a file or stream.
   kSysRead = 0x06U,   //- Read from a file at the current cursor position.
   kSysClose = 0x02U,  //- Closes a file on the host which has been opened by SysOPEN.
-  kSysFLen = 0x0Cu,   //- Get the length of a file.
-  kSysSeek = 0x0Au,   //- Set the file cursor to a given position in a file.
-  kSysTmpNam = 0x0Du, //- Get a temporary absolute file path to create a temporary file.
-  kSysRemove = 0x0Eu, //- Remove a file on the host system. Possibly insecure!
-  kSysRename = 0x0Fu, //- Rename a file on the host system. Possibly insecure!
+  kSysFLen = 0x0CU,   //- Get the length of a file.
+  kSysSeek = 0x0AU,   //- Set the file cursor to a given position in a file.
+  kSysTmpNam = 0x0DU, //- Get a temporary absolute file path to create a temporary file.
+  kSysRemove = 0x0EU, //- Remove a file on the host system. Possibly insecure!
+  kSysRename = 0x0FU, //- Rename a file on the host system. Possibly insecure!
   // Terminal I/O operations
   kSysWriteC = 0x03U, //- Write one character to the debug terminal.
   kSysWrite0 = 0x04U, //- Write a 0-terminated string to the debug terminal.

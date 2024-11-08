@@ -31,7 +31,7 @@ static constexpr uint32_t kSystickCsrEnableDisabled{0U};
 // Calibration value register
 static constexpr uint32_t kSystickCvrNoRef{31U};
 static constexpr uint32_t kSystickCvrSkew{30U};
-static constexpr uint32_t kSystickCvrTenms{0xFFFFFFu};
+static constexpr uint32_t kSystickCvrTenms{0xFFFFFFU};
 
 extern volatile uint32_t systick_uptime_millis;
 

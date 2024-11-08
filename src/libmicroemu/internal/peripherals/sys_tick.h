@@ -13,7 +13,7 @@ enum class SysTickAddressMap : me_adr_t {
   kCsr = 0xE010U,
   kRvr = 0xE014U,
   kCvr = 0xE018U,
-  kCalib = 0xE01Cu
+  kCalib = 0xE01CU
 };
 
 template <typename TProcessorStates, typename TSpecRegOps, typename TExceptionTrigger,

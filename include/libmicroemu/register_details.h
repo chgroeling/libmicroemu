@@ -130,11 +130,11 @@ struct SysTickRegister {
 
   // SysTick Reload Value Register (RVR)
   static constexpr u8 kRvrReloadPos = 0U;
-  static constexpr u32 kRvrReloadMsk = 0x00FFFFFFu << kRvrReloadPos; // 24-bit reload value
+  static constexpr u32 kRvrReloadMsk = 0x00FFFFFFU << kRvrReloadPos; // 24-bit reload value
 
   // SysTick Current Value Register (CVR)
   static constexpr u8 kCvrCurrentPos = 0U;
-  static constexpr u32 kCvrCurrentMsk = 0x00FFFFFFu << kCvrCurrentPos; // 24-bit current value
+  static constexpr u32 kCvrCurrentMsk = 0x00FFFFFFU << kCvrCurrentPos; // 24-bit current value
 
   // SysTick Calibration Value Register (CALIB)
   static constexpr u8 kCalibNoRefPos = 31U;
@@ -144,7 +144,7 @@ struct SysTickRegister {
   static constexpr u32 kCalibSkewMsk = 1U << kCalibSkewPos;
 
   static constexpr u8 kCalibTenMsPos = 0U;
-  static constexpr u32 kCalibTenMsMsk = 0x00FFFFFFu << kCalibTenMsPos; // 24-bit tenms value
+  static constexpr u32 kCalibTenMsMsk = 0x00FFFFFFU << kCalibTenMsPos; // 24-bit tenms value
 };
 
 struct CcrRegister {

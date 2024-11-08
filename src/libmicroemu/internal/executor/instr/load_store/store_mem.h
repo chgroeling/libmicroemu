@@ -11,7 +11,7 @@ namespace internal {
 template <typename TInstrContext> class StoreMemU8 {
 public:
   static inline Result<void> Write(const TInstrContext &ictx, const u32 &address, const u32 &rt) {
-    const auto &rt8 = static_cast<u8>(rt & 0xFFu);
+    const auto &rt8 = static_cast<u8>(rt & 0xFFU);
     TRY(void, ictx.bus.template WriteOrRaise<u8>(ictx.pstates, address, rt8,
                                                  BusExceptionType::kRaisePreciseDataBusError));
     return Ok();
@@ -23,7 +23,7 @@ public:
 template <typename TInstrContext> class StoreMemU16 {
 public:
   static inline Result<void> Write(const TInstrContext &ictx, const u32 &address, const u32 &rt) {
-    const auto &rt16 = static_cast<u16>(rt & 0xFFFFu);
+    const auto &rt16 = static_cast<u16>(rt & 0xFFFFU);
     TRY(void, ictx.bus.template WriteOrRaise<u16>(ictx.pstates, address, rt16,
                                                   BusExceptionType::kRaisePreciseDataBusError));
     return Ok();

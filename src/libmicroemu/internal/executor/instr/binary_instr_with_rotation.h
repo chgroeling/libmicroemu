@@ -42,7 +42,7 @@ public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
     static_cast<void>(ictx);
     const u32 rotated = Alu32::ROR(rm, rotation);
-    const u32 data = Bm16::ZeroExtend<u32>(static_cast<uint16_t>(rotated & 0xFFFFu));
+    const u32 data = Bm16::ZeroExtend<u32>(static_cast<uint16_t>(rotated & 0xFFFFU));
     return OpResult{data, false, false};
   }
 };
@@ -54,7 +54,7 @@ public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
     static_cast<void>(ictx);
     const u32 rotated = Alu32::ROR(rm, rotation);
-    const u32 val = Bm16::SignExtend<u32, 15>(static_cast<uint16_t>(rotated & 0xFFFFu));
+    const u32 val = Bm16::SignExtend<u32, 15>(static_cast<uint16_t>(rotated & 0xFFFFU));
 
     return OpResult{val, false, false};
   }

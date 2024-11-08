@@ -30,29 +30,29 @@ public:
       switch (Bm32::Slice1R<9U, 8U>(in)) {
 
       case 0x0U: {
-        imm32 = Bm32::ZeroExtend<u32>(in & 0xFFu);
+        imm32 = Bm32::ZeroExtend<u32>(in & 0xFFU);
         break;
       }
       case 0x1U: {
-        if ((in & 0xFFu) == 0x0U) {
+        if ((in & 0xFFU) == 0x0U) {
           return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
         }
-        imm32 = ((in & 0xFFu) << 16U) | (in & 0xFFu);
+        imm32 = ((in & 0xFFU) << 16U) | (in & 0xFFU);
         break;
       }
       case 0x2U: {
-        if ((in & 0xFFu) == 0x0U) {
+        if ((in & 0xFFU) == 0x0U) {
           return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
         }
-        imm32 = ((in & 0xFFu) << 24U) | ((in & 0xFFu) << 8U);
+        imm32 = ((in & 0xFFU) << 24U) | ((in & 0xFFU) << 8U);
         break;
       }
       case 0x3U: {
-        if ((in & 0xFFu) == 0x0U) {
+        if ((in & 0xFFU) == 0x0U) {
           return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
         }
-        imm32 = ((in & 0xFFu) << 24U) | ((in & 0xFFu) << 16U) | ((in & 0xFFu) << 8U) |
-                ((in & 0xFFu) << 0U);
+        imm32 = ((in & 0xFFU) << 24U) | ((in & 0xFFU) << 16U) | ((in & 0xFFU) << 8U) |
+                ((in & 0xFFU) << 0U);
         break;
       }
       default:
@@ -62,7 +62,7 @@ public:
       }
       carry_out = carry_in;
     } else {
-      const u32 unrotated_value = Bm32::ZeroExtend<u32>(0x80U | (in & 0x7Fu));
+      const u32 unrotated_value = Bm32::ZeroExtend<u32>(0x80U | (in & 0x7FU));
       const auto r_ror = Alu32::ROR_C(unrotated_value, Bm32::Slice1R<11U, 7U>(in));
 
       imm32 = r_ror.result;

@@ -19,7 +19,7 @@ public:
 
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
     static_cast<void>(ictx);
-    const auto shift_n = rm & 0xFFu;
+    const auto shift_n = rm & 0xFFU;
 
     auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
     auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_LSR, shift_n,
@@ -38,7 +38,7 @@ public:
 
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
     static_cast<void>(ictx);
-    const auto shift_n = rm & 0xFFu;
+    const auto shift_n = rm & 0xFFU;
 
     auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
     auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_ASR, shift_n,
@@ -56,7 +56,7 @@ public:
   using SReg = typename TInstrContext::SReg;
 
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
-    const auto shift_n = rm & 0xFFu;
+    const auto shift_n = rm & 0xFFU;
 
     auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
     auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_LSL, shift_n,
