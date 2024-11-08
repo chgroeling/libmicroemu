@@ -4,10 +4,10 @@ namespace microemu {
 namespace internal {
 
 /**
- * @class SpecialRegAccess
+ * @class SpecialRegAccessor
  * @brief Provides access to special registers.
  *
- * The SpecialRegAccess class allows reading and writing values to special registers.
+ * The SpecialRegAccessor class allows reading and writing values to special registers.
  * It is templated on the types TProcessorStates and TSpecRegOps, which represent the processor
  * states and special register operations respectively.
  *
@@ -15,60 +15,60 @@ namespace internal {
  * @tparam TSpecRegOps The type representing the operations on special registers.
  */
 template <typename TProcessorStates, typename TSpecRegOps>
-class SpecialRegAccess : public ISpecialRegAccess {
+class SpecialRegAccessor : public ISpecialRegAccessor {
 public:
   using PState = TProcessorStates;
   using SReg = TSpecRegOps;
 
   /**
-   * @brief Constructs a SpecialRegAccess object with the given processor states.
+   * @brief Constructs a SpecialRegAccessor object with the given processor states.
    *
-   * @param pstate The processor states to be used by the SpecialRegAccess object.
+   * @param pstate The processor states to be used by the SpecialRegAccessor object.
    */
-  SpecialRegAccess(PState &pstates) : pstates_(pstates) {}
+  SpecialRegAccessor(PState &pstates) : pstates_(pstates) {}
 
   /**
-   * @brief Default destructor for the SpecialRegAccess object.
+   * @brief Default destructor for the SpecialRegAccessor object.
    */
-  ~SpecialRegAccess() = default;
+  ~SpecialRegAccessor() = default;
 
   /**
-   * @brief Default copy constructor for the SpecialRegAccess object.
+   * @brief Default copy constructor for the SpecialRegAccessor object.
    */
-  SpecialRegAccess(const SpecialRegAccess &) = default;
+  SpecialRegAccessor(const SpecialRegAccessor &) = default;
 
   /**
-   * @brief Default copy assignment operator for the SpecialRegAccess object.
+   * @brief Default copy assignment operator for the SpecialRegAccessor object.
    */
-  SpecialRegAccess &operator=(const SpecialRegAccess &) = default;
+  SpecialRegAccessor &operator=(const SpecialRegAccessor &) = default;
 
   /**
-   * @brief Default move constructor for the SpecialRegAccess object.
+   * @brief Default move constructor for the SpecialRegAccessor object.
    */
-  SpecialRegAccess(SpecialRegAccess &&) = default;
+  SpecialRegAccessor(SpecialRegAccessor &&) = default;
 
   /**
-   * @brief Default move assignment operator for the SpecialRegAccess object.
+   * @brief Default move assignment operator for the SpecialRegAccessor object.
    */
-  SpecialRegAccess &operator=(SpecialRegAccess &&) = default;
+  SpecialRegAccessor &operator=(SpecialRegAccessor &&) = default;
 
-  /// @copydoc ISpecialRegAccess::GetRegisterName
+  /// @copydoc ISpecialRegAccessor::GetRegisterName
   const char *GetRegisterName(const SpecialRegisterId &reg_id) const override {
     return SReg::GetRegisterName(reg_id);
   }
 
-  /// @copydoc ISpecialRegAccess::ReadRegister
+  /// @copydoc ISpecialRegAccessor::ReadRegister
   u32 ReadRegister(const SpecialRegisterId &reg_id) const override {
     return SReg::ReadRegister(pstates_, reg_id);
   }
 
-  /// @copydoc ISpecialRegAccess::WriteRegister
+  /// @copydoc ISpecialRegAccessor::WriteRegister
   void WriteRegister(const SpecialRegisterId &reg_id, u32 value) override {
     return SReg::WriteRegister(pstates_, reg_id, value);
   }
 
 private:
-  PState &pstates_; /**< The processor states used by the SpecialRegAccess object. */
+  PState &pstates_; /**< The processor states used by the SpecialRegAccessor object. */
 };
 
 } // namespace internal

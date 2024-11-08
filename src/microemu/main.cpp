@@ -313,8 +313,8 @@ int main(int argc, const char *argv[]) {
   // =====================================
 
   microemu::FStateCallback initial_state_cb =
-      [&regs_from_last_step](microemu::IRegAccess &reg_access,
-                             microemu::ISpecialRegAccess &spec_reg_access) {
+      [&regs_from_last_step](microemu::IRegAccessor &reg_access,
+                             microemu::ISpecialRegAccessor &spec_reg_access) {
         // Print the initial state
         fmt::print(stdout, "Initial register states:\n");
         auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
@@ -360,8 +360,8 @@ int main(int argc, const char *argv[]) {
 
   microemu::FPostExecStepCallback post_exec_instr_trace_regs =
       [&regs_from_last_step](microemu::EmuContext &ectx) {
-        const auto &reg_access = ectx.GetRegisterAccess();
-        const auto &spec_reg_access = ectx.GetSpecialRegisterAccess();
+        const auto &reg_access = ectx.GetRegisterAccessor();
+        const auto &spec_reg_access = ectx.GetSpecialRegisterAccessor();
 
         auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
         RegPrinter::PrintRegs(sampled_regs);
@@ -372,8 +372,8 @@ int main(int argc, const char *argv[]) {
 
   microemu::FPostExecStepCallback post_exec_instr_trace_changed_regs =
       [&regs_from_last_step](microemu::EmuContext &ectx) {
-        const auto &reg_access = ectx.GetRegisterAccess();
-        const auto &spec_reg_access = ectx.GetSpecialRegisterAccess();
+        const auto &reg_access = ectx.GetRegisterAccessor();
+        const auto &spec_reg_access = ectx.GetSpecialRegisterAccessor();
 
         auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
         RegPrinter::PrintRegDiffs(sampled_regs, regs_from_last_step);

@@ -19,7 +19,7 @@ template <typename TProcessorStates> class Emulator;
 
 using FPreExecStepCallback = std::function<void(EmuContext &)>;
 using FPostExecStepCallback = std::function<void(EmuContext &)>;
-using FStateCallback = std::function<void(IRegAccess &, ISpecialRegAccess &)>;
+using FStateCallback = std::function<void(IRegAccessor &, ISpecialRegAccessor &)>;
 
 class MicroEmu {
 public:

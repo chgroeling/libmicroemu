@@ -19,7 +19,10 @@ public:
   virtual void Build(char *buf, std::size_t buf_len) const = 0;
 };
 
-class IRegAccess {
+/** @brief Interface for accessing general-purpose registers.
+ *
+ */
+class IRegAccessor {
 public:
   /**
    * @brief Gets the name of the specified register.
@@ -43,7 +46,10 @@ public:
   virtual void WriteRegister(const RegisterId &reg_id, u32 value) = 0;
 };
 
-class ISpecialRegAccess {
+/** @brief Interface for accessing special registers.
+ *
+ */
+class ISpecialRegAccessor {
 public:
   // TODO: Switch to std::string_view
 
@@ -75,21 +81,28 @@ public:
 class EmuContext {
 public:
   EmuContext(const me_adr_t &pc, const OpCode &op_code, const IInstrToMnemonic &instr_decoder,
-             IRegAccess &reg_access, ISpecialRegAccess &spec_reg_access) noexcept
+             IRegAccessor &reg_access, ISpecialRegAccessor &spec_reg_access) noexcept
 
       : pc_(pc), op_code_(op_code), instr_decoder_(instr_decoder), reg_access_(reg_access),
         spec_reg_access_(spec_reg_access) {}
 
+  /// @brief Gets the program counter of the current instruction.
   inline me_adr_t GetPc() const noexcept { return pc_; }
-  inline IRegAccess &GetRegisterAccess() noexcept { return reg_access_; }
-  inline ISpecialRegAccess &GetSpecialRegisterAccess() noexcept { return spec_reg_access_; }
+
+  /// @brief Gets the register accessor.
+  inline IRegAccessor &GetRegisterAccessor() noexcept { return reg_access_; }
+
+  /// @brief Gets the special register accessor.
+  inline ISpecialRegAccessor &GetSpecialRegisterAccessor() noexcept { return spec_reg_access_; }
+
+  /// @brief Gets the opcode of the current instruction.
   inline const OpCode &GetOpCode() const noexcept { return op_code_; }
 
-  /// @brief  Builds the mnemonic of the instruction
+  /// @brief  Builds the mnemonic of the current instruction
   /// This takes the current instruction and decodes it into a human readable string.
   /// Attention this is a resource intensive operation.
-  /// @param buf
-  /// @param buf_len
+  /// @param buf The buffer to store the mnemonic.
+  /// @param buf_len The length of the buffer.
   inline void BuildMnemonic(char *buf, std::size_t buf_len) const noexcept {
     instr_decoder_.Build(buf, buf_len);
   }
@@ -98,10 +111,9 @@ private:
   const me_adr_t &pc_;
   const OpCode &op_code_;
   const IInstrToMnemonic &instr_decoder_;
-  IRegAccess &reg_access_;
 
-  //  TODO: Rename to accessor
-  ISpecialRegAccess &spec_reg_access_;
+  IRegAccessor &reg_access_;
+  ISpecialRegAccessor &spec_reg_access_;
 };
 
 } // namespace microemu
