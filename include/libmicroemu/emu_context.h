@@ -52,8 +52,6 @@ public:
  */
 class ISpecialRegAccessor {
 public:
-  // TODO: Switch to std::string_view
-
   /**
    * @brief Gets the name of the specified special register.
    *
