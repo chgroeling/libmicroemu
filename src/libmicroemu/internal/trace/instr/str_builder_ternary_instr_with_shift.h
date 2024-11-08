@@ -27,12 +27,12 @@ public:
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ');
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d)).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d).data()).AddString(", ");
     }
 
-    mctx.builder.AddString(Reg::GetRegisterName(n))
+    mctx.builder.AddString(Reg::GetRegisterName(n).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m));
+        .AddString(Reg::GetRegisterName(m).data());
 
     if (shift_res.value != 0) {
       mctx.builder.AddString(", ");

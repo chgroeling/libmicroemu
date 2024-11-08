@@ -7,6 +7,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 #include <type_traits>
 
 namespace microemu {
@@ -17,13 +18,13 @@ class RegOps {
 public:
   using SReg = TSpecRegOps;
 
-  static const char *GetRegisterName(const RegisterId &id) {
+  static std::string_view GetRegisterName(const RegisterId &id) {
     using enum_type = std::underlying_type<RegisterId>::type;
     const enum_type rid = static_cast<enum_type>(id);
     return GetRegisterName(rid);
   }
 
-  static const char *GetRegisterName(const u8 &reg_id) {
+  static std::string_view GetRegisterName(const u8 &reg_id) {
     switch (reg_id) {
     case 0x0u:
       return "R0";

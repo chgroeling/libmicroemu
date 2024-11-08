@@ -30,10 +30,10 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d.Get()).data()).AddString(", ");
     }
 
-    mctx.builder.AddString(Reg::GetRegisterName(n.Get()))
+    mctx.builder.AddString(Reg::GetRegisterName(n.Get()).data())
         .AddString(", #")
         .AddUInt(imm_carry.out)
         .Terminate();

@@ -26,9 +26,9 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d))
+        .AddString(Reg::GetRegisterName(d).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m))
+        .AddString(Reg::GetRegisterName(m).data())
         .AddString(", ");
 
     if (!is_supress_shift_type) {

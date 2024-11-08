@@ -20,7 +20,7 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(m))
+        .AddString(Reg::GetRegisterName(m).data())
         .AddString(", #")
         .AddUInt(imm32)
         .Terminate();

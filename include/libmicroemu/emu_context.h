@@ -5,6 +5,7 @@
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 #include <cstddef>
+#include <string_view>
 
 namespace microemu {
 
@@ -29,7 +30,7 @@ public:
    * @param id The ID of the register.
    * @return The name of the register.
    */
-  virtual const char *GetRegisterName(const RegisterId &reg_id) const = 0;
+  virtual std::string_view GetRegisterName(const RegisterId &reg_id) const = 0;
 
   /**
    * @brief Reads the value of the specified register.
@@ -59,7 +60,7 @@ public:
    * @param reg_id The ID of the special register.
    * @return The name of the special register.
    */
-  virtual const char *GetRegisterName(const SpecialRegisterId &reg_id) const = 0;
+  virtual std::string_view GetRegisterName(const SpecialRegisterId &reg_id) const = 0;
 
   /**
    * @brief Reads the value of the specified special register.
