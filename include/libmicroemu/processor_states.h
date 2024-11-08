@@ -53,7 +53,7 @@ private:
   /// \param r_src the object to be copied
   ProcessorStates &operator=(ProcessorStates &&r_src) noexcept = delete;
 
-  std::array<u32, kNoOfRegisters> registers_;
+  std::array<u32, CountRegisters()> registers_;
   std::array<u32, CountPersistentSpecialRegisters()> special_registers_;
   ExceptionStates exception_states_;
 };

@@ -103,7 +103,7 @@ public:
   }
 
   template <RegisterId Id> static inline u32 ReadRegister(const TProcessorStates &pstates) {
-    static_assert(static_cast<u8>(Id) < kNoOfRegisters, "Invalid register id");
+    static_assert(static_cast<u8>(Id) < CountRegisters(), "Invalid register id");
 
     using enum_type = std::underlying_type<RegisterId>::type;
 
@@ -123,7 +123,7 @@ public:
 
   static inline u32 ReadRegister(const TProcessorStates &pstates, RegisterId id) {
     using enum_type = std::underlying_type<RegisterId>::type;
-    assert(static_cast<enum_type>(id) < kNoOfRegisters && "Invalid register id");
+    assert(static_cast<enum_type>(id) < CountRegisters() && "Invalid register id");
     switch (id) {
     case RegisterId::kSp:
       return ReadSP(pstates);
@@ -141,7 +141,7 @@ public:
 
   template <RegisterId Id>
   static inline void WriteRegister(TProcessorStates &pstates, const u32 &value) {
-    static_assert(static_cast<u8>(Id) < kNoOfRegisters, "Invalid register id");
+    static_assert(static_cast<u8>(Id) < CountRegisters(), "Invalid register id");
     static_assert(Id != RegisterId::kPc, "PC is not assignable by this function");
 
     using enum_type = std::underlying_type<RegisterId>::type;
@@ -160,7 +160,7 @@ public:
   static inline void WriteRegister(TProcessorStates &pstates, RegisterId id, u32 value) {
     using enum_type = std::underlying_type<RegisterId>::type;
 
-    assert(static_cast<enum_type>(id) < kNoOfRegisters && "Invalid register id");
+    assert(static_cast<enum_type>(id) < CountRegisters() && "Invalid register id");
 
     switch (id) {
     case RegisterId::kSp:
