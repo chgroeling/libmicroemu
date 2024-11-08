@@ -26,8 +26,8 @@ MicroEmu::~MicroEmu() noexcept {};
 
 Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) noexcept {
 
-  std::fill(ram1_, ram1_ + ram1_size_, 0xFFu);
-  std::fill(ram2_, ram2_ + ram2_size_, 0xFFu);
+  std::fill(ram1_, ram1_ + ram1_size_, 0xFFU);
+  std::fill(ram2_, ram2_ + ram2_size_, 0xFFU);
 
   u32 entry_point{0U};
   {

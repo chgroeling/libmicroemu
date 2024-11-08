@@ -105,7 +105,7 @@ public:
     }
 
     if (istate == 0x0U) {
-      return Ok<u32>(0xEu); // b1110
+      return Ok<u32>(0xEU); // b1110
     }
 
     // Otherwise, execution of the instruction is UNPREDICTABLE.
@@ -226,7 +226,7 @@ public:
     // always executed Otherwise, invert condition if necessary.
 
     // if cond<0> == '1' && cond != '1111' then result = !result;
-    if (((cond & 0x1U) == 0x1U) && (cond != 0xFu)) {
+    if (((cond & 0x1U) == 0x1U) && (cond != 0xFU)) {
       result = !result;
     }
 

@@ -39,7 +39,7 @@ public:
       LOG_TRACE(TLogger, "BXWritePC (Exception Return): address=0x%08X, is_handler_mode=%d",
                 address, is_handler_mode);
       //     ExceptionReturn(address<27:0>);
-      return ExcRet::Return(pstates, bus, address & 0x0FFFFFFFu);
+      return ExcRet::Return(pstates, bus, address & 0x0FFFFFFFU);
     } else {
       auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
 

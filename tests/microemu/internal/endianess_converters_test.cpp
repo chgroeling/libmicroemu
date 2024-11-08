@@ -12,10 +12,10 @@ using namespace microemu;
 /// \test_scenario convert big endian u8 data to little endian
 /// \test_expected_behaviour Output data is the same
 TEST(BigToLittleEndianConverterTest, Convert_uint8_NoChange) {
-  u8 data = 0xABu;
+  u8 data = 0xABU;
 
   auto result = internal::BigToLittleEndianConverter::Convert<u8>(data);
-  ASSERT_EQ(result, 0xABu);
+  ASSERT_EQ(result, 0xABU);
 }
 
 /// \test BigToLittleEndianConverterTest
@@ -24,9 +24,9 @@ TEST(BigToLittleEndianConverterTest, Convert_uint8_NoChange) {
 /// \test_scenario convert big endian u16 data to little endian
 /// \test_expected_behaviour Output data is the same with flipped bytes
 TEST(BigToLittleEndianConverterTest, Convert_uint16_NoChange_BytesFlipped) {
-  u16 data = 0xABCDu;
+  u16 data = 0xABCDU;
   auto result = internal::BigToLittleEndianConverter::Convert<u16>(data);
-  ASSERT_EQ(result, 0xCDABu);
+  ASSERT_EQ(result, 0xCDABU);
 }
 
 /// \test BigToLittleEndianConverterTest
@@ -35,7 +35,7 @@ TEST(BigToLittleEndianConverterTest, Convert_uint16_NoChange_BytesFlipped) {
 /// \test_scenario convert big endian u32 data to little endian
 /// \test_expected_behaviour Output data is the same with flipped bytes
 TEST(BigToLittleEndianConverterTest, Convert_uint32_NoChange_BytesFlipped) {
-  u32 data = 0x1234ABCDu;
+  u32 data = 0x1234ABCDU;
   auto result = internal::BigToLittleEndianConverter::Convert<u32>(data);
   ASSERT_EQ(result, 0xCDAB3412U);
 }
@@ -46,7 +46,7 @@ TEST(BigToLittleEndianConverterTest, Convert_uint32_NoChange_BytesFlipped) {
 /// \test_scenario convert big endian u64 data to little endian
 /// \test_expected_behaviour Output data is the same with flipped bytes
 TEST(BigToLittleEndianConverterTest, Convert_uint64_NoChange_BytesFlipped) {
-  u64 data = 0x1234567890ABCDEFu;
+  u64 data = 0x1234567890ABCDEFU;
   auto result = internal::BigToLittleEndianConverter::Convert<u64>(data);
   ASSERT_EQ(result, 0xEFCDAB9078563412U);
 }

@@ -15,7 +15,7 @@ uint32_t StackAlignmentTest() {
   // check alignment of stack pointer
   assert(ReadMSP() % kStackAlign == 0);
 
-  volatile uint32_t ret32 = 0xCAFEu;
+  volatile uint32_t ret32 = 0xCAFEU;
   volatile uint16_t ret16 = static_cast<uint16_t>(ret32);
   volatile uint8_t ret8 = static_cast<uint8_t>(ret16);
 

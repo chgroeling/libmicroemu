@@ -460,7 +460,7 @@ public:
                                                     // BusExceptionType::kRaisePreciseDataBusError?
 
     // BranchTo(tmp AND 0xFFFFFFFE<31:0>);
-    const auto exception_address = tmp & 0xFFFFFFFEu;
+    const auto exception_address = tmp & 0xFFFFFFFEU;
     LOG_TRACE(TLogger, "Branching to exception address = 0x%08X", exception_address);
     Pc::BranchTo(pstates, exception_address);
 
@@ -552,7 +552,7 @@ public:
       // return;
     } else {
 
-      switch (exc_return & 0xFu) {
+      switch (exc_return & 0xFU) {
       case 0b0001: { // return to Handler
         frameptr = SReg::template ReadRegister<SId::kSpMain>(pstates);
         SetProcessorMode(pstates, ProcessorMode::kHandler);
@@ -766,7 +766,7 @@ public:
     // spmask = Zeros(29):(psr<9> AND forcealign):'00';
     const auto spmask = (Bm32::Slice1R<9U, 9U>(psr) & forcealign) << 2U;
 
-    switch (exc_return & 0xFu) {
+    switch (exc_return & 0xFU) {
     case 0b0001: { // returning to Handler  using Main stack
       // SP_main = (SP_main + framesize) OR spmask;
       auto sp_main = (SReg::template ReadRegister<SId::kSpMain>(pstates) + framesize) | spmask;

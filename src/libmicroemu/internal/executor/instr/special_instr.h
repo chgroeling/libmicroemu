@@ -341,8 +341,8 @@ public:
     const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
 
     const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm));
-    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFu);
-    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFu);
+    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
+    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
     Reg::WriteRegister(ictx.pstates, arg_d_lo.Get(), result_lo);
     Reg::WriteRegister(ictx.pstates, arg_d_hi.Get(), result_hi);
     It::ITAdvance(ictx.pstates);
@@ -375,8 +375,8 @@ public:
     const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
 
     const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm)) + rd;
-    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFu);
-    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFu);
+    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
+    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
     Reg::WriteRegister(ictx.pstates, arg_d_lo.Get(), result_lo);
     Reg::WriteRegister(ictx.pstates, arg_d_hi.Get(), result_hi);
     It::ITAdvance(ictx.pstates);
@@ -622,8 +622,8 @@ public:
     const auto rn = static_cast<i32>(Reg::ReadRegister(ictx.pstates, arg_n.Get()));
     const auto rm = static_cast<i32>(Reg::ReadRegister(ictx.pstates, arg_m.Get()));
     const u64 result = static_cast<u64>(static_cast<i64>(rn) * static_cast<i64>(rm));
-    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFu);
-    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFu);
+    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
+    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
     Reg::WriteRegister(ictx.pstates, arg_d_lo.Get(), result_lo);
     Reg::WriteRegister(ictx.pstates, arg_d_hi.Get(), result_hi);
     It::ITAdvance(ictx.pstates);

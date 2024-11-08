@@ -58,14 +58,14 @@ template <> constexpr inline u8 BigToLittleEndianConverter::Convert(const u8 &va
 /// \brief Specialization for converting a u16 value from big endian to
 /// little endian representation.
 template <> constexpr inline u16 BigToLittleEndianConverter::Convert<u16>(const u16 &value) {
-  return ((value << 8U) & 0xFF00U) | ((value >> 8U) & 0x00FFu);
+  return ((value << 8U) & 0xFF00U) | ((value >> 8U) & 0x00FFU);
 }
 
 /// \brief Specialization for converting a u32 value from big endian to
 /// little endian representation.
 template <> constexpr inline u32 BigToLittleEndianConverter::Convert<u32>(const u32 &value) {
   return ((value << 24U) & 0xFF000000U) | ((value << 8U) & 0x00FF0000U) |
-         ((value >> 8U) & 0x0000FF00U) | ((value >> 24U) & 0x000000FFu);
+         ((value >> 8U) & 0x0000FF00U) | ((value >> 24U) & 0x000000FFU);
 }
 
 /// \brief Specialization for converting a u64 value from big endian to
@@ -74,7 +74,7 @@ template <> constexpr inline u64 BigToLittleEndianConverter::Convert<u64>(const 
   return ((value << 56U) & 0xFF00000000000000U) | ((value << 40U) & 0x00FF000000000000U) |
          ((value << 24U) & 0x0000FF0000000000U) | ((value << 8U) & 0x000000FF00000000U) |
          ((value >> 8U) & 0x00000000FF000000U) | ((value >> 24U) & 0x0000000000FF0000U) |
-         ((value >> 40U) & 0x000000000000FF00U) | ((value >> 56U) & 0x00000000000000FFu);
+         ((value >> 40U) & 0x000000000000FF00U) | ((value >> 56U) & 0x00000000000000FFU);
 }
 
 // -----------------------------------------------------------------------------
