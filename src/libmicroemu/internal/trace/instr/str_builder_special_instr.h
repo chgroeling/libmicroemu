@@ -26,18 +26,18 @@ public:
       mctx.builder.AddString("TBH")
           .AddString(It::GetConditionAsStr(mctx.pstates))
           .AddString(" [")
-          .AddString(Reg::GetRegisterName(n).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
           .AddString(", ")
-          .AddString(Reg::GetRegisterName(m).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
           .AddString(", LSL #1")
           .AddChar(']');
     } else {
       mctx.builder.AddString("TBB")
           .AddString(It::GetConditionAsStr(mctx.pstates))
           .AddString(" [")
-          .AddString(Reg::GetRegisterName(n).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
           .AddString(", ")
-          .AddString(Reg::GetRegisterName(m).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
           .AddChar(']');
     }
 
@@ -55,7 +55,7 @@ public:
       mctx.builder.AddChar('N');
     }
     mctx.builder.AddString("Z ")
-        .AddString(Reg::GetRegisterName(n).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", #")
         .AddInt(imm)
         .Terminate();
@@ -67,9 +67,9 @@ public:
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", #")
         .AddUInt(lsbit)
         .AddString(", #")
@@ -87,9 +87,9 @@ public:
     auto width = msbit - lsbit + 1;
     mctx.builder.AddString(instr_spec)
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", #")
         .AddUInt(lsbit)
         .AddString(", #")
@@ -105,7 +105,7 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)).data())
         .AddString(", [PC, #")
         .AddInt(imm32)
         .AddChar(']')
@@ -172,7 +172,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
-    mctx.builder.AddString(Reg::GetRegisterName(d).data()).AddString(", ");
+    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data()).AddString(", ");
     BuildMsrMrs(mctx, mask, SYSm);
     mctx.builder.Terminate();
   }
@@ -184,7 +184,9 @@ public:
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
     BuildMsrMrs(mctx, mask, SYSm);
-    mctx.builder.AddString(", ").AddString(Reg::GetRegisterName(n).data()).Terminate();
+    mctx.builder.AddString(", ")
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+        .Terminate();
   }
 
   static void BuildUmull(const char *instr_spec, TContext &mctx,
@@ -195,13 +197,13 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d_lo).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d_lo)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(d_hi).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d_hi)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
         .Terminate();
   }
 
@@ -214,13 +216,13 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d_lo).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d_lo)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(d_hi).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d_hi)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
         .Terminate();
   }
   static void BuildLdrdStrd(const char *instr_spec, TContext &mctx,
@@ -233,9 +235,9 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(t2).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t2)).data())
         .AddString(", ");
 
     RelativeAdrBuilder::Build<decltype(mctx.builder), Reg>(mctx.builder, is_add, is_index, is_wback,

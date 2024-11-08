@@ -21,7 +21,7 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(m).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
         .AddString(", #")
         .AddUInt(imm_carry.out)
         .Terminate();

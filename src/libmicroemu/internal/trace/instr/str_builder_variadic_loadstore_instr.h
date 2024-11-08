@@ -19,7 +19,7 @@ public:
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
 
     if (!suppress_dest_register) {
-      mctx.builder.AddString(Reg::GetRegisterName(n).data());
+      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data());
     }
     if (is_wback) {
       mctx.builder.AddChar('!');
@@ -32,7 +32,7 @@ public:
     for (u32 pstates = 0u; pstates <= 15u; ++pstates) {
       u32 bm = 0b1u << pstates;
       if ((registers & bm) != 0u) {
-        auto r_spec = Reg::GetRegisterName(pstates).data();
+        auto r_spec = Reg::GetRegisterName(static_cast<RegisterId>(pstates)).data();
 
         mctx.builder.AddString(r_spec);
         regs_cnt--;

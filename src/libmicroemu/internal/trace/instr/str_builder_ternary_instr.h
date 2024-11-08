@@ -25,14 +25,15 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d).data()).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
+          .AddString(", ");
     }
 
-    mctx.builder.AddString(Reg::GetRegisterName(n).data())
+    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(a).data());
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(a)).data());
     mctx.builder.Terminate();
   }
 
