@@ -35,6 +35,8 @@ public:
   template <typename TProcessorStates, typename TItOps, typename TRegOps, typename TSpecRegOps>
   static void Build(const TProcessorStates &pstates, const Instr &instr, char *buf,
                     std::size_t buf_len) {
+
+    // TODO: Gradually replace with template args
     auto cstr_builder = ConstStringBuilder(buf, buf_len);
     using TMnemonicBuilderContext =
         MnemonicBuilderContext<TProcessorStates, TItOps, TRegOps, TSpecRegOps>;
@@ -195,29 +197,29 @@ public:
     case InstrId::kSubImmediate: {
       const auto &iargs = instr.sub_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
-      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build("SUB", mctx, bflags, iargs.flags,
-                                                                   iargs.d, iargs.n, iargs.imm32);
+      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
+          "SUB", mctx, bflags, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kSbcImmediate: {
       const auto &iargs = instr.sbc_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
-      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build("SBC", mctx, bflags, iargs.flags,
-                                                                   iargs.d, iargs.n, iargs.imm32);
+      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
+          "SBC", mctx, bflags, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kRsbImmediate: {
       const auto &iargs = instr.rsb_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
-      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build("RSB", mctx, bflags, iargs.flags,
-                                                                   iargs.d, iargs.n, iargs.imm32);
+      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
+          "RSB", mctx, bflags, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kSubSpMinusImmediate: {
       const auto &iargs = instr.sub_sp_minus_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
-          "SUB", mctx, bflags, iargs.flags, iargs.d, static_cast<u32>(RegisterId::kSp),
+          "SUB", mctx, bflags, iargs.flags, RArg(iargs.d), RArgConst<RegisterId::kSp>(),
           iargs.imm32);
       break;
     }
@@ -225,29 +227,29 @@ public:
       const auto &iargs = instr.add_sp_plus_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
-          "ADD", mctx, bflags, iargs.flags, iargs.d, static_cast<u32>(RegisterId::kSp),
+          "ADD", mctx, bflags, iargs.flags, RArg(iargs.d), RArgConst<RegisterId::kSp>(),
           iargs.imm32);
       break;
     }
     case InstrId::kAddImmediate: {
       const auto &iargs = instr.add_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
-      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build("ADD", mctx, bflags, iargs.flags,
-                                                                   iargs.d, iargs.n, iargs.imm32);
+      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
+          "ADD", mctx, bflags, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kAdcImmediate: {
       const auto &iargs = instr.adc_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
-      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build("ADC", mctx, bflags, iargs.flags,
-                                                                   iargs.d, iargs.n, iargs.imm32);
+      StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
+          "ADC", mctx, bflags, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kAddPcPlusImmediate: {
       const auto &iargs = instr.add_pc_plus_immediate;
       bflags |= static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd);
       StrBuilderBinaryInstrWithImm<TMnemonicBuilderContext>::Build(
-          "ADD", mctx, bflags, iargs.flags, iargs.d, static_cast<u32>(RegisterId::kPc),
+          "ADD", mctx, bflags, iargs.flags, RArg(iargs.d), RArgConst<RegisterId::kPc>(),
           iargs.imm32);
       break;
     }

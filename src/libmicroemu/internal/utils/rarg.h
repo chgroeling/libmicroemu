@@ -37,10 +37,10 @@ public:
   constexpr RArgConst &operator=(RArgConst &&r_src) = default;
 
   // Equality operator
-  bool operator==(const RArgConst &other) const { return kRegId == other.kRegId; }
+  template <typename R> bool operator==(const R &other) const { return Get() == other.Get(); }
 
   // Inequality operator
-  bool operator!=(const RArgConst &other) const { return !(*this == other); }
+  template <typename R> bool operator!=(const R &other) const { return !(Get() == other.Get()); }
 };
 
 /** \brief Register argument class
@@ -79,10 +79,10 @@ public:
   inline microemu::RegisterId Get() const { return static_cast<microemu::RegisterId>(val_); }
 
   // Equality operator
-  bool operator==(const RArg &other) const { return val_ == other.val_; }
+  template <typename R> bool operator==(const R &other) const { return Get() == other.Get(); }
 
   // Inequality operator
-  bool operator!=(const RArg &other) const { return !(*this == other); }
+  template <typename R> bool operator!=(const R &other) const { return !(Get() == other.Get()); }
 
 private:
   T val_;

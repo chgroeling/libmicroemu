@@ -15,8 +15,9 @@ public:
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
 
+  template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const u8 &d, const u8 &n, const u32 &imm32) {
+                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n, const u32 &imm32) {
 
     const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0u;
     const bool is_reduced_rd =
@@ -28,10 +29,9 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
-          .AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d.Get()).data()).AddString(", ");
     }
-    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+    mctx.builder.AddString(Reg::GetRegisterName(n.Get()).data())
         .AddString(", #")
         .AddUInt(imm32)
         .Terminate();
