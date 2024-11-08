@@ -21,11 +21,11 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(t)).data())
         .AddString(", [")
-        .AddString(Reg::GetRegisterName(n).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m).data());
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data());
 
     if (shift_res.value != 0u) {
       mctx.builder.AddString(", LSL #").AddUInt(shift_res.value);

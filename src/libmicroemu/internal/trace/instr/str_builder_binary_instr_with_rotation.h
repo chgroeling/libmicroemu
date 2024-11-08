@@ -20,9 +20,9 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m).data());
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data());
 
     if (rotation != 0u) {
       mctx.builder.AddString(", ROR #").AddUInt(rotation);

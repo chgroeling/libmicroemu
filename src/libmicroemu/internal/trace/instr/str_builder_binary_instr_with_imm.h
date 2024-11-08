@@ -14,6 +14,7 @@ public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
+
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const u8 &d, const u8 &n, const u32 &imm32) {
 
@@ -27,9 +28,10 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d).data()).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
+          .AddString(", ");
     }
-    mctx.builder.AddString(Reg::GetRegisterName(n).data())
+    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
         .AddString(", #")
         .AddUInt(imm32)
         .Terminate();

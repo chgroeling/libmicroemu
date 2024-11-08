@@ -20,12 +20,9 @@ public:
 
   static std::string_view GetRegisterName(const RegisterId &id) {
     using enum_type = std::underlying_type<RegisterId>::type;
-    const enum_type rid = static_cast<enum_type>(id);
-    return GetRegisterName(rid);
-  }
+    const enum_type raw_id = static_cast<enum_type>(id);
 
-  static std::string_view GetRegisterName(const u8 &reg_id) {
-    switch (reg_id) {
+    switch (raw_id) {
     case 0x0u:
       return "R0";
     case 0x1u:
@@ -61,7 +58,7 @@ public:
     default:
       return "UNDEFINED";
     }
-  };
+  }
 
   static inline SpecialRegisterId LookUpSP(const TProcessorStates &pstates) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.521

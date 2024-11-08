@@ -24,7 +24,7 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(static_cast<RegisterId>(t))).data())
         .AddString(", ");
 
     RelativeAdrBuilder::Build<decltype(mctx.builder), Reg>(mctx.builder, is_add, is_index, is_wback,

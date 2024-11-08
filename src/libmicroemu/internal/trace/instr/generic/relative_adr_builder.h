@@ -25,14 +25,20 @@ public:
     assert(((is_index != false) || (is_wback != false))); // no viable option
     // TODO: Ommit imm if it is 0
     if ((is_index == true) && (is_wback == false)) { // Offset: index=TRUE, wback=FALSE
-      builder.AddChar('[').AddString(Reg::GetRegisterName(n).data()).AddString(", ");
+      builder.AddChar('[')
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+          .AddString(", ");
       AddImm(builder, is_add, imm);
       builder.AddChar(']');
     } else if ((is_index == false) && (is_wback == true)) { // Post indexed: index=FALSE, wback=TRUE
-      builder.AddChar('[').AddString(Reg::GetRegisterName(n).data()).AddString("], ");
+      builder.AddChar('[')
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+          .AddString("], ");
       AddImm(builder, is_add, imm);
     } else { // Pre indexed: index=TRUE, wback=TRUE
-      builder.AddChar('[').AddString(Reg::GetRegisterName(n).data()).AddString(", ");
+      builder.AddChar('[')
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+          .AddString(", ");
       AddImm(builder, is_add, imm);
       builder.AddString("]!");
     }
@@ -41,13 +47,10 @@ public:
 private:
   template <typename TStrBuilder>
   static void AddImm(TStrBuilder &builder, const bool &is_add, const u32 &imm) {
-
     builder.AddChar('#');
-
     if (is_add == false) {
       builder.AddChar('-');
     }
-
     builder.AddUInt(imm);
   }
 
