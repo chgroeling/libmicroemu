@@ -39,7 +39,7 @@ enum class Condition : u32 {
 template <typename TProcessorStates, typename TSpecRegOps> class IfThenOps {
 
 public:
-  // TODO: Move constants up here
+  using SReg = TSpecRegOps;
 
   /// \brief Constructs a IfThenOps object
   IfThenOps() = delete;
@@ -64,21 +64,16 @@ public:
   IfThenOps &operator=(IfThenOps &&r_src) = delete;
 
   static inline bool InITBlock(const TProcessorStates &pstates) {
-    using SReg = TSpecRegOps;
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
-
     return ((istate & IstateRegister::kItBit3to0Msk) != 0b0000U);
   }
 
   static inline bool LastInITBlock(TProcessorStates &pstates) {
-    using SReg = TSpecRegOps;
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
     return ((istate & IstateRegister::kItBit3to0Msk) == 0b1000U);
   }
 
   static inline void ITAdvance(TProcessorStates &pstates) {
-    using SReg = TSpecRegOps;
-
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
     const auto istate_2_0 = istate & IstateRegister::kItBit2to0Msk;
 
@@ -94,8 +89,6 @@ public:
   }
 
   static inline Result<u32> CurrentCond(const TProcessorStates &pstates) {
-    using SReg = TSpecRegOps;
-
     // • For the T1 and T3 encodings of the Branch instruction shown in B on
     //   page A7-205, it returns the 4-bit cond field of the encoding.
     // --> This is handled by the encoder by Using ConiditionPassed(cond)
@@ -122,6 +115,7 @@ public:
     return static_cast<Condition>(cond & IstateRegister::kItBit3to0Msk);
   }
 
+  // TODO: string_view
   static const char *ConditionToString(u8 cond) {
     switch (DecodeCondition(cond)) {
 
@@ -162,6 +156,7 @@ public:
     return "invalid";
   }
 
+  // TODO: string_view
   static const char *GetConditionAsStr(const TProcessorStates &pstates) {
     const auto r_cond = CurrentCond(pstates);
     if (r_cond.IsErr()) {
@@ -173,9 +168,6 @@ public:
   }
 
   static inline bool ConditionPassed(const TProcessorStates &pstates, u8 cond) {
-
-    using SReg = TSpecRegOps;
-
     // see Armv7-M Architecture Reference Manual Issue E.e p.178 - 179
     bool result{false};
 
