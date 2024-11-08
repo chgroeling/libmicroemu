@@ -22,9 +22,9 @@ public:
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(static_cast<RegisterId>(t))).data())
+        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(static_cast<RegisterId>(t))))
         .AddString(", ");
 
     RelativeAdrBuilder::Build<decltype(mctx.builder), Reg>(mctx.builder, is_add, is_index, is_wback,

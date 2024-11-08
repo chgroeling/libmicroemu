@@ -17,7 +17,7 @@ public:
     static_cast<void>(bflags);
     static_cast<void>(iflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddString(" #")
         .AddInt(static_cast<int>(imm))
         .Terminate();

@@ -26,18 +26,18 @@ public:
     // TODO: Ommit imm if it is 0
     if ((is_index == true) && (is_wback == false)) { // Offset: index=TRUE, wback=FALSE
       builder.AddChar('[')
-          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
           .AddString(", ");
       AddImm(builder, is_add, imm);
       builder.AddChar(']');
     } else if ((is_index == false) && (is_wback == true)) { // Post indexed: index=FALSE, wback=TRUE
       builder.AddChar('[')
-          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
           .AddString("], ");
       AddImm(builder, is_add, imm);
     } else { // Pre indexed: index=TRUE, wback=TRUE
       builder.AddChar('[')
-          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data())
+          .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
           .AddString(", ");
       AddImm(builder, is_add, imm);
       builder.AddString("]!");
