@@ -16,7 +16,7 @@ public:
                     const InstrFlagsSet &iflags, const u8 &m,
                     const ThumbImmediateResult &imm_carry) {
     static_cast<void>(bflags);
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0u;
+    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))

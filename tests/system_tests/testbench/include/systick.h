@@ -13,24 +13,24 @@ struct SysTickRegMap {
 
 // SysTick register map base pointer
 static inline SysTickRegMap *GetSysTickBase() {
-  return reinterpret_cast<SysTickRegMap *>(reinterpret_cast<unsigned *>(0xE000E010u));
+  return reinterpret_cast<SysTickRegMap *>(reinterpret_cast<unsigned *>(0xE000E010U));
 };
 
 // Control and status registers
-static constexpr uint32_t kSystickCsrCountFlag{16u};
-static constexpr uint32_t kSystickCsrClkSource{2u};
-static constexpr uint32_t kSystickCsrClkSourceExternal{0u};
-static constexpr uint32_t kSystickCsrClkSourceCore{2u};
-static constexpr uint32_t kSystickCsrTickInt{1u};
-static constexpr uint32_t kSystickCsrTickIntPend{1u};
-static constexpr uint32_t kSystickCsrTickIntNoPend{0u};
-static constexpr uint32_t kSystickCsrEnable{0u};
-static constexpr uint32_t kSystickCsrEnableMultishot{0u};
-static constexpr uint32_t kSystickCsrEnableDisabled{0u};
+static constexpr uint32_t kSystickCsrCountFlag{16U};
+static constexpr uint32_t kSystickCsrClkSource{2U};
+static constexpr uint32_t kSystickCsrClkSourceExternal{0U};
+static constexpr uint32_t kSystickCsrClkSourceCore{2U};
+static constexpr uint32_t kSystickCsrTickInt{1U};
+static constexpr uint32_t kSystickCsrTickIntPend{1U};
+static constexpr uint32_t kSystickCsrTickIntNoPend{0U};
+static constexpr uint32_t kSystickCsrEnable{0U};
+static constexpr uint32_t kSystickCsrEnableMultishot{0U};
+static constexpr uint32_t kSystickCsrEnableDisabled{0U};
 
 // Calibration value register
-static constexpr uint32_t kSystickCvrNoRef{31u};
-static constexpr uint32_t kSystickCvrSkew{30u};
+static constexpr uint32_t kSystickCvrNoRef{31U};
+static constexpr uint32_t kSystickCvrSkew{30U};
 static constexpr uint32_t kSystickCvrTenms{0xFFFFFFu};
 
 extern volatile uint32_t systick_uptime_millis;

@@ -37,7 +37,7 @@ TEST(BigToLittleEndianConverterTest, Convert_uint16_NoChange_BytesFlipped) {
 TEST(BigToLittleEndianConverterTest, Convert_uint32_NoChange_BytesFlipped) {
   u32 data = 0x1234ABCDu;
   auto result = internal::BigToLittleEndianConverter::Convert<u32>(data);
-  ASSERT_EQ(result, 0xCDAB3412u);
+  ASSERT_EQ(result, 0xCDAB3412U);
 }
 
 /// \test BigToLittleEndianConverterTest
@@ -48,5 +48,5 @@ TEST(BigToLittleEndianConverterTest, Convert_uint32_NoChange_BytesFlipped) {
 TEST(BigToLittleEndianConverterTest, Convert_uint64_NoChange_BytesFlipped) {
   u64 data = 0x1234567890ABCDEFu;
   auto result = internal::BigToLittleEndianConverter::Convert<u64>(data);
-  ASSERT_EQ(result, 0xEFCDAB9078563412u);
+  ASSERT_EQ(result, 0xEFCDAB9078563412U);
 }

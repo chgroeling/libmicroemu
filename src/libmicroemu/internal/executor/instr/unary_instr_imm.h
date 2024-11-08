@@ -21,7 +21,7 @@ public:
     static_cast<void>(ictx);
     const me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(ictx.pstates));
     const auto apc = Bm32::AlignDown<4>(pc);
-    const bool is_add = (iflags & kAdd) != 0u;
+    const bool is_add = (iflags & kAdd) != 0U;
     const auto result = is_add != false ? apc + imm32 : apc - imm32;
     return OpResult{result, false, false};
   }
@@ -38,9 +38,9 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_d, const u32 &imm32) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -53,16 +53,16 @@ public:
 
     Reg::WriteRegister(ictx.pstates, arg_d.Get(), result.value);
 
-    if ((iflags & InstrFlags::kSetFlags) != 0u) {
+    if ((iflags & InstrFlags::kSetFlags) != 0U) {
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
       // Clear N, Z, C, V flags
       apsr &=
           ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
 
-      apsr |= ((result.value >> 31u) & 0x1u) << ApsrRegister::kNPos;       // N
+      apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
       apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-      apsr |= (result.carry_out == true ? 1u : 0u) << ApsrRegister::kCPos; // C
-      apsr |= (result.overflow == true ? 1u : 0u) << ApsrRegister::kVPos;  // V
+      apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
+      apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
       SReg::template WriteRegister<SpecialRegisterId::kApsr>(ictx.pstates, apsr);
     }
     It::ITAdvance(ictx.pstates);

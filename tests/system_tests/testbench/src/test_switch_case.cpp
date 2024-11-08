@@ -50,52 +50,52 @@ uint8_t TableFct7() {
 uint32_t TestTableFct1(char buf) {
   switch (buf) {
   case 0:
-    return 1u;
+    return 1U;
   case 100:
-    return 2u;
+    return 2U;
   case 232:
-    return 3u;
+    return 3U;
   case 115:
-    return 4u;
+    return 4U;
   case 121:
-    return 5u;
+    return 5U;
   case 125:
-    return 6u;
+    return 6U;
   case 12:
-    return 7u;
+    return 7U;
   case 255:
-    return 8u;
+    return 8U;
   default:
-    return 1u;
+    return 1U;
   }
-  return 0u;
+  return 0U;
 }
 uint32_t TestTableFct2() {
   uint32_t accu = 0;
   for (uint8_t i = 0; i < 8; ++i) {
     switch (i) {
-    case 0u:
+    case 0U:
       accu += TableFct0(); // 0
       break;
-    case 1u:
+    case 1U:
       accu += TableFct1(); // 1
       break;
-    case 2u:
+    case 2U:
       accu += TableFct2(); // 3
       break;
-    case 3u:
+    case 3U:
       accu += TableFct3(); // 6
       break;
-    case 4u:
+    case 4U:
       accu += TableFct4(); // 10
       break;
-    case 5u:
+    case 5U:
       accu += TableFct5(); // 15
       break;
-    case 6u:
+    case 6U:
       accu += TableFct6(); // 21
       break;
-    case 7u:
+    case 7U:
       accu += TableFct7(); // 28
       break;
     default: // clearly an error
@@ -109,7 +109,7 @@ uint32_t TestTableFct2() {
 
 void TestSwitchCase() {
   printf("# Test: Switch/case\n");
-  assert(TestTableFct1('s') == 4u);
-  assert(TestTableFct1('h') == 1u);
-  assert(TestTableFct2() == 28u);
+  assert(TestTableFct1('s') == 4U);
+  assert(TestTableFct1('h') == 1U);
+  assert(TestTableFct2() == 28U);
 }

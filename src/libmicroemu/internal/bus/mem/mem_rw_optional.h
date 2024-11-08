@@ -51,7 +51,7 @@ public:
     // clang-format on
     static_cast<void>(pstates);
 
-    assert(buf_ != nullptr && buf_size_ != 0u);
+    assert(buf_ != nullptr && buf_size_ != 0U);
 
     const me_adr_t padr = ConvertToPhysicalAdr(vadr);
     assert(IsPAdrInRange(padr) == true);
@@ -72,7 +72,7 @@ public:
     // clang-format on
     static_cast<void>(pstates);
 
-    assert(buf_ != nullptr && buf_size_ != 0u);
+    assert(buf_ != nullptr && buf_size_ != 0U);
     const me_adr_t padr = ConvertToPhysicalAdr(vadr);
     assert(IsPAdrInRange(padr) == true);
 
@@ -83,7 +83,7 @@ public:
 
   bool IsVAdrInRange(me_adr_t vadr) const {
     // if no buffer was assigned always return that this memory has to valid access range
-    if (buf_ == nullptr || buf_size_ == 0u) {
+    if (buf_ == nullptr || buf_size_ == 0U) {
       return false;
     }
 
@@ -96,8 +96,8 @@ public:
 
 private:
   u8 *const buf_{nullptr};
-  const me_adr_t vadr_offset_{0u};
-  const me_size_t buf_size_{0u};
+  const me_adr_t vadr_offset_{0U};
+  const me_size_t buf_size_{0U};
 
   me_adr_t ConvertToPhysicalAdr(me_adr_t vadr) const { return vadr - vadr_offset_; }
   bool IsPAdrInRange(me_adr_t padr) const { return padr < buf_size_; }

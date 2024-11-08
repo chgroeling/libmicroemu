@@ -8,117 +8,117 @@ void TestUIntCalc() {
   // -----------------------------
   // 8-bit
   // -----------------------------
-  volatile uint8_t accu8 = 123u;
+  volatile uint8_t accu8 = 123U;
 
-  accu8 += 123u;
-  assert(accu8 == 246u);
+  accu8 += 123U;
+  assert(accu8 == 246U);
 
-  accu8 = accu8 - 238u;
-  assert(accu8 == 8u);
+  accu8 = accu8 - 238U;
+  assert(accu8 == 8U);
 
-  accu8 *= 7u;
-  assert(accu8 == 56u);
+  accu8 *= 7U;
+  assert(accu8 == 56U);
 
-  accu8 -= 57u;
-  assert(accu8 == 255u);
+  accu8 -= 57U;
+  assert(accu8 == 255U);
 
-  accu8 /= 25u;
-  assert(accu8 == 10u);
+  accu8 /= 25U;
+  assert(accu8 == 10U);
 
-  accu8 = 1u + 2u + (3u * 3u - 9u) * 50u;
-  assert(accu8 == 3u);
+  accu8 = 1U + 2U + (3U * 3U - 9U) * 50U;
+  assert(accu8 == 3U);
 
   // overflow test
-  accu8 = 255u;
-  accu8 += 1u;
-  assert(accu8 == 0u);
-  accu8 -= 1u;
-  assert(accu8 == 255u);
+  accu8 = 255U;
+  accu8 += 1U;
+  assert(accu8 == 0U);
+  accu8 -= 1U;
+  assert(accu8 == 255U);
 
   // accumulate tests
-  accu8 = 1u;
+  accu8 = 1U;
   accu8 = accu8 * accu8 + accu8; // 2
   accu8 = accu8 * accu8 + accu8; // 6
   accu8 = accu8 * accu8 + accu8; // 42
-  assert(accu8 == 42u);
+  assert(accu8 == 42U);
 
   // -----------------------------
   // 16-bit
   // -----------------------------
-  volatile uint16_t accu16 = 123u;
+  volatile uint16_t accu16 = 123U;
 
-  accu16 += 123u;
-  assert(accu16 == 246u);
+  accu16 += 123U;
+  assert(accu16 == 246U);
 
-  accu16 *= 3u;
-  assert(accu16 == 738u);
+  accu16 *= 3U;
+  assert(accu16 == 738U);
 
-  accu16 = accu16 - 238u;
-  assert(accu16 == 500u);
+  accu16 = accu16 - 238U;
+  assert(accu16 == 500U);
 
-  accu16 /= 25u;
-  assert(accu16 == 20u);
+  accu16 /= 25U;
+  assert(accu16 == 20U);
 
-  accu16 = 1u + 2u + (3u * 3u - 9u) * 50u;
-  assert(accu16 == 3u);
+  accu16 = 1U + 2U + (3U * 3U - 9U) * 50U;
+  assert(accu16 == 3U);
 
   // overflow test
-  accu16 = 65535u;
-  accu16 += 1u;
-  assert(accu16 == 0u);
-  accu16 -= 1u;
-  assert(accu16 == 65535u);
+  accu16 = 65535U;
+  accu16 += 1U;
+  assert(accu16 == 0U);
+  accu16 -= 1U;
+  assert(accu16 == 65535U);
 
   // accumulate tests
-  accu16 = 1u;
+  accu16 = 1U;
   accu16 = accu16 * accu16 + accu16; // 2
   accu16 = accu16 * accu16 + accu16; // 6
   accu16 = accu16 * accu16 + accu16; // 42
-  assert(accu16 == 42u);
+  assert(accu16 == 42U);
 
   // -----------------------------
   // 32-bit
   // -----------------------------
-  volatile uint32_t accu32 = 123u;
+  volatile uint32_t accu32 = 123U;
 
-  accu32 += 123u;
-  assert(accu32 == 246u);
+  accu32 += 123U;
+  assert(accu32 == 246U);
 
-  accu32 *= 3u;
-  assert(accu32 == 738u);
+  accu32 *= 3U;
+  assert(accu32 == 738U);
 
-  accu32 = accu32 - 238u;
-  assert(accu32 == 500u);
+  accu32 = accu32 - 238U;
+  assert(accu32 == 500U);
 
-  accu32 /= 25u;
-  assert(accu32 == 20u);
+  accu32 /= 25U;
+  assert(accu32 == 20U);
 
-  accu32 = 1u + 2u + (3u * 3u - 9u) * 50u;
-  assert(accu32 == 3u);
+  accu32 = 1U + 2U + (3U * 3U - 9U) * 50U;
+  assert(accu32 == 3U);
 
   // overflow test
-  accu32 = 4294967295u;
-  accu32 += 1u;
-  assert(accu32 == 0u);
-  accu32 -= 1u;
-  assert(accu32 == 4294967295u);
+  accu32 = 4294967295U;
+  accu32 += 1U;
+  assert(accu32 == 0U);
+  accu32 -= 1U;
+  assert(accu32 == 4294967295U);
 
   // accumulate tests
-  accu32 = 1u;
+  accu32 = 1U;
   accu32 = accu32 * accu32 + accu32; // 2
   accu32 = accu32 * accu32 + accu32; // 6
   accu32 = accu32 * accu32 + accu32; // 42
-  assert(accu32 == 42u);
+  assert(accu32 == 42U);
 
   // -----------------------------
   // 32-bit Modulo
   // -----------------------------
 
-  volatile uint32_t a = 0x80000000u;
-  volatile uint32_t b = 0x80000000u;
+  volatile uint32_t a = 0x80000000U;
+  volatile uint32_t b = 0x80000000U;
 
-  assert((a % b) == 0u);
+  assert((a % b) == 0U);
 
-  a += 1u;
-  assert((a % b) == 1u);
+  a += 1U;
+  assert((a % b) == 1U);
 }

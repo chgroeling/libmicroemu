@@ -7,11 +7,11 @@ namespace microemu {
 using RawInstrFlagsSet = u8;
 
 enum class RawInstrFlagsPos {
-  k32Bit = 0u,
+  k32Bit = 0U,
 };
 
 enum class RawInstrFlagsMsk : RawInstrFlagsSet {
-  k32Bit = 1u << static_cast<u8>(RawInstrFlagsPos::k32Bit)
+  k32Bit = 1U << static_cast<u8>(RawInstrFlagsPos::k32Bit)
 };
 
 } // namespace microemu

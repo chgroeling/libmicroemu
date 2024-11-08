@@ -21,7 +21,7 @@ public:
 
   static inline void BranchWritePC(TProcessorStates &pstates, const me_adr_t &address) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.30
-    BranchTo(pstates, address & (~0x1u));
+    BranchTo(pstates, address & (~0x1U));
   }
 
   static inline Result<void> BXWritePC(TProcessorStates &pstates, TBus &bus,
@@ -35,7 +35,7 @@ public:
     const auto is_handler_mode = current_mode == SysCtrlRegister::kExecModeHandler;
 
     // if CurrentMode == Mode_Handler && address<31:28> == ‘1111’ then
-    if (is_handler_mode && ((address & 0xF0000000u) == 0xF0000000u)) {
+    if (is_handler_mode && ((address & 0xF0000000U) == 0xF0000000U)) {
       LOG_TRACE(TLogger, "BXWritePC (Exception Return): address=0x%08X, is_handler_mode=%d",
                 address, is_handler_mode);
       //     ExceptionReturn(address<27:0>);
@@ -93,7 +93,7 @@ public:
     // in case we have a 16 bit instruction
 
     u32 pc = TRegOps::ReadPC(pstates);
-    pc += is_32bit ? 0u : -2u;
+    pc += is_32bit ? 0U : -2U;
     BranchTo(pstates, pc);
   }
 

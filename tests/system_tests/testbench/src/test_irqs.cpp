@@ -20,30 +20,30 @@
 // ----------------------------
 extern "C" void SVC_Handler() __attribute__((interrupt("IRQ")));
 
-char svc_buffer_0[256u];
-char svc_buffer_1[256u];
+char svc_buffer_0[256U];
+char svc_buffer_1[256U];
 
-std::atomic<uint32_t> svc_next_buffer{0u};
-std::atomic<uint32_t> svc_call_count{0u};
+std::atomic<uint32_t> svc_next_buffer{0U};
+std::atomic<uint32_t> svc_call_count{0U};
 
 void SVC_Handler() {
   svc_call_count++;
 
   // this looks weird; but it is a simple way to stress the emulator.
   // sprintf does a lot of nasty things and is a good test for the emulator
-  if (svc_next_buffer == 1u) {
+  if (svc_next_buffer == 1U) {
     sprintf(svc_buffer_1, "SVC_Handler called %i times", svc_call_count.load());
-    svc_next_buffer = 0u;
+    svc_next_buffer = 0U;
   } else {
     sprintf(svc_buffer_0, "SVC_Handler called %i times", svc_call_count.load());
-    svc_next_buffer = 1u;
+    svc_next_buffer = 1U;
   }
 
   // Burn cycles
 
   // During this loop another SysTick_Handler call is expected
   // The emulator should be able to handle this
-  for (int i = 0; i < 1000u; i++) {
+  for (int i = 0; i < 1000U; i++) {
     __asm__("NOP");
   }
 };
@@ -51,16 +51,16 @@ void SVC_Handler() {
 // SysTick_Handler
 // ----------------------------
 extern "C" void SysTick_Handler() __attribute__((interrupt("IRQ")));
-char systick_buffer_0[256u];
-char systick_buffer_1[256u];
+char systick_buffer_0[256U];
+char systick_buffer_1[256U];
 
-std::atomic<uint32_t> systick_next_buffer{0u};
-std::atomic<uint32_t> systick_call_count{0u};
+std::atomic<uint32_t> systick_next_buffer{0U};
+std::atomic<uint32_t> systick_call_count{0U};
 
 void SysTick_Handler() {
 
   // Call SVC_Handler every 10th time
-  if (systick_call_count % 10 == 0u) {
+  if (systick_call_count % 10 == 0U) {
     __asm__("SVC #0x02           \n" : : :);
   }
 
@@ -68,12 +68,12 @@ void SysTick_Handler() {
 
   // this looks weird; but it is a simple way to stress the emulator.
   // sprintf does a lot of nasty things and is a good test for the emulator
-  if (systick_next_buffer == 1u) {
+  if (systick_next_buffer == 1U) {
     sprintf(systick_buffer_1, "SysTick_Handler called %i times", systick_call_count.load());
-    systick_next_buffer = 0u;
+    systick_next_buffer = 0U;
   } else {
     sprintf(systick_buffer_0, "SysTick_Handler called %i times", systick_call_count.load());
-    systick_next_buffer = 1u;
+    systick_next_buffer = 1U;
   }
 };
 
@@ -94,7 +94,7 @@ void TestIrqs() {
   };
 
   // take the actual buffer
-  if (systick_next_buffer == 1u) {
+  if (systick_next_buffer == 1U) {
     assert(strcmp(EXPECTED_SYSTICK_STRING, systick_buffer_0) == 0U);
   } else {
     assert(strcmp(EXPECTED_SYSTICK_STRING, systick_buffer_1) == 0U);
@@ -108,7 +108,7 @@ void TestIrqs() {
   };
 
   // take the actual buffer
-  if (svc_next_buffer == 1u) {
+  if (svc_next_buffer == 1U) {
     assert(strcmp(EXPECTED_SVC_STRING, svc_buffer_0) == 0U);
   } else {
     assert(strcmp(EXPECTED_SVC_STRING, svc_buffer_1) == 0U);

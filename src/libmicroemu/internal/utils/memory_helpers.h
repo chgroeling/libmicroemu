@@ -35,7 +35,7 @@ public:
                                     std::size_t dest_len, me_adr_t src_ptr, me_size_t src_len) {
     auto res_len = src_len <= dest_len ? src_len : dest_len;
 
-    for (u32 i = 0u; i < res_len; ++i) {
+    for (u32 i = 0U; i < res_len; ++i) {
       auto r_ch = bus.template Read<u8>(pstates, src_ptr);
       if (r_ch.IsErr()) {
         return Err<u8, void>(r_ch);
@@ -54,7 +54,7 @@ public:
                                  me_size_t dest_len, char *src_ptr, std::size_t src_len) {
     auto res_len = dest_len <= src_len ? dest_len : src_len;
 
-    for (u32 i = 0u; i < res_len; ++i) {
+    for (u32 i = 0U; i < res_len; ++i) {
       auto r_ch = bus.template Write<u8>(pstates, dest_ptr, src_ptr[i]);
       if (r_ch.IsErr()) {
         return Err<void, u32>(r_ch);

@@ -8,10 +8,10 @@ namespace internal {
 using ExecFlagsSet = u8;
 
 enum class ExecFlags : ExecFlagsSet {
-  kBkptReqExit = 1u << 3u,
-  kSvcReqExit = 1u << 4u,
-  kBkptReqErrorExit = 1u << 5u,
-  kSvcReqErrorExit = 1u << 6u
+  kBkptReqExit = 1U << 3U,
+  kSvcReqExit = 1U << 4U,
+  kBkptReqErrorExit = 1U << 5U,
+  kSvcReqErrorExit = 1U << 6U
 };
 
 static constexpr ExecFlagsSet kExitFlagsMask =

@@ -5,12 +5,12 @@ namespace microemu {
 namespace internal {
 
 enum class SRType : uint8_t {
-  SRType_None = 0u,
-  SRType_LSL = 1u,
-  SRType_LSR = 2u,
-  SRType_ASR = 3u,
-  SRType_ROR = 4u,
-  SRType_RRX = 5u
+  SRType_None = 0U,
+  SRType_LSL = 1U,
+  SRType_LSR = 2U,
+  SRType_ASR = 3U,
+  SRType_ROR = 4U,
+  SRType_RRX = 5U
 };
 
 struct ImmShiftResults {

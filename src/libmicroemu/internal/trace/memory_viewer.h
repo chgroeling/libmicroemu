@@ -34,16 +34,16 @@ public:
 
   // TODO Google Style Guide
   void print(TProcessorStates &pstates, const me_offset_t vadr, const me_size_t size,
-             const u32 indent = 0u) {
+             const u32 indent = 0U) {
     const me_adr_t vadr_end = vadr + size;
-    const auto alignment = 16u;
+    const auto alignment = 16U;
 
     const me_size_t no_filler_bytes = vadr % alignment;
     const me_adr_t vadr_filler = vadr - no_filler_bytes;
 
     // in case of addresses which do not fit into the alignment print
     // out the address and filler spaces
-    if (no_filler_bytes > 0u) {
+    if (no_filler_bytes > 0U) {
 
       print_section(pstates, vadr_filler, vadr_filler + no_filler_bytes, alignment, indent, true);
     }
@@ -60,8 +60,8 @@ private:
 
     for (me_adr_t ivadr = vadr_begin; ivadr < vadr_end; ivadr++) {
       // Print address first
-      if (ivadr % alignment == 0u) {
-        for (u32 spaces = 0u; spaces < indent; ++spaces) {
+      if (ivadr % alignment == 0U) {
+        for (u32 spaces = 0U; spaces < indent; ++spaces) {
           printf(" ");
         }
         printf("%08x|", ivadr);

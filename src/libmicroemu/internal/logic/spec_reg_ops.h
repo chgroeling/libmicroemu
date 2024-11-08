@@ -57,7 +57,7 @@ public:
       return pstates.GetSpecialRegisters()[RegId];
     }
     // Not reachable
-    return 0u;
+    return 0U;
   }
 
   static inline u32 ReadRegister(const TProcessorStates &pstates, const SpecialRegisterId &reg_id) {
@@ -74,7 +74,7 @@ public:
       return pstates.GetSpecialRegisters()[static_cast<u8>(reg_id)];
     }
     // Not reachable
-    return 0u;
+    return 0U;
   }
 
   template <SpecialRegisterId SId>
@@ -115,7 +115,7 @@ public:
   }
 
   static inline u32 ReadEpsr(const TProcessorStates &pstates) {
-    u32 epsr = 0u;
+    u32 epsr = 0U;
     auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
     auto BitT = (sys_ctrl & SysCtrlRegister::kTMsk) >> SysCtrlRegister::kTPos; // Thumb mode bit
     epsr |= BitT << EpsrRegister::kTPos;
@@ -136,7 +136,7 @@ public:
     WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
 
     // extract it bits from "value"  and write them to Istate register
-    u32 istate = 0u;
+    u32 istate = 0U;
     auto it_1_0 = (value & EpsrRegister::kItBit1to0Msk) >> EpsrRegister::kItBit0Pos;
     auto it_7_2 = (value & EpsrRegister::kItBit7to2Msk) >> EpsrRegister::kItBit2Pos;
     istate |= (it_1_0 << IstateRegister::kItBit0Pos) | (it_7_2 << IstateRegister::kItBit2Pos);
@@ -144,7 +144,7 @@ public:
   }
 
   static inline u32 ReadXpsr(const TProcessorStates &pstates) {
-    auto xpsr = 0u;
+    auto xpsr = 0U;
     auto apsr = ReadRegister<SpecialRegisterId::kApsr>(pstates);
     xpsr |= apsr;
 
@@ -172,7 +172,7 @@ public:
     const auto fpca = (sys_ctrl & static_cast<u32>(SysCtrlRegister::kControlFpcaMsk)) >>
                       SysCtrlRegister::kControlFpcaPos;
 
-    auto control{0u};
+    auto control{0U};
     control |= npriv << ControlRegister::kNPrivPos;
     control |= spsel << ControlRegister::kSpselPos;
     control |= fpca << ControlRegister::kFpcaPos;

@@ -21,9 +21,9 @@ public:
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const u32 &registers) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -35,11 +35,11 @@ public:
     const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
     auto reg_count = Bm32::BitCount(registers);
     u32 address = rn;
-    const bool is_wback = (iflags & kWBack) != 0u;
+    const bool is_wback = (iflags & kWBack) != 0U;
     const bool lowest_bit_set = Bm8::LowestBitSet(registers);
-    for (u32 reg = 0u; reg <= 14u; ++reg) {
-      u32 bm = 0x1u << reg;
-      if ((registers & bm) != 0u) {
+    for (u32 reg = 0U; reg <= 14U; ++reg) {
+      u32 bm = 0x1U << reg;
+      if ((registers & bm) != 0U) {
         if ((reg == static_cast<u32>(arg_n.Get())) && (is_wback) && (lowest_bit_set == reg)) {
           return Err<ExecResult>(StatusCode::kScExecutorUndefined);
         } else {
@@ -49,7 +49,7 @@ public:
                                                   BusExceptionType::kRaisePreciseDataBusError));
         }
 
-        address += 4u;
+        address += 4U;
       }
     }
 
@@ -58,7 +58,7 @@ public:
     // mem_view.print(0x80000 - 0x32, 0x64);
 
     if (is_wback) {
-      const auto wback_val = rn + 4u * reg_count;
+      const auto wback_val = rn + 4U * reg_count;
 
       // Update n register
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), wback_val);

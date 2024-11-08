@@ -36,10 +36,10 @@ public:
   using SReg = typename TInstrContext::SReg;
   static inline BranchOpResult Call(const TInstrContext &ictx, const me_adr_t &pc, const u32 &rm) {
     static_cast<void>(ictx);
-    const me_adr_t next_instr_address = static_cast<me_adr_t>(pc - 2u);
+    const me_adr_t next_instr_address = static_cast<me_adr_t>(pc - 2U);
 
     Reg::WriteRegister(ictx.pstates, RegisterId::kLr,
-                       static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1u));
+                       static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1U));
     // TODO BLXWrite instead of BXWrite
     return BranchOpResult{static_cast<me_adr_t>(rm)};
   }
@@ -57,9 +57,9 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_m) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {

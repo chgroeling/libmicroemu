@@ -22,7 +22,7 @@ enum class SpecialRegisterId : u8 {
   // These registers are part of the processor and have a state that persists.
   //---------------------
 
-  kSysCtrl = 0u, ///< System Control Register, SYSCTRL
+  kSysCtrl = 0U, ///< System Control Register, SYSCTRL
   kApsr,         ///< Application Program Status Register, APSR
   kIstate,       ///< If-Then Execution state bits
   kIpsr,         ///< Interrupt Program Status Register, IPSR
@@ -60,7 +60,7 @@ constexpr auto kLastSpecialRegister = kLastRuntimeSpecialRegister;
  * @return The number of persistent special registers.
  */
 static constexpr u32 CountPersistentSpecialRegisters() noexcept {
-  return static_cast<u32>(kLastPersistentSpecialRegister) + 1u;
+  return static_cast<u32>(kLastPersistentSpecialRegister) + 1U;
 };
 
 /**
@@ -71,7 +71,7 @@ static constexpr u32 CountPersistentSpecialRegisters() noexcept {
  * @return The number of special registers.
  */
 static constexpr u32 CountSpecialRegisters() noexcept {
-  return static_cast<u32>(kLastSpecialRegister) + 1u;
+  return static_cast<u32>(kLastSpecialRegister) + 1U;
 };
 
 } // namespace microemu

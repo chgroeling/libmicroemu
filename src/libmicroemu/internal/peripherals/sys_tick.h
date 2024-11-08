@@ -10,9 +10,9 @@
 namespace microemu ::internal {
 
 enum class SysTickAddressMap : me_adr_t {
-  kCsr = 0xE010u,
-  kRvr = 0xE014u,
-  kCvr = 0xE018u,
+  kCsr = 0xE010U,
+  kRvr = 0xE014U,
+  kCvr = 0xE018U,
   kCalib = 0xE01Cu
 };
 
@@ -128,7 +128,7 @@ public:
     if ((csr & SysTickRegister::kCsrEnableMsk) == SysTickRegister::kCsrEnableMsk) {
       auto cvr = SReg::template ReadRegister<SpecialRegisterId::kSysTickCvr>(pstates);
 
-      if (cvr <= 1u) {
+      if (cvr <= 1U) {
         LOG_DEBUG(TLogger, "SysTick counted to zero");
         auto rvr = SReg::template ReadRegister<SpecialRegisterId::kSysTickRvr>(pstates);
         SReg::template WriteRegister<SpecialRegisterId::kSysTickCvr>(pstates, rvr);
@@ -140,7 +140,7 @@ public:
         csr |= SysTickRegister::kCsrCountFlagMsk;
         SReg::template WriteRegister<SpecialRegisterId::kSysTickCsr>(pstates, csr);
       } else {
-        SReg::template WriteRegister<SpecialRegisterId::kSysTickCvr>(pstates, cvr - 1u);
+        SReg::template WriteRegister<SpecialRegisterId::kSysTickCvr>(pstates, cvr - 1U);
       }
     }
 

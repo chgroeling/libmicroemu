@@ -17,8 +17,8 @@ public:
   /// @param str The string to add
   /// @return A reference to the current object
   ConstStringBuilder &AddString(const char *str) {
-    for (std::size_t i = 0u; i < strlen(str); ++i) {
-      if (act_pos_ >= (buf_len_ - 1u)) { // -1 due to null termination
+    for (std::size_t i = 0U; i < strlen(str); ++i) {
+      if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
         return *this;
       }
       buf_[act_pos_] = str[i];
@@ -28,7 +28,7 @@ public:
   }
 
   ConstStringBuilder &AddChar(char ch) {
-    if (act_pos_ >= (buf_len_ - 1u)) { // -1 due to null termination
+    if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
       return *this;
     }
     buf_[act_pos_] = ch;
@@ -36,24 +36,24 @@ public:
     return *this;
   }
   ConstStringBuilder &AddInt(i32 no) {
-    if (act_pos_ >= (buf_len_ - 1u)) { // -1 due to null termination
+    if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
       return *this;
     }
     std::size_t left_space = buf_len_ - static_cast<size_t>(act_pos_) -
-                             1u; // -1 to have enough space for null termination
+                             1U; // -1 to have enough space for null termination
 
-    act_pos_ += IntToString(&buf_[act_pos_], left_space - 1u, no);
+    act_pos_ += IntToString(&buf_[act_pos_], left_space - 1U, no);
     return *this;
   }
 
   ConstStringBuilder &AddUInt(u32 no) {
-    if (act_pos_ >= (buf_len_ - 1u)) { // -1 due to null termination
+    if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
       return *this;
     }
     std::size_t left_space = buf_len_ - static_cast<size_t>(act_pos_) -
-                             1u; // -1 to have enough space for null termination
+                             1U; // -1 to have enough space for null termination
 
-    act_pos_ += UIntToString(&buf_[act_pos_], left_space - 1u, no);
+    act_pos_ += UIntToString(&buf_[act_pos_], left_space - 1U, no);
     return *this;
   }
 
@@ -66,7 +66,7 @@ private:
   /// @brief Convert a integer number into a const char string ans insert it
   /// into a given buffer
   u32 IntToString(char *buf, std::size_t len, i32 number) {
-    std::size_t index = 0u;
+    std::size_t index = 0U;
     i32 is_negative = 0;
 
     // Überprüfen, ob die Zahl negativ ist
@@ -76,7 +76,7 @@ private:
     }
 
     do {
-      if (index >= len - 1u) { // -1 for minus sign
+      if (index >= len - 1U) { // -1 for minus sign
         break;
       }
       buf[index++] = (char)((number % 10) + '0');
@@ -96,7 +96,7 @@ private:
   /// @brief Convert a integer number into a const char string ans insert it
   /// into a given buffer
   u32 UIntToString(char *buf, std::size_t len, u32 number) {
-    std::size_t index = 0u;
+    std::size_t index = 0U;
 
     do {
       if (index >= len) {
@@ -121,7 +121,7 @@ private:
     }
   }
 
-  u32 act_pos_{0u};
+  u32 act_pos_{0U};
   char *buf_;
   std::size_t buf_len_;
 };

@@ -27,7 +27,7 @@ public:
         .AddString(", ")
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data());
 
-    if (shift_res.value != 0u) {
+    if (shift_res.value != 0U) {
       mctx.builder.AddString(", LSL #").AddUInt(shift_res.value);
     }
     mctx.builder.AddChar(']').Terminate();

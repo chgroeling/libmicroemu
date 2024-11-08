@@ -30,7 +30,7 @@ public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
     static_cast<void>(ictx);
     const u32 rotated = Alu32::ROR(rm, rotation);
-    const u32 data = Bm8::SignExtend<u32, 7u>(static_cast<uint8_t>(rotated & 0xFF));
+    const u32 data = Bm8::SignExtend<u32, 7U>(static_cast<uint8_t>(rotated & 0xFF));
     return OpResult{data, false, false};
   }
 };
@@ -70,9 +70,9 @@ public:
   template <typename TArg0, typename TArg1>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_m, const TArg1 &arg_d, const u8 &rotation) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -85,17 +85,17 @@ public:
     auto result = TOp::Call(ictx, rm, rotation);
     Reg::WriteRegister(ictx.pstates, arg_d.Get(), result.value);
 
-    if ((iflags & InstrFlags::kSetFlags) != 0u) {
+    if ((iflags & InstrFlags::kSetFlags) != 0U) {
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
       // Clear N, Z, C, V flags
       apsr &=
           ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
 
-      apsr |= ((result.value >> 31u) & 0x1u) << ApsrRegister::kNPos;       // N
+      apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
       apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-      apsr |= (result.carry_out == true ? 1u : 0u) << ApsrRegister::kCPos; // C
+      apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
 
-      apsr |= (result.overflow == true ? 1u : 0u) << ApsrRegister::kVPos; // V
+      apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos; // V
       SReg::template WriteRegister<SpecialRegisterId::kApsr>(ictx.pstates, apsr);
     }
     It::ITAdvance(ictx.pstates);

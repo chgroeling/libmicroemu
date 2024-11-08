@@ -18,7 +18,7 @@ public:
                     const InstrFlagsSet &iflags, const u8 &d, const u8 &m,
                     const ImmShiftResults &shift_res) {
 
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0u;
+    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
     const bool is_supress_shift_type =
         (bflags & static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kSupressShiftType)) !=
         0;

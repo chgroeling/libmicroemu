@@ -8,26 +8,26 @@ namespace internal {
 using InstrFlagsSet = u8;
 
 enum class InstrFlagsShift {
-  k32Bit = 0u,
-  kAddShift = 1u,
-  kIndexShift = 2u,
-  kWBackShift = 3u,
-  kTbhShift = 4u,
-  kSetFlagsShift = 5u,
-  kUnalignedAllowShift = 6u,
-  kNonZeroShift = 7u
+  k32Bit = 0U,
+  kAddShift = 1U,
+  kIndexShift = 2U,
+  kWBackShift = 3U,
+  kTbhShift = 4U,
+  kSetFlagsShift = 5U,
+  kUnalignedAllowShift = 6U,
+  kNonZeroShift = 7U
 };
 
 // TODO: Enum class
 enum InstrFlags : InstrFlagsSet {
-  k32Bit = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::k32Bit),
-  kAdd = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kAddShift),
-  kIndex = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kIndexShift),
-  kWBack = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kWBackShift),
-  kTbh = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kTbhShift),
-  kSetFlags = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kSetFlagsShift),
-  kUnalignedAllow = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kUnalignedAllowShift),
-  kNonZero = 1u << static_cast<InstrFlagsSet>(InstrFlagsShift::kNonZeroShift)
+  k32Bit = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::k32Bit),
+  kAdd = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kAddShift),
+  kIndex = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kIndexShift),
+  kWBack = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kWBackShift),
+  kTbh = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kTbhShift),
+  kSetFlags = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kSetFlagsShift),
+  kUnalignedAllow = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kUnalignedAllowShift),
+  kNonZero = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kNonZeroShift)
 };
 
 } // namespace internal

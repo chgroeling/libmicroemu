@@ -31,11 +31,11 @@ void TestIntCalc() {
   assert(accu8 == 118);
 
   // accumulate tests
-  accu8 = 1u;
+  accu8 = 1U;
   accu8 = accu8 * accu8 + accu8; // 2
   accu8 = accu8 * accu8 + accu8; // 6
   accu8 = accu8 * accu8 + accu8; // 42
-  assert(accu8 == 42u);
+  assert(accu8 == 42U);
 
   // -----------------------------
   // 16-bit
@@ -63,11 +63,11 @@ void TestIntCalc() {
   assert(accu16 == 32758);
 
   // accumulate tests
-  accu16 = 1u;
+  accu16 = 1U;
   accu16 = accu16 * accu16 + accu16; // 2
   accu16 = accu16 * accu16 + accu16; // 6
   accu16 = accu16 * accu16 + accu16; // 42
-  assert(accu16 == 42u);
+  assert(accu16 == 42U);
 
   // -----------------------------
   // 32-bit
@@ -95,12 +95,12 @@ void TestIntCalc() {
   assert(accu32 == 2147483638);
 
   // accumulate tests
-  accu32 = 1u;
+  accu32 = 1U;
 
   accu32 = accu32 * accu32 + accu32; // 2
   accu32 = accu32 * accu32 + accu32; // 6
   accu32 = accu32 * accu32 + accu32; // 42
-  assert(accu32 == 42u);
+  assert(accu32 == 42U);
 
   // -----------------------------
   // 32-bit Modulo Tests
@@ -111,6 +111,6 @@ void TestIntCalc() {
 
   assert((a % b) == 0);
 
-  a += 1u;
+  a += 1U;
   assert((a % b) == 0x80000001); // signed divison result
 }

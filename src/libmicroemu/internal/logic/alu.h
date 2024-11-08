@@ -87,7 +87,7 @@ public:
     const Ts extended_x = static_cast<Ts>(x);
     const T result = static_cast<T>(extended_x >> shift);
 
-    const bool carry_out = ((extended_x >> (shift - 1u)) & 0x1u) == 1u;
+    const bool carry_out = ((extended_x >> (shift - 1U)) & 0x1U) == 1U;
     return ASR_C_Results{result, carry_out};
   }
 
@@ -111,10 +111,10 @@ public:
     const U extended_x = (static_cast<U>(x) << no_of_bits<T>::N) >> shift;
 
     const T result = static_cast<T>(
-        BitManip<U>::template Slice1R<no_of_bits<U>::N - 1u, no_of_bits<T>::N>(extended_x));
+        BitManip<U>::template Slice1R<no_of_bits<U>::N - 1U, no_of_bits<T>::N>(extended_x));
 
     const bool carry_out =
-        BitManip<U>::template Slice1R<no_of_bits<T>::N - 1, no_of_bits<T>::N - 1>(extended_x) == 1u;
+        BitManip<U>::template Slice1R<no_of_bits<T>::N - 1, no_of_bits<T>::N - 1>(extended_x) == 1U;
 
     return LSR_C_Results{result, carry_out};
   }
@@ -131,10 +131,10 @@ public:
     using U = next_bigger_type_t<T>;
     const U extended_x = (static_cast<U>(x) << shift);
     const T result =
-        static_cast<T>(BitManip<U>::template Slice1R<no_of_bits<T>::N - 1u, 0>(extended_x));
+        static_cast<T>(BitManip<U>::template Slice1R<no_of_bits<T>::N - 1U, 0>(extended_x));
 
     const bool carry_out =
-        BitManip<U>::template Slice1R<no_of_bits<T>::N, no_of_bits<T>::N>(extended_x) == 1u;
+        BitManip<U>::template Slice1R<no_of_bits<T>::N, no_of_bits<T>::N>(extended_x) == 1U;
 
     return LSL_C_Results{result, carry_out};
   }
@@ -154,12 +154,12 @@ public:
 
   static ROR_C_Results ROR_C(const T &x, i32 shift) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.26
-    assert(shift != 0u);
+    assert(shift != 0U);
     constexpr auto N = no_of_bits<T>::N;
     const auto m = shift % N;
     const T result = LSR(x, m) | LSL(x, N - m);
-    const auto carry_out = BitManip<T>::template Slice1R<N - 1u, N - 1u>(result);
-    return ROR_C_Results{result, carry_out == 0x1u};
+    const auto carry_out = BitManip<T>::template Slice1R<N - 1U, N - 1U>(result);
+    return ROR_C_Results{result, carry_out == 0x1U};
   }
 
   struct RXR_C_Results {
@@ -170,36 +170,36 @@ public:
   static RXR_C_Results RXR_C(const T &x, bool carry_in) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.27
     const u32 N = no_of_bits<T>::N;
-    const auto carry_out = BitManip<T>::template Slice1R<0, 0>(x) == 0x1u;
-    const T carry_in_t = carry_in ? static_cast<T>(0x1u) : static_cast<T>(0x0u);
-    const T result = (x >> 1u) | (carry_in_t << (N - 1u));
+    const auto carry_out = BitManip<T>::template Slice1R<0, 0>(x) == 0x1U;
+    const T carry_in_t = carry_in ? static_cast<T>(0x1U) : static_cast<T>(0x0U);
+    const T result = (x >> 1U) | (carry_in_t << (N - 1U));
 
     return RXR_C_Results{result, carry_out};
   }
 
   static T RXR(const T &x, bool carry_in) { return RXR_C(x, carry_in).result; }
   static ImmShiftResults DecodeImmShift(uint8_t type, uint8_t imm5) {
-    switch (type & 0x3u) {
-    case 0b00u: {
+    switch (type & 0x3U) {
+    case 0b00U: {
       return ImmShiftResults{SRType::SRType_LSL, imm5};
     }
-    case 0b01u: {
+    case 0b01U: {
       if (imm5 == 0x0) {
-        return ImmShiftResults{SRType::SRType_LSR, 32u};
+        return ImmShiftResults{SRType::SRType_LSR, 32U};
       } else {
         return ImmShiftResults{SRType::SRType_LSR, imm5};
       }
     }
-    case 0b10u: {
+    case 0b10U: {
       if (imm5 == 0x0) {
-        return ImmShiftResults{SRType::SRType_ASR, 32u};
+        return ImmShiftResults{SRType::SRType_ASR, 32U};
       } else {
         return ImmShiftResults{SRType::SRType_ASR, imm5};
       }
     }
-    case 0b11u: {
+    case 0b11U: {
       if (imm5 == 0x0) {
-        return ImmShiftResults{SRType::SRType_RRX, 1u};
+        return ImmShiftResults{SRType::SRType_RRX, 1U};
       } else {
         return ImmShiftResults{SRType::SRType_ROR, imm5};
       }
@@ -209,7 +209,7 @@ public:
     }
     }
     }
-    return ImmShiftResults{SRType::SRType_None, 0u};
+    return ImmShiftResults{SRType::SRType_None, 0U};
   }
   static T Shift(T value, SRType type, T amount, bool carry_in) {
     const auto result = Shift_C(value, type, amount, carry_in);
@@ -221,7 +221,7 @@ public:
   };
   static ShiftCRes Shift_C(T value, SRType type, T amount, bool carry_in) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.183
-    if (amount == 0u) {
+    if (amount == 0U) {
       return ShiftCRes{value, carry_in};
     }
     switch (type) {

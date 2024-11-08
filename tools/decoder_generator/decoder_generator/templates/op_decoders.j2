@@ -18,8 +18,8 @@ using Bm8 = BitManip<u8>;
 using Bm16 = BitManip<u16>;
 using Bm32 = BitManip<u32>;
 
-static constexpr u32 kDecodersOpCodeLast = 15u;
-static constexpr u32 kDecodersOpCodeFirst = 11u;
+static constexpr u32 kDecodersOpCodeLast = 15U;
+static constexpr u32 kDecodersOpCodeFirst = 11U;
 
 template<typename TProcessorStates, typename TItOps, typename TSpecRegOps> 
 static Result<Instr> InvalidInstrDecoder(const RawInstr& rinstr,  TProcessorStates& pstates) {
@@ -35,7 +35,7 @@ template<typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TProcessorStates& pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::{{i['name_enum']}} };
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
    {{""}}
         {%- if 'pre_block' in i %}
             {%- for line in i['pre_block'] %}

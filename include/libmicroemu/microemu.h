@@ -81,16 +81,16 @@ public:
 private:
   internal::Emulator<ProcessorStates> BuildEmulator();
   u8 *flash_{nullptr};
-  me_size_t flash_size_{0u};
-  me_adr_t flash_vadr_{0x0u};
+  me_size_t flash_size_{0U};
+  me_adr_t flash_vadr_{0x0U};
 
   u8 *ram1_{nullptr};
-  me_size_t ram1_size_{0u};
-  me_adr_t ram1_vadr_{0x0u};
+  me_size_t ram1_size_{0U};
+  me_adr_t ram1_vadr_{0x0U};
 
   u8 *ram2_{nullptr};
-  me_size_t ram2_size_{0u};
-  me_adr_t ram2_vadr_{0x0u};
+  me_size_t ram2_size_{0U};
+  me_adr_t ram2_vadr_{0x0U};
 
   ProcessorStates pstates_{};
 };

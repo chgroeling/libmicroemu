@@ -11,29 +11,29 @@ namespace microemu {
 namespace internal {
 
 enum class Condition : u32 {
-  kCondEq = 0b0000u, // Equal
-  kCondNe = 0b0001u, // Not equal
+  kCondEq = 0b0000U, // Equal
+  kCondNe = 0b0001U, // Not equal
 
-  kCondCs = 0b0010u, // Carry set
-  kCondCc = 0b0011u, // Carry clear
+  kCondCs = 0b0010U, // Carry set
+  kCondCc = 0b0011U, // Carry clear
 
-  kCondMi = 0b0100u, // Minus, negative
-  kCondPl = 0b0101u, // Plus, positive or zero
+  kCondMi = 0b0100U, // Minus, negative
+  kCondPl = 0b0101U, // Plus, positive or zero
 
-  kCondVs = 0b0110u, // Overflow
-  kCondVc = 0b0111u, // No overflow
+  kCondVs = 0b0110U, // Overflow
+  kCondVc = 0b0111U, // No overflow
 
-  kCondHi = 0b1000u, // Unsigned higher
-  kCondLs = 0b1001u, // Unsigned lower or same
+  kCondHi = 0b1000U, // Unsigned higher
+  kCondLs = 0b1001U, // Unsigned lower or same
 
-  kCondGe = 0b1010u, // Signed greater than or equal
-  kCondLt = 0b1011u, // Signed less than
+  kCondGe = 0b1010U, // Signed greater than or equal
+  kCondLt = 0b1011U, // Signed less than
 
-  kCondGt = 0b1100u, // Signed greater than
-  kCondLe = 0b1101u, // Signed less than or
+  kCondGt = 0b1100U, // Signed greater than
+  kCondLe = 0b1101U, // Signed less than or
 
-  kCondAl = 0b1110u,    // Always
-  kUndefined = 0b1111u, // Undefined
+  kCondAl = 0b1110U,    // Always
+  kUndefined = 0b1111U, // Undefined
 };
 
 template <typename TProcessorStates, typename TSpecRegOps> class IfThenOps {
@@ -67,13 +67,13 @@ public:
     using SReg = TSpecRegOps;
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
 
-    return ((istate & IstateRegister::kItBit3to0Msk) != 0b0000u);
+    return ((istate & IstateRegister::kItBit3to0Msk) != 0b0000U);
   }
 
   static inline bool LastInITBlock(TProcessorStates &pstates) {
     using SReg = TSpecRegOps;
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
-    return ((istate & IstateRegister::kItBit3to0Msk) == 0b1000u);
+    return ((istate & IstateRegister::kItBit3to0Msk) == 0b1000U);
   }
 
   static inline void ITAdvance(TProcessorStates &pstates) {
@@ -82,11 +82,11 @@ public:
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
     const auto istate_2_0 = istate & IstateRegister::kItBit2to0Msk;
 
-    if (istate_2_0 == 0x0u) {
-      istate = 0x0u;
+    if (istate_2_0 == 0x0U) {
+      istate = 0x0U;
     } else {
       const auto next_istate_4_0 =
-          ((istate & IstateRegister::kItBit4to0Msk) << 1u) & IstateRegister::kItBit4to0Msk;
+          ((istate & IstateRegister::kItBit4to0Msk) << 1U) & IstateRegister::kItBit4to0Msk;
       istate = (istate & ~IstateRegister::kItBit4to0Msk) | next_istate_4_0;
     }
 
@@ -105,12 +105,12 @@ public:
 
     const auto it_3_0 = istate & IstateRegister::kItBit3to0Msk;
 
-    if (it_3_0 != 0x0u) {
+    if (it_3_0 != 0x0U) {
       const auto it_7_4 = (istate & IstateRegister::kItBit7to4Msk) >> IstateRegister::kItBit4Pos;
       return Ok<u32>(it_7_4);
     }
 
-    if (istate == 0x0u) {
+    if (istate == 0x0U) {
       return Ok<u32>(0xEu); // b1110
     }
 
@@ -181,39 +181,39 @@ public:
 
     auto cond_3_1 = (cond & IstateRegister::kItBit3to1Msk) >> IstateRegister::kItBit1Pos;
     switch (cond_3_1) {
-    case 0b000u: { // EQ - Equal or NE - Not equal
+    case 0b000U: { // EQ - Equal or NE - Not equal
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = (apsr & ApsrRegister::kZMsk) == ApsrRegister::kZMsk;
       break;
     }
-    case 0b001u: { // CS - Carry set  or CC - Carry clear
+    case 0b001U: { // CS - Carry set  or CC - Carry clear
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk;
       break;
     }
-    case 0b010u: { // MI - Minus, negative  or PL - Plus, positive or zero
+    case 0b010U: { // MI - Minus, negative  or PL - Plus, positive or zero
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = (apsr & ApsrRegister::kNMsk) == ApsrRegister::kNMsk;
       break;
     }
-    case 0b011u: { // VS - Overflow or VC - No overflow
+    case 0b011U: { // VS - Overflow or VC - No overflow
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk;
       break;
     }
-    case 0b100u: { // HI - Unsigned higher or LS - Unsigned lower or same
+    case 0b100U: { // HI - Unsigned higher or LS - Unsigned lower or same
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = ((apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk) &&
                ((apsr & ApsrRegister::kZMsk) != ApsrRegister::kZMsk);
       break;
     }
-    case 0b101u: { // GE - Signed greater than or equal or LT - Signed less than
+    case 0b101U: { // GE - Signed greater than or equal or LT - Signed less than
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = ((apsr & ApsrRegister::kNMsk) >> ApsrRegister::kNPos) ==
                ((apsr & ApsrRegister::kVMsk) >> ApsrRegister::kVPos);
       break;
     }
-    case 0b110u: { // GT - Signed greater than  or LE - Signed less than or
+    case 0b110U: { // GT - Signed greater than  or LE - Signed less than or
                    // equal
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
       result = (((apsr & ApsrRegister::kNMsk) >> ApsrRegister::kNPos) ==
@@ -221,7 +221,7 @@ public:
                ((apsr & ApsrRegister::kZMsk) != ApsrRegister::kZMsk);
       break;
     }
-    case 0b111u: { // AL - Always
+    case 0b111U: { // AL - Always
       result = true;
       break;
     }
@@ -235,7 +235,7 @@ public:
     // always executed Otherwise, invert condition if necessary.
 
     // if cond<0> == '1' && cond != '1111' then result = !result;
-    if (((cond & 0x1u) == 0x1u) && (cond != 0xFu)) {
+    if (((cond & 0x1U) == 0x1U) && (cond != 0xFu)) {
       result = !result;
     }
 

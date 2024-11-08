@@ -53,9 +53,9 @@ public:
   template <typename TArg0>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const ThumbImmediateResult &imm_carry) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -73,10 +73,10 @@ public:
     apsr &=
         ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
 
-    apsr |= ((result.value >> 31u) & 0x1u) << ApsrRegister::kNPos;       // N
+    apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
     apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-    apsr |= (result.carry_out == true ? 1u : 0u) << ApsrRegister::kCPos; // C
-    apsr |= (result.overflow == true ? 1u : 0u) << ApsrRegister::kVPos;  // V
+    apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
+    apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
     SReg::template WriteRegister<SpecialRegisterId::kApsr>(ictx.pstates, apsr);
 
     It::ITAdvance(ictx.pstates);

@@ -22,11 +22,11 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const TArg &arg_m, const TArg &arg_t,
                                  const ImmShiftResults &shift_res) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
-    const bool is_index = (iflags & kIndex) != 0u;
-    const bool is_add = (iflags & kAdd) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const bool is_index = (iflags & kIndex) != 0U;
+    const bool is_add = (iflags & kAdd) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -50,7 +50,7 @@ public:
     const auto rt = Reg::ReadRegister(ictx.pstates, arg_t.Get());
     TRY(ExecResult, TOp::Write(ictx, address, rt));
 
-    const bool is_wback = (iflags & kWBack) != 0u;
+    const bool is_wback = (iflags & kWBack) != 0U;
     if (is_wback == true) {
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_address);
     }

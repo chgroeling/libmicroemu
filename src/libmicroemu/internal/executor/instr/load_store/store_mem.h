@@ -49,7 +49,7 @@ public:
                                    u32 &rd) {
     TRY(void, ictx.bus.template WriteOrRaise<u32>(ictx.pstates, address, rt,
                                                   BusExceptionType::kRaisePreciseDataBusError));
-    rd = 0x0u; // operation always succeeds ... updates memory
+    rd = 0x0U; // operation always succeeds ... updates memory
     return Ok();
   }
 };

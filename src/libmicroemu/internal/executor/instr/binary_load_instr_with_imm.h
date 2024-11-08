@@ -23,11 +23,11 @@ public:
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const u32 &imm32, const TArg &arg_t) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
-    const bool is_index = (iflags & kIndex) != 0u;
-    const bool is_add = (iflags & kAdd) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const bool is_index = (iflags & kIndex) != 0U;
+    const bool is_add = (iflags & kAdd) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -42,7 +42,7 @@ public:
 
     TRY_ASSIGN(data, ExecResult, TOp::Read(ictx, address));
 
-    const bool is_wback = (iflags & kWBack) != 0u;
+    const bool is_wback = (iflags & kWBack) != 0U;
     if (is_wback == true) {
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_addr);
     }
@@ -50,7 +50,7 @@ public:
     if (arg_t.Get() == RegisterId::kPc) {
       // When the given address was unaligend the behaviour is
       // unpredtictable
-      if ((address & 0x3u) == 0u) {
+      if ((address & 0x3U) == 0U) {
         It::ITAdvance(ictx.pstates);
         TRY(ExecResult, (Pc::LoadWritePC(ictx.pstates, ictx.bus, data)));
 

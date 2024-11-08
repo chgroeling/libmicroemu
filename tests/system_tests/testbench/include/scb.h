@@ -64,5 +64,5 @@ static constexpr uint32_t kCcrL1CacheEnableFlag{(1U << 19U)};          // L1 cac
 
 // SysTick register map base pointer
 static inline volatile SCB *GetSCBBase() {
-  return reinterpret_cast<SCB *>(reinterpret_cast<unsigned *>(0xE000ED00u));
+  return reinterpret_cast<SCB *>(reinterpret_cast<unsigned *>(0xE000ED00U));
 };
