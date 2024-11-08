@@ -16,7 +16,9 @@ public:
                     bool suppress_dest_register) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
-    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
+    mctx.builder.AddString(instr_spec)
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
+        .AddChar(' ');
 
     if (!suppress_dest_register) {
       mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)).data());

@@ -24,7 +24,7 @@ public:
         0;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.pstates).data())
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)).data())
         .AddString(", ")
