@@ -501,10 +501,10 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.
  .debug_abbrev  0x0000000000000000       0x39 CMakeFiles/bare_stdlib.dir/main.cpp.obj
  .debug_abbrev  0x0000000000000039       0x4f CMakeFiles/bare_stdlib.dir/syscalls.c.obj
 
-.debug_line     0x0000000000000000       0xe8
+.debug_line     0x0000000000000000       0xee
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000       0x6f CMakeFiles/bare_stdlib.dir/main.cpp.obj
- .debug_line    0x000000000000006f       0x79 CMakeFiles/bare_stdlib.dir/syscalls.c.obj
+ .debug_line    0x0000000000000000       0x72 CMakeFiles/bare_stdlib.dir/main.cpp.obj
+ .debug_line    0x0000000000000072       0x7c CMakeFiles/bare_stdlib.dir/syscalls.c.obj
 
 .debug_frame    0x0000000000000000      0x270
  *(.debug_frame)
@@ -519,11 +519,11 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.
  .debug_frame   0x000000000000018c       0xb0 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg.a(lib_a-lock.o)
  .debug_frame   0x000000000000023c       0x34 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg.a(lib_a-__atexit.o)
 
-.debug_str      0x0000000000000000      0x186
+.debug_str      0x0000000000000000      0x197
  *(.debug_str)
- .debug_str     0x0000000000000000       0xe2 CMakeFiles/bare_stdlib.dir/main.cpp.obj
- .debug_str     0x00000000000000e2       0xa4 CMakeFiles/bare_stdlib.dir/syscalls.c.obj
-                                         0xdd (size before relaxing)
+ .debug_str     0x0000000000000000       0xec CMakeFiles/bare_stdlib.dir/main.cpp.obj
+ .debug_str     0x00000000000000ec       0xab CMakeFiles/bare_stdlib.dir/syscalls.c.obj
+                                         0xe7 (size before relaxing)
 
 .debug_loc
  *(.debug_loc)

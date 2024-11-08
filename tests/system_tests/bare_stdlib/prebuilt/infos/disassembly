@@ -1,5 +1,5 @@
 
-/Users/cgg/microemu/tests/system_tests/bare_stdlib/build/bare_stdlib.elf:     file format elf32-littlearm
+/Users/cgg/libmicroemu/tests/system_tests/bare_stdlib/build/bare_stdlib.elf:     file format elf32-littlearm
 
 
 Disassembly of section .init:

@@ -1,5 +1,5 @@
 
-/Users/cgg/microemu/tests/system_tests/printf_rdimon/build/printf_rdimon.elf:     file format elf32-littlearm
+/Users/cgg/libmicroemu/tests/system_tests/printf_rdimon/build/printf_rdimon.elf:     file format elf32-littlearm
 
 
 Disassembly of section .text:
