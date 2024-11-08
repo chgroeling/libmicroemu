@@ -15,7 +15,7 @@ public:
                     const InstrFlagsSet &iflags, const u8 &n, const u32 &registers,
                     bool suppress_dest_register) {
     static_cast<void>(bflags);
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
 
     if (!suppress_dest_register) {

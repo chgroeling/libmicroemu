@@ -22,7 +22,7 @@ public:
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
                                  const TArg &arg_t) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -33,7 +33,7 @@ public:
       return Ok(ExecResult{eflags});
     }
 
-    const bool is_add = (iflags & kAdd) != 0U;
+    const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     // unary loads always refer to the pc
     const me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(ictx.pstates));

@@ -21,7 +21,7 @@ public:
                     const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n,
                     const ThumbImmediateResult &imm_carry) {
 
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
+    const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     const bool is_reduced_rd =
         (bflags & static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd)) != 0;
     mctx.builder.AddString(instr_spec)

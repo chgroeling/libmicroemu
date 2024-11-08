@@ -425,7 +425,7 @@ static Result<Instr> MovImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b100100u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 d = static_cast<u8>(Rd);
   const u32 imm8 = Bm16::Slice1R<7u, 0u>(rinstr.high);
@@ -559,7 +559,7 @@ static Result<Instr> MovRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
 
   assert((Bm16::Slice1R<11u, 8u>(rinstr.low)) == 0x6u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rd = Bm32::Slice2R<7u, 7u, 2u, 0u>(rinstr.low);
   const u8 d = static_cast<u8>(Rd);
   const u16 Rm = Bm16::Slice1R<6u, 3u>(rinstr.low);
@@ -580,7 +580,7 @@ static Result<Instr> MovRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0000000000u);
 
-  flags |= InstrFlags::kSetFlags;
+  flags |= static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rd = Bm16::Slice1R<2u, 0u>(rinstr.low);
   const u8 d = static_cast<u8>(Rd);
   const u16 Rm = Bm16::Slice1R<5u, 3u>(rinstr.low);
@@ -611,10 +611,12 @@ static Result<Instr> MovRegisterT3Decoder(const RawInstr &rinstr, TProcessorStat
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
   const u8 m = static_cast<u8>(Rm);
 
-  if ((flags & InstrFlags::kSetFlags != 0u) && (d == 13u || d == 15u || m == 13u || m == 15u)) {
+  if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) != 0u) &&
+      (d == 13u || d == 15u || m == 13u || m == 15u)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
-  if ((flags & InstrFlags::kSetFlags == 0u) && (d == 15u || m == 15u || (d == 13u && m == 13u))) {
+  if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) == 0u) &&
+      (d == 15u || m == 15u || (d == 13u && m == 13u))) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -697,7 +699,7 @@ static Result<Instr> LdrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= ~InstrFlags::kWBack;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<2u, 0u>(rinstr.low);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
@@ -718,7 +720,7 @@ static Result<Instr> LdrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= ~InstrFlags::kWBack;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -765,7 +767,7 @@ static Result<Instr> LdrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   if ((P == 0x0u) && (W == 0x0u)) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if (t == 13u || (flags & InstrFlags::kWBack && n == t)) {
+  if (t == 13u || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   if (t == 15u && ((P == 0u) || (U == 1u) || (W == 1u))) {
@@ -786,7 +788,7 @@ static Result<Instr> LdrsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorS
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= ~InstrFlags::kWBack;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -834,7 +836,8 @@ static Result<Instr> LdrsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorS
   if ((P == 0x0u) && (W == 0x0u)) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if (t == 13u || (t == 15u && (W == 1u)) || (flags & InstrFlags::kWBack && n == t)) {
+  if (t == 13u || (t == 15u && (W == 1u)) ||
+      (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -852,7 +855,7 @@ static Result<Instr> LdrshImmediateT1Decoder(const RawInstr &rinstr, TProcessorS
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -898,7 +901,8 @@ static Result<Instr> LdrshImmediateT2Decoder(const RawInstr &rinstr, TProcessorS
   if (P == 0b0u && W == 0b0u) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if (t == 13u || (t == 15u && W == 1u) || (flags & InstrFlags::kWBack && n == t)) {
+  if (t == 13u || (t == 15u && W == 1u) ||
+      (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -916,7 +920,7 @@ static Result<Instr> LdrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= ~InstrFlags::kWBack;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<2u, 0u>(rinstr.low);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
@@ -937,7 +941,7 @@ static Result<Instr> LdrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= ~InstrFlags::kWBack;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -983,7 +987,8 @@ static Result<Instr> LdrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   if (P == 0b0u && W == 0b0u) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if (t == 13u || (t == 15u && W == 1u) || (flags & InstrFlags::kWBack && n == t)) {
+  if (t == 13u || (t == 15u && W == 1u) ||
+      (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -999,7 +1004,7 @@ static Result<Instr> PopT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b1011110u);
 
-  flags &= ~InstrFlags::kUnalignedAllow;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u32 P = Bm16::IsolateBit<8u>(rinstr.low);
   const u32 register_list = Bm16::Slice1R<7u, 0u>(rinstr.low);
   const u32 registers = (P << 15u) | register_list;
@@ -1024,7 +1029,7 @@ static Result<Instr> PopT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1110100010111101u);
   assert((Bm16::IsolateBit<13u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kUnalignedAllow;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u32 P = Bm16::IsolateBit<15u>(rinstr.high);
   const u32 M = Bm16::IsolateBit<14u>(rinstr.high);
   const u32 register_list = Bm16::Slice1R<12u, 0u>(rinstr.high);
@@ -1074,7 +1079,7 @@ static Result<Instr> LdrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<2u, 0u>(rinstr.low);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
@@ -1095,7 +1100,7 @@ static Result<Instr> LdrImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<10u, 8u>(rinstr.low);
   const u8 t = static_cast<u8>(Rt);
   const u8 n = 13u;
@@ -1115,7 +1120,7 @@ static Result<Instr> LdrImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -1162,7 +1167,7 @@ static Result<Instr> LdrImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   if ((P == 0x0u) && (W == 0x0u)) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if ((flags & InstrFlags::kWBack && n == t) ||
+  if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t) ||
       t == 15u && TItOps::InITBlock(pstates) && !TItOps::LastInITBlock(pstates)) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
@@ -1182,7 +1187,7 @@ static Result<Instr> LdrexT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -1225,7 +1230,7 @@ static Result<Instr> LdrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
 
   assert((P != 0u) || (W != 0));
   assert(Rn != 0b1111u);
-  if (flags & InstrFlags::kWBack && ((n == t) || (n == t2))) {
+  if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((n == t) || (n == t2))) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   if (t == 13u || t == 15 || (t2 == 13u) || (t2 == 15) || (t == t2)) {
@@ -1430,7 +1435,7 @@ static Result<Instr> SubSpMinusImmediateT1Decoder(const RawInstr &rinstr,
 
   assert((Bm16::Slice1R<15u, 7u>(rinstr.low)) == 0b101100001u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u8 d = 13u;
   const u32 imm7 = Bm16::Slice1R<6u, 0u>(rinstr.low);
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm7 << 2);
@@ -1481,7 +1486,7 @@ static Result<Instr> SubSpMinusImmediateT3Decoder(const RawInstr &rinstr,
   assert((Bm16::Slice1R<9u, 0u>(rinstr.low)) == 0b1010101101u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 d = static_cast<u8>(Rd);
   const u32 i = Bm16::IsolateBit<10u>(rinstr.low);
@@ -1580,7 +1585,7 @@ static Result<Instr> SubImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b101010u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
@@ -1646,7 +1651,7 @@ static Result<Instr> AddSpPlusImmediateT1Decoder(const RawInstr &rinstr,
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10101u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u8 d = static_cast<u8>(Bm16::Slice1R<10u, 8u>(rinstr.low));
   const u32 imm8 = Bm16::Slice1R<7u, 0u>(rinstr.low);
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm8 << 2u);
@@ -1663,7 +1668,7 @@ static Result<Instr> AddSpPlusImmediateT2Decoder(const RawInstr &rinstr,
 
   assert((Bm16::Slice1R<15u, 7u>(rinstr.low)) == 0b101100000u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u8 d = 13u;
   const u32 imm7 = Bm16::Slice1R<6u, 0u>(rinstr.low);
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm7 << 2u);
@@ -1714,7 +1719,7 @@ static Result<Instr> AddSpPlusImmediateT4Decoder(const RawInstr &rinstr,
   assert((Bm16::Slice1R<9u, 0u>(rinstr.low)) == 0b1000001101u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 d = static_cast<u8>(Rd);
   const u32 i = Bm16::IsolateBit<10u>(rinstr.low);
@@ -1811,7 +1816,7 @@ static Result<Instr> AddImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b10000u);
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
@@ -2155,7 +2160,7 @@ static Result<Instr> UmlalT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111110u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 RdHi = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 dHi = static_cast<u8>(RdHi);
   const u16 RdLo = Bm16::Slice1R<15u, 12u>(rinstr.high);
@@ -2186,7 +2191,7 @@ static Result<Instr> UmullT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111010u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 RdHi = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 dHi = static_cast<u8>(RdHi);
   const u16 RdLo = Bm16::Slice1R<15u, 12u>(rinstr.high);
@@ -2217,7 +2222,7 @@ static Result<Instr> SmullT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111000u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 RdHi = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 dHi = static_cast<u8>(RdHi);
   const u16 RdLo = Bm16::Slice1R<15u, 12u>(rinstr.high);
@@ -2245,7 +2250,7 @@ static Result<Instr> MulT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
   const u8 d = static_cast<u8>(Rd);
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
@@ -2347,7 +2352,7 @@ static Result<Instr> MlaT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110110000u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const u16 Ra = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 a = static_cast<u8>(Ra);
   const u16 Rd = Bm16::Slice1R<11u, 8u>(rinstr.high);
@@ -2393,7 +2398,7 @@ static Result<Instr> AddRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
 
   assert((Bm16::Slice1R<10u, 8u>(rinstr.low)) == 0b100u);
 
-  flags &= ~InstrFlags::kSetFlags;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0u};
   const u8 m = static_cast<u8>(Bm16::Slice1R<6u, 3u>(rinstr.low));
   const u32 dn_1 = Bm16::IsolateBit<7u>(rinstr.low);
@@ -2534,7 +2539,7 @@ static Result<Instr> PushT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
 
   assert((Bm16::Slice1R<10u, 9u>(rinstr.low)) == 0b10u);
 
-  flags &= ~InstrFlags::kUnalignedAllow;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u32 M = Bm16::IsolateBit<8u>(rinstr.low);
   const u32 register_list = Bm16::Slice1R<7u, 0u>(rinstr.low);
   const u32 registers = (M << 14u) | register_list;
@@ -2556,7 +2561,7 @@ static Result<Instr> PushT2Decoder(const RawInstr &rinstr, TProcessorStates &pst
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
   assert((Bm16::IsolateBit<13u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kUnalignedAllow;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u32 M = Bm16::IsolateBit<14u>(rinstr.high);
   const u32 register_list = Bm16::Slice1R<12u, 0u>(rinstr.high);
   const u32 registers = (M << 14u) | register_list;
@@ -2578,7 +2583,7 @@ static Result<Instr> PushT3Decoder(const RawInstr &rinstr, TProcessorStates &pst
   assert(rinstr.low == 0b1111100001001101u);
   assert((Bm16::Slice1R<11u, 0u>(rinstr.high)) == 0b110100000100u);
 
-  flags |= InstrFlags::kUnalignedAllow;
+  flags |= static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
   const u8 t = static_cast<u8>(Rt);
   const u32 registers = 1u << Rt;
@@ -2642,7 +2647,7 @@ static Result<Instr> LdmT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
       (!TItOps::LastInITBlock(pstates))) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
-  if (flags & InstrFlags::kWBack && ((registers & (1 << n)) != 0u)) {
+  if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((registers & (1 << n)) != 0u)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -2678,7 +2683,7 @@ static Result<Instr> StmT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
   assert((Bm16::IsolateBit<13u>(rinstr.high)) == 0b0u);
 
-  flags &= ~InstrFlags::kUnalignedAllow;
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u32 W = Bm16::IsolateBit<5u>(rinstr.low);
   flags |= W << static_cast<InstrFlagsSet>(InstrFlagsShift::kWBackShift);
   const u32 M = Bm16::IsolateBit<14u>(rinstr.high);
@@ -2690,7 +2695,7 @@ static Result<Instr> StmT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   if (n == 15 || (Bm32::BitCount(registers) < 2u)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
-  if (flags & InstrFlags::kWBack && ((registers & (1 << n)) != 0u)) {
+  if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((registers & (1 << n)) != 0u)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -3404,7 +3409,7 @@ static Result<Instr> StrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rm = Bm16::Slice1R<8u, 6u>(rinstr.low);
@@ -3427,7 +3432,7 @@ static Result<Instr> StrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
@@ -3455,7 +3460,7 @@ static Result<Instr> StrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rm = Bm16::Slice1R<8u, 6u>(rinstr.low);
@@ -3478,7 +3483,7 @@ static Result<Instr> StrbRegisterT2Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
@@ -3510,7 +3515,7 @@ static Result<Instr> StrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
@@ -3541,7 +3546,7 @@ static Result<Instr> LdrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rm = Bm16::Slice1R<8u, 6u>(rinstr.low);
   const u8 m = static_cast<u8>(Rm);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
@@ -3563,7 +3568,7 @@ static Result<Instr> LdrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rm = Bm16::Slice1R<8u, 6u>(rinstr.low);
   const u8 m = static_cast<u8>(Rm);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
@@ -3587,7 +3592,7 @@ static Result<Instr> LdrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
   const u8 m = static_cast<u8>(Rm);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -3619,7 +3624,7 @@ static Result<Instr> LdrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rm = Bm16::Slice1R<3u, 0u>(rinstr.high);
   const u8 m = static_cast<u8>(Rm);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
@@ -3665,7 +3670,7 @@ static Result<Instr> StrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm8_32 << 2u);
 
   assert((P != 0u) || (W != 0u));
-  if (flags & InstrFlags::kWBack && (n == t || n == t2)) {
+  if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && (n == t || n == t2)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   if (n == 15u || t == 13u || t == 15u || t2 == 13u || t2 == 15u) {
@@ -3686,7 +3691,7 @@ static Result<Instr> StrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<2u, 0u>(rinstr.low);
@@ -3707,7 +3712,7 @@ static Result<Instr> StrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
@@ -3749,7 +3754,8 @@ static Result<Instr> StrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   if ((Rn == 0b1111u) || (P == 0b0 && W == 0b0u)) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if ((t == 13u || t == 15u) && (flags & InstrFlags::kWBack && n == t)) {
+  if ((t == 13u || t == 15u) &&
+      (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -3767,7 +3773,7 @@ static Result<Instr> StrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<2u, 0u>(rinstr.low);
@@ -3788,7 +3794,7 @@ static Result<Instr> StrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
@@ -3833,7 +3839,7 @@ static Result<Instr> StrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   if (n == 15u || ((P == 0u) && (W == 0u))) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if (t == 13u || t == 15u || (flags & InstrFlags::kWBack && n == t)) {
+  if (t == 13u || t == 15u || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -3851,7 +3857,7 @@ static Result<Instr> StrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<5u, 3u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<2u, 0u>(rinstr.low);
@@ -3872,7 +3878,7 @@ static Result<Instr> StrImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u8 n = 13u;
   const u16 Rt = Bm16::Slice1R<10u, 8u>(rinstr.low);
   const u8 t = static_cast<u8>(Rt);
@@ -3892,7 +3898,7 @@ static Result<Instr> StrImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);
@@ -3940,7 +3946,7 @@ static Result<Instr> StrImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   if (n == 15u || ((P == 0u) && (W == 0u))) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
   }
-  if (t == 15u || (flags & InstrFlags::kWBack && n == t)) {
+  if (t == 15u || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -3958,7 +3964,7 @@ static Result<Instr> StrexT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kIndex);
-  flags &= static_cast<InstrFlagsSet>(~InstrFlags::kWBack);
+  flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kWBack);
   const u16 Rn = Bm16::Slice1R<3u, 0u>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
   const u16 Rt = Bm16::Slice1R<15u, 12u>(rinstr.high);

@@ -671,7 +671,7 @@ public:
 
       // rewrite flags to ldm instruction
       iflags |= static_cast<InstrFlagsSet>(InstrFlags::kWBack);
-      iflags |= iargs.flags & InstrFlags::k32Bit; // copy 32bit flag
+      iflags |= iargs.flags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit); // copy 32bit flag
 
       TRY_ASSIGN(stm_flags, ExecResult,
                  TInstr::Call(ictx, iflags, RArgConst<RegisterId::kSp>(), iargs.registers));
@@ -706,7 +706,7 @@ public:
 
       // rewrite flags to ldm instruction
       iflags |= static_cast<InstrFlagsSet>(InstrFlags::kWBack);
-      iflags |= iargs.flags & InstrFlags::k32Bit; // copy 32bit flag
+      iflags |= iargs.flags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit); // copy 32bit flag
 
       TRY_ASSIGN(ldm_flags, ExecResult,
                  TInstr::Call(ictx, iflags, RArgConst<RegisterId::kSp>(), iargs.registers));

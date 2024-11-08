@@ -179,7 +179,7 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const TArg1 &arg_m, const TArg2 &arg_d,
                                  const ImmShiftResults &shift_res) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -196,7 +196,7 @@ public:
 
     Reg::WriteRegister(ictx.pstates, arg_d.Get(), result.value);
 
-    if ((iflags & InstrFlags::kSetFlags) != 0U) {
+    if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
       auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
 
       // Clear N, Z, C, V flags

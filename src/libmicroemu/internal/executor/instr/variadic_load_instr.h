@@ -24,7 +24,7 @@ public:
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const u32 &registers) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags = 0x0U;
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -65,7 +65,7 @@ public:
     // MemoryViewer<TMemAccess> mem_view(mem_acs_);
     // mem_view.print(0x80000 - 0x32, 0x64);
 
-    const bool is_wback = (iflags & kWBack) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const auto n_mask = 1U << static_cast<u32>(arg_n.Get());
     const bool is_rn_in_set = (registers & n_mask) != 0;
 

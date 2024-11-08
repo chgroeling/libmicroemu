@@ -18,8 +18,7 @@ enum class InstrFlagsShift {
   kNonZeroShift = 7U
 };
 
-// TODO: Enum class
-enum InstrFlags : InstrFlagsSet {
+enum class InstrFlags : InstrFlagsSet {
   k32Bit = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::k32Bit),
   kAdd = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kAddShift),
   kIndex = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kIndexShift),
