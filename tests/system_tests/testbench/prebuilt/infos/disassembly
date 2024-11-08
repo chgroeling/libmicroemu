@@ -950,7 +950,7 @@ void TestSprintf() {
      704:	482a      	ldr	r0, [pc, #168]	; (7b0 <TestSprintf()+0x110>)
      706:	f00b fa79 	bl	bbfc <__assert_func>
 
-  uint32_t test1{0xCAFEBABEu};
+  uint32_t test1{0xCAFEBABEU};
      70a:	4b2d      	ldr	r3, [pc, #180]	; (7c0 <TestSprintf()+0x120>)
      70c:	63bb      	str	r3, [r7, #56]	; 0x38
   sprintf(buf, "  0xCAFEBABE == 0x%X\n", test1);
@@ -1181,7 +1181,7 @@ uint32_t StackAlignmentTest() {
      8d6:	4812      	ldr	r0, [pc, #72]	; (920 <StackAlignmentTest()+0x64>)
      8d8:	f00b f990 	bl	bbfc <__assert_func>
 
-  volatile uint32_t ret32 = 0xCAFEu;
+  volatile uint32_t ret32 = 0xCAFEU;
      8dc:	f64c 23fe 	movw	r3, #51966	; 0xcafe
      8e0:	607b      	str	r3, [r7, #4]
   volatile uint16_t ret16 = static_cast<uint16_t>(ret32);
