@@ -14,7 +14,7 @@ void TestHeap() {
   free(heap);
 
   // Test data
-  for (uint32_t i = 0u; i < kAllocCycles; i++) {
+  for (uint32_t i = 0U; i < kAllocCycles; i++) {
     uint32_t *p1 = new uint32_t;
     uint16_t *p2 = new uint16_t;
     uint8_t *p3 = new uint8_t;

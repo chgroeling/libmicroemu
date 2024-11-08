@@ -18,76 +18,76 @@ namespace internal {
 
 enum {
   // File operations
-  kSysOpen = 0x01u,   //- Open a file or stream on the host system.
-  kSysIsTTY = 0x09u,  //- Check whether a file handle is associated with a file or
+  kSysOpen = 0x01U,   //- Open a file or stream on the host system.
+  kSysIsTTY = 0x09U,  //- Check whether a file handle is associated with a file or
                       // a stream/terminal such as stdout.
-  kSysWrite = 0x05u,  //- Write to a file or stream.
-  kSysRead = 0x06u,   //- Read from a file at the current cursor position.
-  kSysClose = 0x02u,  //- Closes a file on the host which has been opened by SysOPEN.
+  kSysWrite = 0x05U,  //- Write to a file or stream.
+  kSysRead = 0x06U,   //- Read from a file at the current cursor position.
+  kSysClose = 0x02U,  //- Closes a file on the host which has been opened by SysOPEN.
   kSysFLen = 0x0Cu,   //- Get the length of a file.
   kSysSeek = 0x0Au,   //- Set the file cursor to a given position in a file.
   kSysTmpNam = 0x0Du, //- Get a temporary absolute file path to create a temporary file.
   kSysRemove = 0x0Eu, //- Remove a file on the host system. Possibly insecure!
   kSysRename = 0x0Fu, //- Rename a file on the host system. Possibly insecure!
   // Terminal I/O operations
-  kSysWriteC = 0x03u, //- Write one character to the debug terminal.
-  kSysWrite0 = 0x04u, //- Write a 0-terminated string to the debug terminal.
-  kSysReadC = 0x07u,  //- Read one character from the debug terminal.
+  kSysWriteC = 0x03U, //- Write one character to the debug terminal.
+  kSysWrite0 = 0x04U, //- Write a 0-terminated string to the debug terminal.
+  kSysReadC = 0x07U,  //- Read one character from the debug terminal.
   // Time operations
-  kSysClock = 0x10u,
-  kSysElapsed = 0x30u,
-  kSysTickFreq = 0x31u,
-  kSysTime = 0x11u,
+  kSysClock = 0x10U,
+  kSysElapsed = 0x30U,
+  kSysTickFreq = 0x31U,
+  kSysTime = 0x11U,
   // System/Misc. operations
-  kSysErrNo = 0x13u,      //- Returns the value of the C library errno variable that
+  kSysErrNo = 0x13U,      //- Returns the value of the C library errno variable that
                           // is associated with the semihosting implementation.
-  kSysGetCmdLine = 0x15u, //- Get commandline parameters for the application to
+  kSysGetCmdLine = 0x15U, //- Get commandline parameters for the application to
                           // run with=argc and argv for main())
-  kSysHeapInfo = 0x16u,
-  kSysExit = 0x18u, // An application calls this operation to report an
+  kSysHeapInfo = 0x16U,
+  kSysExit = 0x18U, // An application calls this operation to report an
                     // exception to the debugger directly.
-  kSysIsError = 0x08u,
-  kSysSystem = 0x12u,
+  kSysIsError = 0x08U,
+  kSysSystem = 0x12U,
 
   // Extended feature - must be enabled
-  kSysExitExtended = 0x20u,
+  kSysExitExtended = 0x20U,
 };
 
 enum class ReasonCodes : uint32_t {
   // Hardware reason codes
-  kADPStoppedBranchThroughZero = 0x20000u,
-  kADPStoppedUndefinedInstr = 0x20001u,
-  kADPStoppedSoftwareInterrupt = 0x20002u,
-  kADPStoppedPrefetchAbort = 0x20003u,
-  kADPStoppedDataAbort = 0x20004u,
-  kADPStoppedAddressException = 0x20005u,
-  kADPStoppedIRQ = 0x20006u,
-  kADPStoppedFIQ = 0x20007u,
+  kADPStoppedBranchThroughZero = 0x20000U,
+  kADPStoppedUndefinedInstr = 0x20001U,
+  kADPStoppedSoftwareInterrupt = 0x20002U,
+  kADPStoppedPrefetchAbort = 0x20003U,
+  kADPStoppedDataAbort = 0x20004U,
+  kADPStoppedAddressException = 0x20005U,
+  kADPStoppedIRQ = 0x20006U,
+  kADPStoppedFIQ = 0x20007U,
 
   // Software reason codes
-  kADPStoppedBreakPoint = 0x20020u,
-  kADPStoppedWatchPoint = 0x20021u,
-  kADPStoppedStepComplete = 0x20022u,
-  kADPStoppedRunTimeErrorUnknown = 0x20023u,
-  kADPStoppedInternalError = 0x20024u,
-  kADPStoppedUserInterruption = 0x20025u,
-  kADPStoppedApplicationExit = 0x20026u,
-  kADPStoppedStackOverflow = 0x20027u,
-  kADPStoppedDivisionByZero = 0x20028u,
-  kADPStoppedOSSpecific = 0x20029u
+  kADPStoppedBreakPoint = 0x20020U,
+  kADPStoppedWatchPoint = 0x20021U,
+  kADPStoppedStepComplete = 0x20022U,
+  kADPStoppedRunTimeErrorUnknown = 0x20023U,
+  kADPStoppedInternalError = 0x20024U,
+  kADPStoppedUserInterruption = 0x20025U,
+  kADPStoppedApplicationExit = 0x20026U,
+  kADPStoppedStackOverflow = 0x20027U,
+  kADPStoppedDivisionByZero = 0x20028U,
+  kADPStoppedOSSpecific = 0x20029U
 };
 
-constexpr u32 kHandleStdin = 1u;
-constexpr u32 kHandleStdout = 2u;
-constexpr u32 kHandleStderr = 3u;
-constexpr u32 kHandleSemihostFeatures = 4u;
+constexpr u32 kHandleStdin = 1U;
+constexpr u32 kHandleStdout = 2U;
+constexpr u32 kHandleStderr = 3U;
+constexpr u32 kHandleSemihostFeatures = 4U;
 
 static char kFeatureData[] = {
-    0x53u, // Magic Byte 0
-    0x48u, // Magic Byte 1
-    0x46u, // Magic Byte 2
-    0x42u, // Magic Byte 3
-    0x3u   // feature byte 0 : SH_EXT_EXIT_EXTENDED + SH_EXT_STDOUT_STDERR
+    0x53U, // Magic Byte 0
+    0x48U, // Magic Byte 1
+    0x46U, // Magic Byte 2
+    0x42U, // Magic Byte 3
+    0x3U   // feature byte 0 : SH_EXT_EXIT_EXTENDED + SH_EXT_STDOUT_STDERR
 };
 
 template <typename TProcessorStates, typename TBus, typename TRegOps, typename TSpecRegOps,
@@ -102,19 +102,19 @@ public:
 
   template <u32 N> Result<std::array<u32, N>> ReadR1Words();
 
-  template <> Result<std::array<u32, 3>> ReadR1Words<3u>() {
+  template <> Result<std::array<u32, 3>> ReadR1Words<3U>() {
     auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
     auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1, r1 + 0x4, r1 + 0x8);
     return mem;
   }
 
-  template <> Result<std::array<u32, 2>> ReadR1Words<2u>() {
+  template <> Result<std::array<u32, 2>> ReadR1Words<2U>() {
     auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
     auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1, r1 + 0x4);
     return mem;
   }
 
-  template <> Result<std::array<u32, 1>> ReadR1Words<1u>() {
+  template <> Result<std::array<u32, 1>> ReadR1Words<1U>() {
     auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
     auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1);
     return mem;
@@ -126,8 +126,8 @@ public:
   };
 
   Result<SemihostResult> CallSemihost(const uint32_t &r0) {
-    i32 sh_ret = -1u;
-    BkptFlagsSet bkpt_flags = 0u;
+    i32 sh_ret = -1U;
+    BkptFlagsSet bkpt_flags = 0U;
     bkpt_flags |= static_cast<BkptFlagsSet>(BkptFlags::kOmitException);
     switch (r0) {
 
@@ -149,13 +149,13 @@ public:
       MemoryHelpers::CpyFromEmuMem(pstates_, bus_, buf, sizeof(buf) - 1, ptr, w_len);
       buf[w_len] = '\0';
       LOG_DEBUG(TLogger, "kSysOpen(0x%0x) - 0x%0x 0x%0x 0x%0x - '%s'", r0, ptr, mode, w_len, buf);
-      u32 result = -1u;
+      u32 result = -1U;
       if (strcmp(buf, ":tt") == 0) {
-        if ((mode >= 0u) && (mode <= 3u)) {
+        if ((mode >= 0U) && (mode <= 3U)) {
           result = kHandleStdin;
-        } else if ((mode >= 4u) && (mode <= 7u)) {
+        } else if ((mode >= 4U) && (mode <= 7U)) {
           result = kHandleStdout;
-        } else if ((mode >= 8u) && (mode <= 11u)) {
+        } else if ((mode >= 8U) && (mode <= 11U)) {
           result = kHandleStderr;
         } else {
           return Err<SemihostResult>(StatusCode::kScOutOfRange);
@@ -190,7 +190,7 @@ public:
       printf("%s", buf);
 
       // 0 indicates everything is ok
-      sh_ret = 0u;
+      sh_ret = 0U;
       break;
     }
     case kSysRead: {
@@ -212,7 +212,7 @@ public:
 
         semihost_features_position_ += read_bytes;
         // 0 indicates everything is ok
-        sh_ret = 0u;
+        sh_ret = 0U;
       } else {
         return Err<SemihostResult>(StatusCode::kScUnsuporrted);
       }
@@ -230,7 +230,7 @@ public:
       }
 
       // 1 if the handle identifies an interactive device
-      sh_ret = 1u;
+      sh_ret = 1U;
       break;
     }
     case kSysFLen: {
@@ -239,12 +239,12 @@ public:
       LOG_DEBUG(TLogger, "kSysFLen(0x%0x) - 0x%0x", r0, fhandle);
 
       if ((fhandle == kHandleStdin) || (fhandle == kHandleStdout) || (fhandle == kHandleStderr)) {
-        sh_ret = 0u;
+        sh_ret = 0U;
         break;
       }
       if (fhandle == kHandleSemihostFeatures) {
 #ifdef _DISABLE_EXT_EXIT
-        sh_ret = 0u; // no extended features
+        sh_ret = 0U; // no extended features
 #else
         sh_ret = sizeof(kFeatureData); // x bytes needed to store the feature sequence
 #endif
@@ -262,7 +262,7 @@ public:
       if (fhandle == kHandleSemihostFeatures) {
         if (fpos < sizeof(kFeatureData)) {
           semihost_features_position_ = fpos;
-          sh_ret = 0u;
+          sh_ret = 0U;
         } else {
           return Err<SemihostResult>(StatusCode::kScOutOfRange);
         }
@@ -300,7 +300,7 @@ public:
       LOG_INFO(TLogger, "kSysExit(0x%0x)", r0);
 
       auto reason_code = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
-      status_code_ = 0u; // no status code available
+      status_code_ = 0U; // no status code available
       if (reason_code == static_cast<u32>(ReasonCodes::kADPStoppedApplicationExit)) {
         bkpt_flags |= static_cast<BkptFlagsSet>(BkptFlags::kRequestExit);
       } else {
@@ -333,7 +333,7 @@ public:
       static_cast<void>(w2);
       LOG_DEBUG(TLogger, "kSysGetCmdLine(0x%0x) - 0x%0x 0x%0x", r0, w1, w2);
 
-      sh_ret = -1u; // accepted but not supported
+      sh_ret = -1U; // accepted but not supported
       break;
     }
     case kSysClose: {
@@ -345,14 +345,14 @@ public:
         return Err<SemihostResult>(StatusCode::kScUnexpected);
       }
       LOG_DEBUG(TLogger, "kSysClose(0x%0x) - 0x%0x", r0, fhandle);
-      sh_ret = 0u;
+      sh_ret = 0U;
       break;
     }
 
     default: {
       LOG_ERROR(TLogger, "Unknown(0x%0x)", r0);
       return Err<SemihostResult>(StatusCode::kScUnsuporrted);
-      sh_ret = -1u; // signals error
+      sh_ret = -1U; // signals error
       break;
     }
     }
@@ -362,7 +362,7 @@ public:
 
   virtual Result<BkptFlagsSet> Call(const uint32_t &imm32) override {
     if (imm32 != 0xabu) {
-      return Ok<u8>(0u); // no semihosting call
+      return Ok<u8>(0U); // no semihosting call
     }
     auto r0 = Reg::template ReadRegister<RegisterId::kR0>(pstates_);
     TRY_ASSIGN(sh_res, u8, CallSemihost(r0));
@@ -374,13 +374,13 @@ public:
   virtual uint32_t GetExitStatusCode() const override { return status_code_; }
 
 private:
-  static constexpr u32 kBufferLen = 128u;
+  static constexpr u32 kBufferLen = 128U;
 
   TBus bus_;
   TProcessorStates &pstates_;
   u32 file_id_{0xa};
-  i32 status_code_{0u};
-  u32 semihost_features_position_{0u};
+  i32 status_code_{0U};
+  u32 semihost_features_position_{0U};
 };
 
 } // namespace internal

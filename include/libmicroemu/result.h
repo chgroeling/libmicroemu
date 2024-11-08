@@ -7,40 +7,40 @@
 namespace microemu {
 enum class StatusCode : u32 {
   // clang-format off
-  kScSuccess = 0x0u, // Operation succedded successfully 
+  kScSuccess = 0x0U, // Operation succedded successfully 
   
   // Unspecified errors
-  kScError = 0x1u,      // An unspecified error occured
-  kScUnexpected = 0x1002u,
-  kScUnsuporrted = 0x1003u,
-  kScNotImplemented = 0x1004u,
+  kScError = 0x1U,      // An unspecified error occured
+  kScUnexpected = 0x1002U,
+  kScUnsuporrted = 0x1003U,
+  kScNotImplemented = 0x1004U,
 
   // Generic errors
-  kScOutOfRange = 0x2001u,
-  kScIteratorExhausted = 0x2002u,
-  kScBufferTooSmall = 0x2003u,
-  kScOpenFileFailed = 0x2004u,
+  kScOutOfRange = 0x2001U,
+  kScIteratorExhausted = 0x2002U,
+  kScBufferTooSmall = 0x2003U,
+  kScOpenFileFailed = 0x2004U,
   
   // Memory related errors
-  kScMemInaccesible = 0x3001u, 
-  kScMemWriteNotAllowed = 0x3002u,
+  kScMemInaccesible = 0x3001U, 
+  kScMemWriteNotAllowed = 0x3002U,
 
   // Decoder related errors
-  kScDecoderUnknownOpCode = 0x4001u,
-  kScDecoderUnpredictable = 0x4002u, // see Armv7-M Architecture Reference Manual Issue E.e p.818
-  kScDecoderUndefined = 0x4003u,
+  kScDecoderUnknownOpCode = 0x4001U,
+  kScDecoderUnpredictable = 0x4002U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
+  kScDecoderUndefined = 0x4003U,
 
   // Executor related errors
-  kScExecutorUnpredictable = 0x5001u, // see Armv7-M Architecture Reference Manual Issue E.e p.818
-  kScExecutorUndefined = 0x5002u,
-  kScExecutorExitWithError = 0x5003u,
+  kScExecutorUnpredictable = 0x5001U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
+  kScExecutorUndefined = 0x5002U,
+  kScExecutorExitWithError = 0x5003U,
   
   // Elf reader related errors
-  kScElfNotValid = 0x6001u,
-  kScElfWrongHeader = 0x6002u,
+  kScElfNotValid = 0x6001U,
+  kScElfWrongHeader = 0x6002U,
 
   // Arm related errors
-  kScUsageFault = 0x7001u,
+  kScUsageFault = 0x7001U,
 
   // clang-format on
 };

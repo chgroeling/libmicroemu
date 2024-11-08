@@ -21,11 +21,11 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const TArg1 &arg_t, const TArg2 &arg_d,
                                  const u32 &imm32) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
-    const bool is_index = (iflags & kIndex) != 0u;
-    const bool is_add = (iflags & kAdd) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const bool is_index = (iflags & kIndex) != 0U;
+    const bool is_add = (iflags & kAdd) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -40,14 +40,14 @@ public:
     const me_adr_t address = is_index == true ? offset_addr : rn;
 
     const auto rt = Reg::ReadRegister(ictx.pstates, arg_t.Get());
-    u32 rd{0u};
+    u32 rd{0U};
 
     TRY(ExecResult, TOp::Write(ictx, address, rt, rd));
 
     // write back if write succeeded
     Reg::WriteRegister(ictx.pstates, arg_d.Get(), rd);
 
-    const bool is_wback = (iflags & kWBack) != 0u;
+    const bool is_wback = (iflags & kWBack) != 0U;
     if (is_wback == true) {
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_addr);
     }

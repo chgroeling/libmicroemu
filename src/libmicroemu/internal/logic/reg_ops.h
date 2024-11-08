@@ -23,25 +23,25 @@ public:
     const enum_type raw_id = static_cast<enum_type>(id);
 
     switch (raw_id) {
-    case 0x0u:
+    case 0x0U:
       return "R0";
-    case 0x1u:
+    case 0x1U:
       return "R1";
-    case 0x2u:
+    case 0x2U:
       return "R2";
-    case 0x3u:
+    case 0x3U:
       return "R3";
-    case 0x4u:
+    case 0x4U:
       return "R4";
-    case 0x5u:
+    case 0x5U:
       return "R5";
-    case 0x6u:
+    case 0x6U:
       return "R6";
-    case 0x7u:
+    case 0x7U:
       return "R7";
-    case 0x8u:
+    case 0x8U:
       return "R8";
-    case 0x9u:
+    case 0x9U:
       return "R9";
     case 0xAu: // stack limit or scratch register (r10)
       return "SL";
@@ -99,7 +99,7 @@ public:
     // see Armv7-M Architecture Reference Manual Issue E.e p.521
     const auto &registers = pstates.GetRegisters();
     const auto &pc = std::get<static_cast<u8>(RegisterId::kPc)>(registers);
-    return pc + 0x4u;
+    return pc + 0x4U;
   }
 
   template <RegisterId Id> static inline u32 ReadRegister(const TProcessorStates &pstates) {
@@ -117,7 +117,7 @@ public:
       const auto &registers = pstates.GetRegisters();
       return registers[static_cast<enum_type>(Id)];
     }
-    // Should not happen, but returns 0u if somehow out of range
+    // Should not happen, but returns 0U if somehow out of range
     return 0;
   }
 
@@ -136,7 +136,7 @@ public:
     }
 
     // Not reachable
-    return 0u;
+    return 0U;
   }
 
   template <RegisterId Id>

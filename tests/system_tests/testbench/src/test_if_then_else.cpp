@@ -5,25 +5,25 @@
 
 uint32_t BranchTest(volatile int32_t arg) {
   if (arg > 0) {
-    return 1u;
+    return 1U;
   } else if (arg >= 5) {
-    return 2u;
+    return 2U;
   } else if (arg >= 10) {
-    return 3u;
+    return 3U;
   } else if (arg < -10) {
-    return 4u;
+    return 4U;
   } else if (arg < 0) {
-    return 5u;
+    return 5U;
   }
-  return 0u;
+  return 0U;
 }
 
 void TestIfThenElse() {
   printf("# Test: If then else\n");
   volatile int32_t arg = -5;
-  assert(BranchTest(arg) == 5u);
+  assert(BranchTest(arg) == 5U);
   arg = -11;
-  assert(BranchTest(arg) == 4u);
+  assert(BranchTest(arg) == 4U);
   arg = 3;
-  assert(BranchTest(arg) == 1u);
+  assert(BranchTest(arg) == 1U);
 }

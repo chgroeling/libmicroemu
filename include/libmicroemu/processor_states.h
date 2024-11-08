@@ -20,8 +20,8 @@ class ProcessorStates {
 public:
   /// \brief Constructs a Registers object
   ProcessorStates() {
-    registers_.fill(0u);
-    special_registers_.fill(0u);
+    registers_.fill(0U);
+    special_registers_.fill(0U);
   };
 
   /// \brief Destructor

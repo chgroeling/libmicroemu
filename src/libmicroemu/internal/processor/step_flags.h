@@ -7,8 +7,8 @@ using StepFlagsSet = u8;
 
 // TODAY: Ok is the absmce of any error
 enum class StepFlags : StepFlagsSet {
-  kStepOk = 1u << 0u,
-  kStepTerminationRequest = 1u << 1u,
+  kStepOk = 1U << 0U,
+  kStepTerminationRequest = 1U << 1U,
 };
 
 } // namespace internal

@@ -12,7 +12,7 @@ void TestSprintf() {
   sprintf(buf, "%s, %i, %u", "ABC", -123, 345);
   assert(strcmp(buf, "ABC, -123, 345") == 0);
 
-  uint32_t test0{1234u};
+  uint32_t test0{1234U};
   sprintf(buf, "  1234 == %u\n", test0);
   assert(strcmp(buf, "  1234 == 1234\n") == 0);
 

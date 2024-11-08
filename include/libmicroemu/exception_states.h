@@ -9,11 +9,11 @@ namespace microemu {
 using ExceptionFlagsSet = u8;
 
 enum class ExceptionFlags : ExceptionFlagsSet {
-  kPending = 1u << 0u,
-  kActive = 1u << 1u,
+  kPending = 1U << 0U,
+  kActive = 1U << 1U,
 };
 
-static constexpr i16 kLowestExceptionPriority = 255u;
+static constexpr i16 kLowestExceptionPriority = 255U;
 
 /** @brief Represents the state of a single exception.
  */
@@ -29,7 +29,7 @@ struct SingleExceptionState {
    * @return True if the exception is pending, false otherwise.
    */
   inline bool IsPending() const noexcept {
-    return (flags_ & static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending)) != 0u;
+    return (flags_ & static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending)) != 0U;
   }
 
   /** @brief Clears the pending flag of the exception.
@@ -49,7 +49,7 @@ struct SingleExceptionState {
    * @return True if the exception is active, false otherwise.
    */
   inline bool IsActive() const noexcept {
-    return (flags_ & static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive)) != 0u;
+    return (flags_ & static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive)) != 0U;
   }
 
   /** @brief Clears the active flag of the exception.
@@ -98,7 +98,7 @@ struct ExceptionStates {
   ExceptionStates()
       : exception{MakeExceptionArray(std::make_index_sequence<CountExceptions()>())} {}
 
-  u32 pending_exceptions{0u};
+  u32 pending_exceptions{0U};
   std::array<SingleExceptionState, CountExceptions()> exception;
 };
 

@@ -10,30 +10,30 @@ using namespace microemu;
 using namespace microemu::internal;
 
 TEST(BitManipTests, GenerateBitMaskLowNibble) {
-  u32 mask = BitManip<u32>::GenerateBitMask<3u, 0u>();
+  u32 mask = BitManip<u32>::GenerateBitMask<3U, 0U>();
   ASSERT_EQ(mask, 0xF);
 }
 
 TEST(BitManipTests, GenerateBitMaskHighNibble) {
-  u32 mask = BitManip<u32>::GenerateBitMask<31u, 28u>();
+  u32 mask = BitManip<u32>::GenerateBitMask<31U, 28U>();
   ASSERT_EQ(mask, 0xF0000000);
 }
 
 TEST(BitManipTests, IsolateBits12And11ReturnsCorrectValue) {
   u32 val = 0b0001100000000000;
-  u32 result = BitManip<u32>::Slice1R<12u, 11u>(val);
+  u32 result = BitManip<u32>::Slice1R<12U, 11U>(val);
   ASSERT_EQ(result, 0x3);
 }
 
 TEST(BitManipTests, IsolateBits2_R15And15_R12And11Test1ReturnsCorrectValue) {
   u32 val = 0b0001100000000000;
-  u32 result = BitManip<u32>::Slice2R<15u, 15u, 12u, 11u>(val);
+  u32 result = BitManip<u32>::Slice2R<15U, 15U, 12U, 11U>(val);
   ASSERT_EQ(result, 0x3);
 }
 
 TEST(BitManipTests, IsolateBits2_R15And15_R12And11Test2ReturnsCorrectValue) {
   u32 val = 0b1001100000000000;
-  u32 result = BitManip<u32>::Slice2R<15u, 15u, 12u, 11u>(val);
+  u32 result = BitManip<u32>::Slice2R<15U, 15U, 12U, 11U>(val);
   ASSERT_EQ(result, 0b111);
 }
 

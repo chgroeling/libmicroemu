@@ -23,7 +23,7 @@ public:
     const u32 opc = Bm32::Slice1R<kFlagsOpCodeLast, kFlagsOpCodeFirst>(instr_l);
 
     // Check if a 32-bit instruction was loaded
-    u16 instr_h{0x0u};
+    u16 instr_h{0x0U};
     const auto flags = kRawInstrFlagsTable[opc];
 
     if ((flags & static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit)) != 0U) {

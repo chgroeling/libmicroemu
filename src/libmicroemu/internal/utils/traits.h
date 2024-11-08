@@ -32,19 +32,19 @@ template <typename T> using make_signed_type_t = typename make_signed_type<T>::t
 template <typename T> struct no_of_bits;
 
 template <> struct no_of_bits<u64> {
-  static constexpr u32 N = 64u;
+  static constexpr u32 N = 64U;
 };
 
 template <> struct no_of_bits<u32> {
-  static constexpr u32 N = 32u;
+  static constexpr u32 N = 32U;
 };
 
 template <> struct no_of_bits<u16> {
-  static constexpr u16 N = 16u;
+  static constexpr u16 N = 16U;
 };
 
 template <> struct no_of_bits<u8> {
-  static constexpr u8 N = 8u;
+  static constexpr u8 N = 8U;
 };
 
 template <typename T> struct next_bigger_type;

@@ -23,12 +23,12 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const TArg &arg_m, const TArg &arg_t,
                                  const ImmShiftResults &shift_res) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
-    const bool is_wback = (iflags & kWBack) != 0u;
-    const bool is_index = (iflags & kIndex) != 0u;
-    const bool is_add = (iflags & kAdd) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const bool is_wback = (iflags & kWBack) != 0U;
+    const bool is_index = (iflags & kIndex) != 0U;
+    const bool is_add = (iflags & kAdd) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -56,7 +56,7 @@ public:
     if (arg_t.Get() == RegisterId::kPc) {
       // When the given address was unaligend the behaviour is
       // unpredtictable
-      if ((address & 0x3u) == 0u) {
+      if ((address & 0x3U) == 0U) {
         It::ITAdvance(ictx.pstates);
         TRY(ExecResult, (Pc::LoadWritePC(ictx.pstates, ictx.bus, data)));
 

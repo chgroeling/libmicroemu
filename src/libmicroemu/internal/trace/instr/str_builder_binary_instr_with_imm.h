@@ -19,7 +19,7 @@ public:
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n, const u32 &imm32) {
 
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0u;
+    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
     const bool is_reduced_rd =
         (bflags & static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd)) != 0;
 

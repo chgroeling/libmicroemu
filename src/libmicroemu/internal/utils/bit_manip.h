@@ -34,9 +34,9 @@ public:
    * alignment.
    */
   template <T alignment> static constexpr T AlignDown(const T &address) {
-    if (alignment == 0u)
+    if (alignment == 0U)
       return address;
-    return address & ~(alignment - 1u);
+    return address & ~(alignment - 1U);
   }
 
   /**
@@ -54,10 +54,10 @@ public:
    * alignment.
    */
   template <T alignment> static constexpr T AlignUp(const T &address) {
-    if (alignment == 0u) {
+    if (alignment == 0U) {
       return address;
     }
-    return (address + (alignment - 1u)) & ~(alignment - 1u);
+    return (address + (alignment - 1U)) & ~(alignment - 1U);
   }
 
   /**
@@ -66,7 +66,7 @@ public:
    * @return The generated mask.
    */
   template <unsigned bit> static constexpr T GenerateBitMask() {
-    return static_cast<T>(static_cast<T>(1u) << bit);
+    return static_cast<T>(static_cast<T>(1U) << bit);
   }
 
   /**
@@ -77,12 +77,12 @@ public:
    */
   template <unsigned last_bit, unsigned first_bit> static constexpr T GenerateBitMask() {
 
-    if constexpr (last_bit == sizeof(T) * 8u - 1u) {
+    if constexpr (last_bit == sizeof(T) * 8U - 1U) {
       T constexpr msk = ~static_cast<T>(0U);
       return static_cast<T>(msk << first_bit);
     } else {
-      auto constexpr shift_range = last_bit - first_bit + 1u;
-      T constexpr one = static_cast<T>(1u);
+      auto constexpr shift_range = last_bit - first_bit + 1U;
+      T constexpr one = static_cast<T>(1U);
       T constexpr msk = (one << shift_range) - one;
       return static_cast<T>(msk << first_bit);
     }
@@ -95,12 +95,12 @@ public:
    * @return The generated mask.
    */
   static constexpr T GenerateBitMask(unsigned last_bit, unsigned first_bit) {
-    if (last_bit == sizeof(T) * 8u - 1u) {
+    if (last_bit == sizeof(T) * 8U - 1U) {
       T constexpr msk = ~static_cast<T>(0U);
       return static_cast<T>(msk << first_bit);
     } else {
-      auto shift_range = last_bit - first_bit + 1u;
-      T constexpr one = static_cast<T>(1u);
+      auto shift_range = last_bit - first_bit + 1U;
+      T constexpr one = static_cast<T>(1U);
       T msk = (one << shift_range) - one;
       return static_cast<T>(msk << first_bit);
     }
@@ -113,7 +113,7 @@ public:
    * @return The isolated bit.
    */
   template <unsigned bit> static constexpr T IsolateBit(const T &value) {
-    return (value & (static_cast<T>(1u) << bit)) >> bit;
+    return (value & (static_cast<T>(1U) << bit)) >> bit;
   }
 
   /**
@@ -123,7 +123,7 @@ public:
    * @return True if the bit is set, false otherwise.
    */
   template <unsigned bit> static constexpr bool IsBitSet(const T &value) {
-    return (value & (static_cast<T>(1u) << bit)) != 0;
+    return (value & (static_cast<T>(1U) << bit)) != 0;
   }
 
   /**
@@ -189,7 +189,7 @@ public:
             unsigned r1_first_bit>
   static constexpr T Slice2R(const T &value) {
     return ((value & GenerateBitMask<r2_last_bit, r2_first_bit>()) >>
-            (r2_first_bit - r1_last_bit + r1_first_bit - 1u)) +
+            (r2_first_bit - r1_last_bit + r1_first_bit - 1U)) +
            ((value & GenerateBitMask<r1_last_bit, r1_first_bit>()) >> (r1_first_bit));
   }
 
@@ -217,7 +217,7 @@ public:
     static_assert(std::is_same<U, u32>::value || std::is_same<U, u16>::value ||
                       std::is_same<U, u8>::value,
                   "ZeroExtend only works for u32, u16 and u8");
-    T s = (value >> top_bit) & 0x1u;
+    T s = (value >> top_bit) & 0x1U;
     U bitmask = BitManip<U>::template GenerateBitMask<no_of_bits<U>::N, top_bit>();
     U value_u = static_cast<U>(value);
     if (s) {
@@ -234,7 +234,7 @@ public:
    * @return 1 if the value is zero, 0 otherwise.
    */
   static T IsZeroBit(const T &value) {
-    return value == static_cast<T>(0u) ? static_cast<T>(1u) : static_cast<T>(0u);
+    return value == static_cast<T>(0U) ? static_cast<T>(1U) : static_cast<T>(0U);
   }
 
   /**
@@ -244,9 +244,9 @@ public:
    */
   static T BitCount(const T &value) {
     T v{value};
-    T c{0u}; // c accumulates the total bits set in v
+    T c{0U}; // c accumulates the total bits set in v
     for (; v; c++) {
-      v &= v - 1u; // clear the least significant bit set
+      v &= v - 1U; // clear the least significant bit set
     }
     return c;
   }
@@ -270,33 +270,33 @@ public:
     return result;
   }
   static T CountLeadingZeros(const T &value) {
-    int n{32u};
-    u32 y{0u};
+    int n{32U};
+    u32 y{0U};
     u32 x{value};
 
-    y = x >> 16u;
-    if (y != 0u) {
-      n = n - 16u;
+    y = x >> 16U;
+    if (y != 0U) {
+      n = n - 16U;
       x = y;
     }
-    y = x >> 8u;
-    if (y != 0u) {
-      n = n - 8u;
+    y = x >> 8U;
+    if (y != 0U) {
+      n = n - 8U;
       x = y;
     }
-    y = x >> 4u;
-    if (y != 0u) {
-      n = n - 4u;
+    y = x >> 4U;
+    if (y != 0U) {
+      n = n - 4U;
       x = y;
     }
-    y = x >> 2u;
-    if (y != 0u) {
-      n = n - 2u;
+    y = x >> 2U;
+    if (y != 0U) {
+      n = n - 2U;
       x = y;
     }
-    y = x >> 1u;
-    if (y != 0u) {
-      return n - 2u;
+    y = x >> 1U;
+    if (y != 0U) {
+      return n - 2U;
     }
 
     return n - x;

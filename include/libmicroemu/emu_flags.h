@@ -7,9 +7,9 @@ using EmuFlagsSet = u8;
 
 // TODAY: Ok is the absmce of any error
 enum class EmuFlags : EmuFlagsSet {
-  kEmuOk = 1u << 0u,
-  kEmuMaxInstructionsReached = 1u << 1u,
-  kEmuTerminated = 1u << 2u,
+  kEmuOk = 1U << 0U,
+  kEmuMaxInstructionsReached = 1U << 1U,
+  kEmuTerminated = 1U << 2U,
 };
 
 struct EmuResult {

@@ -11,7 +11,7 @@ std::atomic<uint32_t> return_adr{0};
 
 extern "C" void BusFault_Handler() __attribute__((naked));
 extern "C" void BusFault_Handler_ABI(uint32_t *stack_frame) __attribute__((interrupt("IRQ")));
-std::atomic<uint32_t> bus_faults{0u};
+std::atomic<uint32_t> bus_faults{0U};
 
 /// BusFault_Handler_ABI
 /// This function is called from the assembler BusFault_Handler function which is called by the
@@ -55,7 +55,7 @@ void BusFault_Handler(void) {
 extern "C" void UsageFault_Handler() __attribute__((naked));
 extern "C" void UsageFault_Handler_ABI(uint32_t *stack_frame) __attribute__((interrupt("IRQ")));
 
-std::atomic<uint32_t> usage_faults{0u};
+std::atomic<uint32_t> usage_faults{0U};
 
 /// UsageFault_Handler_ABI
 /// This function is called from the assembler UsageFault_Handler function which is called by the
@@ -153,7 +153,7 @@ void TestBusfault() {
   bus_faults = 0U;
   auto *scb = GetSCBBase();
   assert(scb->CFSR == 0U);
-  assert(bus_faults == 0u);
+  assert(bus_faults == 0U);
   assert(scb->CFSR == 0x0U);
 
   // Provoke a bus fault (write)

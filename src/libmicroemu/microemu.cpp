@@ -29,7 +29,7 @@ Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) noexcept
   std::fill(ram1_, ram1_ + ram1_size_, 0xFFu);
   std::fill(ram2_, ram2_ + ram2_size_, 0xFFu);
 
-  u32 entry_point{0u};
+  u32 entry_point{0U};
   {
     auto file = std::ifstream(elf_file, std::ios::binary);
     if (!file.is_open()) {
@@ -48,7 +48,7 @@ Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) noexcept
       auto flags = phdr.p_flags;
 
       // CODE SEGMENT - READ-ONLY, EXECUTE
-      if (((flags & PF_X) != 0u) && ((flags & PF_R) != 0u) && ((flags & PF_W) == 0u)) {
+      if (((flags & PF_X) != 0U) && ((flags & PF_R) != 0U) && ((flags & PF_W) == 0U)) {
         if ((phdr.p_vaddr < flash_vadr_) ||
             (phdr.p_vaddr + phdr.p_filesz >= flash_vadr_ + flash_size_)) {
           // size of buffer is not big enough
@@ -61,7 +61,7 @@ Result<void> MicroEmu::Load(const char *elf_file, bool set_entry_point) noexcept
       }
 
       // DATA SEGMENT - R/W, NO EXECUTE
-      if (((flags & PF_X) == 0u) && ((flags & PF_R) != 0u) && ((flags & PF_W) != 0u)) {
+      if (((flags & PF_X) == 0U) && ((flags & PF_R) != 0U) && ((flags & PF_W) != 0U)) {
         if ((phdr.p_vaddr < ram1_vadr_) ||
             (phdr.p_vaddr + phdr.p_filesz >= ram1_vadr_ + ram1_size_)) {
           // size of buffer is not big enough

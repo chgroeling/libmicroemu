@@ -54,7 +54,7 @@ public:
   template <typename TDelegates>
   static Result<ExecResult> Execute(TProcessorStates &pstates, TBus &bus, const Instr &instr,
                                     TDelegates &delegates) {
-    u8 flags = 0x0u;
+    u8 flags = 0x0U;
     using TInstrCtx = InstrContext<TProcessorStates, TBus, TRegOps, TSpecRegOps, TPcOps, TItOps,
                                    TExceptionTrigger>;
     auto ictx = TInstrCtx{bus, pstates};
@@ -667,7 +667,7 @@ public:
       // see Armv7-M Architecture Reference Manual Issue E.e p.322
       const auto &iargs = instr.push;
       using TInstr = VariadicStoreInstrDb<TInstrCtx>;
-      InstrFlagsSet iflags{0x0u};
+      InstrFlagsSet iflags{0x0U};
 
       // rewrite flags to ldm instruction
       iflags |= static_cast<InstrFlagsSet>(InstrFlags::kWBack);
@@ -702,7 +702,7 @@ public:
       // see Armv7-M Architecture Reference Manual Issue E.e p.319
       const auto &iargs = instr.pop;
       using TInstr = VariadicLoadInstr<TInstrCtx>;
-      InstrFlagsSet iflags{0x0u};
+      InstrFlagsSet iflags{0x0U};
 
       // rewrite flags to ldm instruction
       iflags |= static_cast<InstrFlagsSet>(InstrFlags::kWBack);

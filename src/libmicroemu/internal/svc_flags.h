@@ -7,9 +7,9 @@ namespace microemu {
 namespace internal {
 
 enum class SvcFlags : u8 {
-  kRequestExit = 0x1u << 0u,      // Application exits via exit keyword
-  kRequestErrorExit = 0x1u << 1u, // Application exit was by unusual way.
-  kOmitException = 0x1u << 2u     // Omit Exception ..svc does not execute Exception
+  kRequestExit = 0x1U << 0U,      // Application exits via exit keyword
+  kRequestErrorExit = 0x1U << 1U, // Application exit was by unusual way.
+  kOmitException = 0x1U << 2U     // Omit Exception ..svc does not execute Exception
 };
 
 using SvcFlagsSet = uint8_t;

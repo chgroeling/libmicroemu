@@ -80,8 +80,8 @@ public:
 
 private:
   u8 *const buf_{nullptr};
-  const me_adr_t vadr_offset_{0u};
-  const me_size_t buf_size_{0u};
+  const me_adr_t vadr_offset_{0U};
+  const me_size_t buf_size_{0U};
 
   me_adr_t ConvertToPhysicalAdr(me_adr_t vadr) const { return vadr - vadr_offset_; }
   bool IsPAdrInRange(me_adr_t padr) const { return padr < buf_size_; }

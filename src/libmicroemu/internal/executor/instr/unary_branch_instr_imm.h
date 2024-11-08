@@ -39,7 +39,7 @@ public:
                                     const me_adr_t &imm32) {
     static_cast<void>(ictx);
 
-    Reg::WriteRegister(ictx.pstates, RegisterId::kLr, static_cast<uint32_t>((pc & ~0x1u) | 0x1u));
+    Reg::WriteRegister(ictx.pstates, RegisterId::kLr, static_cast<uint32_t>((pc & ~0x1U) | 0x1U));
     return BranchOpResult{pc + imm32};
   }
 };
@@ -53,9 +53,9 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const u32 &imm32) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags{0x0u};
+    ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {

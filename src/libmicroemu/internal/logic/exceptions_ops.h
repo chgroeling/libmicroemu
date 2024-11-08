@@ -20,14 +20,14 @@ struct ExceptionContext {
 };
 
 enum class ProcessorMode {
-  kThread = 0u,  // Thread mode
-  kHandler = 1u, // Handler mode
+  kThread = 0U,  // Thread mode
+  kHandler = 1U, // Handler mode
 };
 
 enum class ExecutionInstant {
-  kPreFetch = 0u,     // Before fetching the instruction
-  kPostFetch = 1u,    // After fetching the instruction
-  kPostExecution = 2u // After executing the instruction
+  kPreFetch = 0U,     // Before fetching the instruction
+  kPostFetch = 1U,    // After fetching the instruction
+  kPostExecution = 2U // After executing the instruction
 };
 
 class ExceptionPreFetch {
@@ -89,13 +89,13 @@ public:
   static bool IsMainStack(TProcessorStates &pstates) {
     auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
     auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
-    return spsel == 0u;
+    return spsel == 0U;
   }
 
   static bool IsProcessStack(TProcessorStates &pstates) {
     auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
     auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
-    return spsel != 0u;
+    return spsel != 0U;
   }
 
   static void LogImportantRegisters(TProcessorStates &pstates, const char *preamble,
@@ -105,7 +105,7 @@ public:
     auto mode_str = exec_mode == ProcessorMode::kHandler ? "Handler" : "Thread";
 
     auto &exception_states = pstates.GetExceptionStates();
-    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1u];
+    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
     auto apsr = SReg::template ReadRegister<SId::kApsr>(pstates);
     auto ipsr = SReg::template ReadRegister<SId::kIpsr>(pstates);
@@ -133,10 +133,10 @@ public:
   }
   static void InitDefaultExceptionStates(TProcessorStates &pstates) {
     auto &exception_states = pstates.GetExceptionStates();
-    exception_states.pending_exceptions = 0u;
+    exception_states.pending_exceptions = 0U;
     auto &exceptions = exception_states.exception;
-    for (u32 i = 0u; i < CountExceptions(); ++i) {
-      auto e_type = static_cast<ExceptionType>(i + 1u);
+    for (u32 i = 0U; i < CountExceptions(); ++i) {
+      auto e_type = static_cast<ExceptionType>(i + 1U);
       switch (e_type) {
       case ExceptionType::kReset: {
         exceptions[i].SetPriority(-3);
@@ -197,23 +197,23 @@ public:
     using SReg = TSpecRegOps;
     using Reg = TRegOps;
 
-    u32 framesize{0u};
-    u32 forcealign{0u};
+    u32 framesize{0U};
+    u32 forcealign{0U};
 
     // if HaveFPExt() && CONTROL.FPCA == '1' then
     if (false) {
       // framesize = 0x68;
       // forcealign = '1';
     } else {
-      framesize = 0x20u;
+      framesize = 0x20U;
       auto ccr = SReg::template ReadRegister<SId::kCcr>(pstates);
       forcealign = (ccr & CcrRegister::kStkAlignMsk) >> CcrRegister::kStkAlignPos;
     }
 
-    auto spmask = ~static_cast<u32>(forcealign << 2u);
+    auto spmask = ~static_cast<u32>(forcealign << 2U);
 
-    u32 frameptralign{0u};
-    u32 frameptr{0u};
+    u32 frameptralign{0U};
+    u32 frameptr{0U};
 
     const bool is_thread_mode = GetProcessorMode(pstates) == ProcessorMode::kThread;
     const bool is_process_stack = IsProcessStack(pstates);
@@ -236,7 +236,7 @@ public:
     } else {
       auto sp_main = SReg::template ReadRegister<SId::kSpMain>(pstates);
 
-      frameptralign = ((sp_main & 0x4u) >> 2u) & forcealign;
+      frameptralign = ((sp_main & 0x4U) >> 2U) & forcealign;
 
       sp_main = (sp_main - framesize) & spmask;
       LOG_TRACE(TLogger, "Setting main stack pointer to = 0x%08X", sp_main);
@@ -286,8 +286,8 @@ public:
     // MemA[frameptr+0x1C,4] = (XPSR<31:10>:frameptralign:XPSR<8:0>);
     //                         //see ReturnAddress() in-line note for information on XPSR.IT bits
     const auto xpsr = SReg::template ReadRegister<SId::kXpsr>(pstates);
-    const auto xpsr_adapt = (xpsr & Bm32::GenerateBitMask<8u, 0u>()) | (frameptralign << 9u) |
-                            (xpsr & Bm32::GenerateBitMask<31u, 10u>());
+    const auto xpsr_adapt = (xpsr & Bm32::GenerateBitMask<8U, 0U>()) | (frameptralign << 9U) |
+                            (xpsr & Bm32::GenerateBitMask<31U, 10U>());
 
     TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x1CU, xpsr_adapt,
                                              BusExceptionType::kRaiseUnstkerr));
@@ -325,7 +325,7 @@ public:
     } else {
       if (GetProcessorMode(pstates) == ProcessorMode::kHandler) {
         // LR = Ones(28):'0001';
-        const auto lr = Bm32::GenerateBitMask<31u, 4u>() | 0b0001u;
+        const auto lr = Bm32::GenerateBitMask<31U, 4U>() | 0b0001U;
         LOG_TRACE(TLogger, "Setting LR = 0x%08X (currently in Handler mode)", lr);
         Reg::template WriteRegister<RegisterId::kLr>(pstates, lr);
       } else { // Thread mode
@@ -333,7 +333,7 @@ public:
         const auto sctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
         const auto spsel =
             (sctrl & SysCtrlRegister::kControlSpSelMsk) >> SysCtrlRegister::kControlSpSelPos;
-        const auto lr = Bm32::GenerateBitMask<31u, 3u>() | (spsel << 2u) | 0b01u;
+        const auto lr = Bm32::GenerateBitMask<31U, 3U>() | (spsel << 2U) | 0b01U;
 
         LOG_TRACE(TLogger, "Setting LR = 0x%08X (currently in Thread mode)", lr);
         Reg::template WriteRegister<RegisterId::kLr>(pstates, lr);
@@ -365,7 +365,7 @@ public:
     }
 
     default: {
-      if (static_cast<u32>(exception_type) >= 16u) {
+      if (static_cast<u32>(exception_type) >= 16U) {
         return context.return_adr;
       }
       assert(false &&
@@ -373,7 +373,7 @@ public:
       return context.return_adr;
     }
     }
-    return 0x0u; // should not happen
+    return 0x0U; // should not happen
   }
 
   template <typename ExcInstant, typename std::enable_if_t<
@@ -402,7 +402,7 @@ public:
       return context.return_adr;
     }
     }
-    return 0x0u; // should not happen
+    return 0x0U; // should not happen
   }
 
   // Call after the emulator executes an instruction
@@ -433,7 +433,7 @@ public:
              "Return address calculation of these exceptions should not be called at this point");
     }
     }
-    return 0x0u; // should not happen
+    return 0x0U; // should not happen
   }
 
   template <typename TBus>
@@ -449,12 +449,12 @@ public:
     // R[12] = bits(32) UNKNOWN;
 
     // bits(32) VectorTable = VTOR<31:7>:'0000000';
-    const auto vector_table = SReg::template ReadRegister<SId::kVtor>(pstates) << 7u;
+    const auto vector_table = SReg::template ReadRegister<SId::kVtor>(pstates) << 7U;
 
     // tmp = MemA[VectorTable+4*ExceptionNumber,4];
     TRY_ASSIGN(tmp, void,
                bus.template ReadOrRaise<u32>(
-                   pstates, vector_table + 4u * static_cast<u32>(exception_type),
+                   pstates, vector_table + 4U * static_cast<u32>(exception_type),
                    BusExceptionType::
                        kRaisePreciseDataBusError)); // TODO: really
                                                     // BusExceptionType::kRaisePreciseDataBusError?
@@ -464,7 +464,7 @@ public:
     LOG_TRACE(TLogger, "Branching to exception address = 0x%08X", exception_address);
     Pc::BranchTo(pstates, exception_address);
 
-    const auto tbit = tmp & 0x1u; // tbit = tmp<0>;
+    const auto tbit = tmp & 0x1U; // tbit = tmp<0>;
 
     SetProcessorMode(pstates, ProcessorMode::kHandler);
 
@@ -527,7 +527,7 @@ public:
       // if !IsOnes(EXC_RETURN<27:5>) then UNPREDICTABLE;
     } else {
       // if !IsOnes(EXC_RETURN<27:4>) then UNPREDICTABLE;
-      if ((exc_return & 0x0FFFFFF0u) != 0x0FFFFFF0u) {
+      if ((exc_return & 0x0FFFFFF0U) != 0x0FFFFFF0U) {
         return Err(StatusCode::kScExecutorUnpredictable);
       }
     }
@@ -541,7 +541,7 @@ public:
 
     // NestedActivation = ExceptionActiveBitCount(); // Number of active exceptions
 
-    u32 frameptr{0u};
+    u32 frameptr{0U};
 
     // if ExceptionActive[ReturningExceptionNumber] == '0' then
     if (false) {
@@ -625,7 +625,7 @@ public:
       const auto ipsr_8_0 =
           SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
 
-      if (GetProcessorMode(pstates) == ProcessorMode::kHandler && ipsr_8_0 == 0u) {
+      if (GetProcessorMode(pstates) == ProcessorMode::kHandler && ipsr_8_0 == 0U) {
         // UFSR.INVPC = '1';
         // PushStack(UsageFault); // to negate PopStack()
         // LR = '1111':EXC_RETURN;
@@ -635,7 +635,7 @@ public:
         return Err(StatusCode::kScUsageFault);
       }
 
-      if (GetProcessorMode(pstates) == ProcessorMode::kThread && ipsr_8_0 != 0u) {
+      if (GetProcessorMode(pstates) == ProcessorMode::kThread && ipsr_8_0 != 0U) {
         // UFSR.INVPC = '1';
         // PushStack(UsageFault); // to negate PopStack()
         // LR = '1111':EXC_RETURN;
@@ -675,15 +675,15 @@ public:
     /* only stack locations, not the load order, are architected */
 
     LOG_TRACE(TLogger, "Popping stack from 0x%08X", frameptr);
-    u32 forcealign{0u};
-    u32 framesize{0u};
+    u32 forcealign{0U};
+    u32 framesize{0U};
 
     // if HaveFPExt() && EXC_RETURN<4> == '0' then
     if (false) {
       // framesize = 0x68;
       // forcealign = '1';
     } else {
-      framesize = 0x20u;
+      framesize = 0x20U;
 
       auto ccr = SReg::template ReadRegister<SId::kCcr>(pstates);
       forcealign = (ccr & CcrRegister::kStkAlignMsk) >> CcrRegister::kStkAlignPos;
@@ -764,7 +764,7 @@ public:
     }
 
     // spmask = Zeros(29):(psr<9> AND forcealign):'00';
-    const auto spmask = (Bm32::Slice1R<9u, 9u>(psr) & forcealign) << 2u;
+    const auto spmask = (Bm32::Slice1R<9U, 9U>(psr) & forcealign) << 2U;
 
     switch (exc_return & 0xFu) {
     case 0b0001: { // returning to Handler  using Main stack
@@ -842,15 +842,15 @@ public:
     }
 #endif
 
-    assert(static_cast<u32>(exception_type) >= 1u);
+    assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
     auto &exception_states = pstates.GetExceptionStates();
-    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1u];
+    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
     // cannot have multiple pending exceptions of the same type
     if (selected_exception.IsPending() == false) {
-      exception_states.pending_exceptions += 1u;
+      exception_states.pending_exceptions += 1U;
     }
 
     selected_exception.SetPending();
@@ -860,28 +860,28 @@ public:
   }
 
   static void ClearExceptionPending(TProcessorStates &pstates, ExceptionType exception_type) {
-    assert(static_cast<u32>(exception_type) >= 1u);
+    assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
     auto &exception_states = pstates.GetExceptionStates();
-    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1u];
+    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
     // cannot clear a non-pending exception
     assert(selected_exception.IsPending() == true);
 
     selected_exception.ClearPending();
-    exception_states.pending_exceptions -= 1u;
+    exception_states.pending_exceptions -= 1U;
 
     LOG_TRACE(TLogger, "ClearExceptionPending: exception_type = %d, priority = %d",
               static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
   static void SetExceptionActive(TProcessorStates &pstates, ExceptionType exception_type) {
-    assert(static_cast<u32>(exception_type) >= 1u);
+    assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
     auto &exception_states = pstates.GetExceptionStates();
-    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1u];
+    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
     assert(selected_exception.IsActive() == false);
     selected_exception.SetActive();
 
@@ -890,11 +890,11 @@ public:
   }
 
   static void ClearExceptionActive(TProcessorStates &pstates, ExceptionType exception_type) {
-    assert(static_cast<u32>(exception_type) >= 1u);
+    assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
     auto &exception_states = pstates.GetExceptionStates();
-    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1u];
+    auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
     assert(selected_exception.IsActive() == true);
     selected_exception.ClearActive();
 
@@ -912,7 +912,7 @@ public:
     case ExceptionType::kPendSV:
       return true;
     default: {
-      if (static_cast<u32>(exception_type) >= 16u) {
+      if (static_cast<u32>(exception_type) >= 16U) {
         return true;
       } else {
         return false;
@@ -958,7 +958,7 @@ public:
     auto &pending_exceptions = exception_states.pending_exceptions;
 
     // if no exceptions are pending, return
-    if (pending_exceptions == 0u) {
+    if (pending_exceptions == 0U) {
       return Ok(false);
     }
 
@@ -966,21 +966,21 @@ public:
         SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
 
     i16 executing_exc_priority =
-        kLowestExceptionPriority + 1u; // one lower than the lowest priority
+        kLowestExceptionPriority + 1U; // one lower than the lowest priority
 
-    if (executing_exc_type != 0u) {
-      assert(static_cast<u32>(executing_exc_type) >= 1u);
+    if (executing_exc_type != 0U) {
+      assert(static_cast<u32>(executing_exc_type) >= 1U);
       assert(static_cast<u32>(executing_exc_type) <= CountExceptions());
-      executing_exc_priority = exception_states.exception[executing_exc_type - 1u].GetPriority();
+      executing_exc_priority = exception_states.exception[executing_exc_type - 1U].GetPriority();
     }
 
     // TODO: Very inefficient priority handling by searching ... use queue instead
     //  -- Evaluate Internal Exceptions after execution; Evaluate External Exceptions before
     //  execution
-    u32 preempt_exc_type = 0u;                                // 0 means no exception to preempt
-    i16 preempt_exc_priority = kLowestExceptionPriority + 1u; // one lower than the lowest priority
+    u32 preempt_exc_type = 0U;                                // 0 means no exception to preempt
+    i16 preempt_exc_priority = kLowestExceptionPriority + 1U; // one lower than the lowest priority
 
-    for (auto i = 0u; i < CountExceptions(); ++i) {
+    for (auto i = 0U; i < CountExceptions(); ++i) {
 
       auto &exception = exception_states.exception[i];
 
@@ -1003,13 +1003,13 @@ public:
           // exception number is taken
           continue;
         }
-        preempt_exc_type = i + 1u;
+        preempt_exc_type = i + 1U;
         preempt_exc_priority = exception.GetPriority();
       }
     }
 
     // if no exceptions should preempt, return
-    if (preempt_exc_type == 0u) {
+    if (preempt_exc_type == 0U) {
       return Ok(false);
     }
 

@@ -5,8 +5,8 @@
 #include <cstddef>
 #include <cstdint>
 
-static constexpr uint8_t kRegCount = 18u;
-static constexpr uint8_t kRegsPerRow = 5u;
+static constexpr uint8_t kRegCount = 18U;
+static constexpr uint8_t kRegsPerRow = 5U;
 
 struct SampledRegs {
   const char *names[kRegCount];
@@ -19,22 +19,22 @@ public:
   static SampledRegs SampleRegs(const microemu::IRegAccessor &reg_access,
                                 const microemu::ISpecialRegAccessor &spec_reg_access) {
     SampledRegs sampled_regs{};
-    for (uint8_t reg_id = 0x0u; reg_id < kRegCount; reg_id += 1U) {
-      if (reg_id < 16u) {
+    for (uint8_t reg_id = 0x0U; reg_id < kRegCount; reg_id += 1U) {
+      if (reg_id < 16U) {
         auto value = reg_access.ReadRegister(static_cast<microemu::RegisterId>(reg_id));
         sampled_regs.values[reg_id] = value;
         sampled_regs.names[reg_id] =
             reg_access.GetRegisterName(static_cast<microemu::RegisterId>(reg_id)).data();
       } else {
         switch (reg_id) {
-        case 16u: {
+        case 16U: {
           auto spec_reg_id = microemu::SpecialRegisterId::kApsr;
           auto value = spec_reg_access.ReadRegister(spec_reg_id);
           sampled_regs.values[reg_id] = value;
           sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id).data();
           break;
         }
-        case 17u: {
+        case 17U: {
           auto spec_reg_id = microemu::SpecialRegisterId::kIstate;
           auto value = spec_reg_access.ReadRegister(spec_reg_id);
           sampled_regs.values[reg_id] = value;

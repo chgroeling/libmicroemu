@@ -28,7 +28,7 @@ public:
     TRY_ASSIGN(data, u32,
                ictx.bus.template ReadOrRaise<u8>(ictx.pstates, address,
                                                  BusExceptionType::kRaisePreciseDataBusError));
-    const u32 sign_extended_data = Bm16::SignExtend<u32, 7u>(data);
+    const u32 sign_extended_data = Bm16::SignExtend<u32, 7U>(data);
 
     return Ok(sign_extended_data);
   }
@@ -55,7 +55,7 @@ public:
     TRY_ASSIGN(r_data, u32,
                ictx.bus.template ReadOrRaise<u16>(ictx.pstates, address,
                                                   BusExceptionType::kRaisePreciseDataBusError));
-    const u32 sign_extended_data = Bm16::SignExtend<u32, 15u>(r_data);
+    const u32 sign_extended_data = Bm16::SignExtend<u32, 15U>(r_data);
     return Ok(sign_extended_data);
   }
 };

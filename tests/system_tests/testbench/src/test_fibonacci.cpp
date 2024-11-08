@@ -14,11 +14,11 @@ int Fibonacci(int n) {
 
 void TestFibonacci() {
   printf("# Test: Fibonacci (recursive)\n");
-  assert(Fibonacci(5) == 5u);
-  assert(Fibonacci(6) == 8u);
-  assert(Fibonacci(7) == 13u);
-  assert(Fibonacci(8) == 21u);
-  assert(Fibonacci(7) == 13u);
-  assert(Fibonacci(6) == 8u);
-  assert(Fibonacci(5) == 5u);
+  assert(Fibonacci(5) == 5U);
+  assert(Fibonacci(6) == 8U);
+  assert(Fibonacci(7) == 13U);
+  assert(Fibonacci(8) == 21U);
+  assert(Fibonacci(7) == 13U);
+  assert(Fibonacci(6) == 8U);
+  assert(Fibonacci(5) == 5U);
 }

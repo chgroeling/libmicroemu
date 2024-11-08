@@ -44,7 +44,7 @@ public:
   // Check if execution mode is thumb .. if not, raise usage fault and return true
   static bool IsThumbModeOrRaise(TProcessorStates &pstates) {
     const auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
-    const bool is_thumb = (epsr & static_cast<u32>(EpsrRegister::kTMsk)) != 0u;
+    const bool is_thumb = (epsr & static_cast<u32>(EpsrRegister::kTMsk)) != 0U;
 
     // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken
     if (!is_thumb) {
@@ -61,14 +61,14 @@ public:
   static Result<StepFlagsSet> Step(TProcessorStates &pstates, TBus &bus, TDelegates &delegates) {
     static constexpr u8 kRaw32BitMsk = static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit);
 
-    StepFlagsSet step_flags{0u};
+    StepFlagsSet step_flags{0U};
 
     // *** FETCH ***
     // The pc points to the current instruction +4 . Therefore decrement 4 to
     // get the current address.
 
     // Get the current program counter
-    me_adr_t pc_this_instr = static_cast<me_adr_t>(Reg::ReadPC(pstates) - 4u);
+    me_adr_t pc_this_instr = static_cast<me_adr_t>(Reg::ReadPC(pstates) - 4U);
 
     // Check for exceptions raised by peripherals before fetching the instruction
     const auto exc_ctx_pre_fetch = ExceptionContext{pc_this_instr};
@@ -78,7 +78,7 @@ public:
     // If an asynchronous exception should be executed, the pc must be updated
     // to the new instruction address.
     if (if_pre_fetch_exception) {
-      pc_this_instr = static_cast<me_adr_t>(Reg::ReadPC(pstates) - 4u);
+      pc_this_instr = static_cast<me_adr_t>(Reg::ReadPC(pstates) - 4U);
     }
 
     RawInstr raw_instr;
@@ -121,8 +121,8 @@ public:
 #ifndef NDEBUG
     static constexpr u8 k32BitMsk = static_cast<InstrFlagsSet>(InstrFlags::k32Bit);
     // check if the raw instruction and the decoded instruction have the same width
-    assert(((((raw_instr.flags & kRaw32BitMsk) != 0u) && ((instr.nop.flags & k32BitMsk) != 0u)) ||
-            (((raw_instr.flags & kRaw32BitMsk) == 0u) && ((instr.nop.flags & k32BitMsk) == 0u))));
+    assert(((((raw_instr.flags & kRaw32BitMsk) != 0U) && ((instr.nop.flags & k32BitMsk) != 0U)) ||
+            (((raw_instr.flags & kRaw32BitMsk) == 0U) && ((instr.nop.flags & k32BitMsk) == 0U))));
 #endif
 
     // *** CALLBACK ***
@@ -161,19 +161,19 @@ public:
     const auto &execute_flags = r_execute.content.flags;
 
     // all exit flags are mutually exclusive
-    if ((execute_flags & kExitFlagsMask) != 0u) {
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kBkptReqExit)) != 0u) {
+    if ((execute_flags & kExitFlagsMask) != 0U) {
+      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kBkptReqExit)) != 0U) {
         step_flags |= static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest);
         return Ok<StepFlagsSet>(step_flags);
       }
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kSvcReqExit)) != 0u) {
+      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kSvcReqExit)) != 0U) {
         step_flags |= static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest);
         return Ok<StepFlagsSet>(step_flags);
       }
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kBkptReqErrorExit)) != 0u) {
+      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kBkptReqErrorExit)) != 0U) {
         return Err<StepFlagsSet>(StatusCode::kScExecutorExitWithError);
       }
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kSvcReqErrorExit)) != 0u) {
+      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kSvcReqErrorExit)) != 0U) {
         return Err<StepFlagsSet>(StatusCode::kScExecutorExitWithError);
       }
     }
@@ -194,12 +194,12 @@ public:
            static_cast<u32>(res.status_code));
 
     // error return
-    me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(pstates)) - 0x4u;
+    me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(pstates)) - 0x4U;
     printf(" # System state:\n");
     printf("   Actual PC: 0x%x\n\n", pc);
     printf(" # Memory dump from PC:\n");
     MemoryViewer<TProcessorStates, TBus> mem_view(bus);
-    mem_view.print(pstates, pc, 32u, 3u);
+    mem_view.print(pstates, pc, 32U, 3U);
   }
 
   // TODO: move outside of the class
@@ -255,7 +255,7 @@ public:
 
     // bits(32) vectortable = VTOR<31:7>:'0000000';
     const auto vtor = SReg::template ReadRegister<SpecialRegisterId::kVtor>(pstates);
-    me_adr_t vectortable = vtor << 7 | 0x0u;
+    me_adr_t vectortable = vtor << 7 | 0x0U;
 
     //   SP_main = MemA_with_priv[vectortable, 4, AccType_VECTABLE] AND 0xFFFFFFFC<31:0>;
     TRY_ASSIGN(sp_main, void,
@@ -265,7 +265,7 @@ public:
 
     //   SP_process = ((bits(30) UNKNOWN):'00');
     auto sp_process = SReg::template ReadRegister<SpecialRegisterId::kSpProcess>(pstates);
-    sp_process &= ~0x3u; // clear the two least significant bits
+    sp_process &= ~0x3U; // clear the two least significant bits
     SReg::template WriteRegister<SpecialRegisterId::kSpProcess>(pstates, sp_process);
 
     //   LR = 0xFFFFFFFF<31:0>; /* preset to an illegal exception return value */
@@ -277,7 +277,7 @@ public:
                                               BusExceptionType::kRaisePreciseDataBusError));
 
     // tbit = tmp<0>;
-    auto tbit = tmp & 0x1u;
+    auto tbit = tmp & 0x1U;
 
     //   APSR = bits(32) UNKNOWN; /* flags UNPREDICTABLE from reset */
 

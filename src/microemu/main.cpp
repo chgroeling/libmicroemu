@@ -33,7 +33,7 @@ void LoggingCallback(microemu::LogLevel level, const char *format, ...) noexcept
   va_start(args, format);
 
   // Estimate the required size of the formatted string
-  const int size = std::vsnprintf(nullptr, 0u, format, args) + 1u; // +1 for null termination
+  const int size = std::vsnprintf(nullptr, 0U, format, args) + 1U; // +1 for null termination
   if (size <= 0) {
     spdlog::critical("Error during formatting");
     // end variadic argument list
@@ -195,18 +195,18 @@ int main(int argc, const char *argv[]) {
 
   // Flash Segment
   std::vector<uint8_t> flash_seg;
-  uint32_t flash_seg_size{0x0u};
-  uint32_t flash_seg_vadr{0x0u};
+  uint32_t flash_seg_size{0x0U};
+  uint32_t flash_seg_vadr{0x0U};
 
   // RAM1 Segment
   std::vector<uint8_t> ram1_seg;
-  uint32_t ram1_seg_size{0x0u};
-  uint32_t ram1_seg_vadr{0x0u};
+  uint32_t ram1_seg_size{0x0U};
+  uint32_t ram1_seg_vadr{0x0U};
 
   // RAM2 Segment
   std::vector<uint8_t> ram2_seg;
-  uint32_t ram2_seg_size{0x0u};
-  uint32_t ram2_seg_vadr{0x0u};
+  uint32_t ram2_seg_size{0x0U};
+  uint32_t ram2_seg_vadr{0x0U};
 
   int32_t instr_limit = -1; // <0 means infinite
 
@@ -247,25 +247,25 @@ int main(int argc, const char *argv[]) {
 
   // TODO: More complex memory-configs should be moved to yaml file
   if (memory_config == "STDLIB") {
-    flash_seg_size = 0x10000u;
+    flash_seg_size = 0x10000U;
     flash_seg_vadr = 0x0;
 
-    ram1_seg_size = 0x20000u;
-    ram1_seg_vadr = 0x10000u;
+    ram1_seg_size = 0x20000U;
+    ram1_seg_vadr = 0x10000U;
 
-    ram2_seg_size = 0x10000u;
-    ram2_seg_vadr = 0x70000u;
+    ram2_seg_size = 0x10000U;
+    ram2_seg_vadr = 0x70000U;
 
   } else if (memory_config == "MINIMAL") {
-    flash_seg_size = 0x20000u;
+    flash_seg_size = 0x20000U;
     flash_seg_vadr = 0x0;
 
-    ram1_seg_size = 0x40000u;
-    ram1_seg_vadr = 0x20000000u;
+    ram1_seg_size = 0x40000U;
+    ram1_seg_vadr = 0x20000000U;
 
     // No RAM2 segment
-    ram2_seg_size = 0x0u;
-    ram2_seg_vadr = 0x0u;
+    ram2_seg_size = 0x0U;
+    ram2_seg_vadr = 0x0U;
   } else {
     // default or NONE
     // Do nothing

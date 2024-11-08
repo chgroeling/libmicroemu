@@ -23,36 +23,36 @@ public:
 
   static Result<ThumbImmediateResult> ThumbExpandImm_C(const uint32_t &in, const bool carry_in) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.139 - 140
-    u32 imm32{0u};
+    u32 imm32{0U};
     bool carry_out{false};
 
-    if (Bm32::Slice1R<11u, 10u>(in) == 0x0u) {
-      switch (Bm32::Slice1R<9u, 8u>(in)) {
+    if (Bm32::Slice1R<11U, 10U>(in) == 0x0U) {
+      switch (Bm32::Slice1R<9U, 8U>(in)) {
 
-      case 0x0u: {
+      case 0x0U: {
         imm32 = Bm32::ZeroExtend<u32>(in & 0xFFu);
         break;
       }
-      case 0x1u: {
-        if ((in & 0xFFu) == 0x0u) {
+      case 0x1U: {
+        if ((in & 0xFFu) == 0x0U) {
           return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
         }
-        imm32 = ((in & 0xFFu) << 16u) | (in & 0xFFu);
+        imm32 = ((in & 0xFFu) << 16U) | (in & 0xFFu);
         break;
       }
-      case 0x2u: {
-        if ((in & 0xFFu) == 0x0u) {
+      case 0x2U: {
+        if ((in & 0xFFu) == 0x0U) {
           return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
         }
-        imm32 = ((in & 0xFFu) << 24u) | ((in & 0xFFu) << 8u);
+        imm32 = ((in & 0xFFu) << 24U) | ((in & 0xFFu) << 8U);
         break;
       }
-      case 0x3u: {
-        if ((in & 0xFFu) == 0x0u) {
+      case 0x3U: {
+        if ((in & 0xFFu) == 0x0U) {
           return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
         }
-        imm32 = ((in & 0xFFu) << 24u) | ((in & 0xFFu) << 16u) | ((in & 0xFFu) << 8u) |
-                ((in & 0xFFu) << 0u);
+        imm32 = ((in & 0xFFu) << 24U) | ((in & 0xFFu) << 16U) | ((in & 0xFFu) << 8U) |
+                ((in & 0xFFu) << 0U);
         break;
       }
       default:
@@ -62,8 +62,8 @@ public:
       }
       carry_out = carry_in;
     } else {
-      const u32 unrotated_value = Bm32::ZeroExtend<u32>(0x80u | (in & 0x7Fu));
-      const auto r_ror = Alu32::ROR_C(unrotated_value, Bm32::Slice1R<11u, 7u>(in));
+      const u32 unrotated_value = Bm32::ZeroExtend<u32>(0x80U | (in & 0x7Fu));
+      const auto r_ror = Alu32::ROR_C(unrotated_value, Bm32::Slice1R<11U, 7U>(in));
 
       imm32 = r_ror.result;
       carry_out = r_ror.carry_out;

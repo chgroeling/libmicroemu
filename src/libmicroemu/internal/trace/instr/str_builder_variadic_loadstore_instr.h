@@ -15,7 +15,7 @@ public:
                     const InstrFlagsSet &iflags, const u8 &n, const u32 &registers,
                     bool suppress_dest_register) {
     static_cast<void>(bflags);
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0u;
+    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
 
     if (!suppress_dest_register) {
@@ -29,14 +29,14 @@ public:
     }
     mctx.builder.AddChar('{');
     auto regs_cnt = Bm32::BitCount(registers);
-    for (u32 pstates = 0u; pstates <= 15u; ++pstates) {
-      u32 bm = 0b1u << pstates;
-      if ((registers & bm) != 0u) {
+    for (u32 pstates = 0U; pstates <= 15U; ++pstates) {
+      u32 bm = 0b1U << pstates;
+      if ((registers & bm) != 0U) {
         auto r_spec = Reg::GetRegisterName(static_cast<RegisterId>(pstates)).data();
 
         mctx.builder.AddString(r_spec);
         regs_cnt--;
-        if (regs_cnt > 0u) {
+        if (regs_cnt > 0U) {
           mctx.builder.AddString(", ");
         }
       }

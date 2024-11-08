@@ -4,8 +4,8 @@
 namespace microemu::internal {
 
 enum class ReadStatusCode : u32 {
-  kOk = 0u,
-  kReadNotAllowed = 1u,
+  kOk = 0U,
+  kReadNotAllowed = 1U,
 };
 
 template <typename T> struct ReadResult {
@@ -14,8 +14,8 @@ template <typename T> struct ReadResult {
 };
 
 enum class WriteStatusCode : u32 {
-  kOk = 0u,
-  kWriteNotAllowed = 1u,
+  kOk = 0U,
+  kWriteNotAllowed = 1U,
 };
 
 template <typename T> struct WriteResult {

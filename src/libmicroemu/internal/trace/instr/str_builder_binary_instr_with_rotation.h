@@ -15,7 +15,7 @@ public:
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const u8 &d, const u8 &m, const u8 &rotation) {
     static_cast<void>(bflags);
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0u;
+    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
@@ -24,7 +24,7 @@ public:
         .AddString(", ")
         .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)).data());
 
-    if (rotation != 0u) {
+    if (rotation != 0U) {
       mctx.builder.AddString(", ROR #").AddUInt(rotation);
     }
 

@@ -24,9 +24,9 @@ public:
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const u32 &registers) {
-    const auto is_32bit = (iflags & k32Bit) != 0u;
+    const auto is_32bit = (iflags & k32Bit) != 0U;
 
-    ExecFlagsSet eflags = 0x0u;
+    ExecFlagsSet eflags = 0x0U;
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
     if (!condition_passed) {
@@ -37,18 +37,18 @@ public:
     const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
     auto address = static_cast<me_adr_t>(rn);
 
-    for (u32 rid = 0u; rid <= 14u; ++rid) {
-      const u32 bm = 0x1u << rid;
-      if ((registers & bm) != 0u) {
+    for (u32 rid = 0U; rid <= 14U; ++rid) {
+      const u32 bm = 0x1U << rid;
+      if ((registers & bm) != 0U) {
         TRY_ASSIGN(rdat, ExecResult,
                    ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
                                                       BusExceptionType::kRaisePreciseDataBusError));
         Reg::WriteRegister(ictx.pstates, static_cast<RegisterId>(rid), rdat);
-        address += static_cast<me_adr_t>(4u);
+        address += static_cast<me_adr_t>(4U);
       }
     }
 
-    if (Bm32::Slice1R<15u, 15u>(registers) == 0x1u) {
+    if (Bm32::Slice1R<15U, 15U>(registers) == 0x1U) {
       TRY_ASSIGN(rdat, ExecResult,
                  ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
                                                     BusExceptionType::kRaisePreciseDataBusError));
@@ -65,13 +65,13 @@ public:
     // MemoryViewer<TMemAccess> mem_view(mem_acs_);
     // mem_view.print(0x80000 - 0x32, 0x64);
 
-    const bool is_wback = (iflags & kWBack) != 0u;
-    const auto n_mask = 1u << static_cast<u32>(arg_n.Get());
+    const bool is_wback = (iflags & kWBack) != 0U;
+    const auto n_mask = 1U << static_cast<u32>(arg_n.Get());
     const bool is_rn_in_set = (registers & n_mask) != 0;
 
     if ((is_wback) && (!is_rn_in_set)) {
       auto regcount = Bm32::BitCount(registers);
-      const auto wback_val = rn + 4u * regcount;
+      const auto wback_val = rn + 4U * regcount;
 
       // Update n register
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), wback_val);

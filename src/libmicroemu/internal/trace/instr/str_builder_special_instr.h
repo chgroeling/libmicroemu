@@ -20,7 +20,7 @@ public:
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
     // TODO: Separate into two
-    const bool is_tbh = (iflags & InstrFlags::kTbh) != 0u;
+    const bool is_tbh = (iflags & InstrFlags::kTbh) != 0U;
 
     if (is_tbh) {
       mctx.builder.AddString("TBH")
@@ -48,7 +48,7 @@ public:
                         const u8 &n, const u32 &imm) {
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
-    const bool is_non_zero = (iflags & kNonZero) != 0u;
+    const bool is_non_zero = (iflags & kNonZero) != 0U;
     // TODO: Separate into two
     mctx.builder.AddString("CB");
     if (is_non_zero == true) {
@@ -73,7 +73,7 @@ public:
         .AddString(", #")
         .AddUInt(lsbit)
         .AddString(", #")
-        .AddUInt(widthminus1 + 1u);
+        .AddUInt(widthminus1 + 1U);
 
     mctx.builder.Terminate();
   }
@@ -113,9 +113,9 @@ public:
   }
 
   static void BuildMsrMrs(TContext &mctx, const u8 &mask, const u8 &SYSm) {
-    const auto SYSm_7_3 = Bm32::Slice1R<7u, 3u>(SYSm);
+    const auto SYSm_7_3 = Bm32::Slice1R<7U, 3U>(SYSm);
     switch (SYSm_7_3) {
-    case 0b00000u: {
+    case 0b00000U: {
       if (mask & 0x1) {
         mctx.builder.AddString("APSR_g"); // Application Program Status Register
       } else {
@@ -123,13 +123,13 @@ public:
       }
       break;
     }
-    case 0b00001u: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2u, 0u>(SYSm);
+    case 0b00001U: {
+      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
-      case 0b000u:
+      case 0b000U:
         mctx.builder.AddString("MSP"); // Main Stack Pointer
         break;
-      case 0b001u:
+      case 0b001U:
         mctx.builder.AddString("PSP"); // Process Stack Pointer
         break;
       default:
@@ -138,22 +138,22 @@ public:
       }
       break;
     }
-    case 0b00010u: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2u, 0u>(SYSm);
+    case 0b00010U: {
+      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
-      case 0b000u:
+      case 0b000U:
         mctx.builder.AddString("PRIMASK"); // Priority Mask
         break;
-      case 0b001u:
+      case 0b001U:
         mctx.builder.AddString("BASEPRI"); // Base Priority
         break;
-      case 0b010u:
+      case 0b010U:
         mctx.builder.AddString("BASEPRI_MAX"); // Base Priority Max
         break;
-      case 0b011u:
+      case 0b011U:
         mctx.builder.AddString("FAULTMASK"); // Fault Mask
         break;
-      case 0b100u:
+      case 0b100U:
         mctx.builder.AddString("CONTROL"); // Control
         break;
       default:
@@ -229,9 +229,9 @@ public:
                             const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
                             const u8 &n, const u8 &t, const u8 &t2, const u32 imm32) {
     static_cast<void>(bflags);
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0u;
-    const bool is_index = (iflags & InstrFlags::kIndex) != 0u;
-    const bool is_add = (iflags & kAdd) != 0u;
+    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
+    const bool is_index = (iflags & InstrFlags::kIndex) != 0U;
+    const bool is_add = (iflags & kAdd) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
@@ -261,7 +261,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     auto then_or_else = [](u8 cond) {
-      if (cond == 0x1u) {
+      if (cond == 0x1U) {
         return "T";
       } else {
         return "E";
@@ -271,70 +271,70 @@ public:
     const char *y_spec = "";
     const char *z_spec = "";
     switch (mask) {
-    case 0b1000u:
+    case 0b1000U:
       // do nothing
       break;
-    case 0b0100u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b0100U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b1100u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b1100U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
-    case 0b0010u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b0010U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b0110u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b0110U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
-    case 0b1010u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b1010U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b1110u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b1110U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
-    case 0b0001u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b0001U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b0011u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b0011U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
-    case 0b0101u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b0101U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b0111u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b0111U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
-    case 0b1001u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b1001U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b1011u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b1011U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
-    case 0b1101u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) != 0x1u);
+    case 0b1101U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
       break;
-    case 0b1111u:
-      x_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      y_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
-      z_spec = then_or_else(Bm32::Slice1R<0u, 0u>(firstcond) == 0x1u);
+    case 0b1111U:
+      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
       break;
     default:
       break;

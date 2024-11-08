@@ -17,9 +17,9 @@ public:
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const u8 &n, const u8 &t, const u32 &imm32) {
     static_cast<void>(bflags);
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0u;
-    const bool is_index = (iflags & InstrFlags::kIndex) != 0u;
-    const bool is_add = (iflags & kAdd) != 0u;
+    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
+    const bool is_index = (iflags & InstrFlags::kIndex) != 0U;
+    const bool is_add = (iflags & kAdd) != 0U;
 
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))

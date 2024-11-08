@@ -17,8 +17,8 @@ using Bm8 = BitManip<u8>;
 using Bm16 = BitManip<u16>;
 using Bm32 = BitManip<u32>;
 
-static constexpr u32 kDecodersOpCodeLast = 15u;
-static constexpr u32 kDecodersOpCodeFirst = 11u;
+static constexpr u32 kDecodersOpCodeLast = 15U;
+static constexpr u32 kDecodersOpCodeFirst = 11U;
 
 template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> InvalidInstrDecoder(const RawInstr &rinstr, TProcessorStates &pstates) {
@@ -31,7 +31,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> NopT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kNop};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   static_cast<void>(rinstr);
 
@@ -47,7 +47,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> DmbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kDmb};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert(rinstr.low == 0b1111001110111111u);
   assert((Bm16::Slice1R<15u, 4u>(rinstr.high)) == 0b100011110101u);
@@ -66,7 +66,7 @@ static Result<Instr> AddPcPlusImmediateT1Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddPcPlusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10100u);
 
@@ -83,7 +83,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LslImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b00000u);
   assert((Bm16::Slice1R<10u, 6u>(rinstr.low)) != 0x0u);
@@ -106,7 +106,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LslImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010010u);
   assert((Bm16::Slice1R<3u, 0u>(rinstr.low)) == 0b1111u);
@@ -137,7 +137,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LslRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100000010u);
 
@@ -157,7 +157,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LslRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11111010000u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -184,7 +184,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> ClzT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kClz};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110101011u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -211,7 +211,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AsrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b00010u);
 
@@ -231,7 +231,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CmpRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<10u, 6u>(rinstr.low)) == 0b01010u);
 
@@ -248,7 +248,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CmpRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<10u, 8u>(rinstr.low)) == 0b101u);
 
@@ -273,7 +273,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CmpRegisterT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111010111011u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -300,7 +300,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CmpImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b00101u);
 
@@ -316,7 +316,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CmpImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b011011u);
@@ -342,7 +342,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CmnImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmnImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b010001u);
@@ -368,7 +368,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MovImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b00100u);
 
@@ -388,7 +388,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MovImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b00010u);
@@ -419,7 +419,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MovImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b100100u);
@@ -447,7 +447,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MvnImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMvnImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b00011u);
@@ -478,7 +478,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> TbbHT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTbbH};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111010001101u);
   assert((Bm16::Slice1R<15u, 5u>(rinstr.high)) == 0b11110000000u);
@@ -505,7 +505,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> RsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRsbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100001001u);
 
@@ -524,7 +524,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> RsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRsbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01110u);
@@ -555,7 +555,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MovRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<11u, 8u>(rinstr.low)) == 0x6u);
 
@@ -576,7 +576,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MovRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0000000000u);
 
@@ -597,7 +597,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MovRegisterT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010010u);
   assert((Bm16::Slice1R<3u, 0u>(rinstr.low)) == 0b1111u);
@@ -626,7 +626,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> RrxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRrx};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010010u);
   assert((Bm16::Slice1R<3u, 0u>(rinstr.low)) == 0b1111u);
@@ -652,7 +652,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrLiteralT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrLiteral};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   flags |= static_cast<InstrFlagsSet>(InstrFlags::kAdd);
   const u16 Rt = Bm16::Slice1R<10u, 8u>(rinstr.low);
@@ -667,7 +667,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrLiteralT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrLiteral};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 8u>(rinstr.low)) == 0b11111000u);
   assert((Bm16::Slice1R<6u, 0u>(rinstr.low)) == 0b1011111u);
@@ -691,7 +691,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b01111u);
 
@@ -712,7 +712,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110001001u);
 
@@ -740,7 +740,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000001u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -780,7 +780,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrsbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110011001u);
 
@@ -808,7 +808,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrsbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert(false); // not tested
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110010001u);
@@ -846,7 +846,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrshImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrshImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110011011u);
 
@@ -874,7 +874,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrshImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrshImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110010011u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -910,7 +910,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10001u);
 
@@ -931,7 +931,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110001011u);
 
@@ -959,7 +959,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000011u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -995,7 +995,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> PopT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPop};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b1011110u);
 
@@ -1019,7 +1019,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> PopT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPop};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1110100010111101u);
   assert((Bm16::IsolateBit<13u>(rinstr.high)) == 0b0u);
@@ -1046,7 +1046,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> PopT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPop};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1111100001011101u);
   assert((Bm16::Slice1R<11u, 0u>(rinstr.high)) == 0b101100000100u);
@@ -1068,7 +1068,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b01101u);
 
@@ -1089,7 +1089,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10011u);
 
@@ -1109,7 +1109,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110001101u);
 
@@ -1135,7 +1135,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000101u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -1175,7 +1175,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrexT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrex};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111010000101u);
   assert((Bm16::Slice1R<11u, 8u>(rinstr.high)) == 0b1111u);
@@ -1202,7 +1202,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrdImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b1110100u);
   assert((Bm16::IsolateBit<6u>(rinstr.low)) == 0b1u);
@@ -1240,7 +1240,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kIt};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<11u, 8u>(rinstr.low)) == 0xFu);
 
@@ -1265,7 +1265,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BlT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBl};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 14u>(rinstr.high)) == 0x3u);
   assert((Bm16::IsolateBit<12u>(rinstr.high)) == 0x1u);
@@ -1293,7 +1293,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBx};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 7u>(rinstr.low) == 0b010001110u));
 
@@ -1311,7 +1311,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BlxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBlx};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 7u>(rinstr.low) == 0b010001111u));
 
@@ -1332,7 +1332,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBCond};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   if (TItOps::InITBlock(pstates)) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
@@ -1353,7 +1353,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kB};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   const u32 imm_11_32 = Bm16::Slice1R<10u, 0u>(rinstr.low);
   const i32 imm32 = Bm32::SignExtend<u32, 11u>((imm_11_32) << 1u);
@@ -1369,7 +1369,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBCond};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<15u, 14u>(rinstr.high)) == 0b10u);
@@ -1397,7 +1397,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kB};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<15u, 14u>(rinstr.high)) == 0b10u);
@@ -1426,7 +1426,7 @@ static Result<Instr> SubSpMinusImmediateT1Decoder(const RawInstr &rinstr,
                                                   TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubSpMinusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 7u>(rinstr.low)) == 0b101100001u);
 
@@ -1443,7 +1443,7 @@ static Result<Instr> SubSpMinusImmediateT2Decoder(const RawInstr &rinstr,
                                                   TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubSpMinusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01101u);
@@ -1475,7 +1475,7 @@ static Result<Instr> SubSpMinusImmediateT3Decoder(const RawInstr &rinstr,
                                                   TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubSpMinusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 0u>(rinstr.low)) == 0b1010101101u);
@@ -1503,7 +1503,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SubImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0001111u);
 
@@ -1521,7 +1521,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SubImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b00111u);
 
@@ -1539,7 +1539,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SubImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01101u);
@@ -1574,7 +1574,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SubImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b101010u);
@@ -1608,7 +1608,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SbcImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSbcImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01011u);
@@ -1642,7 +1642,7 @@ static Result<Instr> AddSpPlusImmediateT1Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddSpPlusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10101u);
 
@@ -1659,7 +1659,7 @@ static Result<Instr> AddSpPlusImmediateT2Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddSpPlusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 7u>(rinstr.low)) == 0b101100000u);
 
@@ -1676,7 +1676,7 @@ static Result<Instr> AddSpPlusImmediateT3Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddSpPlusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01000u);
@@ -1708,7 +1708,7 @@ static Result<Instr> AddSpPlusImmediateT4Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddSpPlusImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 0u>(rinstr.low)) == 0b1000001101u);
@@ -1736,7 +1736,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0001110u);
 
@@ -1754,7 +1754,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   flags |=
       TItOps::InITBlock(pstates) == false ? static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) : 0u;
@@ -1770,7 +1770,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01000u);
@@ -1805,7 +1805,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0x0u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b10000u);
@@ -1839,7 +1839,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AdcImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAdcImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b01010u);
@@ -1870,7 +1870,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> TstImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTstImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b000001u);
@@ -1899,7 +1899,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> TeqImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTeqImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 4u>(rinstr.low)) == 0b001001u);
@@ -1928,7 +1928,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> TstRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTstRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100001000u);
 
@@ -1945,7 +1945,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> TeqRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTeqRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111010101001u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -1972,7 +1972,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AndImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAndImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
   assert(((Bm16::Slice1R<11u, 8u>(rinstr.high)) != 0b1111u) ||
@@ -2005,7 +2005,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> OrrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kOrrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b00010u);
@@ -2038,7 +2038,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> EorImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kEorImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11110u);
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b00100u);
@@ -2070,7 +2070,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SubRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0001101u);
 
@@ -2088,7 +2088,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SubRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101011101u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2120,7 +2120,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> RsbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRsbRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101011110u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2150,7 +2150,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UmlalT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUmlal};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111110u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
@@ -2181,7 +2181,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UmullT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUmull};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111010u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
@@ -2212,7 +2212,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SmullT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSmull};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111000u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
@@ -2239,7 +2239,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MulT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMul};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110110000u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2265,7 +2265,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UdivT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUdiv};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111011u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2290,7 +2290,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SdivT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSdiv};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110111001u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2315,7 +2315,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MlsT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMls};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110110000u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0001u);
@@ -2342,7 +2342,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MlaT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMla};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110110000u);
   assert((Bm16::Slice1R<7u, 4u>(rinstr.high)) == 0b0000u);
@@ -2371,7 +2371,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0001100u);
 
@@ -2389,7 +2389,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<10u, 8u>(rinstr.low)) == 0b100u);
 
@@ -2417,7 +2417,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AddRegisterT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101011000u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2449,7 +2449,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AdcRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAdcRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100000101u);
 
@@ -2470,7 +2470,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AdcRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAdcRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101011010u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2500,7 +2500,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StmdbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStmdb};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert(false); // not implemented
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b1110100100u);
@@ -2530,7 +2530,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> PushT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPush};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<10u, 9u>(rinstr.low)) == 0b10u);
 
@@ -2550,7 +2550,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> PushT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPush};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1110100100101101u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2573,7 +2573,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> PushT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPush};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert(rinstr.low == 0b1111100001001101u);
   assert((Bm16::Slice1R<11u, 0u>(rinstr.high)) == 0b110100000100u);
@@ -2595,7 +2595,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdmT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdm};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11001u);
 
@@ -2619,7 +2619,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdmT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdm};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b1110100010u);
   assert((Bm16::IsolateBit<4u>(rinstr.low)) == 0b1u);
@@ -2654,7 +2654,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StmT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStm};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b11000u);
 
@@ -2671,7 +2671,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StmT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStm};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b1110100010u);
   assert((Bm16::IsolateBit<4u>(rinstr.low)) == 0b0u);
@@ -2702,7 +2702,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SxthT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxth};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b1011001000u);
 
@@ -2719,7 +2719,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SxthT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxth};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1111101000001111u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2744,7 +2744,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UxtbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxtb};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<11u, 6u>(rinstr.low)) == 0b001011u);
 
@@ -2761,7 +2761,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UxtbT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxtb};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1111101001011111u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2786,7 +2786,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SxtbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxtb};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b1011001001u);
 
@@ -2803,7 +2803,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SxtbT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxtb};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1111101001001111u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2828,7 +2828,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UxthT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxth};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b1011001010u);
 
@@ -2845,7 +2845,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UxthT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxth};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 0u>(rinstr.low)) == 0b1111101000011111u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -2870,7 +2870,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BfiT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBfi};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111100110110u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2898,7 +2898,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> UbfxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUbfx};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111100111100u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2926,7 +2926,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> EorRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kEorRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100000001u);
 
@@ -2948,7 +2948,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> EorRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kEorRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010100u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -2979,7 +2979,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SbcRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSbcRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101011011u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -3009,7 +3009,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> OrrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kOrrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100001100u);
 
@@ -3030,7 +3030,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> OrrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kOrrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010010u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -3061,7 +3061,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AndRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAndRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100000000u);
 
@@ -3082,7 +3082,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AndRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAndRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010000u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -3113,7 +3113,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BicImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBicImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<9u, 5u>(rinstr.low)) == 0b00001u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -3144,7 +3144,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BicRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBicRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100001110u);
 
@@ -3165,7 +3165,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BicRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBicRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010001u);
   assert((Bm16::IsolateBit<15u>(rinstr.high)) == 0b0u);
@@ -3195,7 +3195,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LsrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100000011u);
 
@@ -3215,7 +3215,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LsrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11111010001u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -3242,7 +3242,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AsrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 6u>(rinstr.low)) == 0b0100000100u);
 
@@ -3262,7 +3262,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AsrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11111010010u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1111u);
@@ -3289,7 +3289,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LsrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b00001u);
 
@@ -3309,7 +3309,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LsrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010010u);
   assert((Bm16::Slice1R<3u, 0u>(rinstr.low)) == 0b1111u);
@@ -3339,7 +3339,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MvnRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMvnRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010011u);
   assert((Bm16::Slice1R<3u, 0u>(rinstr.low)) == 0b1111u);
@@ -3368,7 +3368,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> AsrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 5u>(rinstr.low)) == 0b11101010010u);
   assert((Bm16::Slice1R<3u, 0u>(rinstr.low)) == 0b1111u);
@@ -3398,7 +3398,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15U, 9U>(rinstr.low)) == 0b0101000u);
 
@@ -3420,7 +3420,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000100u);
   assert((Bm16::Slice1R<11u, 6u>(rinstr.high)) == 0b000000u);
@@ -3449,7 +3449,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0101010u);
 
@@ -3471,7 +3471,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrbRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000000u);
   assert((Bm16::Slice1R<11u, 6u>(rinstr.high)) == 0b000000u);
@@ -3503,7 +3503,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000010u);
   assert((Bm16::Slice1R<11u, 6u>(rinstr.high)) == 0b000000u);
@@ -3535,7 +3535,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0101110u);
 
@@ -3557,7 +3557,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b0101100u);
 
@@ -3579,7 +3579,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000101u);
   assert((Bm16::Slice1R<11u, 6u>(rinstr.high)) == 0b000000u);
@@ -3612,7 +3612,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> LdrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhRegister};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000011u);
   assert((Bm16::Slice1R<11u, 6u>(rinstr.high)) == 0b000000u);
@@ -3643,7 +3643,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrdImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 9u>(rinstr.low)) == 0b1110100u);
   assert((Bm16::IsolateBit<6u>(rinstr.low)) == 0b1u);
@@ -3680,7 +3680,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10000u);
 
@@ -3701,7 +3701,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110001010u);
 
@@ -3727,7 +3727,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000010u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -3761,7 +3761,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b01110u);
 
@@ -3782,7 +3782,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110001000u);
 
@@ -3811,7 +3811,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000000u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -3845,7 +3845,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b01100u);
 
@@ -3866,7 +3866,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 11u>(rinstr.low)) == 0b10010u);
 
@@ -3886,7 +3886,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110001100u);
 
@@ -3915,7 +3915,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111110000100u);
   assert((Bm16::IsolateBit<11u>(rinstr.high)) == 0b1u);
@@ -3952,7 +3952,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> StrexT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrex};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111010000100u);
 
@@ -3980,7 +3980,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> CbNZT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCbNZ};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 12u>(rinstr.low)) == 0b1011u);
   assert((Bm16::IsolateBit<10u>(rinstr.low)) == 0b0u);
@@ -4005,7 +4005,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> SvcT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSvc};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 8u>(rinstr.low)) == 0b11011111u);
 
@@ -4019,7 +4019,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> BkptT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBkpt};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 8u>(rinstr.low)) == 0b10111110u);
 
@@ -4033,7 +4033,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MsrT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMsr};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert((Bm16::Slice1R<15u, 4u>(rinstr.low)) == 0b111100111000u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1000u);
@@ -4061,7 +4061,7 @@ template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
 static Result<Instr> MrsT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMrs};
-  u8 flags = 0x0u;
+  u8 flags = 0x0U;
 
   assert(rinstr.low == 0b1111001111101111u);
   assert((Bm16::Slice1R<15u, 12u>(rinstr.high)) == 0b1000u);
