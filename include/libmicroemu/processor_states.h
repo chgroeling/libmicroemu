@@ -13,8 +13,6 @@
 
 namespace microemu {
 
-// TODO: Rename to TCpuStates
-
 class ProcessorStates {
 
 public:
