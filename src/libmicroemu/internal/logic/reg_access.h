@@ -1,4 +1,6 @@
 #include "libmicroemu/emu_context.h"
+#include <string_view>
+
 // Write implementation of IRegAccessor
 namespace microemu {
 namespace internal {
@@ -53,7 +55,7 @@ public:
   RegAccessor &operator=(RegAccessor &&) = default;
 
   /// @copydoc IRegAccessor::GetRegisterName
-  const char *GetRegisterName(const RegisterId &id) const override {
+  std::string_view GetRegisterName(const RegisterId &id) const override {
     const RegisterId eid = static_cast<RegisterId>(id);
     return Reg::GetRegisterName(eid);
   }

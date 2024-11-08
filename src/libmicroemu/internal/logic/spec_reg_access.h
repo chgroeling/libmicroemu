@@ -53,7 +53,7 @@ public:
   SpecialRegAccessor &operator=(SpecialRegAccessor &&) = default;
 
   /// @copydoc ISpecialRegAccessor::GetRegisterName
-  const char *GetRegisterName(const SpecialRegisterId &reg_id) const override {
+  std::string_view GetRegisterName(const SpecialRegisterId &reg_id) const override {
     return SReg::GetRegisterName(reg_id);
   }
 

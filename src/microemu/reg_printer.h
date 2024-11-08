@@ -24,21 +24,21 @@ public:
         auto value = reg_access.ReadRegister(static_cast<microemu::RegisterId>(reg_id));
         sampled_regs.values[reg_id] = value;
         sampled_regs.names[reg_id] =
-            reg_access.GetRegisterName(static_cast<microemu::RegisterId>(reg_id));
+            reg_access.GetRegisterName(static_cast<microemu::RegisterId>(reg_id)).data();
       } else {
         switch (reg_id) {
         case 16u: {
           auto spec_reg_id = microemu::SpecialRegisterId::kApsr;
           auto value = spec_reg_access.ReadRegister(spec_reg_id);
           sampled_regs.values[reg_id] = value;
-          sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id);
+          sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id).data();
           break;
         }
         case 17u: {
           auto spec_reg_id = microemu::SpecialRegisterId::kIstate;
           auto value = spec_reg_access.ReadRegister(spec_reg_id);
           sampled_regs.values[reg_id] = value;
-          sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id);
+          sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id).data();
           break;
         }
         default:

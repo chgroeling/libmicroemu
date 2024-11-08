@@ -22,9 +22,9 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(n))
+        .AddString(Reg::GetRegisterName(n).data())
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m));
+        .AddString(Reg::GetRegisterName(m).data());
 
     if (shift_res.value != 0) {
       mctx.builder.AddString(", ");

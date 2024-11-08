@@ -18,7 +18,7 @@ namespace internal {
 
 template <typename TProcessorStates, typename TLogger = NullLogger> class SpecRegOps {
 public:
-  static const char *GetRegisterName(const SpecialRegisterId &reg_id) {
+  static std::string_view GetRegisterName(const SpecialRegisterId &reg_id) {
     switch (reg_id) {
     case SpecialRegisterId::kSysCtrl:
       return "SYSCTRL";

@@ -27,9 +27,12 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d)).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d).data()).AddString(", ");
     }
-    mctx.builder.AddString(Reg::GetRegisterName(n)).AddString(", #").AddUInt(imm32).Terminate();
+    mctx.builder.AddString(Reg::GetRegisterName(n).data())
+        .AddString(", #")
+        .AddUInt(imm32)
+        .Terminate();
   }
 
 private:
