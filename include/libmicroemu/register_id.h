@@ -2,8 +2,14 @@
 
 #include "libmicroemu/types.h"
 
-// TODO: Rework like special_register_id.h
 namespace microemu {
+
+/**
+ * @brief Enumeration of register IDs.
+ *
+ * This enumeration represents the IDs of general-purpose registers.
+ * General-purpose registers are used for storing data and intermediate results.
+ */
 enum class RegisterId : u8 {
   kR0 = 0U,
   kR1 = 1U,
@@ -19,15 +25,20 @@ enum class RegisterId : u8 {
   kR11 = 11U,
   kR12 = 12U,
   //
-  kSp = 13U,
+  kSp = 13U, ///< Stack-pointer register
   kR13 = 13U,
   // ---
-  kLr = 14U,
+  kLr = 14U, ///< Link-register
   kR14 = 14U,
   // ---
-  kPc = 15U,
+  kPc = 15U, ///< Program-counter register
   kR15 = 15U
 };
 
-static constexpr u32 kNoOfRegisters = 16U;
+/// @brief The last register ID.
+constexpr auto kLastRegister = RegisterId::kR15;
+
+/// @brief Returns the number of general-purpose registers.
+/// @return The number of general-purpose registers.
+static constexpr u32 CountRegisters() noexcept { return static_cast<u32>(kLastRegister) + 1U; };
 } // namespace microemu
