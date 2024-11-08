@@ -20,7 +20,7 @@ public:
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
     // TODO: Separate into two
-    const bool is_tbh = (iflags & InstrFlags::kTbh) != 0U;
+    const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
 
     if (is_tbh) {
       mctx.builder.AddString("TBH")
@@ -48,7 +48,7 @@ public:
                         const u8 &n, const u32 &imm) {
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
-    const bool is_non_zero = (iflags & kNonZero) != 0U;
+    const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
     // TODO: Separate into two
     mctx.builder.AddString("CB");
     if (is_non_zero == true) {
@@ -229,9 +229,9 @@ public:
                             const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
                             const u8 &n, const u8 &t, const u8 &t2, const u32 imm32) {
     static_cast<void>(bflags);
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
-    const bool is_index = (iflags & InstrFlags::kIndex) != 0U;
-    const bool is_add = (iflags & kAdd) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
+    const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
+    const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')

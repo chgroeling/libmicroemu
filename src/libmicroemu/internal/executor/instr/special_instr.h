@@ -26,7 +26,7 @@ public:
   /// see Armv7-M Architecture Reference Manual Issue E.e p.236
   static Result<ExecResult> ItInstr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                     const u32 &firstcond, const u32 &mask) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(ictx.pstates);
@@ -45,7 +45,7 @@ public:
   template <typename TDelegates>
   static Result<ExecResult> Svc(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
                                 TDelegates &delegates) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
 
@@ -83,7 +83,7 @@ public:
   template <typename TDelegates>
   static Result<ExecResult> Bkpt(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
                                  TDelegates &delegates) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -118,7 +118,7 @@ public:
   /// see Armv7-M Architecture Reference Manual Issue E.e p.205
   static Result<ExecResult> BCond(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                   const u32 &imm32, const u8 &cond) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     const auto condition_passed = It::ConditionPassed(ictx.pstates, cond);
@@ -138,7 +138,7 @@ public:
   template <typename TArg0, typename TArg1>
   static Result<ExecResult> Tbhh(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_m, TArg1 arg_n) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -149,7 +149,7 @@ public:
       return Ok(ExecResult{eflags});
     }
 
-    const bool is_tbh = (iflags & kTbh) != 0U;
+    const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
 
     const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
     const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
@@ -180,8 +180,8 @@ public:
   static Result<ExecResult> CbNZ(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const u32 &imm32) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
-    const bool is_non_zero = (iflags & kNonZero) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
+    const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
 
     const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
     const me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(ictx.pstates));
@@ -208,7 +208,7 @@ public:
                                 const TArg0 &arg_d, const TArg1 &arg_n, const u8 &lsbit,
                                 const u8 &msbit) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -247,7 +247,7 @@ public:
                                  const TArg0 &arg_d, const TArg1 &arg_n, const u8 &lsbit,
                                  const u8 &widthminus1) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -282,10 +282,10 @@ public:
                                  const TArg0 &arg_t, const TArg1 &arg_t2, const TArg2 &arg_n,
                                  const u32 &imm32) {
 
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
-    const bool is_index = (iflags & InstrFlags::kIndex) != 0U;
-    const bool is_add = (iflags & kAdd) != 0U;
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
+    const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
+    const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -326,7 +326,7 @@ public:
                                   const TArg0 &arg_d_lo, const TArg0 &arg_d_hi, const TArg1 &arg_n,
                                   const TArg2 &arg_m) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -356,7 +356,7 @@ public:
                                   const TArg0 &arg_d_lo, const TArg0 &arg_d_hi, const TArg1 &arg_n,
                                   const TArg2 &arg_m) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -390,7 +390,7 @@ public:
   static Result<ExecResult> Msr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                 const TArg0 &arg_n, const uint8_t mask, const uint8_t SYSm) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -502,7 +502,7 @@ public:
   static Result<ExecResult> Mrs(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                 const TArg0 &arg_d, const uint8_t mask, const uint8_t SYSm) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
@@ -608,7 +608,7 @@ public:
                                   const TArg0 &arg_d_lo, const TArg0 &arg_d_hi, const TArg1 &arg_n,
                                   const TArg2 &arg_m) {
 
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -639,10 +639,10 @@ public:
                                  const u32 &imm32) {
 
     ExecFlagsSet eflags{0x0U};
-    const bool is_wback = (iflags & InstrFlags::kWBack) != 0U;
-    const bool is_index = (iflags & InstrFlags::kIndex) != 0U;
-    const bool is_add = (iflags & kAdd) != 0U;
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
+    const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
+    const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 

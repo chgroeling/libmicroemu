@@ -21,9 +21,9 @@ public:
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const TArg1 &arg_t, const TArg2 &arg_d,
                                  const u32 &imm32) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
-    const bool is_index = (iflags & kIndex) != 0U;
-    const bool is_add = (iflags & kAdd) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
+    const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
+    const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -47,7 +47,7 @@ public:
     // write back if write succeeded
     Reg::WriteRegister(ictx.pstates, arg_d.Get(), rd);
 
-    const bool is_wback = (iflags & kWBack) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     if (is_wback == true) {
       Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_addr);
     }

@@ -15,7 +15,7 @@ public:
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const u8 &d, const u8 &n) {
     static_cast<void>(bflags);
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
+    const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))

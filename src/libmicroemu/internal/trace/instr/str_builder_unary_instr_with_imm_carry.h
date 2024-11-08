@@ -17,7 +17,7 @@ public:
                     const ThumbImmediateResult &imm_carry) {
 
     static_cast<void>(bflags);
-    const bool is_setflags = (iflags & InstrFlags::kSetFlags) != 0U;
+    const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))

@@ -21,7 +21,7 @@ public:
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg &arg_n, const u32 &registers) {
-    const auto is_32bit = (iflags & k32Bit) != 0U;
+    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
@@ -35,7 +35,7 @@ public:
     const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
     auto reg_count = Bm32::BitCount(registers);
     u32 address = rn;
-    const bool is_wback = (iflags & kWBack) != 0U;
+    const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool lowest_bit_set = Bm8::LowestBitSet(registers);
     for (u32 reg = 0U; reg <= 14U; ++reg) {
       u32 bm = 0x1U << reg;
