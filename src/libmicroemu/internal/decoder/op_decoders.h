@@ -20,14 +20,14 @@ using Bm32 = BitManip<u32>;
 static constexpr u32 kDecodersOpCodeLast = 15U;
 static constexpr u32 kDecodersOpCodeFirst = 11U;
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> InvalidInstrDecoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(rinstr);
   static_cast<void>(pstates); // prevents warning when pstate is not used
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> NopT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kNop};
@@ -43,7 +43,7 @@ static Result<Instr> NopT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   }});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> DmbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kDmb};
@@ -61,7 +61,7 @@ static Result<Instr> DmbT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   }});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddPcPlusImmediateT1Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -79,7 +79,7 @@ static Result<Instr> AddPcPlusImmediateT1Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrAddPcPlusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LslImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslImmediate};
@@ -102,7 +102,7 @@ static Result<Instr> LslImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLslImmediate{iid, flags, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LslImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslImmediate};
@@ -133,7 +133,7 @@ static Result<Instr> LslImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLslImmediate{iid, flags, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LslRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslRegister};
@@ -153,7 +153,7 @@ static Result<Instr> LslRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrLslRegister{iid, flags, n, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LslRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLslRegister};
@@ -180,7 +180,7 @@ static Result<Instr> LslRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrLslRegister{iid, flags, n, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> ClzT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kClz};
@@ -207,7 +207,7 @@ static Result<Instr> ClzT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrClz{iid, flags, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AsrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrImmediate};
@@ -227,7 +227,7 @@ static Result<Instr> AsrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAsrImmediate{iid, flags, m, d, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CmpRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpRegister};
@@ -244,7 +244,7 @@ static Result<Instr> CmpRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrCmpRegister{iid, flags, n, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CmpRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpRegister};
@@ -269,7 +269,7 @@ static Result<Instr> CmpRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrCmpRegister{iid, flags, n, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CmpRegisterT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpRegister};
@@ -296,7 +296,7 @@ static Result<Instr> CmpRegisterT3Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrCmpRegister{iid, flags, n, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CmpImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpImmediate};
@@ -312,7 +312,7 @@ static Result<Instr> CmpImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrCmpImmediate{iid, flags, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CmpImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmpImmediate};
@@ -338,7 +338,7 @@ static Result<Instr> CmpImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrCmpImmediate{iid, flags, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CmnImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCmnImmediate};
@@ -364,7 +364,7 @@ static Result<Instr> CmnImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrCmnImmediate{iid, flags, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MovImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovImmediate};
@@ -384,7 +384,7 @@ static Result<Instr> MovImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrMovImmediate{iid, flags, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MovImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovImmediate};
@@ -415,7 +415,7 @@ static Result<Instr> MovImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrMovImmediate{iid, flags, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MovImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovImmediate};
@@ -443,7 +443,7 @@ static Result<Instr> MovImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrMovImmediate{iid, flags, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MvnImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMvnImmediate};
@@ -474,7 +474,7 @@ static Result<Instr> MvnImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrMvnImmediate{iid, flags, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> TbbHT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTbbH};
@@ -501,7 +501,7 @@ static Result<Instr> TbbHT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrTbbH{iid, flags, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> RsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRsbImmediate};
@@ -520,7 +520,7 @@ static Result<Instr> RsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrRsbImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> RsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRsbImmediate};
@@ -551,7 +551,7 @@ static Result<Instr> RsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrRsbImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MovRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovRegister};
@@ -572,7 +572,7 @@ static Result<Instr> MovRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrMovRegister{iid, flags, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MovRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovRegister};
@@ -593,7 +593,7 @@ static Result<Instr> MovRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrMovRegister{iid, flags, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MovRegisterT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMovRegister};
@@ -624,7 +624,7 @@ static Result<Instr> MovRegisterT3Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrMovRegister{iid, flags, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> RrxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRrx};
@@ -650,7 +650,7 @@ static Result<Instr> RrxT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrRrx{iid, flags, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrLiteralT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrLiteral};
@@ -665,7 +665,7 @@ static Result<Instr> LdrLiteralT1Decoder(const RawInstr &rinstr, TProcessorState
   return Ok(Instr{InstrLdrLiteral{iid, flags, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrLiteralT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrLiteral};
@@ -689,7 +689,7 @@ static Result<Instr> LdrLiteralT2Decoder(const RawInstr &rinstr, TProcessorState
   return Ok(Instr{InstrLdrLiteral{iid, flags, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbImmediate};
@@ -710,7 +710,7 @@ static Result<Instr> LdrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrbImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbImmediate};
@@ -738,7 +738,7 @@ static Result<Instr> LdrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrbImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbImmediate};
@@ -778,7 +778,7 @@ static Result<Instr> LdrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrbImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrsbImmediate};
@@ -806,7 +806,7 @@ static Result<Instr> LdrsbImmediateT1Decoder(const RawInstr &rinstr, TProcessorS
   return Ok(Instr{InstrLdrsbImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrsbImmediate};
@@ -845,7 +845,7 @@ static Result<Instr> LdrsbImmediateT2Decoder(const RawInstr &rinstr, TProcessorS
   return Ok(Instr{InstrLdrsbImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrshImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrshImmediate};
@@ -873,7 +873,7 @@ static Result<Instr> LdrshImmediateT1Decoder(const RawInstr &rinstr, TProcessorS
   return Ok(Instr{InstrLdrshImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrshImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrshImmediate};
@@ -910,7 +910,7 @@ static Result<Instr> LdrshImmediateT2Decoder(const RawInstr &rinstr, TProcessorS
   return Ok(Instr{InstrLdrshImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhImmediate};
@@ -931,7 +931,7 @@ static Result<Instr> LdrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrhImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhImmediate};
@@ -959,7 +959,7 @@ static Result<Instr> LdrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrhImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhImmediate};
@@ -996,7 +996,7 @@ static Result<Instr> LdrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrhImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> PopT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPop};
@@ -1020,7 +1020,7 @@ static Result<Instr> PopT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrPop{iid, flags, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> PopT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPop};
@@ -1047,7 +1047,7 @@ static Result<Instr> PopT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrPop{iid, flags, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> PopT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPop};
@@ -1069,7 +1069,7 @@ static Result<Instr> PopT3Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrPop{iid, flags, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
@@ -1090,7 +1090,7 @@ static Result<Instr> LdrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLdrImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
@@ -1110,7 +1110,7 @@ static Result<Instr> LdrImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLdrImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
@@ -1136,7 +1136,7 @@ static Result<Instr> LdrImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLdrImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrImmediate};
@@ -1162,7 +1162,7 @@ static Result<Instr> LdrImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   assert((P != 0b1U) || (U != 0b1U) || (W != 0b0U));
   if ((Rn == 0b1101U) && (P == 0x0U) && (U == 0x1U) && (W == 0x1U) && (imm8 == 0b00000100U)) {
     // SEE POP
-    return PopT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return PopT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   if ((P == 0x0U) && (W == 0x0U)) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
@@ -1176,7 +1176,7 @@ static Result<Instr> LdrImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLdrImmediate{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrexT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrex};
@@ -1203,7 +1203,7 @@ static Result<Instr> LdrexT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   return Ok(Instr{InstrLdrex{iid, flags, t, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrdImmediate};
@@ -1241,7 +1241,7 @@ static Result<Instr> LdrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrLdrdImmediate{iid, flags, t, t2, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kIt};
@@ -1266,7 +1266,7 @@ static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TProcessorStates &pstat
   return Ok(Instr{InstrIt{iid, flags, firstcond, mask}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BlT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBl};
@@ -1294,7 +1294,7 @@ static Result<Instr> BlT1Decoder(const RawInstr &rinstr, TProcessorStates &pstat
   return Ok(Instr{InstrBl{iid, flags, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBx};
@@ -1312,7 +1312,7 @@ static Result<Instr> BxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstat
   return Ok(Instr{InstrBx{iid, flags, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BlxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBlx};
@@ -1333,7 +1333,7 @@ static Result<Instr> BlxT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrBlx{iid, flags, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBCond};
@@ -1354,7 +1354,7 @@ static Result<Instr> BT1Decoder(const RawInstr &rinstr, TProcessorStates &pstate
   return Ok(Instr{InstrBCond{iid, flags, cond, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kB};
@@ -1370,7 +1370,7 @@ static Result<Instr> BT2Decoder(const RawInstr &rinstr, TProcessorStates &pstate
   return Ok(Instr{InstrB{iid, flags, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBCond};
@@ -1398,7 +1398,7 @@ static Result<Instr> BT3Decoder(const RawInstr &rinstr, TProcessorStates &pstate
   return Ok(Instr{InstrBCond{iid, flags, cond, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kB};
@@ -1426,7 +1426,7 @@ static Result<Instr> BT4Decoder(const RawInstr &rinstr, TProcessorStates &pstate
   return Ok(Instr{InstrB{iid, flags, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubSpMinusImmediateT1Decoder(const RawInstr &rinstr,
                                                   TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1443,7 +1443,7 @@ static Result<Instr> SubSpMinusImmediateT1Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrSubSpMinusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubSpMinusImmediateT2Decoder(const RawInstr &rinstr,
                                                   TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1475,7 +1475,7 @@ static Result<Instr> SubSpMinusImmediateT2Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrSubSpMinusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubSpMinusImmediateT3Decoder(const RawInstr &rinstr,
                                                   TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1504,7 +1504,7 @@ static Result<Instr> SubSpMinusImmediateT3Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrSubSpMinusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
@@ -1522,7 +1522,7 @@ static Result<Instr> SubImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrSubImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
@@ -1540,7 +1540,7 @@ static Result<Instr> SubImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrSubImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
@@ -1565,7 +1565,7 @@ static Result<Instr> SubImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
 
   assert(!((d == 0xFu) && (S == 1U)));
   if (n == 0b1101U) {
-    return SubSpMinusImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SubSpMinusImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
@@ -1575,7 +1575,7 @@ static Result<Instr> SubImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrSubImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubImmediate};
@@ -1599,7 +1599,7 @@ static Result<Instr> SubImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
 
   assert(Rn != 0b1111U);
   if (Rn == 0b1101U) {
-    return SubSpMinusImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SubSpMinusImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   if (d == 13U || d == 15U) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
@@ -1609,7 +1609,7 @@ static Result<Instr> SubImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrSubImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SbcImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSbcImmediate};
@@ -1642,7 +1642,7 @@ static Result<Instr> SbcImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrSbcImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddSpPlusImmediateT1Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1659,7 +1659,7 @@ static Result<Instr> AddSpPlusImmediateT1Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrAddSpPlusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddSpPlusImmediateT2Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1676,7 +1676,7 @@ static Result<Instr> AddSpPlusImmediateT2Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrAddSpPlusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddSpPlusImmediateT3Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1708,7 +1708,7 @@ static Result<Instr> AddSpPlusImmediateT3Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrAddSpPlusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddSpPlusImmediateT4Decoder(const RawInstr &rinstr,
                                                  TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
@@ -1737,7 +1737,7 @@ static Result<Instr> AddSpPlusImmediateT4Decoder(const RawInstr &rinstr,
   return Ok(Instr{InstrAddSpPlusImmediate{iid, flags, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
@@ -1755,7 +1755,7 @@ static Result<Instr> AddImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAddImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
@@ -1771,7 +1771,7 @@ static Result<Instr> AddImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAddImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
@@ -1796,7 +1796,7 @@ static Result<Instr> AddImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
 
   assert(!((d == 0xFu) && (S == 1U)));
   if (Rn == 0b1101U) {
-    return AddSpPlusImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return AddSpPlusImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
@@ -1806,7 +1806,7 @@ static Result<Instr> AddImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAddImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddImmediate};
@@ -1830,7 +1830,7 @@ static Result<Instr> AddImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
 
   assert(Rn != 0b1111U);
   if (Rn == 0b1101U) {
-    return AddSpPlusImmediateT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return AddSpPlusImmediateT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   if (d == 13U || d == 15U) {
     return Err<Instr>(StatusCode::kScDecoderUnpredictable);
@@ -1840,7 +1840,7 @@ static Result<Instr> AddImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAddImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AdcImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAdcImmediate};
@@ -1871,7 +1871,7 @@ static Result<Instr> AdcImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAdcImmediate{iid, flags, n, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> TstImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTstImmediate};
@@ -1900,7 +1900,7 @@ static Result<Instr> TstImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrTstImmediate{iid, flags, n, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> TeqImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTeqImmediate};
@@ -1929,7 +1929,7 @@ static Result<Instr> TeqImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrTeqImmediate{iid, flags, n, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> TstRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTstRegister};
@@ -1946,7 +1946,7 @@ static Result<Instr> TstRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrTstRegister{iid, flags, n, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> TeqRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kTeqRegister};
@@ -1973,7 +1973,7 @@ static Result<Instr> TeqRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrTeqRegister{iid, flags, n, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AndImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAndImmediate};
@@ -2006,7 +2006,7 @@ static Result<Instr> AndImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAndImmediate{iid, flags, n, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> OrrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kOrrImmediate};
@@ -2039,7 +2039,7 @@ static Result<Instr> OrrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrOrrImmediate{iid, flags, n, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> EorImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kEorImmediate};
@@ -2071,7 +2071,7 @@ static Result<Instr> EorImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrEorImmediate{iid, flags, n, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubRegister};
@@ -2089,7 +2089,7 @@ static Result<Instr> SubRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrSubRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SubRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSubRegister};
@@ -2121,7 +2121,7 @@ static Result<Instr> SubRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrSubRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> RsbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kRsbRegister};
@@ -2151,7 +2151,7 @@ static Result<Instr> RsbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrRsbRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UmlalT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUmlal};
@@ -2182,7 +2182,7 @@ static Result<Instr> UmlalT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   return Ok(Instr{InstrUmlal{iid, flags, dHi, dLo, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UmullT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUmull};
@@ -2213,7 +2213,7 @@ static Result<Instr> UmullT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   return Ok(Instr{InstrUmull{iid, flags, dHi, dLo, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SmullT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSmull};
@@ -2240,7 +2240,7 @@ static Result<Instr> SmullT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   return Ok(Instr{InstrSmull{iid, flags, dHi, dLo, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MulT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMul};
@@ -2266,7 +2266,7 @@ static Result<Instr> MulT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrMul{iid, flags, d, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UdivT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUdiv};
@@ -2291,7 +2291,7 @@ static Result<Instr> UdivT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrUdiv{iid, flags, d, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SdivT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSdiv};
@@ -2316,7 +2316,7 @@ static Result<Instr> SdivT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrSdiv{iid, flags, d, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MlsT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMls};
@@ -2343,7 +2343,7 @@ static Result<Instr> MlsT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrMls{iid, flags, a, d, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MlaT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMla};
@@ -2372,7 +2372,7 @@ static Result<Instr> MlaT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrMla{iid, flags, a, d, m, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddRegister};
@@ -2390,7 +2390,7 @@ static Result<Instr> AddRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAddRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddRegister};
@@ -2418,7 +2418,7 @@ static Result<Instr> AddRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAddRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AddRegisterT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAddRegister};
@@ -2450,7 +2450,7 @@ static Result<Instr> AddRegisterT3Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAddRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AdcRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAdcRegister};
@@ -2471,7 +2471,7 @@ static Result<Instr> AdcRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAdcRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AdcRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAdcRegister};
@@ -2501,7 +2501,7 @@ static Result<Instr> AdcRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAdcRegister{iid, flags, shift_res, m, n, d}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StmdbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStmdb};
@@ -2531,7 +2531,7 @@ static Result<Instr> StmdbT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   return Ok(Instr{InstrStmdb{iid, flags, n, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> PushT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPush};
@@ -2551,7 +2551,7 @@ static Result<Instr> PushT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrPush{iid, flags, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> PushT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPush};
@@ -2574,7 +2574,7 @@ static Result<Instr> PushT2Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrPush{iid, flags, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> PushT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kPush};
@@ -2596,7 +2596,7 @@ static Result<Instr> PushT3Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrPush{iid, flags, registers}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdmT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdm};
@@ -2620,7 +2620,7 @@ static Result<Instr> LdmT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrLdm{iid, flags, registers, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdmT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdm};
@@ -2655,7 +2655,7 @@ static Result<Instr> LdmT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrLdm{iid, flags, registers, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StmT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStm};
@@ -2672,7 +2672,7 @@ static Result<Instr> StmT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrStm{iid, flags, registers, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StmT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStm};
@@ -2703,7 +2703,7 @@ static Result<Instr> StmT2Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrStm{iid, flags, registers, n}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SxthT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxth};
@@ -2720,7 +2720,7 @@ static Result<Instr> SxthT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrSxth{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SxthT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxth};
@@ -2745,7 +2745,7 @@ static Result<Instr> SxthT2Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrSxth{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UxtbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxtb};
@@ -2762,7 +2762,7 @@ static Result<Instr> UxtbT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrUxtb{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UxtbT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxtb};
@@ -2787,7 +2787,7 @@ static Result<Instr> UxtbT2Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrUxtb{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SxtbT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxtb};
@@ -2804,7 +2804,7 @@ static Result<Instr> SxtbT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrSxtb{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SxtbT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSxtb};
@@ -2829,7 +2829,7 @@ static Result<Instr> SxtbT2Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrSxtb{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UxthT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxth};
@@ -2846,7 +2846,7 @@ static Result<Instr> UxthT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrUxth{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UxthT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUxth};
@@ -2871,7 +2871,7 @@ static Result<Instr> UxthT2Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrUxth{iid, flags, m, d, rotation}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BfiT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBfi};
@@ -2899,7 +2899,7 @@ static Result<Instr> BfiT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrBfi{iid, flags, d, n, lsbit, msbit}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> UbfxT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kUbfx};
@@ -2927,7 +2927,7 @@ static Result<Instr> UbfxT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrUbfx{iid, flags, d, n, lsbit, widthminus1}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> EorRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kEorRegister};
@@ -2948,7 +2948,7 @@ static Result<Instr> EorRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrEorRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> EorRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kEorRegister};
@@ -2979,7 +2979,7 @@ static Result<Instr> EorRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrEorRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SbcRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSbcRegister};
@@ -3009,7 +3009,7 @@ static Result<Instr> SbcRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrSbcRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> OrrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kOrrRegister};
@@ -3030,7 +3030,7 @@ static Result<Instr> OrrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrOrrRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> OrrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kOrrRegister};
@@ -3061,7 +3061,7 @@ static Result<Instr> OrrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrOrrRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AndRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAndRegister};
@@ -3082,7 +3082,7 @@ static Result<Instr> AndRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAndRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AndRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAndRegister};
@@ -3113,7 +3113,7 @@ static Result<Instr> AndRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAndRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BicImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBicImmediate};
@@ -3144,7 +3144,7 @@ static Result<Instr> BicImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrBicImmediate{iid, flags, n, d, imm32_carry}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BicRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBicRegister};
@@ -3165,7 +3165,7 @@ static Result<Instr> BicRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrBicRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BicRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBicRegister};
@@ -3195,7 +3195,7 @@ static Result<Instr> BicRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrBicRegister{iid, flags, n, d, m, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LsrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrRegister};
@@ -3215,7 +3215,7 @@ static Result<Instr> LsrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrLsrRegister{iid, flags, n, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LsrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrRegister};
@@ -3242,7 +3242,7 @@ static Result<Instr> LsrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrLsrRegister{iid, flags, n, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AsrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrRegister};
@@ -3262,7 +3262,7 @@ static Result<Instr> AsrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAsrRegister{iid, flags, n, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AsrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrRegister};
@@ -3289,7 +3289,7 @@ static Result<Instr> AsrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrAsrRegister{iid, flags, n, d, m}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LsrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrImmediate};
@@ -3309,7 +3309,7 @@ static Result<Instr> LsrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLsrImmediate{iid, flags, m, d, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LsrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLsrImmediate};
@@ -3339,7 +3339,7 @@ static Result<Instr> LsrImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLsrImmediate{iid, flags, m, d, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MvnRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMvnRegister};
@@ -3368,7 +3368,7 @@ static Result<Instr> MvnRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrMvnRegister{iid, flags, m, d, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> AsrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kAsrImmediate};
@@ -3398,7 +3398,7 @@ static Result<Instr> AsrImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrAsrImmediate{iid, flags, m, d, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrRegister};
@@ -3420,7 +3420,7 @@ static Result<Instr> StrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrStrRegister{iid, flags, n, m, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrRegister};
@@ -3449,7 +3449,7 @@ static Result<Instr> StrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrStrRegister{iid, flags, n, m, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbRegister};
@@ -3471,7 +3471,7 @@ static Result<Instr> StrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrbRegister{iid, flags, n, m, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrbRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbRegister};
@@ -3503,7 +3503,7 @@ static Result<Instr> StrbRegisterT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrbRegister{iid, flags, n, m, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhRegister};
@@ -3535,7 +3535,7 @@ static Result<Instr> StrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrhRegister{iid, flags, n, m, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrbRegister};
@@ -3557,7 +3557,7 @@ static Result<Instr> LdrbRegisterT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLdrbRegister{iid, flags, m, n, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrRegister};
@@ -3579,7 +3579,7 @@ static Result<Instr> LdrRegisterT1Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrLdrRegister{iid, flags, m, n, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrRegister};
@@ -3612,7 +3612,7 @@ static Result<Instr> LdrRegisterT2Decoder(const RawInstr &rinstr, TProcessorStat
   return Ok(Instr{InstrLdrRegister{iid, flags, m, n, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> LdrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kLdrhRegister};
@@ -3643,7 +3643,7 @@ static Result<Instr> LdrhRegisterT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrLdrhRegister{iid, flags, m, n, t, shift_res}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrdImmediate};
@@ -3680,7 +3680,7 @@ static Result<Instr> StrdImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrdImmediate{iid, flags, n, t, t2, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhImmediate};
@@ -3701,7 +3701,7 @@ static Result<Instr> StrhImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrhImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhImmediate};
@@ -3727,7 +3727,7 @@ static Result<Instr> StrhImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrhImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrhImmediate};
@@ -3762,7 +3762,7 @@ static Result<Instr> StrhImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrhImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbImmediate};
@@ -3783,7 +3783,7 @@ static Result<Instr> StrbImmediateT1Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrbImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbImmediate};
@@ -3812,7 +3812,7 @@ static Result<Instr> StrbImmediateT2Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrbImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrbImmediate};
@@ -3846,7 +3846,7 @@ static Result<Instr> StrbImmediateT3Decoder(const RawInstr &rinstr, TProcessorSt
   return Ok(Instr{InstrStrbImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrImmediateT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
@@ -3867,7 +3867,7 @@ static Result<Instr> StrImmediateT1Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrImmediateT2Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
@@ -3887,7 +3887,7 @@ static Result<Instr> StrImmediateT2Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrImmediateT3Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
@@ -3916,7 +3916,7 @@ static Result<Instr> StrImmediateT3Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrImmediateT4Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrImmediate};
@@ -3940,7 +3940,7 @@ static Result<Instr> StrImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
 
   assert((P != 1U) || (U != 1) || (W != 0U));
   if ((n == 13U) && (P == 1) && (U == 0U) && (W == 1U) && (imm8_32 == 0b00000100U)) {
-    return PushT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return PushT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   if (n == 15U || ((P == 0U) && (W == 0U))) {
     return Err<Instr>(StatusCode::kScDecoderUndefined);
@@ -3953,7 +3953,7 @@ static Result<Instr> StrImmediateT4Decoder(const RawInstr &rinstr, TProcessorSta
   return Ok(Instr{InstrStrImmediate{iid, flags, n, t, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> StrexT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kStrex};
@@ -3981,7 +3981,7 @@ static Result<Instr> StrexT1Decoder(const RawInstr &rinstr, TProcessorStates &ps
   return Ok(Instr{InstrStrex{iid, flags, n, t, d, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> CbNZT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kCbNZ};
@@ -4006,7 +4006,7 @@ static Result<Instr> CbNZT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrCbNZ{iid, flags, n, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> SvcT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kSvc};
@@ -4020,7 +4020,7 @@ static Result<Instr> SvcT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrSvc{iid, flags, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> BkptT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kBkpt};
@@ -4034,7 +4034,7 @@ static Result<Instr> BkptT1Decoder(const RawInstr &rinstr, TProcessorStates &pst
   return Ok(Instr{InstrBkpt{iid, flags, imm32}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MsrT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMsr};
@@ -4062,7 +4062,7 @@ static Result<Instr> MsrT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrMsr{iid, flags, n, mask, SYSm}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> MrsT1Decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   static_cast<void>(pstates); // prevents warning when pstates is not used
   const InstrId iid{InstrId::kMrs};
@@ -4086,7 +4086,7 @@ static Result<Instr> MrsT1Decoder(const RawInstr &rinstr, TProcessorStates &psta
   return Ok(Instr{InstrMrs{iid, flags, d, mask, SYSm}});
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op00000(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 16-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p129
@@ -4095,14 +4095,14 @@ static Result<Instr> Splitter16bit_op00000(const RawInstr &rinstr, TProcessorSta
   const u16 opcode = Bm16::Slice1R<13U, 9U>(rinstr.low);
   if (Bm16::Slice1R<4U, 2U>(opcode) == 0b000U) {
     if (Bm16::Slice1R<10U, 6U>(rinstr.low) == 0b00000U) {
-      return MovRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MovRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else {
-      return LslImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LslImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op00011(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 16-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p129
@@ -4111,17 +4111,17 @@ static Result<Instr> Splitter16bit_op00011(const RawInstr &rinstr, TProcessorSta
   //  see Armv7-M Architecture Reference Manual Issue E.e p130
   const u16 opcode = Bm16::Slice1R<13U, 9U>(rinstr.low);
   if (opcode == 0b01100U) {
-    return AddRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return AddRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (opcode == 0b01110U) {
-    return AddImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return AddImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (opcode == 0b01101U) {
-    return SubRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SubRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (opcode == 0b01111U) {
-    return SubImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SubImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op01010(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # Load/store single data item
   // see Armv7-M Architecture Reference Manual Issue E.e p133
@@ -4129,40 +4129,40 @@ static Result<Instr> Splitter16bit_op01010(const RawInstr &rinstr, TProcessorSta
   const u16 op_a = Bm16::Slice1R<15U, 12U>(rinstr.low);
   const u16 op_b = Bm16::Slice1R<11U, 9U>(rinstr.low);
   if (op_a == 0b0101U && op_b == 0b000U) {
-    return StrRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return StrRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (op_a == 0b0101U && op_b == 0b010U) {
-    return StrbRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return StrbRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op10111(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # Miscellaneous 16-bit instructions
   // see Armv7-M Architecture Reference Manual Issue E.e p134
   //
   const u16 opcode = Bm16::Slice1R<11U, 5U>(rinstr.low);
   if (Bm16::Slice1R<6U, 3U>(opcode) == 0b1001U) {
-    return CbNZT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return CbNZT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 3U>(opcode) == 0b1011U) {
-    return CbNZT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return CbNZT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 4U>(opcode) == 0b110U) {
-    return PopT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return PopT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 3U>(opcode) == 0b1110U) {
-    return BkptT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return BkptT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 3U>(opcode) == 0b1111U) {
     // # If-Then, and hints
     // see Armv7-M Architecture Reference Manual Issue E.e p135
     if (Bm16::Slice1R<3U, 0U>(rinstr.low) != 0x0U) {
-      return ItT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return ItT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
     if ((Bm16::Slice1R<3U, 0U>(rinstr.low) == 0x0U) &&
         (Bm16::Slice1R<7U, 4U>(rinstr.low) == 0x0U)) {
-      return NopT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return NopT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op10110(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 16-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p129
@@ -4171,73 +4171,73 @@ static Result<Instr> Splitter16bit_op10110(const RawInstr &rinstr, TProcessorSta
   // see Armv7-M Architecture Reference Manual Issue E.e p134
   const u16 opcode = Bm16::Slice1R<11U, 5U>(rinstr.low);
   if (Bm16::Slice1R<6U, 2U>(opcode) == 0b00000U) {
-    return AddSpPlusImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return AddSpPlusImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 3U>(opcode) == 0b0001U) {
-    return CbNZT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return CbNZT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 2U>(opcode) == 0b00001U) {
-    return SubSpMinusImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SubSpMinusImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 3U>(opcode) == 0b0011U) {
-    return CbNZT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return CbNZT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 1U>(opcode) == 0b001001U) {
-    return SxtbT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SxtbT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 1U>(opcode) == 0b001011U) {
-    return UxtbT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return UxtbT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 1U>(opcode) == 0b001010U) {
-    return UxthT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return UxthT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 1U>(opcode) == 0b001000U) {
-    return SxthT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SxthT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (Bm16::Slice1R<6U, 4U>(opcode) == 0b010U) {
-    return PushT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return PushT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op01000(const RawInstr &rinstr, TProcessorStates &pstates) {
   if (Bm16::IsolateBit<10U>(rinstr.low) == 0x1) {
     // ## Special data instructions and branch and exchange
     // see Armv7-M Architecture Reference Manual Issue E.e p132
     if (Bm16::Slice1R<9U, 8U>(rinstr.low) == 0b00U) {
-      return AddRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AddRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<9U, 8U>(rinstr.low) == 0b10U) {
-      return MovRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MovRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<9U, 8U>(rinstr.low) == 0b01U) {
-      return CmpRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return CmpRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<9U, 7U>(rinstr.low) == 0b110U) {
-      return BxT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BxT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<9U, 7U>(rinstr.low) == 0b111U) {
-      return BlxT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BlxT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else {
     // ## Data processing
     // see Armv7-M Architecture Reference Manual Issue E.e p131
     const u16 _opcode = Bm16::Slice1R<9U, 6U>(rinstr.low);
     if (_opcode == 0b0000U) {
-      return AndRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AndRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b0010U) {
-      return LslRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LslRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b0011U) {
-      return LsrRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LsrRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b0100U) {
-      return AsrRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AsrRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b0101U) {
-      return AdcRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AdcRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b0001U) {
-      return EorRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return EorRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b1000U) {
-      return TstRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return TstRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b1001U) {
-      return RsbImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return RsbImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b1010U) {
-      return CmpRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return CmpRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b1100U) {
-      return OrrRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return OrrRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_opcode == 0b1110U) {
-      return BicRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BicRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op01011(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 16-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p129
@@ -4246,13 +4246,13 @@ static Result<Instr> Splitter16bit_op01011(const RawInstr &rinstr, TProcessorSta
   // # Load/store single data item
   // see Armv7-M Architecture Reference Manual Issue E.e p133
   if (opB == 0b100U) {
-    return LdrRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return LdrRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (opB == 0b110U) {
-    return LdrbRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return LdrbRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op01101(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 16-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p129
@@ -4261,11 +4261,11 @@ static Result<Instr> Splitter16bit_op01101(const RawInstr &rinstr, TProcessorSta
   // # Load/store single data item
   // see Armv7-M Architecture Reference Manual Issue E.e p133
   if (Bm16::Slice1R<2U, 2U>(opB) == 0b1U) {
-    return LdrImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return LdrImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter16bit_op11011(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 16-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p129
@@ -4274,13 +4274,13 @@ static Result<Instr> Splitter16bit_op11011(const RawInstr &rinstr, TProcessorSta
   // see Armv7-M Architecture Reference Manual Issue E.e p136
   const u16 opcode = Bm16::Slice1R<11U, 8U>(rinstr.low);
   if (Bm16::Slice1R<3U, 1U>(opcode) != 0b111U) {
-    return BT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return BT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   } else if (opcode == 0b1111U) {
-    return SvcT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+    return SvcT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 32-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p137
@@ -4292,15 +4292,15 @@ static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TProcessorSta
     const u16 Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     const u16 S = Bm16::IsolateBit<4U>(rinstr.low);
     if ((op == 0b0000U) && (Rd != 0b1111U)) {
-      return AndRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AndRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b0001U) {
-      return BicRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BicRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b0011U && Rn == 0b1111U) {
-      return MvnRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MvnRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b1000U && Rd != 0b1111U) {
-      return AddRegisterT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AddRegisterT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b1110U) {
-      return RsbRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return RsbRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b0010U && Rn == 0b1111U) {
       // ### Move register and immediate shifts
       // see Armv7-M Architecture Reference Manual Issue E.e p151
@@ -4309,32 +4309,32 @@ static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TProcessorSta
       const u32 imm3 = static_cast<u32>(Bm16::Slice1R<14U, 12U>(rinstr.high));
       const u32 imm3_2 = imm3 << 2U | imm2;
       if (type == 0b00U && imm3_2 == 0b00000U) {
-        return MovRegisterT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return MovRegisterT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       } else if (type == 0b01U) {
-        return LsrImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return LsrImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       } else if (type == 0b10U) {
-        return AsrImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return AsrImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       } else if (type == 0b00U && imm3_2 != 0b00000U) {
-        return LslImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return LslImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       } else if (type == 0b11U && imm3_2 == 0b00000U) {
-        return RrxT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return RrxT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       }
     } else if (op == 0b0010U && Rn != 0b1111U) {
-      return OrrRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return OrrRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b0100U && Rd != 0b1111U) {
-      return EorRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return EorRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b0100U && Rd == 0b1111U && S == 1) {
-      return TeqRegisterT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return TeqRegisterT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b0100U && Rd == 0b1111U && S == 0) {
       return Err<Instr>(StatusCode::kScDecoderUnpredictable);
     } else if (op == 0b1101U && Rd != 0b1111U) {
-      return SubRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SubRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b1010U) {
-      return AdcRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AdcRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b1011U) {
-      return SbcRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SbcRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op == 0b1101U && Rd == 0b1111U) {
-      return CmpRegisterT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return CmpRegisterT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if ((Bm16::Slice1R<10U, 9U>(rinstr.low) == 0b00U) &&
              (Bm16::IsolateBit<6U>(rinstr.low) == 0b0U)) {
@@ -4346,15 +4346,15 @@ static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TProcessorSta
     const u16 L = Bm16::IsolateBit<4U>(rinstr.low);
     const u16 W_Rn = (W << 4U) | Rn;
     if ((op == 0b10U) && (L == 0U) && (W_Rn == 0b11101U)) {
-      return PushT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return PushT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((op == 0b01U) && (L == 0U)) {
-      return StmT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StmT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((op == 0b10U) && (L == 0U) && (W_Rn != 0b11101U)) {
-      return StmdbT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StmdbT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((op == 0b01U) && (L == 1U) && (W_Rn != 0b11101U)) {
-      return LdmT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdmT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((op == 0b01U) && (L == 1U) && (W_Rn == 0b11101U)) {
-      return PopT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return PopT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if ((Bm16::Slice1R<10U, 9U>(rinstr.low) == 0b00U) &&
              (Bm16::IsolateBit<6U>(rinstr.low) == 0b1U)) {
@@ -4364,26 +4364,26 @@ static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TProcessorSta
     const u16 op2 = Bm16::Slice1R<5U, 4U>(rinstr.low);
     const u16 op3 = Bm16::Slice1R<7U, 4U>(rinstr.high);
     if (op1 == 0b00U && op2 == 0b00U) {
-      return StrexT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrexT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (op1 == 0b00U && op2 == 0b01U) {
-      return LdrexT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrexT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<1U, 1U>(op1) == 0b0U) && (op2 == 0b10U)) {
-      return StrdImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrdImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<1U, 1U>(op1) == 0b1U) && (Bm16::Slice1R<0U, 0U>(op2) == 0b0U)) {
-      return StrdImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrdImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<1U, 1U>(op1) == 0b0U) && (op2 == 0b11U)) {
-      return LdrdImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrdImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<1U, 1U>(op1) == 0b1U) && (Bm16::Slice1R<0U, 0U>(op2) == 0b1U)) {
-      return LdrdImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrdImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((op1 == 0b01U) && (op2 == 0b01U) && (op3 == 0b0000U)) {
-      return TbbHT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return TbbHT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((op1 == 0b01U) && (op2 == 0b01U) && (op3 == 0b0001U)) {
-      return TbbHT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return TbbHT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter32bit_op11110(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 32-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p137
@@ -4396,22 +4396,22 @@ static Result<Instr> Splitter32bit_op11110(const RawInstr &rinstr, TProcessorSta
     const u16 _op1 = Bm16::Slice1R<14U, 12U>(rinstr.high);
     const u16 _op = Bm16::Slice1R<10U, 4U>(rinstr.low);
     if ((_op1 == 0b000U || _op1 == 0b010U) && (Bm16::Slice1R<5U, 3U>(_op) != 0b111U)) {
-      return BT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((_op1 == 0b000U || _op1 == 0b010U) && (Bm16::Slice1R<6U, 1U>(_op) == 0b011100U)) {
-      return MsrT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MsrT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((_op1 == 0b000U || _op1 == 0b010U) && (Bm16::Slice1R<6U, 1U>(_op) == 0b011111U)) {
-      return MrsT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MrsT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b001U || _op1 == 0b011U) { // attention the x in the docs does not mean hex
-      return BT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b101U || _op1 == 0b111U) {
-      return BlT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BlT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((_op1 == 0b000U || _op1 == 0b010U) && (_op == 0b0111011U)) {
       // ### Miscellaneous control instructions
       // see Armv7-M Architecture Reference Manual Issue E.e p143
       const u16 _opc = Bm16::Slice1R<7U, 4U>(rinstr.high);
       // const u16 _option = Bm16::Slice1R<3U, 0U>(rinstr.high);
       if (_opc == 0b0101U) {
-        return DmbT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return DmbT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       }
     }
   } else if ((op1 == 0b10U) && (Bm16::IsolateBit<5U>(op2) == 0b0U) && (op == 0x0U)) {
@@ -4421,35 +4421,35 @@ static Result<Instr> Splitter32bit_op11110(const RawInstr &rinstr, TProcessorSta
     const u16 _Rd = Bm16::Slice1R<11U, 8U>(rinstr.high);
     const u16 _Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0000U) && _Rd == 0b1111U) {
-      return TstImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return TstImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0000U) && _Rd != 0b1111U) {
-      return AndImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AndImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0010U) && _Rn != 0b1111U) {
-      return OrrImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return OrrImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0010U) && _Rn == 0b1111U) {
-      return MovImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MovImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0011U) && _Rn == 0b1111U) {
-      return MvnImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MvnImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0100U) && _Rd != 0b1111U) {
-      return EorImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return EorImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b0100U) && _Rd == 0b1111U) {
-      return TeqImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return TeqImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<4U, 1U>(_op) == 0b0001U) {
-      return BicImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BicImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b1000U) && _Rd != 0b1111U) {
-      return AddImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AddImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b1000U) && _Rd == 0b1111U) {
-      return CmnImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return CmnImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<4U, 1U>(_op) == 0b1010U) {
-      return AdcImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AdcImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b1101U) && _Rd != 0b1111U) {
-      return SubImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SubImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<4U, 1U>(_op) == 0b1101U) && _Rd == 0b1111U) {
-      return CmpImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return CmpImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<4U, 1U>(_op) == 0b1011U) {
-      return SbcImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SbcImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (Bm16::Slice1R<4U, 1U>(_op) == 0b1110U) {
-      return RsbImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return RsbImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if ((op1 == 0b10U) && (Bm16::IsolateBit<5U>(op2) == 0b1U) && (op == 0x0U)) {
     // ## Data processing (plain binary immediate)
@@ -4457,20 +4457,20 @@ static Result<Instr> Splitter32bit_op11110(const RawInstr &rinstr, TProcessorSta
     const u16 _op = Bm16::Slice1R<8U, 4U>(rinstr.low);
     const u16 _Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     if (_op == 0b00100U) {
-      return MovImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MovImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op == 0b00000U && _Rn != 0b1111U) {
-      return AddImmediateT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AddImmediateT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op == 0b01010U && _Rn != 0b1111U) {
-      return SubImmediateT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SubImmediateT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op == 0b10110U && _Rn != 0b1111U) {
-      return BfiT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return BfiT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op == 0b11100U) {
-      return UbfxT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return UbfxT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorStates &pstates) {
   // # 32-bit Thumb instruction encoding
   // see Armv7-M Architecture Reference Manual Issue E.e p137
@@ -4482,23 +4482,23 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _op1 = Bm16::Slice1R<7U, 5U>(rinstr.low);
     const u16 _op2 = Bm16::Slice1R<11U, 6U>(rinstr.high);
     if (_op1 == 0b100U) {
-      return StrbImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrbImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b101U) {
-      return StrhImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrhImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b001U && Bm16::IsolateBit<5U>(_op2) == 0b1U) {
-      return StrhImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrhImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b000U && Bm16::IsolateBit<5U>(_op2) == 0b1U) {
-      return StrbImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrbImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b010U && Bm16::IsolateBit<5U>(_op2) == 0b1U) {
-      return StrImmediateT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrImmediateT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b010U && Bm16::IsolateBit<5U>(_op2) == 0b0U) {
-      return StrRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b001U && Bm16::IsolateBit<5U>(_op2) == 0b0U) {
-      return StrhRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrhRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b000U && Bm16::IsolateBit<5U>(_op2) == 0b0U) {
-      return StrbRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrbRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b110U) {
-      return StrImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return StrImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if ((Bm16::Slice1R<6U, 5U>(op2) == 0b00U) && (Bm16::Slice1R<2U, 0U>(op2) == 0b001U)) {
     // ## Load byte, memory hints
@@ -4508,15 +4508,15 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     const u16 _Rt = Bm16::Slice1R<15U, 12U>(rinstr.high);
     if (_op1 == 0b01U && _Rn != 0b1111 && _Rt != 0b1111U) {
-      return LdrbImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrbImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && (Bm16::IsolateBit<5U>(_op2) == 0b1U) &&
                (Bm16::Slice1R<2U, 2U>(_op2) == 0b1U) && _Rn != 0b1111 && _Rt != 0b1111U) {
-      return LdrbImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrbImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && Bm16::Slice1R<5U, 2U>(_op2) == 0b1100U && _Rn != 0b1111 &&
                _Rt != 0b1111U) {
-      return LdrbImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrbImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b11U && _Rn != 0b1111 && _Rt != 0b1111U) {
-      return LdrsbImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrsbImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if ((Bm16::Slice1R<6U, 5U>(op2) == 0b00U) && (Bm16::Slice1R<2U, 0U>(op2) == 0b011U)) {
     // ## Load halfword, memory hints
@@ -4526,23 +4526,23 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     const u16 _Rt = Bm16::Slice1R<15U, 12U>(rinstr.high);
     if (_op1 == 0b01U && _Rn != 0b1111U && _Rt != 0b1111U) {
-      return LdrhImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrhImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && (_op2 == 0b000000U) && _Rn != 0b1111U && _Rt != 0b1111U) {
-      return LdrhRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrhRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b11U && _Rn != 0b1111U && _Rt != 0b1111U) {
-      return LdrshImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrshImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && Bm16::Slice1R<2U, 2U>(_op2) == 0b1U &&
                Bm16::IsolateBit<5U>(_op2) == 0b1U && _Rn != 0b1111U && _Rt != 0b1111U) {
-      return LdrhImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrhImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && Bm16::Slice1R<5U, 2U>(_op2) == 0b1100U && _Rn != 0b1111U &&
                _Rt != 0b1111U) {
-      return LdrhImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrhImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b10U && Bm16::Slice1R<2U, 2U>(_op2) == 0b1U &&
                Bm16::IsolateBit<5U>(_op2) == 0b1U && _Rn != 0b1111U && _Rt != 0b1111U) {
-      return LdrshImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrshImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b10U && Bm16::Slice1R<5U, 2U>(_op2) == 0b1100U && _Rn != 0b1111U &&
                _Rt != 0b1111U) {
-      return LdrshImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrshImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if ((Bm16::Slice1R<6U, 5U>(op2) == 0b00U) && (Bm16::Slice1R<2U, 0U>(op2) == 0b101U)) {
     // ## Load word
@@ -4551,16 +4551,16 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _op2 = Bm16::Slice1R<11U, 6U>(rinstr.high);
     const u16 _Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     if ((Bm16::Slice1R<1U, 1U>(_op1) == 0b0U) && _Rn == 0b1111U) {
-      return LdrLiteralT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrLiteralT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b01U && _Rn != 0b1111U) {
-      return LdrImmediateT3Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrImmediateT3Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && Bm16::IsolateBit<5U>(_op2) == 0b1U &&
                (Bm16::Slice1R<2U, 2U>(_op2) == 0b1U) && _Rn != 0b1111U) {
-      return LdrImmediateT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrImmediateT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && Bm16::Slice1R<5U, 2U>(_op2) == 0b1100U && _Rn != 0b1111U) {
-      return LdrImmediateT4Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrImmediateT4Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b00U && _op2 == 0b000000U && _Rn != 0b1111U) {
-      return LdrRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LdrRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if (Bm16::Slice1R<6U, 4U>(op2) == 0b010U) {
     // ## Data processing (register)
@@ -4569,26 +4569,26 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _op2 = Bm16::Slice1R<7U, 4U>(rinstr.high);
     const u16 _Rn = Bm16::Slice1R<3U, 0U>(rinstr.low);
     if ((Bm16::Slice1R<3U, 1U>(_op1) == 0b000U) && _op2 == 0b0000U) {
-      return LslRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LslRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<3U, 1U>(_op1) == 0b001U) && _op2 == 0b0000U) {
-      return LsrRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return LsrRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<3U, 1U>(_op1) == 0b010U) && _op2 == 0b0000U) {
-      return AsrRegisterT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return AsrRegisterT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b0001U && (Bm16::Slice1R<3U, 3U>(_op2) == 0b1U) && _Rn == 0b1111U) {
-      return UxthT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return UxthT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b0100U && (Bm16::Slice1R<3U, 3U>(_op2) == 0b1U) && _Rn == 0b1111U) {
-      return SxtbT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SxtbT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b0000U && (Bm16::Slice1R<3U, 3U>(_op2) == 0b1U) && _Rn == 0b1111U) {
-      return SxthT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SxthT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b0101U && (Bm16::Slice1R<3U, 3U>(_op2) == 0b1U) && _Rn == 0b1111U) {
-      return UxtbT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return UxtbT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if ((Bm16::Slice1R<3U, 2U>(_op1) == 0b10U) && (Bm16::Slice1R<3U, 2U>(_op2) == 0b10U)) {
       // ## Miscellaneous operations
       // see Armv7-M Architecture Reference Manual Issue E.e p155
       const u32 __op1 = Bm16::Slice1R<5U, 4U>(rinstr.low);
       const u32 __op2 = Bm16::Slice1R<5U, 4U>(rinstr.high);
       if ((__op1 == 0b11U) && (__op2 == 0b00U)) {
-        return ClzT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+        return ClzT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
       }
     }
   } else if (Bm16::Slice1R<6U, 3U>(op2) == 0b0110U) {
@@ -4598,11 +4598,11 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _op2 = Bm16::Slice1R<5U, 4U>(rinstr.high);
     const u16 _Ra = Bm16::Slice1R<15U, 12U>(rinstr.high);
     if (_op1 == 0b000U && _op2 == 0b00U && _Ra == 0b1111U) {
-      return MulT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MulT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b000U && _op2 == 0b00U && _Ra != 0b1111U) {
-      return MlaT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MlaT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b000U && _op2 == 0b01U) {
-      return MlsT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return MlsT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   } else if (Bm16::Slice1R<6U, 3U>(op2) == 0b0111U) {
     // ## Long multiply, long multiply accumulate, and divide
@@ -4610,119 +4610,119 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TProcessorSta
     const u16 _op1 = Bm16::Slice1R<6U, 4U>(rinstr.low);
     const u16 _op2 = Bm16::Slice1R<7U, 4U>(rinstr.high);
     if (_op1 == 0b010U && _op2 == 0b0000U) {
-      return UmullT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return UmullT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b000U && _op2 == 0b0000U) {
-      return SmullT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SmullT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b011U && _op2 == 0b1111U) {
-      return UdivT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return UdivT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b001U && _op2 == 0b1111U) {
-      return SdivT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return SdivT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     } else if (_op1 == 0b110U && _op2 == 0b0000U) {
-      return UmlalT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+      return UmlalT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
     }
   }
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
 
-template <typename TProcessorStates, typename TItOps, typename TSpecRegOps>
+template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
 static Result<Instr> call_decoder(const RawInstr &rinstr, TProcessorStates &pstates) {
   const u16 opc = Bm32::Slice1R<kDecodersOpCodeLast, kDecodersOpCodeFirst>(rinstr.low);
   switch (opc) {
-  case 0b00000u: {
-    return Splitter16bit_op00000<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00000U: {
+    return Splitter16bit_op00000<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00001u: {
-    return LsrImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00001U: {
+    return LsrImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00010u: {
-    return AsrImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00010U: {
+    return AsrImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00011u: {
-    return Splitter16bit_op00011<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00011U: {
+    return Splitter16bit_op00011<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00100u: {
-    return MovImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00100U: {
+    return MovImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00101u: {
-    return CmpImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00101U: {
+    return CmpImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00110u: {
-    return AddImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00110U: {
+    return AddImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b00111u: {
-    return SubImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b00111U: {
+    return SubImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01000u: {
-    return Splitter16bit_op01000<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01000U: {
+    return Splitter16bit_op01000<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01001u: {
-    return LdrLiteralT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01001U: {
+    return LdrLiteralT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01010u: {
-    return Splitter16bit_op01010<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01010U: {
+    return Splitter16bit_op01010<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01011u: {
-    return Splitter16bit_op01011<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01011U: {
+    return Splitter16bit_op01011<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01100u: {
-    return StrImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01100U: {
+    return StrImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01101u: {
-    return Splitter16bit_op01101<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01101U: {
+    return Splitter16bit_op01101<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01110u: {
-    return StrbImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01110U: {
+    return StrbImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b01111u: {
-    return LdrbImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b01111U: {
+    return LdrbImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10000u: {
-    return StrhImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10000U: {
+    return StrhImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10001u: {
-    return LdrhImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10001U: {
+    return LdrhImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10010u: {
-    return StrImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10010U: {
+    return StrImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10011u: {
-    return LdrImmediateT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10011U: {
+    return LdrImmediateT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10100u: {
-    return AddPcPlusImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10100U: {
+    return AddPcPlusImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10101u: {
-    return AddSpPlusImmediateT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10101U: {
+    return AddSpPlusImmediateT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10110u: {
-    return Splitter16bit_op10110<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10110U: {
+    return Splitter16bit_op10110<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b10111u: {
-    return Splitter16bit_op10111<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b10111U: {
+    return Splitter16bit_op10111<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11000u: {
-    return StmT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11000U: {
+    return StmT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11001u: {
-    return LdmT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11001U: {
+    return LdmT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11010u: {
-    return BT1Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11010U: {
+    return BT1Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11011u: {
-    return Splitter16bit_op11011<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11011U: {
+    return Splitter16bit_op11011<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11100u: {
-    return BT2Decoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11100U: {
+    return BT2Decoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11101u: {
-    return Splitter32bit_op11101<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11101U: {
+    return Splitter32bit_op11101<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11110u: {
-    return Splitter32bit_op11110<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11110U: {
+    return Splitter32bit_op11110<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
-  case 0b11111u: {
-    return Splitter32bit_op11111<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  case 0b11111U: {
+    return Splitter32bit_op11111<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
   }
   default: {
     assert(false);
@@ -4730,7 +4730,7 @@ static Result<Instr> call_decoder(const RawInstr &rinstr, TProcessorStates &psta
     break;
   }
   }
-  return InvalidInstrDecoder<TProcessorStates, TItOps, TSpecRegOps>(rinstr, pstates);
+  return InvalidInstrDecoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
 };
 
 } // namespace internal

@@ -17,8 +17,7 @@ class Decoder {
 public:
   static Result<Instr> Decode(TProcessorStates &pstates, RawInstr instr) {
 
-    // TODO: Change order of arguments
-    auto result = call_decoder<TProcessorStates, TItOps, TSpecRegOps>(instr, pstates);
+    auto result = call_decoder<TProcessorStates, TSpecRegOps, TItOps>(instr, pstates);
     return result;
   }
 
