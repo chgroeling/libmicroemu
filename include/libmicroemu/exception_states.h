@@ -15,41 +15,88 @@ enum class ExceptionFlags : ExceptionFlagsSet {
 
 static constexpr i16 kLowestExceptionPriority = 255u;
 
+/** @brief Represents the state of a single exception.
+ */
 struct SingleExceptionState {
-  // TODO: Make private
-  i16 priority;
-  u8 number;
-  ExceptionFlagsSet flags;
+  explicit constexpr SingleExceptionState(u8 number) : number_{number}, priority_{0}, flags_{0U} {}
 
-  SingleExceptionState() : priority{0}, number{0}, flags{0} {}
+  /** @brief Clears all flags of the exception.
+   */
+  inline void ClearFlags() noexcept { flags_ = 0U; }
 
+  /** @brief Checks if the exception is pending.
+   *
+   * @return True if the exception is pending, false otherwise.
+   */
   inline bool IsPending() const noexcept {
-    return (flags & static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending)) != 0u;
+    return (flags_ & static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending)) != 0u;
   }
 
+  /** @brief Clears the pending flag of the exception.
+   */
   inline void ClearPending() noexcept {
-    flags &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending);
+    flags_ &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending);
   }
 
+  /** @brief Sets the pending flag of the exception.
+   */
   inline void SetPending() noexcept {
-    flags |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending);
+    flags_ |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kPending);
   }
 
+  /** @brief Checks if the exception is active.
+   *
+   * @return True if the exception is active, false otherwise.
+   */
   inline bool IsActive() const noexcept {
-    return (flags & static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive)) != 0u;
+    return (flags_ & static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive)) != 0u;
   }
 
+  /** @brief Clears the active flag of the exception.
+   */
   inline void ClearActive() noexcept {
-    flags &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive);
+    flags_ &= ~static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive);
   }
 
+  /** @brief Sets the active flag of the exception.
+   */
   inline void SetActive() noexcept {
-    flags |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive);
+    flags_ |= static_cast<ExceptionFlagsSet>(ExceptionFlags::kActive);
   }
+
+  /** @brief Gets the priority of the exception.
+   *
+   * @return The priority of the exception.
+   */
+  inline i16 GetPriority() const noexcept { return priority_; }
+
+  /** @brief Sets the priority of the exception.
+   *
+   * @param priority The priority of the exception.
+   */
+  inline void SetPriority(i16 priority) noexcept { priority_ = priority; }
+
+  /** @brief Gets the number of the exception.
+   *
+   * @return The number of the exception.
+   */
+  inline u8 GetNumber() const noexcept { return number_; }
+
+private:
+  const u8 number_;
+  i16 priority_;
+  ExceptionFlagsSet flags_;
 };
 
+template <std::size_t... Indices>
+constexpr auto MakeExceptionArray(std::index_sequence<Indices...>) {
+  return std::array<SingleExceptionState, sizeof...(Indices)>{
+      SingleExceptionState(static_cast<u8>(Indices))...};
+}
+
 struct ExceptionStates {
-  ExceptionStates() { exception.fill(SingleExceptionState()); }
+  ExceptionStates()
+      : exception{MakeExceptionArray(std::make_index_sequence<CountExceptions()>())} {}
 
   u32 pending_exceptions{0u};
   std::array<SingleExceptionState, CountExceptions()> exception;
