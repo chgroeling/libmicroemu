@@ -31,6 +31,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Extract version from Git tag
+      shell: bash
       run: |
         TAG_VERSION="${GITHUB_REF#refs/tags/}"
         echo "TAG_VERSION=${TAG_VERSION}" >> $GITHUB_ENV
