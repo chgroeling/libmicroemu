@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,11 +96,11 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_op_result.html">    8</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_op_result.html">OpResult</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_op_result.html">    8</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  u32 value;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  <span class="keywordtype">bool</span> carry_out;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordtype">bool</span> overflow;</div>
@@ -108,16 +108,16 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_branch_op_result.html">   14</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_branch_op_result.html">BranchOpResult</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_branch_op_result.html">   14</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_branch_op_result.html">BranchOpResult</a> {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  me_adr_t new_pc;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>};</div>
 </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_branch_op_result_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_branch_op_result.html">microemu::internal::BranchOpResult</a></div><div class="ttdef"><b>Definition</b> op_result.h:14</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_op_result_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_op_result.html">microemu::internal::OpResult</a></div><div class="ttdef"><b>Definition</b> op_result.h:8</div></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_branch_op_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_branch_op_result.html">libmicroemu::internal::BranchOpResult</a></div><div class="ttdef"><b>Definition</b> op_result.h:14</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_op_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_op_result.html">libmicroemu::internal::OpResult</a></div><div class="ttdef"><b>Definition</b> op_result.h:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

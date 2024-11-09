@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ubfx_0',['Ubfx',['../classmicroemu_1_1internal_1_1_special_instr.html#a56fd451ee8d6b1eb0e26f1cec13061a3',1,'microemu::internal::SpecialInstr']]],
-  ['umlal_1',['Umlal',['../classmicroemu_1_1internal_1_1_special_instr.html#a3bc7f67bd1c19dd113f083f15daba5e3',1,'microemu::internal::SpecialInstr']]],
-  ['umull_2',['Umull',['../classmicroemu_1_1internal_1_1_special_instr.html#a774c84239a207b22b0cc79fd4ada24e4',1,'microemu::internal::SpecialInstr']]]
+  ['ubfx_0',['Ubfx',['../classlibmicroemu_1_1internal_1_1_special_instr.html#a2dfc7314591884cd732e7856c57d4d92',1,'libmicroemu::internal::SpecialInstr']]],
+  ['umlal_1',['Umlal',['../classlibmicroemu_1_1internal_1_1_special_instr.html#aa301cdc500bfb5d3f9c34fb1be43beba',1,'libmicroemu::internal::SpecialInstr']]],
+  ['umull_2',['Umull',['../classlibmicroemu_1_1internal_1_1_special_instr.html#a1a643c21bfc619db45f846ff25b744e2',1,'libmicroemu::internal::SpecialInstr']]]
 ];

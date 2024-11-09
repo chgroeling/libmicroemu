@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -100,9 +100,9 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a41dc164f85f5737cff224ce1666041a4" id="r_a41dc164f85f5737cff224ce1666041a4"><td class="memItemLeft" align="right" valign="top"><a id="a41dc164f85f5737cff224ce1666041a4" name="a41dc164f85f5737cff224ce1666041a4"></a>
-constexpr microemu::RegisterId&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> () const</td></tr>
-<tr class="separator:a41dc164f85f5737cff224ce1666041a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b91e62cafcfab7412a9331b74c5b7a" id="r_ad4b91e62cafcfab7412a9331b74c5b7a"><td class="memItemLeft" align="right" valign="top"><a id="ad4b91e62cafcfab7412a9331b74c5b7a" name="ad4b91e62cafcfab7412a9331b74c5b7a"></a>
+constexpr <a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> () const</td></tr>
+<tr class="separator:ad4b91e62cafcfab7412a9331b74c5b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fbe94fd6e77c519786281e211477c3d" id="r_a8fbe94fd6e77c519786281e211477c3d"><td class="memItemLeft" align="right" valign="top"><a id="a8fbe94fd6e77c519786281e211477c3d" name="a8fbe94fd6e77c519786281e211477c3d"></a>
 constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>RArgConst</b> ()=default</td></tr>
 <tr class="memdesc:a8fbe94fd6e77c519786281e211477c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
@@ -123,12 +123,14 @@ constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>RArgConst</b> ()
 <tr class="memitem:a7e843d80d0ccb8a8494a7302bc99e2d3" id="r_a7e843d80d0ccb8a8494a7302bc99e2d3"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="class_r_arg_const.html">RArgConst</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e843d80d0ccb8a8494a7302bc99e2d3">operator=</a> (<a class="el" href="class_r_arg_const.html">RArgConst</a> &amp;&amp;r_src)=default</td></tr>
 <tr class="memdesc:a7e843d80d0ccb8a8494a7302bc99e2d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator for ArgConst.  <br /></td></tr>
 <tr class="separator:a7e843d80d0ccb8a8494a7302bc99e2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19922cdd93a627aee24a2b17c98520ff" id="r_a19922cdd93a627aee24a2b17c98520ff"><td class="memItemLeft" align="right" valign="top"><a id="a19922cdd93a627aee24a2b17c98520ff" name="a19922cdd93a627aee24a2b17c98520ff"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_r_arg_const.html">RArgConst</a> &amp;other) const</td></tr>
-<tr class="separator:a19922cdd93a627aee24a2b17c98520ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a5fa79e8933d9aa4670f34b1dda9b1e" id="r_a8a5fa79e8933d9aa4670f34b1dda9b1e"><td class="memItemLeft" align="right" valign="top"><a id="a8a5fa79e8933d9aa4670f34b1dda9b1e" name="a8a5fa79e8933d9aa4670f34b1dda9b1e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="class_r_arg_const.html">RArgConst</a> &amp;other) const</td></tr>
-<tr class="separator:a8a5fa79e8933d9aa4670f34b1dda9b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e218ec12fd64276ff59e09616a2436a" id="r_a8e218ec12fd64276ff59e09616a2436a"><td class="memTemplParams" colspan="2"><a id="a8e218ec12fd64276ff59e09616a2436a" name="a8e218ec12fd64276ff59e09616a2436a"></a>
+template&lt;typename R &gt; </td></tr>
+<tr class="memitem:a8e218ec12fd64276ff59e09616a2436a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator==</b> (const R &amp;other) const</td></tr>
+<tr class="separator:a8e218ec12fd64276ff59e09616a2436a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2619ea686bd7d163a740b0a7f89de55a" id="r_a2619ea686bd7d163a740b0a7f89de55a"><td class="memTemplParams" colspan="2"><a id="a2619ea686bd7d163a740b0a7f89de55a" name="a2619ea686bd7d163a740b0a7f89de55a"></a>
+template&lt;typename R &gt; </td></tr>
+<tr class="memitem:a2619ea686bd7d163a740b0a7f89de55a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator!=</b> (const R &amp;other) const</td></tr>
+<tr class="separator:a2619ea686bd7d163a740b0a7f89de55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -137,7 +139,7 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kReg
 <tr class="separator:adbf1dc515a3cc94f6459b5a595031834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;microemu::RegisterId Rid&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a> Rid&gt;<br />
 class RArgConst&lt; Rid &gt;</div><p>Register argument constant class. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aece15bf8b8d392ee9a096f99091fad57" name="aece15bf8b8d392ee9a096f99091fad57"></a>
@@ -146,7 +148,7 @@ class RArgConst&lt; Rid &gt;</div><p>Register argument constant class. </p>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;microemu::RegisterId Rid&gt; </div>
+template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a> Rid&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -181,7 +183,7 @@ template&lt;microemu::RegisterId Rid&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;microemu::RegisterId Rid&gt; </div>
+template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a> Rid&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -217,7 +219,7 @@ template&lt;microemu::RegisterId Rid&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;microemu::RegisterId Rid&gt; </div>
+template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a> Rid&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -252,7 +254,7 @@ template&lt;microemu::RegisterId Rid&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;microemu::RegisterId Rid&gt; </div>
+template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a> Rid&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

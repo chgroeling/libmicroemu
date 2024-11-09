@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,16 +96,16 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;libmicroemu/result.h&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using </span>ExecFlagsSet = u8;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">enum class</span> ExecFlags : ExecFlagsSet {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  kBkptReqExit = 1u &lt;&lt; 3u,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  kSvcReqExit = 1u &lt;&lt; 4u,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  kBkptReqErrorExit = 1u &lt;&lt; 5u,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  kSvcReqErrorExit = 1u &lt;&lt; 6u</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  kBkptReqExit = 1U &lt;&lt; 3U,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  kSvcReqExit = 1U &lt;&lt; 4U,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  kBkptReqErrorExit = 1U &lt;&lt; 5U,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  kSvcReqErrorExit = 1U &lt;&lt; 6U</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>};</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">static</span> <span class="keyword">constexpr</span> ExecFlagsSet kExitFlagsMask =</div>
@@ -115,15 +115,15 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kSvcReqErrorExit);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_exec_result.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_exec_result.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  ExecFlagsSet flags;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
 </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_exec_result_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_exec_result.html">microemu::internal::ExecResult</a></div><div class="ttdef"><b>Definition</b> exec_results.h:23</div></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_exec_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_exec_result.html">libmicroemu::internal::ExecResult</a></div><div class="ttdef"><b>Definition</b> exec_results.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

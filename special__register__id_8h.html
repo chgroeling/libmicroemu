@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -105,53 +105,53 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemicroemu.html">microemu</a></td></tr>
-<tr class="memdesc:namespacemicroemu"><td class="mdescLeft">&#160;</td><td class="mdescRight">In this file the MemoryViewer class is defined. <br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelibmicroemu.html">libmicroemu</a></td></tr>
+<tr class="memdesc:namespacelibmicroemu"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="namespacelibmicroemu.html">libmicroemu</a> namespace contains all classes and functions of the libmicroemu which are public. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ac3dbeb54409eb0881b188bdf2ec8e854" id="r_ac3dbeb54409eb0881b188bdf2ec8e854"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854">microemu::SpecialRegisterId</a> : u8 { <br />
-&#160;&#160;<a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854aca7f5ee84fd105bc7120257c949496e5">microemu::kSysCtrl</a> = 0u
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854acb493fa5aef678da06fca32495483c91">microemu::kApsr</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ab0981c3df1f918fb6b2a28be2b30ea00">microemu::kIstate</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ab2a60283b808391de37c989e7cd37eaf">microemu::kIpsr</a>
+<tr class="memitem:a75588e1206d1cb1c5a341ce8d4187af5" id="r_a75588e1206d1cb1c5a341ce8d4187af5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">libmicroemu::SpecialRegisterId</a> : u8 { <br />
+&#160;&#160;<a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5aca7f5ee84fd105bc7120257c949496e5">libmicroemu::kSysCtrl</a> = 0U
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5acb493fa5aef678da06fca32495483c91">libmicroemu::kApsr</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ab0981c3df1f918fb6b2a28be2b30ea00">libmicroemu::kIstate</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ab2a60283b808391de37c989e7cd37eaf">libmicroemu::kIpsr</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a55f45e5f24a252f4b3605ff0945d14a3">microemu::kVtor</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ad8a547f1a9433ae516d042318b6ef314">microemu::kCcr</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a6494cd634d07d2c0ae3139828334c337">microemu::kCfsr</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854abfa7790045659258146ed452416b7d01">microemu::kBfar</a>
+&#160;&#160;<a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a55f45e5f24a252f4b3605ff0945d14a3">libmicroemu::kVtor</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad8a547f1a9433ae516d042318b6ef314">libmicroemu::kCcr</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a6494cd634d07d2c0ae3139828334c337">libmicroemu::kCfsr</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5abfa7790045659258146ed452416b7d01">libmicroemu::kBfar</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a2c24290eb702b04f0767236452049af1">microemu::kSpMain</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a323f6a9243d212e1aa6d7f6a5cff1d92">microemu::kSpProcess</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a6ea4022ce3af04c93792ef2f89d36f68">microemu::kSysTickCsr</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ab6d3c74991ca4e02fe18e5cd4e269b17">microemu::kSysTickRvr</a>
+&#160;&#160;<a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a2c24290eb702b04f0767236452049af1">libmicroemu::kSpMain</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a323f6a9243d212e1aa6d7f6a5cff1d92">libmicroemu::kSpProcess</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a6ea4022ce3af04c93792ef2f89d36f68">libmicroemu::kSysTickCsr</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ab6d3c74991ca4e02fe18e5cd4e269b17">libmicroemu::kSysTickRvr</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a9ec466e1f18a6f994d9b30dd89c37bef">microemu::kSysTickCvr</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a97353ff3d2dc0c604e103107785ed118">microemu::kSysTickCalib</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a8e90cfe51017836de6924fd4e1b7aaf0">microemu::kEpsr</a>
-, <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ad9dae8b0207b41a50e806a9596fce3d6">microemu::kXpsr</a>
+&#160;&#160;<a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a9ec466e1f18a6f994d9b30dd89c37bef">libmicroemu::kSysTickCvr</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a97353ff3d2dc0c604e103107785ed118">libmicroemu::kSysTickCalib</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a8e90cfe51017836de6924fd4e1b7aaf0">libmicroemu::kEpsr</a>
+, <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad9dae8b0207b41a50e806a9596fce3d6">libmicroemu::kXpsr</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ad206dcabae22951821cfb7585b4d2deb">microemu::kControl</a>
+&#160;&#160;<a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb">libmicroemu::kControl</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ac3dbeb54409eb0881b188bdf2ec8e854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of special register IDs.  <a href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854">More...</a><br /></td></tr>
-<tr class="separator:ac3dbeb54409eb0881b188bdf2ec8e854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a75588e1206d1cb1c5a341ce8d4187af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of special register IDs.  <a href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">More...</a><br /></td></tr>
+<tr class="separator:a75588e1206d1cb1c5a341ce8d4187af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a3475973c8077f76be8110b8c554e4498" id="r_a3475973c8077f76be8110b8c554e4498"><td class="memItemLeft" align="right" valign="top"><a id="a3475973c8077f76be8110b8c554e4498" name="a3475973c8077f76be8110b8c554e4498"></a>
-constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>microemu::kLastPersistentSpecialRegister</b> = <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a97353ff3d2dc0c604e103107785ed118">SpecialRegisterId::kSysTickCalib</a></td></tr>
-<tr class="separator:a3475973c8077f76be8110b8c554e4498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eed2b38f34515654e61a3c68327e295" id="r_a4eed2b38f34515654e61a3c68327e295"><td class="memItemLeft" align="right" valign="top"><a id="a4eed2b38f34515654e61a3c68327e295" name="a4eed2b38f34515654e61a3c68327e295"></a>
-constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>microemu::kFirstRuntimeSpecialRegister</b> = <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854a8e90cfe51017836de6924fd4e1b7aaf0">SpecialRegisterId::kEpsr</a></td></tr>
-<tr class="separator:a4eed2b38f34515654e61a3c68327e295"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8e55025d211669cf7cf6e1044f96802" id="r_ad8e55025d211669cf7cf6e1044f96802"><td class="memItemLeft" align="right" valign="top"><a id="ad8e55025d211669cf7cf6e1044f96802" name="ad8e55025d211669cf7cf6e1044f96802"></a>
-constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>microemu::kLastRuntimeSpecialRegister</b> = <a class="el" href="namespacemicroemu.html#ac3dbeb54409eb0881b188bdf2ec8e854ad206dcabae22951821cfb7585b4d2deb">SpecialRegisterId::kControl</a></td></tr>
-<tr class="separator:ad8e55025d211669cf7cf6e1044f96802"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d332db2ce40d2fbdea4be1bcde99dfb" id="r_a2d332db2ce40d2fbdea4be1bcde99dfb"><td class="memItemLeft" align="right" valign="top"><a id="a2d332db2ce40d2fbdea4be1bcde99dfb" name="a2d332db2ce40d2fbdea4be1bcde99dfb"></a>
-constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>microemu::kLastSpecialRegister</b> = kLastRuntimeSpecialRegister</td></tr>
-<tr class="separator:a2d332db2ce40d2fbdea4be1bcde99dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892dc90deb8fef8cf5d9f3696bb33d25" id="r_a892dc90deb8fef8cf5d9f3696bb33d25"><td class="memItemLeft" align="right" valign="top"><a id="a892dc90deb8fef8cf5d9f3696bb33d25" name="a892dc90deb8fef8cf5d9f3696bb33d25"></a>
+constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>libmicroemu::kLastPersistentSpecialRegister</b> = <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a97353ff3d2dc0c604e103107785ed118">SpecialRegisterId::kSysTickCalib</a></td></tr>
+<tr class="separator:a892dc90deb8fef8cf5d9f3696bb33d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223c16268e85bb3481a97108de25f8d3" id="r_a223c16268e85bb3481a97108de25f8d3"><td class="memItemLeft" align="right" valign="top"><a id="a223c16268e85bb3481a97108de25f8d3" name="a223c16268e85bb3481a97108de25f8d3"></a>
+constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>libmicroemu::kFirstRuntimeSpecialRegister</b> = <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5a8e90cfe51017836de6924fd4e1b7aaf0">SpecialRegisterId::kEpsr</a></td></tr>
+<tr class="separator:a223c16268e85bb3481a97108de25f8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434e42a317d86b5e790001f0ed4405c7" id="r_a434e42a317d86b5e790001f0ed4405c7"><td class="memItemLeft" align="right" valign="top"><a id="a434e42a317d86b5e790001f0ed4405c7" name="a434e42a317d86b5e790001f0ed4405c7"></a>
+constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>libmicroemu::kLastRuntimeSpecialRegister</b> = <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb">SpecialRegisterId::kControl</a></td></tr>
+<tr class="separator:a434e42a317d86b5e790001f0ed4405c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9d0d4f6a81363baa672abd7c72adeda" id="r_ab9d0d4f6a81363baa672abd7c72adeda"><td class="memItemLeft" align="right" valign="top"><a id="ab9d0d4f6a81363baa672abd7c72adeda" name="ab9d0d4f6a81363baa672abd7c72adeda"></a>
+constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>libmicroemu::kLastSpecialRegister</b> = kLastRuntimeSpecialRegister</td></tr>
+<tr class="separator:ab9d0d4f6a81363baa672abd7c72adeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file contains the declaration of the SpecialRegisterId enumeration and related functions. </p>

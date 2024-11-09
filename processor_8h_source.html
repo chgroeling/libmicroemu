@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -99,7 +99,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;libmicroemu/internal/processor/step_flags.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;libmicroemu/internal/trace/intstr_to_mnemonic.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;libmicroemu/logger.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;libmicroemu/microemu.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;libmicroemu/machine.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;libmicroemu/register_details.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;libmicroemu/result.h&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="special__register__id_8h.html">libmicroemu/special_register_id.h</a>&quot;</span></div>
@@ -108,14 +108,14 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// todo: rename these to ops and separate the ops from the processor</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TRegOps, <span class="keyword">typename</span> TSpecRegOps, <span class="keyword">typename</span> TItOps, <span class="keyword">typename</span> TPcOps,</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>          <span class="keyword">typename</span> TExcOps, <span class="keyword">typename</span> TExcTrig&gt;</div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_processor_ops.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor_ops.html">ProcessorOps</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_processor_ops.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor_ops.html">ProcessorOps</a> {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">using </span>Reg = TRegOps;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">using </span>SReg = TSpecRegOps;</div>
@@ -127,9 +127,9 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TProcessorStates, <span class="keyword">typename</span> TBus, <span class="keyword">typename</span> TProcessorOps, <span class="keyword">typename</span> TFetcher,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>          <span class="keyword">typename</span> TDecoder, <span class="keyword">typename</span> TExecutor, <span class="keyword">typename</span> TLogger = <a class="code hl_class" href="classmicroemu_1_1_null_logger.html">NullLogger</a>&gt;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>          <span class="keyword">typename</span> TDecoder, <span class="keyword">typename</span> TExecutor, <span class="keyword">typename</span> TLogger = <a class="code hl_class" href="classlibmicroemu_1_1_null_logger.html">NullLogger</a>&gt;</div>
 <div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_processor.html">   35</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_processor.html">   35</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> {</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">using </span>Reg = <span class="keyword">typename</span> TProcessorOps::Reg;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keyword">using </span>SReg = <span class="keyword">typename</span> TProcessorOps::SReg;</div>
@@ -141,44 +141,44 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="comment">// Check if execution mode is thumb .. if not, raise usage fault and return true</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">static</span> <span class="keywordtype">bool</span> IsThumbModeOrRaise(TProcessorStates &amp;pstates) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <span class="keyword">auto</span> epsr = SReg::template ReadRegister&lt;SpecialRegisterId::kEpsr&gt;(pstates);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_thumb = (epsr &amp; <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(EpsrRegister::kTMsk)) != 0u;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_thumb = (epsr &amp; <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(EpsrRegister::kTMsk)) != 0U;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span> (!is_thumb) {</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      <span class="keyword">auto</span> cfsr = SReg::template ReadRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>      cfsr |= CfsrUsageFault::kInvStateMsk;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64ba966f486a56f5dca290269a1e57772c5e">ExceptionType::kUsageFault</a>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a966f486a56f5dca290269a1e57772c5e">ExceptionType::kUsageFault</a>);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TDelegates&gt;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;StepFlagsSet&gt;</a> Step(TProcessorStates &amp;pstates, TBus &amp;bus, TDelegates &amp;delegates) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;StepFlagsSet&gt;</a> Step(TProcessorStates &amp;pstates, TBus &amp;bus, TDelegates &amp;delegates) {</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> u8 kRaw32BitMsk = <span class="keyword">static_cast&lt;</span>RawInstrFlagsSet<span class="keyword">&gt;</span>(RawInstrFlagsMsk::k32Bit);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    StepFlagsSet step_flags{0u};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    StepFlagsSet step_flags{0U};</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">// *** FETCH ***</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// The pc points to the current instruction +4 . Therefore decrement 4 to</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// get the current address.</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Get the current program counter</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    me_adr_t pc_this_instr = <span class="keyword">static_cast&lt;</span>me_adr_t<span class="keyword">&gt;</span>(Reg::ReadPC(pstates) - 4u);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    me_adr_t pc_this_instr = <span class="keyword">static_cast&lt;</span>me_adr_t<span class="keyword">&gt;</span>(Reg::ReadPC(pstates) - 4U);</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// Check for exceptions raised by peripherals before fetching the instruction</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exc_ctx_pre_fetch = <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_exception_context.html">ExceptionContext</a>{pc_this_instr};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exc_ctx_pre_fetch = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exception_context.html">ExceptionContext</a>{pc_this_instr};</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    TRY_ASSIGN(if_pre_fetch_exception, StepFlagsSet,</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>               Exc::template CheckExceptions&lt;ExceptionPreFetch&gt;(pstates, bus, exc_ctx_pre_fetch));</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">// If an asynchronous exception should be executed, the pc must be updated</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// to the new instruction address.</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">if</span> (if_pre_fetch_exception) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      pc_this_instr = <span class="keyword">static_cast&lt;</span>me_adr_t<span class="keyword">&gt;</span>(Reg::ReadPC(pstates) - 4u);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      pc_this_instr = <span class="keyword">static_cast&lt;</span>me_adr_t<span class="keyword">&gt;</span>(Reg::ReadPC(pstates) - 4U);</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_struct" href="structmicroemu_1_1_raw_instr.html">RawInstr</a> raw_instr;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_struct" href="structlibmicroemu_1_1_raw_instr.html">RawInstr</a> raw_instr;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// Check if execution mode is thumb .. if not, raise usage fault and continue</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (IsThumbModeOrRaise(pstates)) {</div>
@@ -190,7 +190,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>      raw_instr = r_raw_instr.content;</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exc_ctx_post_fetch = <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_exception_context.html">ExceptionContext</a>{pc_this_instr};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exc_ctx_post_fetch = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exception_context.html">ExceptionContext</a>{pc_this_instr};</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">// If an invalid state exception was raised, this will processed here</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// Check for exceptions after fetching the instruction</span></div>
@@ -218,20 +218,20 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#ifndef NDEBUG</span></div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> u8 k32BitMsk = <span class="keyword">static_cast&lt;</span>InstrFlagsSet<span class="keyword">&gt;</span>(InstrFlags::k32Bit);</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="comment">// check if the raw instruction and the decoded instruction have the same width</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    assert(((((raw_instr.flags &amp; kRaw32BitMsk) != 0u) &amp;&amp; ((instr.nop.flags &amp; k32BitMsk) != 0u)) ||</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            (((raw_instr.flags &amp; kRaw32BitMsk) == 0u) &amp;&amp; ((instr.nop.flags &amp; k32BitMsk) == 0u))));</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    assert(((((raw_instr.flags &amp; kRaw32BitMsk) != 0U) &amp;&amp; ((instr.nop.flags &amp; k32BitMsk) != 0U)) ||</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            (((raw_instr.flags &amp; kRaw32BitMsk) == 0U) &amp;&amp; ((instr.nop.flags &amp; k32BitMsk) == 0U))));</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="comment">// *** CALLBACK ***</span></div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">if</span> (delegates.IsPreExecSet()) {</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>      <span class="keyword">const</span> <span class="keyword">auto</span> is_32bit = (raw_instr.flags &amp; kRaw32BitMsk) == kRaw32BitMsk;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      <span class="keyword">auto</span> op_code = <a class="code hl_struct" href="structmicroemu_1_1_op_code.html">OpCode</a>{raw_instr.low, raw_instr.high, is_32bit};</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>      <span class="keyword">auto</span> instr_to_mnemonic = <a class="code hl_class" href="classmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic&lt;TProcessorStates, It, Reg, SReg&gt;</a>(pstates, instr);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>      <span class="keyword">auto</span> reg_access = <a class="code hl_class" href="classmicroemu_1_1internal_1_1_reg_access.html">RegAccess&lt;TProcessorStates, Reg, SReg&gt;</a>(pstates);</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      <span class="keyword">auto</span> spec_reg_access = <a class="code hl_class" href="classmicroemu_1_1internal_1_1_special_reg_access.html">SpecialRegAccess&lt;TProcessorStates, SReg&gt;</a>(pstates);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      <span class="keyword">auto</span> op_code = <a class="code hl_struct" href="structlibmicroemu_1_1_op_code.html">OpCode</a>{raw_instr.low, raw_instr.high, is_32bit};</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>      <span class="keyword">auto</span> instr_to_mnemonic = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic&lt;TProcessorStates, It, Reg, SReg&gt;</a>(pstates, instr);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>      <span class="keyword">auto</span> reg_access = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html">RegAccessor&lt;TProcessorStates, Reg, SReg&gt;</a>(pstates);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      <span class="keyword">auto</span> spec_reg_access = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html">SpecialRegAccessor&lt;TProcessorStates, SReg&gt;</a>(pstates);</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>      <span class="keyword">auto</span> emu_ctx =</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>          <a class="code hl_class" href="classmicroemu_1_1_emu_context.html">EmuContext</a>(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>          <a class="code hl_class" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a>(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>      delegates.PreExec(emu_ctx);</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    }</div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
@@ -245,12 +245,12 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">if</span> (delegates.IsPostExecSet()) {</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>      <span class="keyword">const</span> <span class="keyword">auto</span> is_32bit = (raw_instr.flags &amp; kRaw32BitMsk) == kRaw32BitMsk;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>      <span class="keyword">auto</span> op_code = <a class="code hl_struct" href="structmicroemu_1_1_op_code.html">OpCode</a>{raw_instr.low, raw_instr.high, is_32bit};</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>      <span class="keyword">auto</span> instr_to_mnemonic = <a class="code hl_class" href="classmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic&lt;TProcessorStates, It, Reg, SReg&gt;</a>(pstates, instr);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>      <span class="keyword">auto</span> reg_access = <a class="code hl_class" href="classmicroemu_1_1internal_1_1_reg_access.html">RegAccess&lt;TProcessorStates, Reg, SReg&gt;</a>(pstates);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>      <span class="keyword">auto</span> spec_reg_access = <a class="code hl_class" href="classmicroemu_1_1internal_1_1_special_reg_access.html">SpecialRegAccess&lt;TProcessorStates, SReg&gt;</a>(pstates);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>      <span class="keyword">auto</span> op_code = <a class="code hl_struct" href="structlibmicroemu_1_1_op_code.html">OpCode</a>{raw_instr.low, raw_instr.high, is_32bit};</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>      <span class="keyword">auto</span> instr_to_mnemonic = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic&lt;TProcessorStates, It, Reg, SReg&gt;</a>(pstates, instr);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>      <span class="keyword">auto</span> reg_access = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html">RegAccessor&lt;TProcessorStates, Reg, SReg&gt;</a>(pstates);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>      <span class="keyword">auto</span> spec_reg_access = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html">SpecialRegAccessor&lt;TProcessorStates, SReg&gt;</a>(pstates);</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>      <span class="keyword">auto</span> emu_ctx =</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>          <a class="code hl_class" href="classmicroemu_1_1_emu_context.html">EmuContext</a>(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>          <a class="code hl_class" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a>(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>      delegates.PostExec(emu_ctx);</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
@@ -258,25 +258,25 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;execute_flags = r_execute.content.flags;</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">// all exit flags are mutually exclusive</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">if</span> ((execute_flags &amp; kExitFlagsMask) != 0u) {</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kBkptReqExit)) != 0u) {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">if</span> ((execute_flags &amp; kExitFlagsMask) != 0U) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kBkptReqExit)) != 0U) {</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        step_flags |= <span class="keyword">static_cast&lt;</span>StepFlagsSet<span class="keyword">&gt;</span>(StepFlags::kStepTerminationRequest);</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">return</span> Ok&lt;StepFlagsSet&gt;(step_flags);</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>      }</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kSvcReqExit)) != 0u) {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kSvcReqExit)) != 0U) {</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        step_flags |= <span class="keyword">static_cast&lt;</span>StepFlagsSet<span class="keyword">&gt;</span>(StepFlags::kStepTerminationRequest);</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordflow">return</span> Ok&lt;StepFlagsSet&gt;(step_flags);</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>      }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kBkptReqErrorExit)) != 0u) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kBkptReqErrorExit)) != 0U) {</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">return</span> Err&lt;StepFlagsSet&gt;(StatusCode::kScExecutorExitWithError);</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>      }</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kSvcReqErrorExit)) != 0u) {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>      <span class="keywordflow">if</span> ((execute_flags &amp; <span class="keyword">static_cast&lt;</span>ExecFlagsSet<span class="keyword">&gt;</span>(ExecFlags::kSvcReqErrorExit)) != 0U) {</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">return</span> Err&lt;StepFlagsSet&gt;(StatusCode::kScExecutorExitWithError);</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>      }</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    }</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="comment">// get the next instruction address</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exc_ctc_post_exec = <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_exception_context.html">ExceptionContext</a>{pc_this_instr};</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">const</span> <span class="keyword">auto</span> exc_ctc_post_exec = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exception_context.html">ExceptionContext</a>{pc_this_instr};</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    TRY(StepFlagsSet,</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        Exc::template CheckExceptions&lt;ExceptionPostExecution&gt;(pstates, bus, exc_ctc_post_exec));</div>
@@ -291,16 +291,16 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>           <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(res.status_code));</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="comment">// error return</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    me_adr_t pc = <span class="keyword">static_cast&lt;</span>me_adr_t<span class="keyword">&gt;</span>(Reg::ReadPC(pstates)) - 0x4u;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    me_adr_t pc = <span class="keyword">static_cast&lt;</span>me_adr_t<span class="keyword">&gt;</span>(Reg::ReadPC(pstates)) - 0x4U;</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    printf(<span class="stringliteral">&quot; # System state:\n&quot;</span>);</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    printf(<span class="stringliteral">&quot;   Actual PC: 0x%x\n\n&quot;</span>, pc);</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    printf(<span class="stringliteral">&quot; # Memory dump from PC:\n&quot;</span>);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <a class="code hl_class" href="classmicroemu_1_1internal_1_1_memory_viewer.html">MemoryViewer&lt;TProcessorStates, TBus&gt;</a> mem_view(bus);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    mem_view.<a class="code hl_function" href="classmicroemu_1_1internal_1_1_memory_viewer.html#a56ad518cf6253db996ae8cac20846bb6">print</a>(pstates, pc, 32u, 3u);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_memory_viewer.html">MemoryViewer&lt;TProcessorStates, TBus&gt;</a> mem_view(bus);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    mem_view.<a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_memory_viewer.html#a5089575967a8cbe3edfc733024335861">print</a>(pstates, pc, 32U, 3U);</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  }</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="comment">// TODO: move outside of the class</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;void&gt;</a> TakeReset(TProcessorStates &amp;pstates, TBus &amp;bus_) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;void&gt;</a> TakeReset(TProcessorStates &amp;pstates, TBus &amp;bus_) {</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="comment">// see Armv7-M Architecture Reference Manual Issue E.e p.531</span></div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    LOG_INFO(TLogger, <span class="stringliteral">&quot;Resetting processor&quot;</span>);</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
@@ -352,7 +352,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="comment">// bits(32) vectortable = VTOR&lt;31:7&gt;:&#39;0000000&#39;;</span></div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keyword">const</span> <span class="keyword">auto</span> vtor = SReg::template ReadRegister&lt;SpecialRegisterId::kVtor&gt;(pstates);</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    me_adr_t vectortable = vtor &lt;&lt; 7 | 0x0u;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    me_adr_t vectortable = vtor &lt;&lt; 7 | 0x0U;</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="comment">//   SP_main = MemA_with_priv[vectortable, 4, AccType_VECTABLE] AND 0xFFFFFFFC&lt;31:0&gt;;</span></div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    TRY_ASSIGN(sp_main, <span class="keywordtype">void</span>,</div>
@@ -362,7 +362,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">//   SP_process = ((bits(30) UNKNOWN):&#39;00&#39;);</span></div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keyword">auto</span> sp_process = SReg::template ReadRegister&lt;SpecialRegisterId::kSpProcess&gt;(pstates);</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    sp_process &amp;= ~0x3u; <span class="comment">// clear the two least significant bits</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    sp_process &amp;= ~0x3U; <span class="comment">// clear the two least significant bits</span></div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    SReg::template WriteRegister&lt;SpecialRegisterId::kSpProcess&gt;(pstates, sp_process);</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="comment">//   LR = 0xFFFFFFFF&lt;31:0&gt;; /* preset to an illegal exception return value */</span></div>
@@ -374,7 +374,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                                              BusExceptionType::kRaisePreciseDataBusError));</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="comment">// tbit = tmp&lt;0&gt;;</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keyword">auto</span> tbit = tmp &amp; 0x1u;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keyword">auto</span> tbit = tmp &amp; 0x1U;</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="comment">//   APSR = bits(32) UNKNOWN; /* flags UNPREDICTABLE from reset */</span></div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
@@ -392,12 +392,12 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    SReg::template WriteRegister&lt;SpecialRegisterId::kEpsr&gt;(pstates, epsr);</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="comment">//   BranchTo(tmp AND 0xFFFFFFFE&lt;31:0&gt;); /* address of reset service routine */</span></div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keyword">auto</span> entry_point = tmp &amp; 0xFFFFFFFEu;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keyword">auto</span> entry_point = tmp &amp; 0xFFFFFFFEU;</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    Pc::BranchTo(pstates, entry_point);</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    LOG_DEBUG(TLogger, <span class="stringliteral">&quot;Set entry Point to 0x%08X / tbit:%i&quot;</span>, entry_point, tbit);</div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="comment">// CSR.STKALIGN = &#39;1&#39;; &lt;-- added as default</span></div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="comment">/* stack alignment is 8-byte aligned */</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="comment">/* stack alignment is 8-byte aligned per default*/</span></div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keyword">auto</span> ccr = SReg::template ReadRegister&lt;SpecialRegisterId::kCcr&gt;(pstates);</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    ccr |= <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(CcrRegister::kStkAlignMsk);</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    SReg::template WriteRegister&lt;SpecialRegisterId::kCcr&gt;(pstates, ccr);</div>
@@ -417,33 +417,33 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>  }</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">~Processor</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;operator=(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">~Processor</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;operator=(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_processor.html">Processor</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>};</div>
 </div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="aclassmicroemu_1_1_emu_context_html"><div class="ttname"><a href="classmicroemu_1_1_emu_context.html">microemu::EmuContext</a></div><div class="ttdef"><b>Definition</b> emu_context.h:76</div></div>
-<div class="ttc" id="aclassmicroemu_1_1_null_logger_html"><div class="ttname"><a href="classmicroemu_1_1_null_logger.html">microemu::NullLogger</a></div><div class="ttdef"><b>Definition</b> logger.h:53</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_instr_to_mnemonic_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_instr_to_mnemonic.html">microemu::internal::InstrToMnemonic</a></div><div class="ttdef"><b>Definition</b> intstr_to_mnemonic.h:10</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_memory_viewer_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_memory_viewer.html">microemu::internal::MemoryViewer</a></div><div class="ttdef"><b>Definition</b> memory_viewer.h:10</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_memory_viewer_html_a56ad518cf6253db996ae8cac20846bb6"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_memory_viewer.html#a56ad518cf6253db996ae8cac20846bb6">microemu::internal::MemoryViewer::print</a></div><div class="ttdeci">void print(TProcessorStates &amp;pstates, const me_offset_t vadr, const me_size_t size, const u32 indent=0u)</div><div class="ttdoc">Prints a hex dump of the given buffer to the console.</div><div class="ttdef"><b>Definition</b> memory_viewer.h:36</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_processor_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_processor.html">microemu::internal::Processor</a></div><div class="ttdef"><b>Definition</b> processor.h:35</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_processor_ops_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_processor_ops.html">microemu::internal::ProcessorOps</a></div><div class="ttdef"><b>Definition</b> processor.h:23</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_reg_access_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_reg_access.html">microemu::internal::RegAccess</a></div><div class="ttdoc">Provides access to processor registers.</div><div class="ttdef"><b>Definition</b> reg_access.h:18</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_special_reg_access_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_special_reg_access.html">microemu::internal::SpecialRegAccess</a></div><div class="ttdoc">Provides access to special registers.</div><div class="ttdef"><b>Definition</b> spec_reg_access.h:18</div></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="anamespacemicroemu_html_a6204e9191eb81546d1d06b751721f64ba966f486a56f5dca290269a1e57772c5e"><div class="ttname"><a href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64ba966f486a56f5dca290269a1e57772c5e">microemu::ExceptionType::kUsageFault</a></div><div class="ttdeci">@ kUsageFault</div><div class="ttdoc">Usage fault exception, triggered by errors in the usage of the processor.</div></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_emu_context_html"><div class="ttname"><a href="classlibmicroemu_1_1_emu_context.html">libmicroemu::EmuContext</a></div><div class="ttdef"><b>Definition</b> emu_context.h:80</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_null_logger_html"><div class="ttname"><a href="classlibmicroemu_1_1_null_logger.html">libmicroemu::NullLogger</a></div><div class="ttdef"><b>Definition</b> logger.h:53</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_instr_to_mnemonic_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">libmicroemu::internal::InstrToMnemonic</a></div><div class="ttdef"><b>Definition</b> intstr_to_mnemonic.h:11</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_memory_viewer_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_memory_viewer.html">libmicroemu::internal::MemoryViewer</a></div><div class="ttdef"><b>Definition</b> memory_viewer.h:13</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_memory_viewer_html_a5089575967a8cbe3edfc733024335861"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_memory_viewer.html#a5089575967a8cbe3edfc733024335861">libmicroemu::internal::MemoryViewer::print</a></div><div class="ttdeci">void print(TProcessorStates &amp;pstates, const me_offset_t vadr, const me_size_t size, const u32 indent=0U)</div><div class="ttdoc">Prints a hex dump of the given buffer to the console.</div><div class="ttdef"><b>Definition</b> memory_viewer.h:39</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_processor_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_processor.html">libmicroemu::internal::Processor</a></div><div class="ttdef"><b>Definition</b> processor.h:35</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_processor_ops_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_processor_ops.html">libmicroemu::internal::ProcessorOps</a></div><div class="ttdef"><b>Definition</b> processor.h:23</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_reg_accessor_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_reg_accessor.html">libmicroemu::internal::RegAccessor</a></div><div class="ttdoc">Provides access to processor registers.</div><div class="ttdef"><b>Definition</b> reg_access.h:20</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_special_reg_accessor_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html">libmicroemu::internal::SpecialRegAccessor</a></div><div class="ttdoc">Provides access to special registers.</div><div class="ttdef"><b>Definition</b> spec_reg_access.h:18</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1a966f486a56f5dca290269a1e57772c5e"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a966f486a56f5dca290269a1e57772c5e">libmicroemu::ExceptionType::kUsageFault</a></div><div class="ttdeci">@ kUsageFault</div><div class="ttdoc">Usage fault exception, triggered by errors in the usage of the processor.</div></div>
 <div class="ttc" id="aspecial__register__id_8h_html"><div class="ttname"><a href="special__register__id_8h.html">special_register_id.h</a></div><div class="ttdoc">This file contains the declaration of the SpecialRegisterId enumeration and related functions.</div></div>
-<div class="ttc" id="astructmicroemu_1_1_op_code_html"><div class="ttname"><a href="structmicroemu_1_1_op_code.html">microemu::OpCode</a></div><div class="ttdef"><b>Definition</b> emu_context.h:11</div></div>
-<div class="ttc" id="astructmicroemu_1_1_raw_instr_html"><div class="ttname"><a href="structmicroemu_1_1_raw_instr.html">microemu::RawInstr</a></div><div class="ttdef"><b>Definition</b> raw_instr.h:7</div></div>
-<div class="ttc" id="astructmicroemu_1_1_result_html"><div class="ttname"><a href="structmicroemu_1_1_result.html">microemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_exception_context_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_exception_context.html">microemu::internal::ExceptionContext</a></div><div class="ttdef"><b>Definition</b> exceptions_ops.h:18</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_op_code_html"><div class="ttname"><a href="structlibmicroemu_1_1_op_code.html">libmicroemu::OpCode</a></div><div class="ttdef"><b>Definition</b> emu_context.h:12</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_raw_instr_html"><div class="ttname"><a href="structlibmicroemu_1_1_raw_instr.html">libmicroemu::RawInstr</a></div><div class="ttdef"><b>Definition</b> raw_instr.h:7</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_result.html">libmicroemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_exception_context_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_exception_context.html">libmicroemu::internal::ExceptionContext</a></div><div class="ttdef"><b>Definition</b> exceptions_ops.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

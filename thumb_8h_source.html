@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -102,52 +102,52 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_thumb.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_thumb.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;u32&gt;</a> ThumbExpandImm(u32 imm12) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;u32&gt;</a> ThumbExpandImm(u32 imm12) {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">// APSR.C argument to following function call does not affect the imm32</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="comment">// therefore fake it</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> apsr_c_dummy = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">const</span> <span class="keyword">auto</span> result = ThumbExpandImm_C(imm12, apsr_c_dummy);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;u32&gt;</a>(result.status_code, result.content.out);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;u32&gt;</a>(result.status_code, result.content.out);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  }</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;ThumbImmediateResult&gt;</a> ThumbExpandImm_C(<span class="keyword">const</span> uint32_t &amp;in, <span class="keyword">const</span> <span class="keywordtype">bool</span> carry_in) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;ThumbImmediateResult&gt;</a> ThumbExpandImm_C(<span class="keyword">const</span> uint32_t &amp;in, <span class="keyword">const</span> <span class="keywordtype">bool</span> carry_in) {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// see Armv7-M Architecture Reference Manual Issue E.e p.139 - 140</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    u32 imm32{0u};</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    u32 imm32{0U};</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">bool</span> carry_out{<span class="keyword">false</span>};</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="classmicroemu_1_1internal_1_1_bit_manip.html#ad367ed7c5078eaa4c682914ab11c8817">Bm32::Slice1R&lt;11u, 10u&gt;</a>(in) == 0x0u) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      <span class="keywordflow">switch</span> (<a class="code hl_function" href="classmicroemu_1_1internal_1_1_bit_manip.html#ad367ed7c5078eaa4c682914ab11c8817">Bm32::Slice1R&lt;9u, 8u&gt;</a>(in)) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">Bm32::Slice1R&lt;11U, 10U&gt;</a>(in) == 0x0U) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      <span class="keywordflow">switch</span> (<a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">Bm32::Slice1R&lt;9U, 8U&gt;</a>(in)) {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordflow">case</span> 0x0u: {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        imm32 = <a class="code hl_function" href="classmicroemu_1_1internal_1_1_bit_manip.html#aceb6d92f06bee8b103d55e55ffe34dbb">Bm32::ZeroExtend&lt;u32&gt;</a>(in &amp; 0xFFu);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordflow">case</span> 0x0U: {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        imm32 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">Bm32::ZeroExtend&lt;u32&gt;</a>(in &amp; 0xFFU);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      <span class="keywordflow">case</span> 0x1u: {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> ((in &amp; 0xFFu) == 0x0u) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      <span class="keywordflow">case</span> 0x1U: {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> ((in &amp; 0xFFU) == 0x0U) {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>          <span class="keywordflow">return</span> Err&lt;ThumbImmediateResult&gt;(StatusCode::kScExecutorUnpredictable);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        imm32 = ((in &amp; 0xFFu) &lt;&lt; 16u) | (in &amp; 0xFFu);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        imm32 = ((in &amp; 0xFFU) &lt;&lt; 16U) | (in &amp; 0xFFU);</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      <span class="keywordflow">case</span> 0x2u: {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span> ((in &amp; 0xFFu) == 0x0u) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      <span class="keywordflow">case</span> 0x2U: {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span> ((in &amp; 0xFFU) == 0x0U) {</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>          <span class="keywordflow">return</span> Err&lt;ThumbImmediateResult&gt;(StatusCode::kScExecutorUnpredictable);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        imm32 = ((in &amp; 0xFFu) &lt;&lt; 24u) | ((in &amp; 0xFFu) &lt;&lt; 8u);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        imm32 = ((in &amp; 0xFFU) &lt;&lt; 24U) | ((in &amp; 0xFFU) &lt;&lt; 8U);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      <span class="keywordflow">case</span> 0x3u: {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> ((in &amp; 0xFFu) == 0x0u) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      <span class="keywordflow">case</span> 0x3U: {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> ((in &amp; 0xFFU) == 0x0U) {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>          <span class="keywordflow">return</span> Err&lt;ThumbImmediateResult&gt;(StatusCode::kScExecutorUnpredictable);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        imm32 = ((in &amp; 0xFFu) &lt;&lt; 24u) | ((in &amp; 0xFFu) &lt;&lt; 16u) | ((in &amp; 0xFFu) &lt;&lt; 8u) |</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                ((in &amp; 0xFFu) &lt;&lt; 0u);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        imm32 = ((in &amp; 0xFFU) &lt;&lt; 24U) | ((in &amp; 0xFFU) &lt;&lt; 16U) | ((in &amp; 0xFFU) &lt;&lt; 8U) |</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                ((in &amp; 0xFFU) &lt;&lt; 0U);</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>      <span class="keywordflow">default</span>:</div>
@@ -157,38 +157,38 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      }</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>      carry_out = carry_in;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      <span class="keyword">const</span> u32 unrotated_value = <a class="code hl_function" href="classmicroemu_1_1internal_1_1_bit_manip.html#aceb6d92f06bee8b103d55e55ffe34dbb">Bm32::ZeroExtend&lt;u32&gt;</a>(0x80u | (in &amp; 0x7Fu));</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keyword">const</span> <span class="keyword">auto</span> r_ror = Alu32::ROR_C(unrotated_value, <a class="code hl_function" href="classmicroemu_1_1internal_1_1_bit_manip.html#ad367ed7c5078eaa4c682914ab11c8817">Bm32::Slice1R&lt;11u, 7u&gt;</a>(in));</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      <span class="keyword">const</span> u32 unrotated_value = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">Bm32::ZeroExtend&lt;u32&gt;</a>(0x80U | (in &amp; 0x7FU));</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keyword">const</span> <span class="keyword">auto</span> r_ror = Alu32::ROR_C(unrotated_value, <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">Bm32::Slice1R&lt;11U, 7U&gt;</a>(in));</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>      imm32 = r_ror.result;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      carry_out = r_ror.carry_out;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> Ok(<a class="code hl_struct" href="structmicroemu_1_1_thumb_immediate_result.html">ThumbImmediateResult</a>{imm32, carry_out});</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> Ok(<a class="code hl_struct" href="structlibmicroemu_1_1_thumb_immediate_result.html">ThumbImmediateResult</a>{imm32, carry_out});</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a>() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">~Thumb</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">~Thumb</a>() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a>(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a>(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;operator=(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;operator=(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_thumb.html">Thumb</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
 </div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bit_manip_html_aceb6d92f06bee8b103d55e55ffe34dbb"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bit_manip.html#aceb6d92f06bee8b103d55e55ffe34dbb">microemu::internal::BitManip::ZeroExtend</a></div><div class="ttdeci">static U ZeroExtend(const T &amp;value)</div><div class="ttdoc">Takes a value of type T and converts it to type U by extending the missing bits with 0.</div><div class="ttdef"><b>Definition</b> bit_manip.h:202</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bit_manip_html_ad367ed7c5078eaa4c682914ab11c8817"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bit_manip.html#ad367ed7c5078eaa4c682914ab11c8817">microemu::internal::BitManip::Slice1R</a></div><div class="ttdeci">static constexpr T Slice1R(const T &amp;value)</div><div class="ttdoc">Extracts bits from value in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:138</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_thumb_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_thumb.html">microemu::internal::Thumb</a></div><div class="ttdef"><b>Definition</b> thumb.h:14</div></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="astructmicroemu_1_1_result_html"><div class="ttname"><a href="structmicroemu_1_1_result.html">microemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
-<div class="ttc" id="astructmicroemu_1_1_thumb_immediate_result_html"><div class="ttname"><a href="structmicroemu_1_1_thumb_immediate_result.html">microemu::ThumbImmediateResult</a></div><div class="ttdef"><b>Definition</b> thumb_immediate_result.h:6</div></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0ae4919e05e93e2c23e08c9a63cd50ea"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">libmicroemu::internal::BitManip::ZeroExtend</a></div><div class="ttdeci">static U ZeroExtend(const T &amp;value)</div><div class="ttdoc">Takes a value of type T and converts it to type U by extending the missing bits with 0.</div><div class="ttdef"><b>Definition</b> bit_manip.h:202</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a7246872b758456004f3cb32134803939"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">libmicroemu::internal::BitManip::Slice1R</a></div><div class="ttdeci">static constexpr T Slice1R(const T &amp;value)</div><div class="ttdoc">Extracts bits from value in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:138</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_thumb_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_thumb.html">libmicroemu::internal::Thumb</a></div><div class="ttdef"><b>Definition</b> thumb.h:14</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_result.html">libmicroemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_thumb_immediate_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_thumb_immediate_result.html">libmicroemu::ThumbImmediateResult</a></div><div class="ttdef"><b>Definition</b> thumb_immediate_result.h:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

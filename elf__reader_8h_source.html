@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -101,22 +101,22 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;iterator&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_null_buffer.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_null_buffer.html">NullBuffer</a> : <span class="keyword">public</span> std::streambuf {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_null_buffer.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_null_buffer.html">NullBuffer</a> : <span class="keyword">public</span> std::streambuf {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keywordtype">int</span> overflow(<span class="keywordtype">int</span> c) { <span class="keywordflow">return</span> c; }</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>};</div>
 </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">static</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_null_buffer.html">NullBuffer</a> null_buffer;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">static</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_null_buffer.html">NullBuffer</a> null_buffer;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">static</span> std::istream null_stream(&amp;null_buffer);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// ELF Header Strukturen</span></div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_elf32___ehdr.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___ehdr.html">Elf32_Ehdr</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_elf32___ehdr.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___ehdr.html">Elf32_Ehdr</a> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  u8 e_ident[16];  <span class="comment">// Magic number and other info</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  u16 e_type;      <span class="comment">// Object file type</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  u16 e_machine;   <span class="comment">// Architecture</span></div>
@@ -135,7 +135,7 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">   39</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">   39</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> {</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  u32 p_type;   <span class="comment">// Segment type</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  u32 p_offset; <span class="comment">// Segment file offset</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  u32 p_vaddr;  <span class="comment">// Segment virtual address</span></div>
@@ -166,59 +166,59 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_elf_reader.html">   68</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader.html">ElfReader</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_elf_reader.html">   68</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader.html">ElfReader</a> {</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">public</span>:</div>
 <div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">   70</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">   70</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> {</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">using </span>iterator_category = std::input_iterator_tag;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">using </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">value_type</a> = <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">using </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">value_type</a> = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>;</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">using </span>difference_type = <span class="keyword">decltype</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>) - <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>));</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">using </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">pointer</a> = <span class="keyword">const</span> <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> *;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">using </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">reference</a> = <span class="keyword">const</span> <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> &amp;;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">using </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">pointer</a> = <span class="keyword">const</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> *;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">using </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">reference</a> = <span class="keyword">const</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> &amp;;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a>(std::istream *file, std::streamoff pos, std::size_t index, std::size_t count)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a>(std::istream *file, std::streamoff pos, std::size_t index, std::size_t count)</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        : stream_(file), pos_(pos), index_(index), count_(count), phdr_() {</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      <span class="keywordflow">if</span> (index_ &lt; count_) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        stream_-&gt;seekg(pos_ + index_ * <span class="keyword">static_cast&lt;</span>std::streamoff<span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>)),</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        stream_-&gt;seekg(pos_ + index_ * <span class="keyword">static_cast&lt;</span>std::streamoff<span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>)),</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                       std::ios::beg);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        stream_-&gt;read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;phdr_), <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>));</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        stream_-&gt;read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;phdr_), <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>));</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      }</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">reference</a> operator*()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> phdr_; }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">pointer</a> operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;phdr_; }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">reference</a> operator*()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> phdr_; }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">pointer</a> operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;phdr_; }</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> &amp;operator++() {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> &amp;operator++() {</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      <span class="keywordflow">if</span> (++index_ &lt; count_) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        stream_-&gt;seekg(pos_ + index_ * <span class="keyword">static_cast&lt;</span>std::streamoff<span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>)),</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        stream_-&gt;seekg(pos_ + index_ * <span class="keyword">static_cast&lt;</span>std::streamoff<span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>)),</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                       std::ios::beg);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        stream_-&gt;read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;phdr_), <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        stream_-&gt;read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;phdr_), <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a>));</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>      }</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> operator++(<span class="keywordtype">int</span>) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      <a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> tmp(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> operator++(<span class="keywordtype">int</span>) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> tmp(*<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      ++(*this);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      <span class="keywordflow">return</span> tmp;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> &amp;other)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index_ == other.index_; }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> &amp;other)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index_ != other.index_; }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> &amp;other)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index_ == other.index_; }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">SegmentIterator</a> &amp;other)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index_ != other.index_; }</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    std::istream *stream_;</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    std::streamoff pos_;</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    std::size_t index_;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    std::size_t count_;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> phdr_;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">Elf32_Phdr</a> phdr_;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  };</div>
 </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;ElfReader&gt;</a> ReadElf(std::istream &amp;stream) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;ElfReader&gt;</a> ReadElf(std::istream &amp;stream) {</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="comment">// Read ELF header</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_struct" href="structmicroemu_1_1internal_1_1_elf32___ehdr.html">Elf32_Ehdr</a> ehdr;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_elf32___ehdr.html">Elf32_Ehdr</a> ehdr;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    stream.read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;ehdr), <span class="keyword">sizeof</span>(ehdr));</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">if</span> (!stream) {</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      <span class="comment">// Failed to read ELF header.</span></div>
@@ -278,14 +278,14 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">microemu::internal::ElfReader::SegmentIterator</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:70</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_elf_reader_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_elf_reader.html">microemu::internal::ElfReader</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:68</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_null_buffer_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_null_buffer.html">microemu::internal::NullBuffer</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:13</div></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="astructmicroemu_1_1_result_html"><div class="ttname"><a href="structmicroemu_1_1_result.html">microemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_elf32___ehdr_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_elf32___ehdr.html">microemu::internal::Elf32_Ehdr</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:22</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_elf32___phdr_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_elf32___phdr.html">microemu::internal::Elf32_Phdr</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:39</div></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_elf_reader_1_1_segment_iterator.html">libmicroemu::internal::ElfReader::SegmentIterator</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:70</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_elf_reader_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_elf_reader.html">libmicroemu::internal::ElfReader</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:68</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_null_buffer_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_null_buffer.html">libmicroemu::internal::NullBuffer</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:13</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_result.html">libmicroemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_elf32___ehdr_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_elf32___ehdr.html">libmicroemu::internal::Elf32_Ehdr</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:22</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_elf32___phdr_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_elf32___phdr.html">libmicroemu::internal::Elf32_Phdr</a></div><div class="ttdef"><b>Definition</b> elf_reader.h:39</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

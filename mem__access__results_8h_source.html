@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -95,34 +95,35 @@ $(function(){ initResizable(false); });
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span>microemu::internal {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a> {</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">enum class</span> ReadStatusCode : u32 {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  kOk = 0u,</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  kReadNotAllowed = 1u,</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  kOk = 0U,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  kReadNotAllowed = 1U,</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>};</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_read_result.html">   11</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_read_result.html">ReadResult</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_read_result.html">   11</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_read_result.html">ReadResult</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  T content;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  ReadStatusCode status_code;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>};</div>
 </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">enum class</span> WriteStatusCode : u32 {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  kOk = 0u,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  kWriteNotAllowed = 1u,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  kOk = 0U,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  kWriteNotAllowed = 1U,</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>};</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structmicroemu_1_1internal_1_1_write_result.html">   21</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structmicroemu_1_1internal_1_1_write_result.html">WriteResult</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structlibmicroemu_1_1internal_1_1_write_result.html">   21</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct </span><a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_write_result.html">WriteResult</a> {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  WriteStatusCode status_code;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
 </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace microemu::internal</span></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_read_result_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_read_result.html">microemu::internal::ReadResult</a></div><div class="ttdef"><b>Definition</b> mem_access_results.h:11</div></div>
-<div class="ttc" id="astructmicroemu_1_1internal_1_1_write_result_html"><div class="ttname"><a href="structmicroemu_1_1internal_1_1_write_result.html">microemu::internal::WriteResult</a></div><div class="ttdef"><b>Definition</b> mem_access_results.h:21</div></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace libmicroemu::internal</span></div>
+<div class="ttc" id="anamespacelibmicroemu_1_1internal_html"><div class="ttname"><a href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a></div><div class="ttdoc">The libmicroemu::internal namespace contains all classes and functions of libmicroemu which are priva...</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:7</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_read_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_read_result.html">libmicroemu::internal::ReadResult</a></div><div class="ttdef"><b>Definition</b> mem_access_results.h:11</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_write_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_write_result.html">libmicroemu::internal::WriteResult</a></div><div class="ttdef"><b>Definition</b> mem_access_results.h:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

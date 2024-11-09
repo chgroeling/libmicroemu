@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['_7ebus_0',['~Bus',['../classmicroemu_1_1internal_1_1_bus.html#aee14d212b768c87b5e282ba2e5995219',1,'microemu::internal::Bus']]],
-  ['_7eifthenops_1',['~IfThenOps',['../classmicroemu_1_1internal_1_1_if_then_ops.html#a4de20413d9e5d56265c43fda4a00abea',1,'microemu::internal::IfThenOps']]],
-  ['_7ememmaprw_2',['~MemMapRw',['../classmicroemu_1_1internal_1_1_mem_map_rw.html#a065f5444224aa1567f957ebad55d2181',1,'microemu::internal::MemMapRw']]],
-  ['_7ememro_3',['~MemRo',['../classmicroemu_01_1_1internal_1_1_mem_ro.html#a066f6103a8bc1338f49d89884df9072c',1,'microemu ::internal::MemRo']]],
-  ['_7ememrw_4',['~MemRw',['../classmicroemu_1_1internal_1_1_mem_rw.html#a7b9790fca6b769d77fbb4e281ac3f7c4',1,'microemu::internal::MemRw']]],
-  ['_7ememrwoptional_5',['~MemRwOptional',['../classmicroemu_1_1internal_1_1_mem_rw_optional.html#a8e5b5289d4830202ca67b2205f741d2a',1,'microemu::internal::MemRwOptional']]],
-  ['_7emicroemu_6',['~MicroEmu',['../classmicroemu_1_1_micro_emu.html#a74e0409a2de784882c9242c43cf32d4c',1,'microemu::MicroEmu']]],
-  ['_7eprocessorstates_7',['~ProcessorStates',['../classmicroemu_1_1_processor_states.html#a5c5a1a0d6bdcc2f3e1c2849aa4f1ff0d',1,'microemu::ProcessorStates']]],
+  ['_7ebus_0',['~Bus',['../classlibmicroemu_1_1internal_1_1_bus.html#a73168dcee54d3bacf06ac51ec984bd6a',1,'libmicroemu::internal::Bus']]],
+  ['_7eifthenops_1',['~IfThenOps',['../classlibmicroemu_1_1internal_1_1_if_then_ops.html#afcaa0048fcefb7acdf3c643ee4806214',1,'libmicroemu::internal::IfThenOps']]],
+  ['_7emachine_2',['~Machine',['../classlibmicroemu_1_1_machine.html#a550577e6f2537014f4e268f284f3afdb',1,'libmicroemu::Machine']]],
+  ['_7ememmaprw_3',['~MemMapRw',['../classlibmicroemu_1_1internal_1_1_mem_map_rw.html#a7b784c29a2a2b65d7befe5388b1b7e13',1,'libmicroemu::internal::MemMapRw']]],
+  ['_7ememro_4',['~MemRo',['../classlibmicroemu_01_1_1internal_1_1_mem_ro.html#aef906fd5e37b5bb48efb75634e8d76fa',1,'libmicroemu ::internal::MemRo']]],
+  ['_7ememrw_5',['~MemRw',['../classlibmicroemu_1_1internal_1_1_mem_rw.html#a3e56995b748d98cedbeaed7325715258',1,'libmicroemu::internal::MemRw']]],
+  ['_7ememrwoptional_6',['~MemRwOptional',['../classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#ac5dd2d829943e65e9b0906143afd8d4d',1,'libmicroemu::internal::MemRwOptional']]],
+  ['_7eprocessorstates_7',['~ProcessorStates',['../classlibmicroemu_1_1_processor_states.html#a49c11e59d22bf5e7901e58f735f0e921',1,'libmicroemu::ProcessorStates']]],
   ['_7erarg_8',['~RArg',['../class_r_arg.html#a10c4d38b220b9814140cd304d86d6930',1,'RArg']]],
   ['_7erargconst_9',['~RArgConst',['../class_r_arg_const.html#a0b4df03e775b551d567b36b732c67b80',1,'RArgConst']]],
-  ['_7eregaccess_10',['~RegAccess',['../classmicroemu_1_1internal_1_1_reg_access.html#a2dc0faac137fdef54f93b3345a53856e',1,'microemu::internal::RegAccess']]],
-  ['_7especialregaccess_11',['~SpecialRegAccess',['../classmicroemu_1_1internal_1_1_special_reg_access.html#ae87c0641d443159b80f984b53397e701',1,'microemu::internal::SpecialRegAccess']]]
+  ['_7eregaccessor_10',['~RegAccessor',['../classlibmicroemu_1_1internal_1_1_reg_accessor.html#a04d0744378b221f0b33e8454ad935023',1,'libmicroemu::internal::RegAccessor']]],
+  ['_7especialregaccessor_11',['~SpecialRegAccessor',['../classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a82b9df7ad346e841d38a49d238fd23ad',1,'libmicroemu::internal::SpecialRegAccessor']]]
 ];

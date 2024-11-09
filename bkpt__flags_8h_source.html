@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -98,21 +98,23 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="namespacemicroemu.html">    6</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>internal {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html">    6</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="namespacelibmicroemu_1_1internal.html">    7</a></span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">enum class</span> BkptFlags : u8 {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  kRequestExit = 0x1u &lt;&lt; 0u,      <span class="comment">// Application exits via exit keyword</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  kRequestErrorExit = 0x1u &lt;&lt; 1u, <span class="comment">// Application exit was by unusual way.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  kOmitException = 0x1u &lt;&lt; 2u     <span class="comment">// Omit Exception ..bkpt does not execute Exception</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  kRequestExit = 0x1U &lt;&lt; 0U,      <span class="comment">// Application exits via exit keyword</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  kRequestErrorExit = 0x1U &lt;&lt; 1U, <span class="comment">// Application exit was by unusual way.</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  kOmitException = 0x1U &lt;&lt; 2U     <span class="comment">// Omit Exception ..bkpt does not execute Exception</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>};</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using </span>BkptFlagsSet = uint8_t;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace microemu</span></div>
 </div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace libmicroemu</span></div>
+</div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

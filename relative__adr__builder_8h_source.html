@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -98,64 +98,68 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_relative_adr_builder.html">   10</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_relative_adr_builder.html">RelativeAdrBuilder</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html">   10</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html">RelativeAdrBuilder</a> {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TStrBuilder, <span class="keyword">typename</span> TRegOps&gt;</div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_relative_adr_builder.html#a0bfab9f1c86a64b19bb40a66de86a0cf">   22</a></span>  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classmicroemu_1_1internal_1_1_relative_adr_builder.html#a0bfab9f1c86a64b19bb40a66de86a0cf">Build</a>(TStrBuilder &amp;builder, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_add, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_index,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a0d2b763e45643ceb9ab4983b47821f64">   22</a></span>  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a0d2b763e45643ceb9ab4983b47821f64">Build</a>(TStrBuilder &amp;builder, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_add, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_index,</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                    <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_wback, <span class="keyword">const</span> u8 &amp;n, <span class="keyword">const</span> u32 &amp;imm) {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">using </span>Reg = TRegOps;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    assert(((is_index != <span class="keyword">false</span>) || (is_wback != <span class="keyword">false</span>))); <span class="comment">// no viable option</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// TODO: Ommit imm if it is 0</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> ((is_index == <span class="keyword">true</span>) &amp;&amp; (is_wback == <span class="keyword">false</span>)) { <span class="comment">// Offset: index=TRUE, wback=FALSE</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      builder.AddChar(<span class="charliteral">&#39;[&#39;</span>).AddString(Reg::GetRegisterName(n)).AddString(<span class="stringliteral">&quot;, &quot;</span>);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>      AddImm(builder, is_add, imm);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      builder.AddChar(<span class="charliteral">&#39;]&#39;</span>);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((is_index == <span class="keyword">false</span>) &amp;&amp; (is_wback == <span class="keyword">true</span>)) { <span class="comment">// Post indexed: index=FALSE, wback=TRUE</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      builder.AddChar(<span class="charliteral">&#39;[&#39;</span>).AddString(Reg::GetRegisterName(n)).AddString(<span class="stringliteral">&quot;], &quot;</span>);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      AddImm(builder, is_add, imm);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    } <span class="keywordflow">else</span> { <span class="comment">// Pre indexed: index=TRUE, wback=TRUE</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      builder.AddChar(<span class="charliteral">&#39;[&#39;</span>).AddString(Reg::GetRegisterName(n)).AddString(<span class="stringliteral">&quot;, &quot;</span>);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      AddImm(builder, is_add, imm);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      builder.AddString(<span class="stringliteral">&quot;]!&quot;</span>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      builder.AddChar(<span class="charliteral">&#39;[&#39;</span>)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>          .AddString(Reg::GetRegisterName(<span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a><span class="keyword">&gt;</span>(n)))</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>          .AddString(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>      AddImm(builder, is_add, imm);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      builder.AddChar(<span class="charliteral">&#39;]&#39;</span>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((is_index == <span class="keyword">false</span>) &amp;&amp; (is_wback == <span class="keyword">true</span>)) { <span class="comment">// Post indexed: index=FALSE, wback=TRUE</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      builder.AddChar(<span class="charliteral">&#39;[&#39;</span>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>          .AddString(Reg::GetRegisterName(<span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a><span class="keyword">&gt;</span>(n)))</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>          .AddString(<span class="stringliteral">&quot;], &quot;</span>);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      AddImm(builder, is_add, imm);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    } <span class="keywordflow">else</span> { <span class="comment">// Pre indexed: index=TRUE, wback=TRUE</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      builder.AddChar(<span class="charliteral">&#39;[&#39;</span>)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>          .AddString(Reg::GetRegisterName(<span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a><span class="keyword">&gt;</span>(n)))</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>          .AddString(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      AddImm(builder, is_add, imm);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      builder.AddString(<span class="stringliteral">&quot;]!&quot;</span>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  }</div>
 </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TStrBuilder&gt;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">static</span> <span class="keywordtype">void</span> AddImm(TStrBuilder &amp;builder, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_add, <span class="keyword">const</span> u32 &amp;imm) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    builder.AddChar(<span class="charliteral">&#39;#&#39;</span>);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (is_add == <span class="keyword">false</span>) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      builder.AddChar(<span class="charliteral">&#39;-&#39;</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    builder.AddUInt(imm);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  RelativeAdrBuilder() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TStrBuilder&gt;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keyword">static</span> <span class="keywordtype">void</span> AddImm(TStrBuilder &amp;builder, <span class="keyword">const</span> <span class="keywordtype">bool</span> &amp;is_add, <span class="keyword">const</span> u32 &amp;imm) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    builder.AddChar(<span class="charliteral">&#39;#&#39;</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (is_add == <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>      builder.AddChar(<span class="charliteral">&#39;-&#39;</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    builder.AddUInt(imm);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  }</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  ~RelativeAdrBuilder() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  RelativeAdrBuilder() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  RelativeAdrBuilder &amp;operator=(<span class="keyword">const</span> RelativeAdrBuilder &amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  RelativeAdrBuilder(RelativeAdrBuilder &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  RelativeAdrBuilder &amp;operator=(RelativeAdrBuilder &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  ~RelativeAdrBuilder() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  RelativeAdrBuilder &amp;operator=(<span class="keyword">const</span> RelativeAdrBuilder &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  RelativeAdrBuilder(RelativeAdrBuilder &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  RelativeAdrBuilder &amp;operator=(RelativeAdrBuilder &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
 </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_relative_adr_builder_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_relative_adr_builder.html">microemu::internal::RelativeAdrBuilder</a></div><div class="ttdef"><b>Definition</b> relative_adr_builder.h:10</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_relative_adr_builder_html_a0bfab9f1c86a64b19bb40a66de86a0cf"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_relative_adr_builder.html#a0bfab9f1c86a64b19bb40a66de86a0cf">microemu::internal::RelativeAdrBuilder::Build</a></div><div class="ttdeci">static void Build(TStrBuilder &amp;builder, const bool &amp;is_add, const bool &amp;is_index, const bool &amp;is_wback, const u8 &amp;n, const u32 &amp;imm)</div><div class="ttdoc">Uses the given str builder to build a string representing the different addressing modes of instructi...</div><div class="ttdef"><b>Definition</b> relative_adr_builder.h:22</div></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace internal</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_relative_adr_builder_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html">libmicroemu::internal::RelativeAdrBuilder</a></div><div class="ttdef"><b>Definition</b> relative_adr_builder.h:10</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_relative_adr_builder_html_a0d2b763e45643ceb9ab4983b47821f64"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a0d2b763e45643ceb9ab4983b47821f64">libmicroemu::internal::RelativeAdrBuilder::Build</a></div><div class="ttdeci">static void Build(TStrBuilder &amp;builder, const bool &amp;is_add, const bool &amp;is_index, const bool &amp;is_wback, const u8 &amp;n, const u32 &amp;imm)</div><div class="ttdoc">Uses the given str builder to build a string representing the different addressing modes of instructi...</div><div class="ttdef"><b>Definition</b> relative_adr_builder.h:22</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_aae4aa07185daf886d479bcaefc5fb94e"><div class="ttname"><a href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a></div><div class="ttdeci">RegisterId</div><div class="ttdoc">Enumeration of register IDs.</div><div class="ttdef"><b>Definition</b> register_id.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -99,13 +99,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacemicroemu.html">microemu</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>internal {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TProcessorStates, <span class="keyword">typename</span> TBus, <span class="keyword">typename</span> TRegOps, <span class="keyword">typename</span> TSpecRegOps,</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>          <span class="keyword">typename</span> TExceptionReturn, <span class="keyword">typename</span> TLogger = NullLogger&gt;</div>
 <div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_pc_ops.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keyword">using </span>ExcRet = TExceptionReturn;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">using </span>SReg = TSpecRegOps;</div>
@@ -116,10 +116,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> BranchWritePC(TProcessorStates &amp;pstates, <span class="keyword">const</span> me_adr_t &amp;address) {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// see Armv7-M Architecture Reference Manual Issue E.e p.30</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    BranchTo(pstates, address &amp; (~0x1u));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    BranchTo(pstates, address &amp; (~0x1U));</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  }</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;void&gt;</a> BXWritePC(TProcessorStates &amp;pstates, TBus &amp;bus,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;void&gt;</a> BXWritePC(TProcessorStates &amp;pstates, TBus &amp;bus,</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                                       <span class="keyword">const</span> me_adr_t &amp;address) {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// see Armv7-M Architecture Reference Manual Issue E.e p.31</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
@@ -130,11 +130,11 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keyword">auto</span> is_handler_mode = current_mode == SysCtrlRegister::kExecModeHandler;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// if CurrentMode == Mode_Handler &amp;&amp; address&lt;31:28&gt; == ‘1111’ then</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span> (is_handler_mode &amp;&amp; ((address &amp; 0xF0000000u) == 0xF0000000u)) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span> (is_handler_mode &amp;&amp; ((address &amp; 0xF0000000U) == 0xF0000000U)) {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      LOG_TRACE(TLogger, <span class="stringliteral">&quot;BXWritePC (Exception Return): address=0x%08X, is_handler_mode=%d&quot;</span>,</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                address, is_handler_mode);</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      <span class="comment">//     ExceptionReturn(address&lt;27:0&gt;);</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      <span class="keywordflow">return</span> ExcRet::Return(pstates, bus, address &amp; 0x0FFFFFFFu);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      <span class="keywordflow">return</span> ExcRet::Return(pstates, bus, address &amp; 0x0FFFFFFFU);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      <span class="keyword">auto</span> epsr = SReg::template ReadRegister&lt;SpecialRegisterId::kEpsr&gt;(pstates);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
@@ -145,7 +145,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      <span class="comment">// EPSR.T = address&lt;0&gt;;</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>      <span class="comment">// if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      epsr &amp;= <a class="code hl_struct" href="structmicroemu_1_1_epsr_register.html">~EpsrRegister</a>::kTMsk;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      epsr &amp;= <a class="code hl_struct" href="structlibmicroemu_1_1_epsr_register.html">~EpsrRegister</a>::kTMsk;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      epsr |= (address &amp; 0x1U) &lt;&lt; EpsrRegister::kTPos;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kEpsr&gt;(pstates, epsr);</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>      BranchTo(pstates, address &amp; (~0x1));</div>
@@ -163,13 +163,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// EPSR.T = address&lt;0&gt;;</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">auto</span> epsr = SReg::template ReadRegister&lt;SpecialRegisterId::kEpsr&gt;(pstates);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    epsr &amp;= <a class="code hl_struct" href="structmicroemu_1_1_epsr_register.html">~EpsrRegister</a>::kTMsk;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    epsr &amp;= <a class="code hl_struct" href="structlibmicroemu_1_1_epsr_register.html">~EpsrRegister</a>::kTMsk;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    epsr |= (address &amp; 0x1U) &lt;&lt; EpsrRegister::kTPos;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    SReg::template WriteRegister&lt;SpecialRegisterId::kEpsr&gt;(pstates, epsr);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    pstates.BranchTo(address &amp; (~0x1U));</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  }</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;void&gt;</a> LoadWritePC(TProcessorStates &amp;pstates, TBus &amp;bus,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;void&gt;</a> LoadWritePC(TProcessorStates &amp;pstates, TBus &amp;bus,</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                                         <span class="keyword">const</span> me_adr_t &amp;address) {</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// see Armv7-M Architecture Reference Manual Issue E.e p.31</span></div>
@@ -182,38 +182,38 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  }</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_pc_ops.html#a871612c73811869420224b60e79bea74">   91</a></span>  <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classmicroemu_1_1internal_1_1_pc_ops.html#a871612c73811869420224b60e79bea74">AdvanceInstr</a>(TProcessorStates &amp;pstates, <span class="keywordtype">bool</span> is_32bit) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_pc_ops.html#a8cad08df59410bf86e76bfdd2138f7c7">   91</a></span>  <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_pc_ops.html#a8cad08df59410bf86e76bfdd2138f7c7">AdvanceInstr</a>(TProcessorStates &amp;pstates, <span class="keywordtype">bool</span> is_32bit) {</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// The pc points to the current instruction +4. Therefore decrement 2</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// in case we have a 16 bit instruction</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    u32 pc = TRegOps::ReadPC(pstates);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    pc += is_32bit ? 0u : -2u;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    pc += is_32bit ? 0U : -2U;</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    BranchTo(pstates, pc);</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  }</div>
 </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a>() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">~PcOps</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">~PcOps</a>() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;operator=(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;operator=(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">PcOps</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>};</div>
 </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace microemu</span></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_pc_ops_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_pc_ops.html">microemu::internal::PcOps</a></div><div class="ttdef"><b>Definition</b> pc_ops.h:13</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_pc_ops_html_a871612c73811869420224b60e79bea74"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_pc_ops.html#a871612c73811869420224b60e79bea74">microemu::internal::PcOps::AdvanceInstr</a></div><div class="ttdeci">static void AdvanceInstr(TProcessorStates &amp;pstates, bool is_32bit)</div><div class="ttdoc">Advances the program counter to the next instruction.</div><div class="ttdef"><b>Definition</b> pc_ops.h:91</div></div>
-<div class="ttc" id="anamespacemicroemu_html"><div class="ttname"><a href="namespacemicroemu.html">microemu</a></div><div class="ttdoc">In this file the MemoryViewer class is defined.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="astructmicroemu_1_1_epsr_register_html"><div class="ttname"><a href="structmicroemu_1_1_epsr_register.html">microemu::EpsrRegister</a></div><div class="ttdef"><b>Definition</b> register_details.h:207</div></div>
-<div class="ttc" id="astructmicroemu_1_1_result_html"><div class="ttname"><a href="structmicroemu_1_1_result.html">microemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_pc_ops_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_pc_ops.html">libmicroemu::internal::PcOps</a></div><div class="ttdef"><b>Definition</b> pc_ops.h:13</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_pc_ops_html_a8cad08df59410bf86e76bfdd2138f7c7"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_pc_ops.html#a8cad08df59410bf86e76bfdd2138f7c7">libmicroemu::internal::PcOps::AdvanceInstr</a></div><div class="ttdeci">static void AdvanceInstr(TProcessorStates &amp;pstates, bool is_32bit)</div><div class="ttdoc">Advances the program counter to the next instruction.</div><div class="ttdef"><b>Definition</b> pc_ops.h:91</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_epsr_register_html"><div class="ttname"><a href="structlibmicroemu_1_1_epsr_register.html">libmicroemu::EpsrRegister</a></div><div class="ttdef"><b>Definition</b> register_details.h:207</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_result.html">libmicroemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

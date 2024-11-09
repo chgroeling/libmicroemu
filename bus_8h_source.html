@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -102,7 +102,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>microemu::internal {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">enum class</span> BusExceptionType {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  kRaiseNoException,           <span class="comment">// No exception has occurred.</span></div>
@@ -116,24 +116,24 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TProcessorStates, <span class="keyword">typename</span> TSpecRegOps, <span class="keyword">typename</span> TExceptionTrigger,</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>          <span class="keyword">typename</span> TLogger, <span class="keyword">typename</span>... TBusParticipant&gt;</div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_bus.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> : <span class="keyword">public</span> TBusParticipant... {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bus.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> : <span class="keyword">public</span> TBusParticipant... {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">using </span>SReg = TSpecRegOps;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">using </span>ExcTrig = TExceptionTrigger;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">explicit</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a>(<span class="keyword">const</span> TBusParticipant &amp;...participant) : TBusParticipant(participant)... {}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">explicit</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>(<span class="keyword">const</span> TBusParticipant &amp;...participant) : TBusParticipant(participant)... {}</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_bus.html#aee14d212b768c87b5e282ba2e5995219">   32</a></span>  <span class="keyword">virtual</span> <a class="code hl_function" href="classmicroemu_1_1internal_1_1_bus.html#aee14d212b768c87b5e282ba2e5995219">~Bus</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bus.html#a73168dcee54d3bacf06ac51ec984bd6a">   32</a></span>  <span class="keyword">virtual</span> <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bus.html#a73168dcee54d3bacf06ac51ec984bd6a">~Bus</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_bus.html#ab712a32745de71268eb46a1abaf847c0">   36</a></span>  <a class="code hl_function" href="classmicroemu_1_1internal_1_1_bus.html#ab712a32745de71268eb46a1abaf847c0">Bus</a>(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bus.html#aa16dac9bed0c6d0d9eb0887fa125deca">   36</a></span>  <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bus.html#aa16dac9bed0c6d0d9eb0887fa125deca">Bus</a>(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_bus.html#aeac42a6c3ac6cb9078f42d8258931554">   40</a></span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;<a class="code hl_function" href="classmicroemu_1_1internal_1_1_bus.html#aeac42a6c3ac6cb9078f42d8258931554">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bus.html#aeda303584c9b23ee0b0a813743a38a8d">   40</a></span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;<a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bus.html#aeda303584c9b23ee0b0a813743a38a8d">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_bus.html#ae0e581e12d3a9a5f006bc9b83d0c76eb">   44</a></span>  <a class="code hl_function" href="classmicroemu_1_1internal_1_1_bus.html#ae0e581e12d3a9a5f006bc9b83d0c76eb">Bus</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bus.html#a50e85e6fc140b8652cdf8dbdffe9f944">   44</a></span>  <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bus.html#a50e85e6fc140b8652cdf8dbdffe9f944">Bus</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classmicroemu_1_1internal_1_1_bus.html#a801997ed2222f37182c3261e1898cc0f">   48</a></span>  <a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;<a class="code hl_function" href="classmicroemu_1_1internal_1_1_bus.html#a801997ed2222f37182c3261e1898cc0f">operator=</a>(<a class="code hl_class" href="classmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bus.html#a076f1daf84417051a05e87c967bbbcbf">   48</a></span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;<a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bus.html#a076f1daf84417051a05e87c967bbbcbf">operator=</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;T&gt;</a> Read(TProcessorStates &amp;pstates, me_adr_t vadr)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;T&gt;</a> Read(TProcessorStates &amp;pstates, me_adr_t vadr)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">auto</span> read_result = ForwardRead&lt;T, TBusParticipant...&gt;(pstates, vadr);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">switch</span> (read_result.status_code) {</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">case</span> ReadStatusCode::kOk: {</div>
@@ -151,7 +151,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  }</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <a class="code hl_struct" href="structmicroemu_1_1_result.html">Result&lt;T&gt;</a> ReadOrRaise(TProcessorStates &amp;pstates, me_adr_t vadr, BusExceptionType exc_type)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;T&gt;</a> ReadOrRaise(TProcessorStates &amp;pstates, me_adr_t vadr, BusExceptionType exc_type)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">auto</span> read_res = ForwardRead&lt;T, TBusParticipant...&gt;(pstates, vadr);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (read_res.status_code == ReadStatusCode::kOk) {</div>
@@ -171,7 +171,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      cfsr |= CfsrBusFault::kStkerrMsk;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>      <span class="keywordflow">return</span> Ok(read_res.content);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">case</span> BusExceptionType::kRaiseUnstkerr: {</div>
@@ -183,7 +183,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      cfsr |= CfsrBusFault::kUnstkerrMsk;</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      <span class="keywordflow">return</span> Ok(read_res.content);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">case</span> BusExceptionType::kRaiseImpreciseDataBusError: {</div>
@@ -194,7 +194,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>      cfsr |= CfsrBusFault::kImpreciseErrMsk;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      <span class="keywordflow">return</span> Ok(read_res.content);</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">case</span> BusExceptionType::kRaisePreciseDataBusError: {</div>
@@ -205,7 +205,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>      cfsr |= CfsrBusFault::kPreciseErrMsk;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>      <span class="keywordflow">return</span> Ok(read_res.content);</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">case</span> BusExceptionType::kRaiseInstructionBusError: {</div>
@@ -217,7 +217,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      cfsr |= CfsrBusFault::kIbuErrMsk;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      <span class="keywordflow">return</span> Ok(read_res.content);</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
@@ -264,13 +264,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>      cfsr |= CfsrBusFault::kStkerrMsk;</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates, cfsr);</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>      <span class="keywordflow">return</span> Ok();</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">case</span> BusExceptionType::kRaiseUnstkerr: {</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kBfar&gt;(pstates, vadr);</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>      <span class="keyword">auto</span> cfsr = SReg::template ReadRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates);</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>      cfsr |= CfsrBusFault::kBfarValidMsk;</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>      cfsr |= CfsrBusFault::kUnstkerrMsk;</div>
@@ -281,7 +281,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">case</span> BusExceptionType::kRaiseImpreciseDataBusError: {</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kBfar&gt;(pstates, vadr);</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>      <span class="keyword">auto</span> cfsr = SReg::template ReadRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates);</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>      cfsr |= CfsrBusFault::kBfarValidMsk;</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>      cfsr |= CfsrBusFault::kImpreciseErrMsk;</div>
@@ -292,7 +292,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">case</span> BusExceptionType::kRaisePreciseDataBusError: {</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kBfar&gt;(pstates, vadr);</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>      <span class="keyword">auto</span> cfsr = SReg::template ReadRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates);</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>      cfsr |= CfsrBusFault::kBfarValidMsk;</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>      cfsr |= CfsrBusFault::kPreciseErrMsk;</div>
@@ -303,7 +303,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keywordflow">case</span> BusExceptionType::kRaiseInstructionBusError: {</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>      SReg::template WriteRegister&lt;SpecialRegisterId::kBfar&gt;(pstates, vadr);</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>      ExcTrig::SetPending(pstates, <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">ExceptionType::kBusFault</a>);</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>      <span class="keyword">auto</span> cfsr = SReg::template ReadRegister&lt;SpecialRegisterId::kCfsr&gt;(pstates);</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>      cfsr |= CfsrBusFault::kBfarValidMsk;</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>      cfsr |= CfsrBusFault::kIbuErrMsk;</div>
@@ -361,16 +361,17 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>};</div>
 </div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>} <span class="comment">// namespace microemu::internal</span></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bus_html"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bus.html">microemu::internal::Bus</a></div><div class="ttdef"><b>Definition</b> bus.h:24</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bus_html_a801997ed2222f37182c3261e1898cc0f"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bus.html#a801997ed2222f37182c3261e1898cc0f">microemu::internal::Bus::operator=</a></div><div class="ttdeci">Bus &amp; operator=(Bus &amp;&amp;r_src)=default</div><div class="ttdoc">Move assignment operator for Bus.</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bus_html_ab712a32745de71268eb46a1abaf847c0"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bus.html#ab712a32745de71268eb46a1abaf847c0">microemu::internal::Bus::Bus</a></div><div class="ttdeci">Bus(const Bus &amp;r_src)=default</div><div class="ttdoc">Copy constructor for Bus.</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bus_html_ae0e581e12d3a9a5f006bc9b83d0c76eb"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bus.html#ae0e581e12d3a9a5f006bc9b83d0c76eb">microemu::internal::Bus::Bus</a></div><div class="ttdeci">Bus(Bus &amp;&amp;r_src)=default</div><div class="ttdoc">Move constructor for Bus.</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bus_html_aeac42a6c3ac6cb9078f42d8258931554"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bus.html#aeac42a6c3ac6cb9078f42d8258931554">microemu::internal::Bus::operator=</a></div><div class="ttdeci">Bus &amp; operator=(const Bus &amp;r_src)=default</div><div class="ttdoc">Copy assignment operator for Bus.</div></div>
-<div class="ttc" id="aclassmicroemu_1_1internal_1_1_bus_html_aee14d212b768c87b5e282ba2e5995219"><div class="ttname"><a href="classmicroemu_1_1internal_1_1_bus.html#aee14d212b768c87b5e282ba2e5995219">microemu::internal::Bus::~Bus</a></div><div class="ttdeci">virtual ~Bus()=default</div><div class="ttdoc">Destructor.</div></div>
-<div class="ttc" id="anamespacemicroemu_html_a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46"><div class="ttname"><a href="namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64bae4d6066c5f7d6a637b99a974a03f8b46">microemu::ExceptionType::kBusFault</a></div><div class="ttdeci">@ kBusFault</div><div class="ttdoc">Bus fault exception, triggered by bus errors on instruction fetches and data accesses.</div></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>} <span class="comment">// namespace libmicroemu::internal</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bus_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a></div><div class="ttdef"><b>Definition</b> bus.h:24</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bus_html_a076f1daf84417051a05e87c967bbbcbf"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bus.html#a076f1daf84417051a05e87c967bbbcbf">libmicroemu::internal::Bus::operator=</a></div><div class="ttdeci">Bus &amp; operator=(Bus &amp;&amp;r_src)=default</div><div class="ttdoc">Move assignment operator for Bus.</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bus_html_a50e85e6fc140b8652cdf8dbdffe9f944"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bus.html#a50e85e6fc140b8652cdf8dbdffe9f944">libmicroemu::internal::Bus::Bus</a></div><div class="ttdeci">Bus(Bus &amp;&amp;r_src)=default</div><div class="ttdoc">Move constructor for Bus.</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bus_html_a73168dcee54d3bacf06ac51ec984bd6a"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bus.html#a73168dcee54d3bacf06ac51ec984bd6a">libmicroemu::internal::Bus::~Bus</a></div><div class="ttdeci">virtual ~Bus()=default</div><div class="ttdoc">Destructor.</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bus_html_aa16dac9bed0c6d0d9eb0887fa125deca"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bus.html#aa16dac9bed0c6d0d9eb0887fa125deca">libmicroemu::internal::Bus::Bus</a></div><div class="ttdeci">Bus(const Bus &amp;r_src)=default</div><div class="ttdoc">Copy constructor for Bus.</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bus_html_aeda303584c9b23ee0b0a813743a38a8d"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bus.html#aeda303584c9b23ee0b0a813743a38a8d">libmicroemu::internal::Bus::operator=</a></div><div class="ttdeci">Bus &amp; operator=(const Bus &amp;r_src)=default</div><div class="ttdoc">Copy assignment operator for Bus.</div></div>
+<div class="ttc" id="anamespacelibmicroemu_1_1internal_html"><div class="ttname"><a href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a></div><div class="ttdoc">The libmicroemu::internal namespace contains all classes and functions of libmicroemu which are priva...</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:7</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">libmicroemu::ExceptionType::kBusFault</a></div><div class="ttdeci">@ kBusFault</div><div class="ttdoc">Bus fault exception, triggered by bus errors on instruction fetches and data accesses.</div></div>
 <div class="ttc" id="aspecial__register__id_8h_html"><div class="ttname"><a href="special__register__id_8h.html">special_register_id.h</a></div><div class="ttdoc">This file contains the declaration of the SpecialRegisterId enumeration and related functions.</div></div>
-<div class="ttc" id="astructmicroemu_1_1_result_html"><div class="ttname"><a href="structmicroemu_1_1_result.html">microemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_result.html">libmicroemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

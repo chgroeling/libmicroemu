@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ldrd_0',['Ldrd',['../classmicroemu_1_1internal_1_1_special_instr.html#ac389ed83edbe6c50a50f05e78a90d4bf',1,'microemu::internal::SpecialInstr']]],
-  ['load_1',['Load',['../classmicroemu_1_1_micro_emu.html#a8a49ef644cf26df91ab86e9bb42a7745',1,'microemu::MicroEmu']]],
-  ['lowestbitset_2',['LowestBitSet',['../classmicroemu_1_1internal_1_1_bit_manip.html#a18a3a20447b699d3b2aa60dfd4cc4a8e',1,'microemu::internal::BitManip']]]
+  ['ldrd_0',['Ldrd',['../classlibmicroemu_1_1internal_1_1_special_instr.html#aed92528035cc271cdbefda1cb9a20282',1,'libmicroemu::internal::SpecialInstr']]],
+  ['load_1',['Load',['../classlibmicroemu_1_1_machine.html#ad50d119d83a629a0588765117bd904bd',1,'libmicroemu::Machine']]],
+  ['lowestbitset_2',['LowestBitSet',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4',1,'libmicroemu::internal::BitManip']]]
 ];

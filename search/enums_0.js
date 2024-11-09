@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['exceptiontype_0',['ExceptionType',['../namespacemicroemu.html#a6204e9191eb81546d1d06b751721f64b',1,'microemu']]]
+  ['exceptiontype_0',['ExceptionType',['../namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1',1,'libmicroemu']]]
 ];

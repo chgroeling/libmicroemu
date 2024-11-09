@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['ifthenops_0',['IfThenOps',['../classmicroemu_1_1internal_1_1_if_then_ops.html#ab672c4d4760c22ecee87b692a31f077c',1,'microemu::internal::IfThenOps::IfThenOps()=delete'],['../classmicroemu_1_1internal_1_1_if_then_ops.html#ae83683c3d3dabb2a148b93db3ede50eb',1,'microemu::internal::IfThenOps::IfThenOps(IfThenOps &amp;r_src)=delete'],['../classmicroemu_1_1internal_1_1_if_then_ops.html#afcff0150bbe0e7391da3cf46bf3715a5',1,'microemu::internal::IfThenOps::IfThenOps(IfThenOps &amp;&amp;r_src)=delete']]],
-  ['inserttype_1',['InsertType',['../classmicroemu_1_1internal_1_1_bit_manip.html#a897e2b122b0d87a48468100f6d405ec6',1,'microemu::internal::BitManip']]],
-  ['isbitset_2',['IsBitSet',['../classmicroemu_1_1internal_1_1_bit_manip.html#a18b43e224b8be62ccddc1cda8ec86f01',1,'microemu::internal::BitManip']]],
-  ['isolatebit_3',['IsolateBit',['../classmicroemu_1_1internal_1_1_bit_manip.html#a2a53a534ee1f1d560702f88b58f52c09',1,'microemu::internal::BitManip']]],
-  ['iszerobit_4',['IsZeroBit',['../classmicroemu_1_1internal_1_1_bit_manip.html#a454faa44a1f8c4582b0fbd3014b340f9',1,'microemu::internal::BitManip']]],
-  ['itinstr_5',['ItInstr',['../classmicroemu_1_1internal_1_1_special_instr.html#a81dba3dc4b718b277ecf6cacf69eade6',1,'microemu::internal::SpecialInstr']]]
+  ['ifthenops_0',['IfThenOps',['../classlibmicroemu_1_1internal_1_1_if_then_ops.html#ac3f204361744401efca29606bb837d1a',1,'libmicroemu::internal::IfThenOps::IfThenOps()=delete'],['../classlibmicroemu_1_1internal_1_1_if_then_ops.html#a0c66ec950cb24ceed9686d4dec079594',1,'libmicroemu::internal::IfThenOps::IfThenOps(IfThenOps &amp;r_src)=delete'],['../classlibmicroemu_1_1internal_1_1_if_then_ops.html#aee15115a04b45d49b05c0764a40692e2',1,'libmicroemu::internal::IfThenOps::IfThenOps(IfThenOps &amp;&amp;r_src)=delete']]],
+  ['inserttype_1',['InsertType',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5',1,'libmicroemu::internal::BitManip']]],
+  ['isactive_2',['IsActive',['../structlibmicroemu_1_1_single_exception_state.html#a86d2206c5ec22dafc27ae6373fbad7f0',1,'libmicroemu::SingleExceptionState']]],
+  ['isbitset_3',['IsBitSet',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0',1,'libmicroemu::internal::BitManip']]],
+  ['isolatebit_4',['IsolateBit',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0',1,'libmicroemu::internal::BitManip']]],
+  ['ispending_5',['IsPending',['../structlibmicroemu_1_1_single_exception_state.html#acd5bd13eae809e15e435612b71ce6c16',1,'libmicroemu::SingleExceptionState']]],
+  ['iszerobit_6',['IsZeroBit',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c',1,'libmicroemu::internal::BitManip']]],
+  ['itinstr_7',['ItInstr',['../classlibmicroemu_1_1internal_1_1_special_instr.html#afdf624f04f2c753759b3e4a286c366f5',1,'libmicroemu::internal::SpecialInstr']]]
 ];
