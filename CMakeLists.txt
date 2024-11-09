@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.5.0)
 message(STATUS "CMake version: ${CMAKE_VERSION}")
 
 # Read the version from VERSION file
-file(READ "${CMAKE_SOURCE_DIR}/VERSION" PROJECT_VERSION)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" PROJECT_VERSION)
 
 # Remove any surrounding whitespace
 string(STRIP "${PROJECT_VERSION}" PROJECT_VERSION)  
