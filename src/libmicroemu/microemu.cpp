@@ -2,7 +2,7 @@
 #include "libmicroemu/internal/elf/elf_reader.h"
 #include "libmicroemu/internal/emulator.h"
 #include "libmicroemu/internal/trace/intstr_to_mnemonic.h"
-#include "libmicroemu_version.h"
+#include "libmicroemu/version.h"
 #include <ctype.h>
 #include <fstream>
 #include <iostream>

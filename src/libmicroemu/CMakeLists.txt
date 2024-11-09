@@ -44,8 +44,8 @@ SET (RELEASE_LOGLEVEL
 
 # Generate version.h in the build directory
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/libmicroemu_version.h.in"  
-    "${CMAKE_BINARY_DIR}/version/libmicroemu_version.h"
+    "${CMAKE_SOURCE_DIR}/cmake/version.h.in"  
+    "${CMAKE_BINARY_DIR}/include/libmicroemu/version.h"
     @ONLY
 )
 
@@ -71,12 +71,12 @@ target_include_directories(
     $<INSTALL_INTERFACE:include>  # <prefix>/include/
     PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src
-    ${CMAKE_BINARY_DIR}/version
+    ${CMAKE_BINARY_DIR}/include/
 )
 
 # Install the public headers
 install(DIRECTORY ../../include DESTINATION include)
-install(DIRECTORY ${CMAKE_BINARY_DIR}/version DESTINATION include)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION include)
 
 
 install(
