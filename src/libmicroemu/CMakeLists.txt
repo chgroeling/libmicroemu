@@ -48,8 +48,7 @@ configure_file(
     "${CMAKE_BINARY_DIR}/include/libmicroemu/version.h"
     @ONLY
 )
-
-
+# TODO: move the library to lib
 add_library(${LIB_NAME} ${MICROEMU_SOURCES})
 set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 target_compile_definitions(${LIB_NAME} PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_LOGLEVEL}>")
@@ -75,21 +74,23 @@ target_include_directories(
 )
 
 # Install the public headers
-install(DIRECTORY ../../include DESTINATION include)
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION include)
+install(DIRECTORY ../../include/libmicroemu DESTINATION include)
+
+# Install the generated public headers 
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/libmicroemu DESTINATION include)
 
 
 install(
     TARGETS ${LIB_NAME} 
-    EXPORT ${LIB_NAME}-targets
+    EXPORT ${LIB_NAME}Targets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
     RUNTIME DESTINATION bin
     INCLUDES DESTINATION include
 )
 
-install(EXPORT ${LIB_NAME}-targets
-    FILE ${LIB_NAME}-targets.cmake
+install(EXPORT ${LIB_NAME}Targets
+    FILE ${LIB_NAME}Config.cmake
     NAMESPACE ${LIB_NAME}::
     DESTINATION share/${LIB_NAME}/cmake
 )
