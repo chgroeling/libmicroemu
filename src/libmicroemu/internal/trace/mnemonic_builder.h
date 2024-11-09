@@ -27,7 +27,7 @@
 #include "libmicroemu/types.h"
 #include <cstddef>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 class MnemonicBuilder {
@@ -655,4 +655,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

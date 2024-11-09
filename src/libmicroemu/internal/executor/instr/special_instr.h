@@ -10,7 +10,7 @@
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 /// Load from register adress to register
@@ -713,4 +713,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

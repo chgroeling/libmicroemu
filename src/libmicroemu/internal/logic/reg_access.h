@@ -2,7 +2,7 @@
 #include <string_view>
 
 // Write implementation of IRegAccessor
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 /**
  * @class RegAccessor
@@ -74,4 +74,4 @@ private:
   PState &pstates_; /**< The processor states used by the RegAccessor object. */
 };
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

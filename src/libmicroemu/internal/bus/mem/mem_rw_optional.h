@@ -5,7 +5,7 @@
 #include <cassert>
 #include <type_traits>
 
-namespace microemu::internal {
+namespace libmicroemu::internal {
 
 /// Optional assignable memory class.
 /// This class represent an memory area which can be read and written to. The memory area is
@@ -103,4 +103,4 @@ private:
   bool IsPAdrInRange(me_adr_t padr) const { return padr < buf_size_; }
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

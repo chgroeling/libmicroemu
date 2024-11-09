@@ -1,5 +1,5 @@
 
 #include "libmicroemu/logger.h"
-using namespace microemu;
+using namespace libmicroemu;
 
-void (*StaticLogger::callback_)(microemu::LogLevel level, const char *, ...) noexcept;
+void (*StaticLogger::callback_)(libmicroemu::LogLevel level, const char *, ...) noexcept;

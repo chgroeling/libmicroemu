@@ -11,15 +11,15 @@
 #include <functional>
 
 /**
- * @brief The \ref microemu namespace contains all classes and functions of the libmicroemu which
+ * @brief The \ref libmicroemu namespace contains all classes and functions of the libmicroemu which
  * are public.
  */
 
 // TODO: Change namespace to libmicroemu PRIORITY: HIGH
-namespace microemu {
+namespace libmicroemu {
 
 /**
- * @brief The microemu::internal namespace contains all classes and functions of libmicroemu
+ * @brief The libmicroemu::internal namespace contains all classes and functions of libmicroemu
  * which are private.
  */
 namespace internal {
@@ -85,7 +85,7 @@ public:
   /// @param cb  Callback function to evaluate the state
   void EvaluateState(FStateCallback cb) noexcept;
 
-  static void RegisterLoggerCallback(void (*callback)(microemu::LogLevel level, const char *,
+  static void RegisterLoggerCallback(void (*callback)(libmicroemu::LogLevel level, const char *,
                                                       ...) noexcept) noexcept;
 
   /// @brief Gets the version of the library
@@ -109,4 +109,4 @@ private:
   ProcessorStates pstates_{};
 };
 
-} // namespace microemu
+} // namespace libmicroemu

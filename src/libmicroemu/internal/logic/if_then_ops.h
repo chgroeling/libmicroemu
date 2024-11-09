@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <string_view>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 enum class Condition : u32 {
@@ -248,4 +248,4 @@ public:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

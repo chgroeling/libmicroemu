@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace microemu {
+namespace libmicroemu {
 
 using RawInstrFlagsSet = u8;
 
@@ -14,4 +14,4 @@ enum class RawInstrFlagsMsk : RawInstrFlagsSet {
   k32Bit = 1U << static_cast<u8>(RawInstrFlagsPos::k32Bit)
 };
 
-} // namespace microemu
+} // namespace libmicroemu

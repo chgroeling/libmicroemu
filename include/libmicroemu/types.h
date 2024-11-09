@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 
 using u64 = uint64_t;
 using u32 = uint32_t;
@@ -26,4 +26,4 @@ union U32_parts {
   u8 u8[4];
 };
 
-} // namespace microemu
+} // namespace libmicroemu

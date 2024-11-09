@@ -1,7 +1,7 @@
 #pragma once
 
 #include "libmicroemu/types.h"
-namespace microemu {
+namespace libmicroemu {
 
 struct ThumbImmediateResult {
   u32 out;
@@ -11,4 +11,4 @@ struct ThumbImmediateResult {
   // ThumbImmediateResult(u32 out, bool carry_out) : out(out), carry_out(carry_out) {}
 };
 
-} // namespace microemu
+} // namespace libmicroemu

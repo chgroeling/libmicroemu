@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 template <typename T> struct make_signed_type;
@@ -65,4 +65,4 @@ template <> struct next_bigger_type<u8> {
 template <typename T> using next_bigger_type_t = typename next_bigger_type<T>::type;
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

@@ -42,7 +42,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 // TODO: Use Template ProcessorOPs
@@ -973,4 +973,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

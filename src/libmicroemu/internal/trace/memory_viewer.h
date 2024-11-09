@@ -7,7 +7,7 @@
 #include "libmicroemu/types.h"
 #include <ctype.h>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 template <typename TProcessorStates, typename TBus> class MemoryViewer {
@@ -94,4 +94,4 @@ private:
   }
 };
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

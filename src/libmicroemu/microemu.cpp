@@ -8,7 +8,7 @@
 #include <iostream>
 #include <utility>
 
-namespace microemu {
+namespace libmicroemu {
 
 using namespace internal;
 
@@ -132,11 +132,11 @@ void MicroEmu::EvaluateState(FStateCallback cb) noexcept {
   cb(reg_access, spec_reg_access);
 }
 
-void MicroEmu::RegisterLoggerCallback(void (*callback)(microemu::LogLevel level, const char *,
+void MicroEmu::RegisterLoggerCallback(void (*callback)(libmicroemu::LogLevel level, const char *,
                                                        ...) noexcept) noexcept {
   StaticLogger::RegisterLoggerCallback(callback);
 }
 
 std::string_view MicroEmu::GetVersion() noexcept { return kLibmicroemuVersion; }
 
-} // namespace microemu
+} // namespace libmicroemu

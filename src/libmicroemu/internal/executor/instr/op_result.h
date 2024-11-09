@@ -2,7 +2,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 struct OpResult {
@@ -16,4 +16,4 @@ struct BranchOpResult {
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 using InstrFlagsSet = u8;
@@ -30,4 +30,4 @@ enum class InstrFlags : InstrFlagsSet {
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

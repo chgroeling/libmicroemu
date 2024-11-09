@@ -4,7 +4,7 @@
 
 #include <type_traits>
 
-namespace microemu {
+namespace libmicroemu {
 enum class StatusCode : u32 {
   // clang-format off
   kScSuccess = 0x0U, // Operation succedded successfully 
@@ -229,4 +229,4 @@ Err(const Result<TIn> &res) noexcept {
     };                                                                                             \
   }
 
-} // namespace microemu
+} // namespace libmicroemu

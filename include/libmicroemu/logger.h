@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-namespace microemu {
+namespace libmicroemu {
 
 enum class LogLevel { kTrace, kDebug, kInfo, kWarn, kError, kCritical };
 
@@ -42,13 +42,13 @@ public:
     }
   }
 
-  static void RegisterLoggerCallback(void (*callback)(microemu::LogLevel level, const char *,
+  static void RegisterLoggerCallback(void (*callback)(libmicroemu::LogLevel level, const char *,
                                                       ...) noexcept) noexcept {
     callback_ = callback;
   };
 
 private:
-  static void (*callback_)(microemu::LogLevel level, const char *, ...) noexcept;
+  static void (*callback_)(libmicroemu::LogLevel level, const char *, ...) noexcept;
 };
 class NullLogger {
 public:
@@ -78,7 +78,7 @@ public:
   }
 };
 
-}; // namespace microemu
+}; // namespace libmicroemu
 
 // ---------------------
 // LOGGER MACROS

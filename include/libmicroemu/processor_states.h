@@ -11,7 +11,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 
 /** @brief Processor states class.
  *
@@ -101,4 +101,4 @@ private:
   ExceptionStates exception_states_;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

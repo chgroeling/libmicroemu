@@ -3,7 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
@@ -64,4 +64,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

@@ -1,7 +1,7 @@
 #pragma once
 #include "libmicroemu/types.h"
 
-namespace microemu::internal {
+namespace libmicroemu::internal {
 
 enum class ReadStatusCode : u32 {
   kOk = 0U,
@@ -22,4 +22,4 @@ template <typename T> struct WriteResult {
   WriteStatusCode status_code;
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

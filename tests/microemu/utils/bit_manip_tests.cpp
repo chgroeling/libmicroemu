@@ -6,8 +6,8 @@
 
 using ::testing::Return;
 
-using namespace microemu;
-using namespace microemu::internal;
+using namespace libmicroemu;
+using namespace libmicroemu::internal;
 
 TEST(BitManipTests, GenerateBitMaskLowNibble) {
   u32 mask = BitManip<u32>::GenerateBitMask<3U, 0U>();

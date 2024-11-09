@@ -10,7 +10,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 template <typename TProcessorStates, typename TSpecRegOps, typename TLogger = NullLogger>
@@ -49,11 +49,11 @@ public:
       return "FP";
     case 0xCU: // intra-procedure call scratch register (r12)
       return "IP";
-    case static_cast<u8>(microemu::RegisterId::kSp): // stack-pointer (r13)
+    case static_cast<u8>(libmicroemu::RegisterId::kSp): // stack-pointer (r13)
       return "SP";
     case 0xEU: // link-register (r14)
       return "LR";
-    case static_cast<u8>(microemu::RegisterId::kPc): // r15
+    case static_cast<u8>(libmicroemu::RegisterId::kPc): // r15
       return "PC";
     default:
       return "UNDEFINED";
@@ -186,4 +186,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

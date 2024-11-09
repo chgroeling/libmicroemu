@@ -3,7 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 enum class BkptFlags : u8 {
@@ -15,4 +15,4 @@ enum class BkptFlags : u8 {
 using BkptFlagsSet = uint8_t;
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

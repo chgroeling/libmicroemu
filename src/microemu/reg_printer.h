@@ -16,26 +16,26 @@ struct SampledRegs {
 class RegPrinter {
 public:
   // Copyies the register values to the buffer
-  static SampledRegs SampleRegs(const microemu::IRegAccessor &reg_access,
-                                const microemu::ISpecialRegAccessor &spec_reg_access) {
+  static SampledRegs SampleRegs(const libmicroemu::IRegAccessor &reg_access,
+                                const libmicroemu::ISpecialRegAccessor &spec_reg_access) {
     SampledRegs sampled_regs{};
     for (uint8_t reg_id = 0x0U; reg_id < kRegCount; reg_id += 1U) {
       if (reg_id < 16U) {
-        auto value = reg_access.ReadRegister(static_cast<microemu::RegisterId>(reg_id));
+        auto value = reg_access.ReadRegister(static_cast<libmicroemu::RegisterId>(reg_id));
         sampled_regs.values[reg_id] = value;
         sampled_regs.names[reg_id] =
-            reg_access.GetRegisterName(static_cast<microemu::RegisterId>(reg_id)).data();
+            reg_access.GetRegisterName(static_cast<libmicroemu::RegisterId>(reg_id)).data();
       } else {
         switch (reg_id) {
         case 16U: {
-          auto spec_reg_id = microemu::SpecialRegisterId::kApsr;
+          auto spec_reg_id = libmicroemu::SpecialRegisterId::kApsr;
           auto value = spec_reg_access.ReadRegister(spec_reg_id);
           sampled_regs.values[reg_id] = value;
           sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id).data();
           break;
         }
         case 17U: {
-          auto spec_reg_id = microemu::SpecialRegisterId::kIstate;
+          auto spec_reg_id = libmicroemu::SpecialRegisterId::kIstate;
           auto value = spec_reg_access.ReadRegister(spec_reg_id);
           sampled_regs.values[reg_id] = value;
           sampled_regs.names[reg_id] = spec_reg_access.GetRegisterName(spec_reg_id).data();

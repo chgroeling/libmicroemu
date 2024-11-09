@@ -2,7 +2,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 
 /// @brief Exception enumeration
 ///
@@ -73,4 +73,4 @@ static constexpr u32 CountExceptions() noexcept {
   return CountInternalExceptions() + kNoOfExternalIrqs;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

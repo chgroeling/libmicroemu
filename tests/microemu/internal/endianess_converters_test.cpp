@@ -4,7 +4,7 @@
 
 #include <cstdint>
 
-using namespace microemu;
+using namespace libmicroemu;
 
 /// \test BigToLittleEndianConverterTest
 /// \test_verifies

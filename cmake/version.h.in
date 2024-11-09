@@ -1,6 +1,6 @@
 #pragma once
 
-namespace microemu {
+namespace libmicroemu {
 
 static constexpr unsigned kLibmicroemuVersionMajor = @PROJECT_VERSION_MAJOR@U;
 static constexpr unsigned kLibmicroemuVersionMinor = @PROJECT_VERSION_MINOR@U;
@@ -8,4 +8,4 @@ static constexpr unsigned kLibmicroemuVersionPatch = @PROJECT_VERSION_PATCH@U;
 
 static constexpr const char *kLibmicroemuVersion = "@PROJECT_VERSION@";
 
-} // namespace microemu
+} // namespace libmicroemu

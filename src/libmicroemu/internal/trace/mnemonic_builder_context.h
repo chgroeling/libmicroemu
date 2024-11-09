@@ -3,7 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 template <typename TProcessorStates, typename TItOps, typename TRegOps, typename TSpecRegOps>
 struct MnemonicBuilderContext {
@@ -17,4 +17,4 @@ struct MnemonicBuilderContext {
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu
