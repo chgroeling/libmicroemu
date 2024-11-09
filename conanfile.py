@@ -3,6 +3,7 @@ import json
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 import semver
+from conan.tools.scm import Git
 
 
 class LibMicroEmu(ConanFile):
@@ -19,6 +20,7 @@ class LibMicroEmu(ConanFile):
         "src*",
         "CMakeLists.txt",
     )
+
     options = {
         "build_tests": [True, False],
         "build_microemu": [True, False],
@@ -28,6 +30,16 @@ class LibMicroEmu(ConanFile):
         "build_microemu": False,
     }
 
+    def set_version(self):
+
+        # Read version from VERSION file
+        version_file_path = os.path.join(self.recipe_folder, "VERSION")
+        if os.path.exists(version_file_path):
+            with open(version_file_path, "r") as version_file:
+                self.version = version_file.read().strip("v")
+        else:
+            raise FileNotFoundError("VERSION file not found. Ensure it exists in the recipe folder.")
+        
     def requirements(self):
         # only require fmt, cxxopts, spdlog, gtest if not doxygen_only
         if not self.conf.get("user.build:docs_only", default=False):
@@ -43,6 +55,7 @@ class LibMicroEmu(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
+        version = semver.Version.parse(self.version)
         tc.variables["BUILD_TESTING"] = "ON" if self.options.build_tests else "OFF"
         tc.variables["BUILD_MICROEMU"] = "ON" if self.options.build_microemu else "OFF"
         tc.generate()

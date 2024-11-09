@@ -2,7 +2,7 @@
 #include "libmicroemu/internal/elf/elf_reader.h"
 #include "libmicroemu/internal/emulator.h"
 #include "libmicroemu/internal/trace/intstr_to_mnemonic.h"
-
+#include "libmicroemu_version.h"
 #include <ctype.h>
 #include <fstream>
 #include <iostream>
@@ -136,4 +136,7 @@ void MicroEmu::RegisterLoggerCallback(void (*callback)(microemu::LogLevel level,
                                                        ...) noexcept) noexcept {
   StaticLogger::RegisterLoggerCallback(callback);
 }
+
+std::string_view MicroEmu::GetVersion() noexcept { return kLibmicroemuVersion; }
+
 } // namespace microemu

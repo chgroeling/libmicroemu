@@ -1,13 +1,34 @@
 cmake_minimum_required (VERSION 3.5.0)
+message(STATUS "CMake version: ${CMAKE_VERSION}")
 
-message("Building with CMake version: ${CMAKE_VERSION}")
+# Read the version from VERSION file
+file(READ "${CMAKE_SOURCE_DIR}/VERSION" PROJECT_VERSION)
+
+# Remove any surrounding whitespace
+string(STRIP "${PROJECT_VERSION}" PROJECT_VERSION)  
+
+# Remove leading 'v' if present
+string(REGEX REPLACE "^v" "" PROJECT_VERSION "${PROJECT_VERSION}")
+
+# Split the version into major, minor, and patch components
+string(REPLACE "." ";" VERSION_LIST "${PROJECT_VERSION}")
+list(GET VERSION_LIST 0 PROJECT_VERSION_MAJOR)
+list(GET VERSION_LIST 1 PROJECT_VERSION_MINOR)
+list(GET VERSION_LIST 2 PROJECT_VERSION_PATCH)
+
+# Combine to form the SEMVER format
+set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 
 # Project name and a few useful settings. Other commands can pick up the results
 project(
   libmicroemu 
-  VERSION 0.0.1
+  VERSION ${PROJECT_VERSION}
   DESCRIPTION "Embeddedable emulator on microcontrollers"
   LANGUAGES CXX C)
+
+# Confirm version
+message(STATUS "libmicroemu version: ${PROJECT_VERSION}")
+
 
 
 # Only do these if this is the main project, and not if it is included through add_subdirectory

@@ -88,6 +88,7 @@ int main(int argc, const char *argv[]) {
   // clang-format off
   options.add_options()
     ("h,help", "Print usage information.")
+    ("version", "Print version information.")
     ("l,log", "Enable logging")
     ("log-level" , kLogLevelOption, 
         cxxopts::value<std::string>()->default_value("INFO"))
@@ -130,6 +131,7 @@ int main(int argc, const char *argv[]) {
     std::cerr << "usage: microemu [options] <elf_file> \n";
     return EXIT_FAILURE;
   }
+  microemu::MicroEmu lme;
 
   // print out help if necessary
   if (result.count("help")) {
@@ -137,6 +139,17 @@ int main(int argc, const char *argv[]) {
     return EXIT_SUCCESS;
   }
 
+  // Print version information if necessary
+  if (result.count("version")) {
+
+    // Both versions are the same for now
+    fmt::print(stdout, "microemu version: {}\n", lme.GetVersion());
+    fmt::print(stdout, "libmicroemu version: {}\n", lme.GetVersion());
+
+    return EXIT_SUCCESS;
+  }
+
+  // TODO: Remove std::cerr and std::cout and replace with fmt::print
   // =====================================
   // Checking command line options
   // =====================================
@@ -189,8 +202,6 @@ int main(int argc, const char *argv[]) {
   // =====================================
   // Emulator configuration
   // =====================================
-
-  microemu::MicroEmu lib;
   SampledRegs regs_from_last_step{};
 
   // Flash Segment
@@ -297,9 +308,9 @@ int main(int argc, const char *argv[]) {
   ram2_seg = std::vector<uint8_t>(ram2_seg_size);
 
   // Set the memory segments
-  lib.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
-  lib.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
-  lib.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
+  lme.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
+  lme.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
+  lme.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
 
   // Check if the entry point should be set from the ELF file
   // If not set, the entry point is set through the vector tabledoc:
@@ -323,7 +334,7 @@ int main(int argc, const char *argv[]) {
       };
 
   // Load the ELF file
-  auto res = lib.Load(elf_file.c_str(), is_elf_entry_point);
+  auto res = lme.Load(elf_file.c_str(), is_elf_entry_point);
   if (res.IsErr()) {
     fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", res.ToString(),
                static_cast<uint32_t>(res.status_code));
@@ -334,7 +345,7 @@ int main(int argc, const char *argv[]) {
   if (is_trace == true) {
     // Evaluate the initial state
     if (is_trace_regs || is_trace_changed_regs) {
-      lib.EvaluateState(initial_state_cb);
+      lme.EvaluateState(initial_state_cb);
     }
   }
 
@@ -401,7 +412,7 @@ int main(int argc, const char *argv[]) {
   // TODO: Count number of instructions executed and time taken
 
   // Here we execute the arm code
-  auto res_exec = lib.Exec(instr_limit, pre_instr, post_instr);
+  auto res_exec = lme.Exec(instr_limit, pre_instr, post_instr);
 
   if (res_exec.IsErr()) {
     // TODO: Move error handler to application

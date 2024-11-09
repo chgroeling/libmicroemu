@@ -45,7 +45,7 @@ public:
                          FPostExecStepCallback cb_post_exec = nullptr) noexcept;
 
   /// @brief Sets the Flash segment
-  /// The flash segment is were a microcontroller stores its program code. A flash
+  /// The flash segment is where a microcontroller stores its program code. A flash
   /// segment is read-only.
   /// @param seg_ptr Pointer to the flash segment
   /// @param seg_size Size of the flash segment
@@ -53,7 +53,7 @@ public:
   void SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept;
 
   /// @brief Sets the RAM1 segment
-  /// The RAM1 segment is were a microcontroller stores its data. A RAM1 segment
+  /// The RAM1 segment is where a microcontroller stores its data. A RAM1 segment
   /// is read-write.
   /// @param seg_ptr Pointer to the RAM1 segment
   /// @param seg_size Size of the RAM1 segment
@@ -77,6 +77,10 @@ public:
 
   static void RegisterLoggerCallback(void (*callback)(microemu::LogLevel level, const char *,
                                                       ...) noexcept) noexcept;
+
+  /// @brief Gets the version of the library
+  /// @return The semver version of the library in the format "MAJOR.MINOR.PATCH"
+  std::string_view GetVersion() noexcept;
 
 private:
   internal::Emulator<ProcessorStates> BuildEmulator();

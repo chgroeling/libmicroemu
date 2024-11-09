@@ -3,7 +3,7 @@ name: release on multiple platforms
 on:
   push:
     tags:
-      - 'v*'  # Trigger on tags starting with "v" (e.g., v1.0.0)
+      - "v*.*.*"  # Trigger on SEMVER tags like "v1.2.3"
   
 jobs:
   build:
@@ -30,6 +30,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Extract version from Git tag
+      run: |
+        TAG_VERSION="${GITHUB_REF#refs/tags/}"
+        echo "TAG_VERSION=${TAG_VERSION}" >> $GITHUB_ENV
+
+    - name: Check VERSION file
+      run: |
+        FILE_VERSION=$(cat VERSION)
+        if [ "$FILE_VERSION" != "$TAG_VERSION" ]; then
+        echo "ERROR: VERSION file ($FILE_VERSION) does not match Git tag ($TAG_VERSION)"
+        exit 1
+        else
+        echo "VERSION file is consistent with Git tag"
+        fi
+
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
       id: strings
