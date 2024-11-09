@@ -7,7 +7,7 @@
 #include "libmicroemu/register_details.h"
 #include "libmicroemu/types.h"
 
-namespace microemu ::internal {
+namespace libmicroemu ::internal {
 
 enum class SysTickAddressMap : me_adr_t {
   kCsr = 0xE010U,
@@ -171,4 +171,4 @@ private:
   SysTick &operator=(SysTick &&r_src) = delete;
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

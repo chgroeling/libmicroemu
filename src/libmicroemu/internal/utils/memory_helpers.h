@@ -7,7 +7,7 @@
 #include <tuple>
 #include <type_traits>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 class MemoryHelpers {
@@ -124,4 +124,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

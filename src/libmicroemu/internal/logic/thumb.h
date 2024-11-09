@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 class Thumb {
@@ -96,4 +96,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

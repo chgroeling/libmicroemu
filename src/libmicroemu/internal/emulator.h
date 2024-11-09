@@ -25,7 +25,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu::internal {
+namespace libmicroemu::internal {
 template <typename TProcessorStates> class Emulator {
   // Forward declarations
   class ExceptionTrigger;
@@ -232,4 +232,4 @@ private:
   TProcessorStates &pstates_;
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

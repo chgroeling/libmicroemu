@@ -1,6 +1,6 @@
 #include "libmicroemu/emu_context.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 /**
@@ -72,4 +72,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

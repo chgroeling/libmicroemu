@@ -4,7 +4,7 @@
 #include "libmicroemu/types.h"
 #include <type_traits>
 
-namespace microemu::internal {
+namespace libmicroemu::internal {
 
 template <unsigned Id, typename TProcessorStates, typename TEndianessC> class MemRw {
 public:
@@ -87,4 +87,4 @@ private:
   bool IsPAdrInRange(me_adr_t padr) const { return padr < buf_size_; }
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

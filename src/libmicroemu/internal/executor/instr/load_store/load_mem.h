@@ -3,7 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 /// Loads u8 from memory and extends the result to u32
@@ -84,4 +84,4 @@ public:
   }
 };
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

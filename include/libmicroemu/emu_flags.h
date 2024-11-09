@@ -1,7 +1,7 @@
 #pragma once
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 
 using EmuFlagsSet = u8;
 
@@ -17,4 +17,4 @@ struct EmuResult {
   u32 status_code;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

@@ -3,7 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 enum class SvcFlags : u8 {
@@ -15,4 +15,4 @@ enum class SvcFlags : u8 {
 using SvcFlagsSet = uint8_t;
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

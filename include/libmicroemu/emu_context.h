@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <string_view>
 
-namespace microemu {
+namespace libmicroemu {
 
 struct OpCode {
   u16 low;
@@ -115,4 +115,4 @@ private:
   ISpecialRegAccessor &spec_reg_access_;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

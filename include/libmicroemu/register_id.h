@@ -2,7 +2,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 
 /**
  * @brief Enumeration of register IDs.
@@ -41,4 +41,4 @@ constexpr auto kLastRegister = RegisterId::kR15;
 /// @brief Returns the number of general-purpose registers.
 /// @return The number of general-purpose registers.
 static constexpr u32 CountRegisters() noexcept { return static_cast<u32>(kLastRegister) + 1U; };
-} // namespace microemu
+} // namespace libmicroemu

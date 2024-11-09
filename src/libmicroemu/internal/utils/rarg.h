@@ -9,10 +9,10 @@
 /** \brief Register argument constant class
  *
  */
-template <microemu::RegisterId Rid> class RArgConst {
+template <libmicroemu::RegisterId Rid> class RArgConst {
 public:
   static constexpr auto kRegId = Rid;
-  constexpr microemu::RegisterId Get() const { return kRegId; }
+  constexpr libmicroemu::RegisterId Get() const { return kRegId; }
 
   /// \brief Constructor
   constexpr RArgConst() = default;
@@ -53,7 +53,7 @@ public:
   RArg(T reg_id) : val_(reg_id) {
     static_assert(std::is_integral<T>::value, "T must be an integral type");
     static_assert(std::is_unsigned<T>::value, "T must be an unsigned type");
-    static_assert(std::is_same_v<T, std::underlying_type_t<microemu::RegisterId>>,
+    static_assert(std::is_same_v<T, std::underlying_type_t<libmicroemu::RegisterId>>,
                   "RArg only allows underlying type of RegisterId");
   }
 
@@ -76,7 +76,7 @@ public:
   /// \param r_src the object to be copied
   RArg &operator=(RArg &&r_src) = default;
 
-  inline microemu::RegisterId Get() const { return static_cast<microemu::RegisterId>(val_); }
+  inline libmicroemu::RegisterId Get() const { return static_cast<libmicroemu::RegisterId>(val_); }
 
   // Equality operator
   template <typename R> bool operator==(const R &other) const { return Get() == other.Get(); }

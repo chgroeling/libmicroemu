@@ -6,7 +6,7 @@
 #include "libmicroemu/logger.h"
 #include "libmicroemu/types.h"
 
-namespace microemu ::internal {
+namespace libmicroemu ::internal {
 
 enum class SysCtrlBlockAddressMap : me_adr_t {
   kCpuId = 0xED00, // CPUID Base Register (RO)
@@ -111,4 +111,4 @@ private:
   SysCtrlBlock &operator=(SysCtrlBlock &&r_src) = delete;
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

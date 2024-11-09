@@ -8,7 +8,7 @@
 #include "libmicroemu/types.h"
 #include <type_traits>
 
-namespace microemu::internal {
+namespace libmicroemu::internal {
 
 enum class BusExceptionType {
   kRaiseNoException,           // No exception has occurred.
@@ -290,4 +290,4 @@ private:
   }
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

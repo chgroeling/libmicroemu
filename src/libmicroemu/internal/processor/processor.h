@@ -14,7 +14,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 // todo: rename these to ops and separate the ops from the processor
@@ -329,4 +329,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

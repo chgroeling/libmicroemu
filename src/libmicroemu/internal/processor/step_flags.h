@@ -1,7 +1,7 @@
 #pragma once
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 using StepFlagsSet = u8;
 
@@ -12,4 +12,4 @@ enum class StepFlags : StepFlagsSet {
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

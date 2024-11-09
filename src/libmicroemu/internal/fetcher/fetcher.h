@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 template <typename TProcessorStates, typename TBus> class Fetcher {
@@ -58,4 +58,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

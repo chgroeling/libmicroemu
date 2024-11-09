@@ -9,7 +9,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 /// \brief This class contains a function to convert the endianess from big
@@ -144,4 +144,4 @@ template <> constexpr inline u64 LittleToLittleEndianConverter::Convert<u64>(con
 }
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

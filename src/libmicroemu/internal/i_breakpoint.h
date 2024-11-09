@@ -4,7 +4,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 class IBreakpoint {
@@ -15,4 +15,4 @@ public:
   virtual uint32_t GetExitStatusCode() const = 0;
 };
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

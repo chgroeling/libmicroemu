@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
@@ -42,4 +42,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

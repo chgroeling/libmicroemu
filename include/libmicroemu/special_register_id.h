@@ -7,7 +7,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 
 /**
  * @brief Enumeration of special register IDs.
@@ -74,4 +74,4 @@ static constexpr u32 CountSpecialRegisters() noexcept {
   return static_cast<u32>(kLastSpecialRegister) + 1U;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

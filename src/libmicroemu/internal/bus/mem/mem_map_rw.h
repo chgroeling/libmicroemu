@@ -8,7 +8,7 @@
 #include "libmicroemu/types.h"
 #include <tuple>
 
-namespace microemu::internal {
+namespace libmicroemu::internal {
 
 template <typename TProcessorStates, typename TSpecRegOps, typename TPeripheral,
           typename TLogger = NullLogger>
@@ -259,4 +259,4 @@ private:
   bool IsPAdrInRange(me_adr_t padr) const { return padr < VadrRange; }
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

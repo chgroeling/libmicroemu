@@ -6,7 +6,7 @@
 #include "libmicroemu/microemu.h"
 #include "libmicroemu/result.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 class Delegates {
 public:
@@ -46,4 +46,4 @@ private:
   SvcDelegate svc_delegate_{nullptr};
 };
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

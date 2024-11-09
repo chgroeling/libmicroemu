@@ -4,7 +4,7 @@
 #include "libmicroemu/types.h"
 #include <array>
 
-namespace microemu {
+namespace libmicroemu {
 
 using ExceptionFlagsSet = u8;
 
@@ -102,4 +102,4 @@ struct ExceptionStates {
   std::array<SingleExceptionState, CountExceptions()> exception;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

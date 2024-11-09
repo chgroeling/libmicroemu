@@ -12,7 +12,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 struct ExceptionContext {
@@ -1028,4 +1028,4 @@ public:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

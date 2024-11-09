@@ -6,7 +6,7 @@
 #include <cstring>
 #include <string_view>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 /// @brief A class to build a const string in a buffer
@@ -128,4 +128,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

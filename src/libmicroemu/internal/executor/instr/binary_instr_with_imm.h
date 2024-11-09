@@ -9,7 +9,7 @@
 #include "libmicroemu/types.h"
 
 // TODO: Include version to call an OP with flags..
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 /// Add
 /// see Armv7-M Architecture Reference Manual Issue E.e p.190
@@ -141,4 +141,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

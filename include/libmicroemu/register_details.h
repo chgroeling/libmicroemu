@@ -2,7 +2,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 
 template <unsigned last_bit, unsigned first_bit> static constexpr u32 BitMask() {
   if constexpr (last_bit == sizeof(u32) * 8U - 1U) {
@@ -286,4 +286,4 @@ struct ControlRegister {
   static constexpr u32 kControlBit2toBit0Msk = BitMask<kFpcaPos, kNPrivPos>();
 };
 
-} // namespace microemu
+} // namespace libmicroemu

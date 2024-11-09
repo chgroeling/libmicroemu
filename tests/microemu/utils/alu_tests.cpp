@@ -6,8 +6,8 @@
 
 using ::testing::Return;
 
-using namespace microemu;
-using namespace microemu::internal;
+using namespace libmicroemu;
+using namespace libmicroemu::internal;
 
 TEST(BitManipTests, AddWithCarryCarryFalseResultHasCarryFalseOverflowFalse) {
   u32 x = 123;

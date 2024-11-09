@@ -13,7 +13,7 @@
 
 #undef _DISABLE_EXT_EXIT
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 enum {
@@ -384,4 +384,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

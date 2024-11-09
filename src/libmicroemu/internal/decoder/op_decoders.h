@@ -10,7 +10,7 @@
 #include <assert.h>
 #include <cstdint>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 using Bm8 = BitManip<u8>;
@@ -4734,4 +4734,4 @@ static Result<Instr> call_decoder(const RawInstr &rinstr, TProcessorStates &psta
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <limits>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 // Alias zur einfacheren Verwendung
@@ -277,11 +277,11 @@ private:
   /// \brief Move assignment operator for Alu.
   /// \param r_src the object to be copied
   Alu &operator=(Alu &&r_src) = delete;
-}; // namespace microemu
+}; // namespace libmicroemu
 
 using Alu8 = Alu<u8>;
 using Alu16 = Alu<u16>;
 using Alu32 = Alu<u32>;
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

@@ -2,7 +2,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 template <typename TProcessorStates, typename TBus, typename TRegOps, typename TSpecRegOps,
           typename TPcOps, typename TItOps, typename TExceptionTrigger>
@@ -18,4 +18,4 @@ struct InstrContext {
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

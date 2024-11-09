@@ -2,7 +2,7 @@
 #include "libmicroemu/types.h"
 #pragma once
 
-namespace microemu {
+namespace libmicroemu {
 
 struct RawInstr {
   u16 low;
@@ -10,4 +10,4 @@ struct RawInstr {
   RawInstrFlagsSet flags;
 };
 
-} // namespace microemu
+} // namespace libmicroemu

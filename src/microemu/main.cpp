@@ -27,7 +27,7 @@ std::string CreateCommaSeparatedString(const std::vector<std::string> &input_set
   return oss.str();
 }
 
-void LoggingCallback(microemu::LogLevel level, const char *format, ...) noexcept {
+void LoggingCallback(libmicroemu::LogLevel level, const char *format, ...) noexcept {
   // Initialize variadic argument list
   va_list args;
   va_start(args, format);
@@ -46,22 +46,22 @@ void LoggingCallback(microemu::LogLevel level, const char *format, ...) noexcept
   std::vsnprintf(buf.data(), size, format, args);
 
   switch (level) {
-  case microemu::LogLevel::kTrace:
+  case libmicroemu::LogLevel::kTrace:
     spdlog::trace(buf.data());
     break;
-  case microemu::LogLevel::kDebug:
+  case libmicroemu::LogLevel::kDebug:
     spdlog::debug(buf.data());
     break;
-  case microemu::LogLevel::kInfo:
+  case libmicroemu::LogLevel::kInfo:
     spdlog::info(buf.data());
     break;
-  case microemu::LogLevel::kWarn:
+  case libmicroemu::LogLevel::kWarn:
     spdlog::warn(buf.data());
     break;
-  case microemu::LogLevel::kError:
+  case libmicroemu::LogLevel::kError:
     spdlog::error(buf.data());
     break;
-  case microemu::LogLevel::kCritical:
+  case libmicroemu::LogLevel::kCritical:
     spdlog::critical(buf.data());
     break;
   default:
@@ -75,7 +75,7 @@ void LoggingCallback(microemu::LogLevel level, const char *format, ...) noexcept
 
 int main(int argc, const char *argv[]) {
   // Parse command line options
-  cxxopts::Options options("microemu", "Armv7-m  emulator");
+  cxxopts::Options options("libmicroemu", "Armv7-m  emulator");
   options.positional_help("<elf_file>");
 
   const std::string kLogLevelOption =
@@ -127,11 +127,11 @@ int main(int argc, const char *argv[]) {
   try {
     result = options.parse(argc, argv);
   } catch (const cxxopts::exceptions::exception &x) {
-    std::cerr << "microemu: " << x.what() << '\n';
-    std::cerr << "usage: microemu [options] <elf_file> \n";
+    std::cerr << "libmicroemu: " << x.what() << '\n';
+    std::cerr << "usage: libmicroemu [options] <elf_file> \n";
     return EXIT_FAILURE;
   }
-  microemu::MicroEmu lme;
+  libmicroemu::MicroEmu lme;
 
   // print out help if necessary
   if (result.count("help")) {
@@ -143,7 +143,7 @@ int main(int argc, const char *argv[]) {
   if (result.count("version")) {
 
     // Both versions are the same for now
-    fmt::print(stdout, "microemu version: {}\n", lme.GetVersion());
+    fmt::print(stdout, "libmicroemu version: {}\n", lme.GetVersion());
     fmt::print(stdout, "libmicroemu version: {}\n", lme.GetVersion());
 
     return EXIT_SUCCESS;
@@ -156,8 +156,8 @@ int main(int argc, const char *argv[]) {
 
   // Check if the elf_file argument is present
   if (!result.count("elf_file")) {
-    std::cerr << "microemu: Missing required positional argument <elf_file>\n";
-    std::cerr << "usage: microemu [options] <elf_file>\n";
+    std::cerr << "libmicroemu: Missing required positional argument <elf_file>\n";
+    std::cerr << "usage: libmicroemu [options] <elf_file>\n";
     return EXIT_FAILURE;
   }
 
@@ -168,7 +168,7 @@ int main(int argc, const char *argv[]) {
   bool is_trace_changed_regs = result["trace-changed-regs"].as<bool>();
 
   if (is_trace_regs && is_trace_changed_regs) {
-    std::cerr << "microemu: --trace-regs and --trace-changed-regs are mutually exclusive\n";
+    std::cerr << "libmicroemu: --trace-regs and --trace-changed-regs are mutually exclusive\n";
     return EXIT_FAILURE;
   }
 
@@ -194,7 +194,7 @@ int main(int argc, const char *argv[]) {
     auto instr_limit = result["instr_limit"].as<int>();
 
     if (instr_limit < -1) {
-      std::cerr << "microemu: instr_limit must be greater than or equal to -1\n";
+      std::cerr << "libmicroemu: instr_limit must be greater than or equal to -1\n";
       return EXIT_FAILURE;
     }
   }
@@ -251,7 +251,7 @@ int main(int argc, const char *argv[]) {
       spdlog::set_level(spdlog::level::critical);
     }
 
-    microemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
+    libmicroemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
   }
 
   // Memory configuration
@@ -323,9 +323,9 @@ int main(int argc, const char *argv[]) {
   // Emulator - Load elf file
   // =====================================
 
-  microemu::FStateCallback initial_state_cb =
-      [&regs_from_last_step](microemu::IRegAccessor &reg_access,
-                             microemu::ISpecialRegAccessor &spec_reg_access) {
+  libmicroemu::FStateCallback initial_state_cb =
+      [&regs_from_last_step](libmicroemu::IRegAccessor &reg_access,
+                             libmicroemu::ISpecialRegAccessor &spec_reg_access) {
         // Print the initial state
         fmt::print(stdout, "Initial register states:\n");
         auto sampled_regs = RegPrinter::SampleRegs(reg_access, spec_reg_access);
@@ -353,7 +353,7 @@ int main(int argc, const char *argv[]) {
   // Emulator execution
   // =====================================
 
-  microemu::FPreExecStepCallback pre_exec_instr_trace = [](microemu::EmuContext &ectx) {
+  libmicroemu::FPreExecStepCallback pre_exec_instr_trace = [](libmicroemu::EmuContext &ectx) {
     // TODO: Add heuristic: is_32bit_instr?
     const auto &pc = ectx.GetPc();
     const auto &raw_instr = ectx.GetOpCode();
@@ -369,8 +369,8 @@ int main(int argc, const char *argv[]) {
     printf("%s\n", buf);
   };
 
-  microemu::FPostExecStepCallback post_exec_instr_trace_regs =
-      [&regs_from_last_step](microemu::EmuContext &ectx) {
+  libmicroemu::FPostExecStepCallback post_exec_instr_trace_regs =
+      [&regs_from_last_step](libmicroemu::EmuContext &ectx) {
         const auto &reg_access = ectx.GetRegisterAccessor();
         const auto &spec_reg_access = ectx.GetSpecialRegisterAccessor();
 
@@ -381,8 +381,8 @@ int main(int argc, const char *argv[]) {
         regs_from_last_step = sampled_regs;
       };
 
-  microemu::FPostExecStepCallback post_exec_instr_trace_changed_regs =
-      [&regs_from_last_step](microemu::EmuContext &ectx) {
+  libmicroemu::FPostExecStepCallback post_exec_instr_trace_changed_regs =
+      [&regs_from_last_step](libmicroemu::EmuContext &ectx) {
         const auto &reg_access = ectx.GetRegisterAccessor();
         const auto &spec_reg_access = ectx.GetSpecialRegisterAccessor();
 
@@ -393,8 +393,8 @@ int main(int argc, const char *argv[]) {
         regs_from_last_step = sampled_regs;
       };
 
-  microemu::FPreExecStepCallback pre_instr{nullptr};
-  microemu::FPostExecStepCallback post_instr{nullptr};
+  libmicroemu::FPreExecStepCallback pre_instr{nullptr};
+  libmicroemu::FPostExecStepCallback post_instr{nullptr};
 
   if (is_trace == true) {
     pre_instr = pre_exec_instr_trace;
@@ -422,12 +422,13 @@ int main(int argc, const char *argv[]) {
   }
   auto &emu_flags = res_exec.content.flags;
   // TODO: Getter for flags
-  if ((emu_flags &
-       static_cast<microemu::EmuFlagsSet>(microemu::EmuFlags::kEmuMaxInstructionsReached)) != 0) {
+  if ((emu_flags & static_cast<libmicroemu::EmuFlagsSet>(
+                       libmicroemu::EmuFlags::kEmuMaxInstructionsReached)) != 0) {
     fmt::print(stdout, "INFO: Max instructions reached\n");
     return 0;
   }
-  if ((emu_flags & static_cast<microemu::EmuFlagsSet>(microemu::EmuFlags::kEmuTerminated)) != 0) {
+  if ((emu_flags & static_cast<libmicroemu::EmuFlagsSet>(libmicroemu::EmuFlags::kEmuTerminated)) !=
+      0) {
     return res_exec.content.status_code;
   }
 

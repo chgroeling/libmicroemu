@@ -5,8 +5,8 @@
 #include "libmicroemu/types.h"
 #include <type_traits>
 
-using microemu::Result;
-namespace microemu ::internal {
+using libmicroemu::Result;
+namespace libmicroemu ::internal {
 
 // Read only memory access
 template <unsigned Id, typename TProcessorStates, typename TEndianessC> class MemRo {
@@ -89,4 +89,4 @@ private:
   bool IsPAdrInRange(me_adr_t padr) const { return padr < buf_size_; }
 };
 
-} // namespace microemu::internal
+} // namespace libmicroemu::internal

@@ -4,7 +4,7 @@
 #include "libmicroemu/types.h"
 #include <cstddef>
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 template <typename TProcessorStates, typename TItOps, typename TRegOps, typename TSpecRegOps>
@@ -29,4 +29,4 @@ private:
 };
 
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu

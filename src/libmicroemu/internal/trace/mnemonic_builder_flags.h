@@ -2,7 +2,7 @@
 
 #include "libmicroemu/types.h"
 
-namespace microemu {
+namespace libmicroemu {
 namespace internal {
 
 using MnemonicBuilderFlagsSet = u8;
@@ -12,4 +12,4 @@ enum class MnemonicBuilderFlags : MnemonicBuilderFlagsSet {
   kSupressShiftType = 1U << 1U,
 };
 } // namespace internal
-} // namespace microemu
+} // namespace libmicroemu
