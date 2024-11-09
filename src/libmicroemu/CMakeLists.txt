@@ -44,7 +44,7 @@ SET (RELEASE_LOGLEVEL
 
 # Generate version.h in the build directory
 configure_file(
-    "${CMAKE_SOURCE_DIR}/cmake/version.h.in"  
+    "${PROJECT_SOURCE_DIR}/cmake/version.h.in"    
     "${CMAKE_BINARY_DIR}/include/libmicroemu/version.h"
     @ONLY
 )
