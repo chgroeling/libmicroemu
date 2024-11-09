@@ -3,7 +3,7 @@
 #include "libmicroemu/internal/bkpt_flags.h"
 #include "libmicroemu/internal/i_breakpoint.h"
 #include "libmicroemu/internal/svc_flags.h"
-#include "libmicroemu/microemu.h"
+#include "libmicroemu/machine.h"
 #include "libmicroemu/result.h"
 
 namespace libmicroemu {

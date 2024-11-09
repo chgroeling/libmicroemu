@@ -1,3 +1,3 @@
 #include <gtest/gtest.h>
 
-#include "libmicroemu/microemu.h"
+#include "libmicroemu/machine.h"
