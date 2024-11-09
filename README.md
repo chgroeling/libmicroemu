@@ -94,28 +94,30 @@ _libmicroemu_ is designed to be easily integrated into larger C++ projects to pr
 
 ### Example: Integrating libmicroemu
 ```cpp
-#include "libmicroemu/microemu.h"
+#include "libmicroemu/machine.h"
 #include <iostream>
 #include <vector>
 
-constexpr static const char *kElfPath = "<insert_elf_file_here>";
-constexpr static microemu::me_adr_t kFlashSegVadr = 0x0U;
-constexpr static microemu::me_adr_t kRam1SegVadr = 0x20000000U;
+// Change this to the path of your ELF file
+constexpr static const char *kElfPath = "coremark/prebuilt/bin/coremark.elf";
+
+constexpr static libmicroemu::me_adr_t kFlashSegVadr = 0x0U;
+constexpr static libmicroemu::me_adr_t kRam1SegVadr = 0x20000000U;
 
 int main()
 {
-    microemu::MicroEmu lme;
-    std::cout << "Using libicroemu version: " << lme.GetVersion() << std::endl;
+    libmicroemu::Machine machine;
+    std::cout << "Using libmicroemu version: " << machine.GetVersion() << std::endl;
 
     auto flash_seg = std::vector<uint8_t>(0x20000u); // allocate 128KB for FLASH segment
     auto ram1_seg = std::vector<uint8_t>(0x40000u);  // allocate 256KB for RAM1 segment
 
-    // Set the FLASH and RAM1 segments in the emulator
-    lme.SetFlashSegment(flash_seg.data(), flash_seg.size(), kFlashSegVadr);
-    lme.SetRam1Segment(ram1_seg.data(), ram1_seg.size(), kRam1SegVadr);
+    // Set the FLASH and RAM1 segments
+    machine.SetFlashSegment(flash_seg.data(), flash_seg.size(), kFlashSegVadr);
+    machine.SetRam1Segment(ram1_seg.data(), ram1_seg.size(), kRam1SegVadr);
 
     // Load the ELF file and set the entry point to the one given in the ELF file
-    auto res = lme.Load(kElfPath, true);
+    auto res = machine.Load(kElfPath, true);
     if (res.IsErr())
     {
         std::cerr << "Failed to load ELF file." << std::endl;
@@ -123,7 +125,7 @@ int main()
     }
 
     // Execute the ELF file
-    auto res_exec = lme.Exec();
+    auto res_exec = machine.Exec();
     if (res_exec.IsErr())
     {
         std::cerr << "Failed to execute ELF file." << std::endl;
