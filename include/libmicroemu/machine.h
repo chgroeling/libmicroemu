@@ -31,13 +31,13 @@ using FPreExecStepCallback = std::function<void(EmuContext &)>;
 using FPostExecStepCallback = std::function<void(EmuContext &)>;
 using FStateCallback = std::function<void(IRegAccessor &, ISpecialRegAccessor &)>;
 
-class MicroEmu {
+class Machine {
 public:
   /// Constructor
-  MicroEmu() noexcept;
+  Machine() noexcept;
 
   /// Deconstructor
-  ~MicroEmu() noexcept;
+  ~Machine() noexcept;
 
   /// @brief Loads an elf file into memory
   /// @param elf_file

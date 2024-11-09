@@ -1,5 +1,5 @@
 #include "libmicroemu/logger.h"
-#include "libmicroemu/microemu.h"
+#include "libmicroemu/machine.h"
 #include "reg_printer.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include <algorithm>
@@ -131,7 +131,7 @@ int main(int argc, const char *argv[]) {
     std::cerr << "usage: libmicroemu [options] <elf_file> \n";
     return EXIT_FAILURE;
   }
-  libmicroemu::MicroEmu lme;
+  libmicroemu::Machine machine;
 
   // print out help if necessary
   if (result.count("help")) {
@@ -143,8 +143,8 @@ int main(int argc, const char *argv[]) {
   if (result.count("version")) {
 
     // Both versions are the same for now
-    fmt::print(stdout, "libmicroemu version: {}\n", lme.GetVersion());
-    fmt::print(stdout, "libmicroemu version: {}\n", lme.GetVersion());
+    fmt::print(stdout, "libmicroemu version: {}\n", machine.GetVersion());
+    fmt::print(stdout, "libmicroemu version: {}\n", machine.GetVersion());
 
     return EXIT_SUCCESS;
   }
@@ -251,7 +251,7 @@ int main(int argc, const char *argv[]) {
       spdlog::set_level(spdlog::level::critical);
     }
 
-    libmicroemu::MicroEmu::RegisterLoggerCallback(&LoggingCallback);
+    libmicroemu::Machine::RegisterLoggerCallback(&LoggingCallback);
   }
 
   // Memory configuration
@@ -308,9 +308,9 @@ int main(int argc, const char *argv[]) {
   ram2_seg = std::vector<uint8_t>(ram2_seg_size);
 
   // Set the memory segments
-  lme.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
-  lme.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
-  lme.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
+  machine.SetFlashSegment(flash_seg.data(), flash_seg_size, flash_seg_vadr);
+  machine.SetRam1Segment(ram1_seg.data(), ram1_seg_size, ram1_seg_vadr);
+  machine.SetRam2Segment(ram2_seg.data(), ram2_seg_size, ram2_seg_vadr);
 
   // Check if the entry point should be set from the ELF file
   // If not set, the entry point is set through the vector tabledoc:
@@ -334,7 +334,7 @@ int main(int argc, const char *argv[]) {
       };
 
   // Load the ELF file
-  auto res = lme.Load(elf_file.c_str(), is_elf_entry_point);
+  auto res = machine.Load(elf_file.c_str(), is_elf_entry_point);
   if (res.IsErr()) {
     fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", res.ToString(),
                static_cast<uint32_t>(res.status_code));
@@ -345,7 +345,7 @@ int main(int argc, const char *argv[]) {
   if (is_trace == true) {
     // Evaluate the initial state
     if (is_trace_regs || is_trace_changed_regs) {
-      lme.EvaluateState(initial_state_cb);
+      machine.EvaluateState(initial_state_cb);
     }
   }
 
@@ -412,7 +412,7 @@ int main(int argc, const char *argv[]) {
   // TODO: Count number of instructions executed and time taken
 
   // Here we execute the arm code
-  auto res_exec = lme.Exec(instr_limit, pre_instr, post_instr);
+  auto res_exec = machine.Exec(instr_limit, pre_instr, post_instr);
 
   if (res_exec.IsErr()) {
     // TODO: Move error handler to application

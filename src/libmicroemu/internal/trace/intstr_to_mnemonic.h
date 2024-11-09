@@ -1,6 +1,6 @@
 #pragma once
 #include "libmicroemu/internal/trace/mnemonic_builder.h"
-#include "libmicroemu/microemu.h"
+#include "libmicroemu/machine.h"
 #include "libmicroemu/types.h"
 #include <cstddef>
 

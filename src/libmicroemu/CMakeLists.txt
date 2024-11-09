@@ -3,7 +3,7 @@ set(LIB_NAME libmicroemu)
 
 # Create the library 
 set (MICROEMU_SOURCES 
-  microemu.cpp
+  machine.cpp
   logger.cpp
 )
 
