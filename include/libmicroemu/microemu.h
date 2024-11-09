@@ -10,12 +10,22 @@
 #include <array>
 #include <functional>
 
+/**
+ * @brief The \ref microemu namespace contains all classes and functions of the libmicroemu which
+ * are public.
+ */
+
+// TODO: Change namespace to libmicroemu PRIORITY: HIGH
 namespace microemu {
 
-// forward declarations
+/**
+ * @brief The microemu::internal namespace contains all classes and functions of libmicroemu
+ * which are private.
+ */
 namespace internal {
+// forward declarations
 template <typename TProcessorStates> class Emulator;
-};
+}; // namespace internal
 
 using FPreExecStepCallback = std::function<void(EmuContext &)>;
 using FPostExecStepCallback = std::function<void(EmuContext &)>;

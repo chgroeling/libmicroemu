@@ -48,6 +48,8 @@ configure_file(
     "${CMAKE_BINARY_DIR}/include/libmicroemu/version.h"
     @ONLY
 )
+
+
 # TODO: move the library to lib
 add_library(${LIB_NAME} ${MICROEMU_SOURCES})
 set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")

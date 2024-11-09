@@ -1,5 +1,7 @@
-/// \brief In this file the MemoryViewer class is defined.
-
+/**
+ * \file
+ * \brief In this file the MemoryViewer class is defined.
+ */
 #pragma once
 
 #include "libmicroemu/types.h"
@@ -7,6 +9,7 @@
 
 namespace microemu {
 namespace internal {
+
 template <typename TProcessorStates, typename TBus> class MemoryViewer {
 public:
   // TODO: Move reference to call
