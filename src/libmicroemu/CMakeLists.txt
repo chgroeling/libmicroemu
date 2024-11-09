@@ -40,8 +40,17 @@ SET (DEBUG_LOGLEVEL
 SET (RELEASE_LOGLEVEL 
     "LOGLEVEL_INFO"
 )
-add_library(${LIB_NAME} ${MICROEMU_SOURCES})
 
+
+# Generate version.h in the build directory
+configure_file(
+    "${CMAKE_SOURCE_DIR}/cmake/libmicroemu_version.h.in"  
+    "${CMAKE_BINARY_DIR}/version/libmicroemu_version.h"
+    @ONLY
+)
+
+
+add_library(${LIB_NAME} ${MICROEMU_SOURCES})
 set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 target_compile_definitions(${LIB_NAME} PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_LOGLEVEL}>")
 target_compile_definitions(${LIB_NAME} PUBLIC "$<$<CONFIG:RELEASE>:${RELEASE_LOGLEVEL}>")
@@ -62,11 +71,13 @@ target_include_directories(
     $<INSTALL_INTERFACE:include>  # <prefix>/include/
     PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src
+    ${CMAKE_BINARY_DIR}/version
 )
 
 # Install the public headers
-install(DIRECTORY ../../include DESTINATION include
-)
+install(DIRECTORY ../../include DESTINATION include)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/version DESTINATION include)
+
 
 install(
     TARGETS ${LIB_NAME} 
