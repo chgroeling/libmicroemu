@@ -18,7 +18,7 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/build/Release" >> "$GITHUB_OUTPUT"
     - uses: actions/setup-python@v5
       with:
           python-version: '3.13'
@@ -28,13 +28,13 @@ jobs:
     - name : Install Dependencies Conan
       run: | 
         conan profile detect
-        conan install . -pr ${{ github.workspace }}/profiles/Doxygen-only --build=missing 
+        conan install . -pr ${{ github.workspace }}/profiles/all-doxygen-only --build=missing 
     - name: CMake configuration
       run: |
-            cmake -B ${{github.workspace}}/build/Release --preset conan-release
+            cmake -B ${{ steps.strings.outputs.build-output-dir }}  --preset conan-release
     - name: Build docs
       run: |
-            cmake --build ${{github.workspace}}/build/Release -t docs
+            cmake --build ${{ steps.strings.outputs.build-output-dir }}  -t docs
     - uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

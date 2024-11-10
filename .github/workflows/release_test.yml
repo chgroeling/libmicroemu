@@ -1,0 +1,87 @@
+name: release_test
+
+on: 
+  workflow_dispatch:
+  push:
+      branches:
+      - build_names
+
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
+      fail-fast: false
+
+      matrix:
+        # Test for mac-14
+        # os: [macos-14]
+        # build_type: [Release]
+        # include:
+        #   - os: macos-14
+        #     profile: macos-14-armv8-apple_clang-15-release
+                
+        # Test for windows-2022
+        # os: [windows-2022]
+        # build_type: [Release]
+        # include:
+        #   - os: windows-2022
+        #     profile: windows-2022-x86_64-clang-18-release
+        
+        # Test for ubuntu-22.04
+        os: [ubuntu-22.04]
+        build_type: [Release]
+        include:
+          - os: ubuntu-22.04
+            profile: ubuntu-22.04-x86_64-clang-14-release
+    
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Read version from VERSION file
+      shell: bash
+      run: |
+        VERSION_FROM_FILE=$(cat VERSION)
+        echo "VERSION_FROM_FILE=${VERSION_FROM_FILE#v}" >> $GITHUB_ENV
+    - name: Set reusable strings
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build/Release" >> "$GITHUB_OUTPUT"
+        echo "version=$VERSION_FROM_FILE" >> "$GITHUB_OUTPUT"
+    - uses: actions/setup-python@v5
+      with:
+          python-version: '3.13'
+          cache: 'pip' # caching pip dependencies
+    - run: pip install -r requirements.txt
+    - name : Install Dependencies Conan
+      run: | 
+        conan profile detect
+        conan install . -pr ${{ github.workspace }}/profiles/${{ matrix.profile }} --build=missing
+    - name: CMake configuration
+      run: |
+            cmake -B ${{ steps.strings.outputs.build-output-dir }}  --preset conan-release
+    - name: Build
+      run: |
+            cmake --build ${{ steps.strings.outputs.build-output-dir }}  
+    - name: Test
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: ctest --test-dir ${{ steps.strings.outputs.build-output-dir }}  
+    - name: Install with CMake
+      run: cmake --install ${{ steps.strings.outputs.build-output-dir }}  --prefix install_dir
+    - name: Upload microemu artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: microemu-${{ steps.strings.outputs.version}}-${{ matrix.profile }}
+        path: install_dir/bin
+    - name: Upload libmicroemu artifact
+      uses: actions/upload-artifact@v4
+      with:
+          name: libmicroemu-${{ steps.strings.outputs.version}}-${{ matrix.profile }}
+          path: |
+            install_dir/
+            !install_dir/bin/*
+
+  
