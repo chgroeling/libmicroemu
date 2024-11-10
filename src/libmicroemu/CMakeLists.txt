@@ -98,3 +98,5 @@ install(EXPORT ${LIB_NAME}Targets
 )
 
 install(FILES ../../LICENSE DESTINATION share/${LIB_NAME})
+install(FILES ../../VERSION DESTINATION share/${LIB_NAME})
+
