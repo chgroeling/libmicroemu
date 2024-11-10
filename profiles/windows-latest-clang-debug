@@ -6,8 +6,8 @@ arch = x86_64
 build_type = Debug
 
 [conf]
-tools.cmake.cmaketoolchain:generator=Unix Makefiles
-tools.cmake.cmaketoolchain:user_toolchain = {{[os.path.join(profile_dir, "clang.cmake")]}}
+tools.cmake.cmaketoolchain:generator = Unix Makefiles
+tools.cmake.cmaketoolchain:user_toolchain = {{[os.path.join(profile_dir,  "toolchains", "clang-generic")]}}
 
 [tool_requires]
 cmake/3.23.5

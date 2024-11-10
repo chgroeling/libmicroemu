@@ -20,7 +20,7 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/build/Release" >> "$GITHUB_OUTPUT"
     - uses: actions/setup-python@v5
       with:
           python-version: '3.13'
@@ -29,13 +29,13 @@ jobs:
     - name : Install Dependencies Conan
       run: | 
         conan profile detect
-        conan install . -pr ${{ github.workspace }}/profiles/Release-ubuntu-latest-clang --build=missing
+        conan install . -pr ${{ github.workspace }}/profiles/ubuntu-22.04-x86_64-clang-14-release --build=missing
     - name: CMake configuration
       run: |
-            cmake -B ${{github.workspace}}/build/Release --preset conan-release
+            cmake -B ${{ steps.strings.outputs.build-output-dir }} --preset conan-release
     - name: Build
       run: |
-            cmake --build ${{github.workspace}}/build/Release 
+            cmake --build ${{ steps.strings.outputs.build-output-dir }}  
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: ctest --test-dir ${{github.workspace}}/build/Release 
+      run: ctest --test-dir ${{ steps.strings.outputs.build-output-dir }}  
