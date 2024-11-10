@@ -35,9 +35,9 @@ jobs:
     - name: Check VERSION file
       shell: bash
       run: |
-        FILE_VERSION=$(cat VERSION)
-        if [ "$FILE_VERSION" != "$TAG_VERSION" ]; then
-        echo "ERROR: VERSION file ($FILE_VERSION) does not match Git tag ($TAG_VERSION)"
+        VERSION_FROM_FILE=$(cat VERSION)
+        if [ "$VERSION_FROM_FILE" != "$TAG_VERSION" ]; then
+        echo "ERROR: VERSION file ($VERSION_FROM_FILE) does not match Git tag ($TAG_VERSION)"
         exit 1
         else
         echo "VERSION file is consistent with Git tag"
