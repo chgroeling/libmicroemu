@@ -56,6 +56,8 @@ public:
 
   template <typename T>
   WriteResult<T> Write(TProcessorStates &pstates, me_adr_t vadr, T value) const {
+    static_cast<void>(vadr); // only used in debug mode
+
     // clang-format off
     static_assert(
         std::is_same<T, u32>::value || 
@@ -66,8 +68,7 @@ public:
     static_cast<void>(value);
     static_cast<void>(pstates);
 
-    const me_adr_t padr = ConvertToPhysicalAdr(vadr);
-    assert(IsPAdrInRange(padr) == true);
+    assert(IsPAdrInRange(ConvertToPhysicalAdr(vadr)) == true);
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
   }
 
