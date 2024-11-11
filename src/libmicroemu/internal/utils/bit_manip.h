@@ -133,8 +133,6 @@ public:
    * @param value The value to extract bits from.
    * @return The extracted bits.
    */
-
-  // TODO: Rename to ExtractBits1R
   template <unsigned last_bit, unsigned first_bit> static constexpr T Slice1R(const T &value) {
     return (value & GenerateBitMask<last_bit, first_bit>()) >> first_bit;
   }

@@ -180,7 +180,6 @@ public:
 
     TRY(void, PushStack<ExcInstant>(pstates, bus, exception_type, context));
 
-    // TODO: No extra braces in case of template functions
     TRY(void, ExceptionTaken(pstates, bus, exception_type));
 
     LOG_TRACE(TLogger, "[END] ExceptionEntry");
@@ -453,12 +452,9 @@ public:
 
     // tmp = MemA[VectorTable+4*ExceptionNumber,4];
     TRY_ASSIGN(tmp, void,
-               bus.template ReadOrRaise<u32>(
-                   pstates, vector_table + 4U * static_cast<u32>(exception_type),
-                   BusExceptionType::
-                       kRaisePreciseDataBusError)); // TODO: really
-                                                    // BusExceptionType::kRaisePreciseDataBusError?
-
+               bus.template ReadOrRaise<u32>(pstates,
+                                             vector_table + 4U * static_cast<u32>(exception_type),
+                                             BusExceptionType::kRaisePreciseDataBusError));
     // BranchTo(tmp AND 0xFFFFFFFE<31:0>);
     const auto exception_address = tmp & 0xFFFFFFFEU;
     LOG_TRACE(TLogger, "Branching to exception address = 0x%08X", exception_address);
@@ -974,9 +970,6 @@ public:
       executing_exc_priority = exception_states.exception[executing_exc_type - 1U].GetPriority();
     }
 
-    // TODO: Very inefficient priority handling by searching ... use queue instead
-    //  -- Evaluate Internal Exceptions after execution; Evaluate External Exceptions before
-    //  execution
     u32 preempt_exc_type = 0U;                                // 0 means no exception to preempt
     i16 preempt_exc_priority = kLowestExceptionPriority + 1U; // one lower than the lowest priority
 

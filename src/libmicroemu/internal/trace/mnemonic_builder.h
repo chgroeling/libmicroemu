@@ -36,7 +36,6 @@ public:
   static void Build(const TProcessorStates &pstates, const Instr &instr, char *buf,
                     std::size_t buf_len) {
 
-    // TODO: Gradually replace with template args
     auto cstr_builder = ConstStringBuilder(buf, buf_len);
     using TMnemonicBuilderContext =
         MnemonicBuilderContext<TProcessorStates, TItOps, TRegOps, TSpecRegOps>;

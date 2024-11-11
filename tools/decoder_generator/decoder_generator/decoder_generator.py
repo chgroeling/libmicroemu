@@ -3,10 +3,6 @@ import json
 import importlib.resources as rimp
 import pprint
 
-# TODO: Auto format the generated code after generation
-# TODO: Move the assertions of each opcode to  a separate json dict entry
-
-
 def generate_pre_block(pattern):
     def process_bit_string(bit_string, instr_name):
         pre_block = []

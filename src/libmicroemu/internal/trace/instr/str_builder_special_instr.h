@@ -19,7 +19,6 @@ public:
                         const u8 &n, const u8 &m) {
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
-    // TODO: Separate into two
     const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
 
     if (is_tbh) {
@@ -49,7 +48,7 @@ public:
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
     const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
-    // TODO: Separate into two
+
     mctx.builder.AddString("CB");
     if (is_non_zero == true) {
       mctx.builder.AddChar('N');
@@ -207,7 +206,6 @@ public:
         .Terminate();
   }
 
-  // TODO: Introduce quatery instr
   static void BuildSmull(const char *instr_spec, TContext &mctx,
                          const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
                          const u8 &d_lo, const u8 &d_hi, const u8 &n, const u8 &m) {

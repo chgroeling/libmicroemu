@@ -45,7 +45,6 @@
 namespace libmicroemu {
 namespace internal {
 
-// TODO: Use Template ProcessorOPs
 template <typename TProcessorStates, typename TBus, typename TRegOps, typename TSpecRegOps,
           typename TPcOps, typename TItOps, typename TExceptionTrigger,
           typename TLogger = NullLogger>

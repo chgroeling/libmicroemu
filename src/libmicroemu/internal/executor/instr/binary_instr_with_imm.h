@@ -8,7 +8,6 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-// TODO: Include version to call an OP with flags..
 namespace libmicroemu {
 namespace internal {
 /// Add

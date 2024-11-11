@@ -38,10 +38,8 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// TODO: Move to unary_imm_carry_instr.h
   /// Svc instruction
   /// see Armv7-M Architecture Reference Manual Issue E.e p.213
-
   template <typename TDelegates>
   static Result<ExecResult> Svc(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
                                 TDelegates &delegates) {
@@ -77,7 +75,6 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// TODO: Move to unary_imm_carry_instr.h ... Make delegate optional
   /// Bkpt instruction
   /// see Armv7-M Architecture Reference Manual Issue E.e p.212
   template <typename TDelegates>
@@ -88,7 +85,6 @@ public:
     ExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
 
-    // TODO: This instruction is unconditional ... see docs
     if (!condition_passed) {
       It::ITAdvance(ictx.pstates);
       Pc::AdvanceInstr(ictx.pstates, is_32bit);
@@ -462,7 +458,6 @@ public:
           control &= ~ControlRegister::kNPrivMsk;
           control |= ((rn & 0x1) >> 0U) << ControlRegister::kNPrivPos;
 
-          //  TODO: Move to separate file. Function IsThreadMode and IsHandlerMode
           auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(ictx.pstates);
           const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
           const auto is_thread_mode = exec_mode == SysCtrlRegister::kExecModeThread;
@@ -678,7 +673,6 @@ public:
 
 public:
 private:
-  // TODO: Move to separate file
   static bool CurrentModeIsPrivileged(TProcessorStates &pstates) {
     /// see Armv7-M Architecture Reference Manual Issue E.e p.512
     auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
