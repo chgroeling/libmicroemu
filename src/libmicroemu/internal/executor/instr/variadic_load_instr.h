@@ -63,7 +63,7 @@ public:
 
     // For debugging purposes
     // MemoryViewer<TMemAccess> mem_view(mem_acs_);
-    // mem_view.print(0x80000 - 0x32, 0x64);
+    // mem_view.Print(0x80000 - 0x32, 0x64);
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const auto n_mask = 1U << static_cast<u32>(arg_n.Get());

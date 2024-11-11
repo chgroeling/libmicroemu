@@ -199,7 +199,7 @@ public:
     printf("   Actual PC: 0x%x\n\n", pc);
     printf(" # Memory dump from PC:\n");
     MemoryViewer<TProcessorStates, TBus> mem_view(bus);
-    mem_view.print(pstates, pc, 32U, 3U);
+    mem_view.Print(pstates, pc, 32U, 3U);
   }
 
   // TODO: move outside of the class

@@ -55,7 +55,7 @@ public:
 
     // For debugging purposes
     // MemoryViewer<TMemAccess> mem_view(bus_);
-    // mem_view.print(0x80000 - 0x32, 0x64);
+    // mem_view.Print(0x80000 - 0x32, 0x64);
 
     if (is_wback) {
       const auto wback_val = rn + 4U * reg_count;

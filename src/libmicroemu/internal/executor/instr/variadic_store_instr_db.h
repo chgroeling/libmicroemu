@@ -49,7 +49,7 @@ public:
 
     // For debugging purposes
     // MemoryViewer<TMemAccess> mem_view(bus_);
-    // mem_view.print(0x80000 - 0x32, 0x64);
+    // mem_view.Print(0x80000 - 0x32, 0x64);
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
 

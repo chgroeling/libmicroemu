@@ -34,9 +34,7 @@ public:
   MemoryViewer &operator=(MemoryViewer &&r_src) = delete;
 
   /// \brief Prints a hex dump of the given buffer to the console
-
-  // TODO Google Style Guide
-  void print(TProcessorStates &pstates, const me_offset_t vadr, const me_size_t size,
+  void Print(TProcessorStates &pstates, const me_offset_t vadr, const me_size_t size,
              const u32 indent = 0U) {
     const me_adr_t vadr_end = vadr + size;
     const auto alignment = 16U;
