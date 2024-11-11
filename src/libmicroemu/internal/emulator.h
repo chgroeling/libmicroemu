@@ -135,7 +135,6 @@ public:
 
   Result<EmuResult> Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
                          FPostExecStepCallback cb_post_exec) {
-    // TODO: Semihosting should be part of application??
     auto bus = BuildBus();
     auto semihosting = Semihosting(pstates_, bus);
 
@@ -143,7 +142,6 @@ public:
     bool is_instr_limit = instr_limit > 0;
     u32 u_instr_limit = static_cast<u32>(instr_limit);
 
-    // TODO: Introduce Exception delegate and Error delegate
     Delegates delegates(
         cb_pre_exec, cb_post_exec,
         [&semihosting](const u32 &imm32) -> Result<BkptFlagsSet> {
@@ -152,8 +150,7 @@ public:
         [](const u32 &imm32) -> Result<SvcFlagsSet> {
           SvcFlagsSet svc_flags{0U};
 
-          // TODO: Make this configurable
-          if (imm32 == 0x1U) { // RESET
+          if (imm32 == 0x1U) { // A supervisor call to exit the emulator
             svc_flags |= static_cast<SvcFlagsSet>(SvcFlags::kOmitException);
             svc_flags |= static_cast<SvcFlagsSet>(SvcFlags::kRequestExit);
             return Ok<SvcFlagsSet>(svc_flags);

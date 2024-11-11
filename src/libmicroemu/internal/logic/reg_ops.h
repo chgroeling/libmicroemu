@@ -71,7 +71,7 @@ public:
       //        sp = RNameSP_process;
       return SpecialRegisterId::kSpProcess;
       //    else
-      //        TODO: UNPREDICTABLE;
+      //        UNPREDICTABLE;
     }
 
     return SpecialRegisterId::kSpMain;

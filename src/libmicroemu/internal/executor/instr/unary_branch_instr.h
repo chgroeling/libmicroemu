@@ -40,7 +40,6 @@ public:
 
     Reg::WriteRegister(ictx.pstates, RegisterId::kLr,
                        static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1U));
-    // TODO BLXWrite instead of BXWrite
     return BranchOpResult{static_cast<me_adr_t>(rm)};
   }
 };

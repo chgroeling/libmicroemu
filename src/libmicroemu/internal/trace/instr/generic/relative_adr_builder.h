@@ -23,7 +23,7 @@ public:
                     const bool &is_wback, const u8 &n, const u32 &imm) {
     using Reg = TRegOps;
     assert(((is_index != false) || (is_wback != false))); // no viable option
-    // TODO: Ommit imm if it is 0
+
     if ((is_index == true) && (is_wback == false)) { // Offset: index=TRUE, wback=FALSE
       builder.AddChar('[')
           .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))

@@ -30,7 +30,6 @@ public:
 
     auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
 
-    // TODO: Own functions for current mode and is_handler mode
     const auto current_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
     const auto is_handler_mode = current_mode == SysCtrlRegister::kExecModeHandler;
 
@@ -46,7 +45,6 @@ public:
       if ((address & 0x1) == 0U) {
         LOG_ERROR(TLogger, "BXWritePC: Set wrong execution state");
       }
-      // TODO: Add UsageFault exception
 
       // EPSR.T = address<0>;
       // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction

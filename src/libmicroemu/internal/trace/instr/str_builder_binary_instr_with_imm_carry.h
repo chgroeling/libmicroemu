@@ -15,7 +15,6 @@ public:
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
 
-  /// TODO: Introduce  TArg0, TArg1 for every builder in this directory
   template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n,

@@ -49,8 +49,6 @@ configure_file(
     @ONLY
 )
 
-
-# TODO: move the library to lib
 add_library(${LIB_NAME} ${MICROEMU_SOURCES})
 set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 target_compile_definitions(${LIB_NAME} PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_LOGLEVEL}>")

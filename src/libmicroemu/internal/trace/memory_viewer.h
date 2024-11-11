@@ -12,7 +12,6 @@ namespace internal {
 
 template <typename TProcessorStates, typename TBus> class MemoryViewer {
 public:
-  // TODO: Move reference to call
   MemoryViewer(const TBus &mem) : mem_(mem) {}
 
   ~MemoryViewer() = default;

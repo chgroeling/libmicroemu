@@ -149,7 +149,6 @@ int main(int argc, const char *argv[]) {
     return EXIT_SUCCESS;
   }
 
-  // TODO: Remove std::cerr and std::cout and replace with fmt::print
   // =====================================
   // Checking command line options
   // =====================================
@@ -255,8 +254,6 @@ int main(int argc, const char *argv[]) {
   }
 
   // Memory configuration
-
-  // TODO: More complex memory-configs should be moved to yaml file
   if (memory_config == "STDLIB") {
     flash_seg_size = 0x10000U;
     flash_seg_vadr = 0x0;
@@ -354,7 +351,6 @@ int main(int argc, const char *argv[]) {
   // =====================================
 
   libmicroemu::FPreExecStepCallback pre_exec_instr_trace = [](libmicroemu::EmuContext &ectx) {
-    // TODO: Add heuristic: is_32bit_instr?
     const auto &pc = ectx.GetPc();
     const auto &raw_instr = ectx.GetOpCode();
 
@@ -408,20 +404,16 @@ int main(int argc, const char *argv[]) {
     }
   }
 
-  // TODO: INCLUDE ABORT ON SPECIFIC ADDRESS COMMAND LINE OPTION
-  // TODO: Count number of instructions executed and time taken
-
   // Here we execute the arm code
   auto res_exec = machine.Exec(instr_limit, pre_instr, post_instr);
 
   if (res_exec.IsErr()) {
-    // TODO: Move error handler to application
     fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", res_exec.ToString(),
                static_cast<uint32_t>(res_exec.status_code));
     return EXIT_FAILURE;
   }
   auto &emu_flags = res_exec.content.flags;
-  // TODO: Getter for flags
+
   if ((emu_flags & static_cast<libmicroemu::EmuFlagsSet>(
                        libmicroemu::EmuFlags::kEmuMaxInstructionsReached)) != 0) {
     fmt::print(stdout, "INFO: Max instructions reached\n");

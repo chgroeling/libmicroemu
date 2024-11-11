@@ -14,8 +14,6 @@
  * @brief The \ref libmicroemu namespace contains all classes and functions of the libmicroemu which
  * are public.
  */
-
-// TODO: Change namespace to libmicroemu PRIORITY: HIGH
 namespace libmicroemu {
 
 /**

@@ -202,7 +202,6 @@ public:
     mem_view.Print(pstates, pc, 32U, 3U);
   }
 
-  // TODO: move outside of the class
   static Result<void> TakeReset(TProcessorStates &pstates, TBus &bus_) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.531
     LOG_INFO(TLogger, "Resetting processor");
