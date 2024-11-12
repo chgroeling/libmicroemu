@@ -12,6 +12,7 @@ public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
+
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const u32 &imm) {
     static_cast<void>(bflags);

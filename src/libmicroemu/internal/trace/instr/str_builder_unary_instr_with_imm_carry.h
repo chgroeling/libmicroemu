@@ -12,8 +12,10 @@ public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
+
+  template <typename TArg0>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const u8 &d,
+                    const InstrFlagsSet &iflags, const TArg0 &d,
                     const ThumbImmediateResult &imm_carry) {
 
     static_cast<void>(bflags);
@@ -22,7 +24,7 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(d)))
+        .AddString(Reg::GetRegisterName(d.Get()))
         .AddString(", #")
         .AddUInt(imm_carry.out)
         .Terminate();

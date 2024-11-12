@@ -12,8 +12,10 @@ public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
+
+  template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const u8 &n, const u8 &m,
+                    const InstrFlagsSet &iflags, const TArg0 &n, const TArg1 &m,
                     const ImmShiftResults &shift_res, bool supress_type) {
 
     static_cast<void>(bflags);
@@ -22,9 +24,9 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
+        .AddString(Reg::GetRegisterName(n.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)));
+        .AddString(Reg::GetRegisterName(m.Get()));
 
     if (shift_res.value != 0) {
       mctx.builder.AddString(", ");
