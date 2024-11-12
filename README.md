@@ -25,8 +25,7 @@ _libmicroemu_ provides ARM emulation with simplicity and flexibility for embeddi
   The emulator is implemented without the use of C++ exceptions, providing a predictable control flow and simplifying integration into projects that avoid exception handling.
 - **Optional Command-Line Interface**  
   The companion CLI program _microemu_ simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while _libmicroemu_ itself remains dependency-free.
-  Semihosting Support
-- **Semihosting**    
+- **Semihosting Support**    
   Provides built-in semihosting, enabling communication between the emulator and the host system for tasks such as file I/O and console output.
 
 ## Development Status
