@@ -12,9 +12,11 @@ public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
+
+  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const u8 &d, const u8 &n, const u8 &m,
-                    const u8 &a) {
+                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n, const TArg2 &m,
+                    const TArg3 &a) {
 
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     const bool is_reduced_rd =
@@ -25,14 +27,14 @@ public:
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(d))).AddString(", ");
+      mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
     }
 
-    mctx.builder.AddString(Reg::GetRegisterName(static_cast<RegisterId>(n)))
+    mctx.builder.AddString(Reg::GetRegisterName(n.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(m)))
+        .AddString(Reg::GetRegisterName(m.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(static_cast<RegisterId>(a)));
+        .AddString(Reg::GetRegisterName(a.Get()));
     mctx.builder.Terminate();
   }
 
