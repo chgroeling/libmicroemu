@@ -12,7 +12,12 @@ namespace internal {
 
 template <typename TProcessorStates, typename TBus> class MemoryViewer {
 public:
-  /// \brief Prints a hex dump of the given buffer to the console
+  /// \brief Print memory content to the console.
+  /// \param pstates the processor states
+  /// \param mem the memory bus
+  /// \param vadr the virtual address to start printing from
+  /// \param size the number of bytes to print
+  /// \param indent the number of spaces to indent the output
   static void Print(TProcessorStates &pstates, const TBus &mem, const me_offset_t vadr,
                     const me_size_t size, const u32 indent = 0U) {
     const me_adr_t vadr_end = vadr + size;
