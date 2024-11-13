@@ -760,7 +760,7 @@ public:
     }
 
     // spmask = Zeros(29):(psr<9> AND forcealign):'00';
-    const auto spmask = (Bm32::Slice1R<9U, 9U>(psr) & forcealign) << 2U;
+    const auto spmask = (Bm32::ExtractBits1R<9U, 9U>(psr) & forcealign) << 2U;
 
     switch (exc_return & 0xFU) {
     case 0b0001: { // returning to Handler  using Main stack
@@ -792,7 +792,7 @@ public:
     }
 
     // APSR<31:27> = psr<31:27>; // valid APSR bits loaded from memory
-    auto psr_31_27 = Bm32::Slice1R<ApsrRegister::kNPos, ApsrRegister::kQPos>(psr);
+    auto psr_31_27 = Bm32::ExtractBits1R<ApsrRegister::kNPos, ApsrRegister::kQPos>(psr);
     SReg::template WriteRegister<SId::kApsr>(pstates, psr_31_27 << ApsrRegister::kQPos);
 
     // if HaveDSPExt() then
@@ -806,10 +806,10 @@ public:
     SReg::template WriteRegister<SId::kIpsr>(pstates, ipsr_8_0);
 
     // EPSR<26:24,15:10> = psr<26:24,15:10>; // valid EPSR bits loaded from memory
-    auto epsr_new =
-        (Bm32::Slice1R<EpsrRegister::kItBit1Pos, EpsrRegister::kTPos>(psr) << EpsrRegister::kTPos) |
-        (Bm32::Slice1R<EpsrRegister::kItBit7Pos, EpsrRegister::kItBit2Pos>(psr)
-         << EpsrRegister::kItBit2Pos);
+    auto epsr_new = (Bm32::ExtractBits1R<EpsrRegister::kItBit1Pos, EpsrRegister::kTPos>(psr)
+                     << EpsrRegister::kTPos) |
+                    (Bm32::ExtractBits1R<EpsrRegister::kItBit7Pos, EpsrRegister::kItBit2Pos>(psr)
+                     << EpsrRegister::kItBit2Pos);
 
     SReg::template WriteRegister<SId::kEpsr>(pstates, epsr_new);
 

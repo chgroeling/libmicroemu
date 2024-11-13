@@ -20,7 +20,7 @@ public:
         instr_l, RawInstr,
         bus.template ReadOrRaise<u16>(pstates, pc, BusExceptionType::kRaiseInstructionBusError));
 
-    const u32 opc = Bm32::Slice1R<kFlagsOpCodeLast, kFlagsOpCodeFirst>(instr_l);
+    const u32 opc = Bm32::ExtractBits1R<kFlagsOpCodeLast, kFlagsOpCodeFirst>(instr_l);
 
     // Check if a 32-bit instruction was loaded
     u16 instr_h{0x0U};

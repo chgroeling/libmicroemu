@@ -97,7 +97,7 @@ static Result<Instr> Splitter{{k}}(const RawInstr& rinstr,TProcessorStates& psta
 template<typename TProcessorStates, typename TSpecRegOps, typename TItOps> 
 static Result<Instr> call_decoder(const RawInstr& rinstr, TProcessorStates& pstates) {
 const u16 opc =
-        Bm32::Slice1R<kDecodersOpCodeLast, kDecodersOpCodeFirst>(rinstr.low);
+        Bm32::ExtractBits1R<kDecodersOpCodeLast, kDecodersOpCodeFirst>(rinstr.low);
    switch(opc) {
 {%- for k, i in data['opcodes'].items() %}
     case 0b{{i['bin']}}U: {

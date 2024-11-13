@@ -121,7 +121,7 @@ public:
   }
 
   static void BuildMsrMrs(TContext &mctx, const u8 &mask, const u8 &SYSm) {
-    const auto SYSm_7_3 = Bm32::Slice1R<7U, 3U>(SYSm);
+    const auto SYSm_7_3 = Bm32::ExtractBits1R<7U, 3U>(SYSm);
     switch (SYSm_7_3) {
     case 0b00000U: {
       if (mask & 0x1) {
@@ -132,7 +132,7 @@ public:
       break;
     }
     case 0b00001U: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
+      const auto SYSm_2_0 = Bm32::ExtractBits1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
       case 0b000U:
         mctx.builder.AddString("MSP"); // Main Stack Pointer
@@ -147,7 +147,7 @@ public:
       break;
     }
     case 0b00010U: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
+      const auto SYSm_2_0 = Bm32::ExtractBits1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
       case 0b000U:
         mctx.builder.AddString("PRIMASK"); // Priority Mask
@@ -288,66 +288,66 @@ public:
       // do nothing
       break;
     case 0b0100U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b1100U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     case 0b0010U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b0110U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     case 0b1010U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b1110U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     case 0b0001U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b0011U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     case 0b0101U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b0111U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     case 0b1001U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b1011U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     case 0b1101U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) != 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) != 0x1U);
       break;
     case 0b1111U:
-      x_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      y_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
-      z_spec = then_or_else(Bm32::Slice1R<0U, 0U>(firstcond) == 0x1U);
+      x_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      y_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
+      z_spec = then_or_else(Bm32::ExtractBits1R<0U, 0U>(firstcond) == 0x1U);
       break;
     default:
       break;

@@ -21,19 +21,19 @@ TEST(BitManipTests, GenerateBitMaskHighNibble) {
 
 TEST(BitManipTests, IsolateBits12And11ReturnsCorrectValue) {
   u32 val = 0b0001100000000000;
-  u32 result = BitManip<u32>::Slice1R<12U, 11U>(val);
+  u32 result = BitManip<u32>::ExtractBits1R<12U, 11U>(val);
   ASSERT_EQ(result, 0x3);
 }
 
 TEST(BitManipTests, IsolateBits2_R15And15_R12And11Test1ReturnsCorrectValue) {
   u32 val = 0b0001100000000000;
-  u32 result = BitManip<u32>::Slice2R<15U, 15U, 12U, 11U>(val);
+  u32 result = BitManip<u32>::ExtractBits2R<15U, 15U, 12U, 11U>(val);
   ASSERT_EQ(result, 0x3);
 }
 
 TEST(BitManipTests, IsolateBits2_R15And15_R12And11Test2ReturnsCorrectValue) {
   u32 val = 0b1001100000000000;
-  u32 result = BitManip<u32>::Slice2R<15U, 15U, 12U, 11U>(val);
+  u32 result = BitManip<u32>::ExtractBits2R<15U, 15U, 12U, 11U>(val);
   ASSERT_EQ(result, 0b111);
 }
 

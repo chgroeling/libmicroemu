@@ -48,7 +48,7 @@ public:
       }
     }
 
-    if (Bm32::Slice1R<15U, 15U>(registers) == 0x1U) {
+    if (Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) {
       TRY_ASSIGN(rdat, ExecResult,
                  ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
                                                     BusExceptionType::kRaisePreciseDataBusError));
