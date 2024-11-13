@@ -127,15 +127,15 @@ int main(int argc, const char *argv[]) {
   try {
     result = options.parse(argc, argv);
   } catch (const cxxopts::exceptions::exception &x) {
-    std::cerr << "libmicroemu: " << x.what() << '\n';
-    std::cerr << "usage: libmicroemu [options] <elf_file> \n";
+    fmt::print(stderr, "libmicroemu: {}\n", x.what());
+    fmt::print(stderr, "usage: libmicroemu [options] <elf_file> \n");
     return EXIT_FAILURE;
   }
   libmicroemu::Machine machine;
 
   // print out help if necessary
   if (result.count("help")) {
-    std::cout << options.help() << std::endl;
+    fmt::print(stdout, "{}", options.help());
     return EXIT_SUCCESS;
   }
 
@@ -144,8 +144,6 @@ int main(int argc, const char *argv[]) {
 
     // Both versions are the same for now
     fmt::print(stdout, "libmicroemu version: {}\n", machine.GetVersion());
-    fmt::print(stdout, "libmicroemu version: {}\n", machine.GetVersion());
-
     return EXIT_SUCCESS;
   }
 
@@ -155,8 +153,8 @@ int main(int argc, const char *argv[]) {
 
   // Check if the elf_file argument is present
   if (!result.count("elf_file")) {
-    std::cerr << "libmicroemu: Missing required positional argument <elf_file>\n";
-    std::cerr << "usage: libmicroemu [options] <elf_file>\n";
+    fmt::print(stderr, "libmicroemu: Missing required positional argument <elf_file>\n");
+    fmt::print(stderr, "usage: libmicroemu [options] <elf_file>\n");
     return EXIT_FAILURE;
   }
 
@@ -167,7 +165,8 @@ int main(int argc, const char *argv[]) {
   bool is_trace_changed_regs = result["trace-changed-regs"].as<bool>();
 
   if (is_trace_regs && is_trace_changed_regs) {
-    std::cerr << "libmicroemu: --trace-regs and --trace-changed-regs are mutually exclusive\n";
+    fmt::print(stderr,
+               "libmicroemu: --trace-regs and --trace-changed-regs are mutually exclusive\n");
     return EXIT_FAILURE;
   }
 
@@ -193,7 +192,7 @@ int main(int argc, const char *argv[]) {
     auto instr_limit = result["instr_limit"].as<int>();
 
     if (instr_limit < -1) {
-      std::cerr << "libmicroemu: instr_limit must be greater than or equal to -1\n";
+      fmt::print(stderr, "libmicroemu: instr_limit must be greater than or equal to -1\n");
       return EXIT_FAILURE;
     }
   }
