@@ -12,29 +12,9 @@ namespace internal {
 
 template <typename TProcessorStates, typename TBus> class MemoryViewer {
 public:
-  MemoryViewer(const TBus &mem) : mem_(mem) {}
-
-  ~MemoryViewer() = default;
-
-  /// \brief Copy constructor for MemoryViewer.
-  /// \param r_src the object to be copied
-  MemoryViewer(const MemoryViewer &r_src) = default;
-
-  /// \brief Copy assignment operator for MemoryViewer.
-  /// \param r_src the object to be copied
-  MemoryViewer &operator=(const MemoryViewer &r_src) = delete;
-
-  /// \brief Move constructor for ByteIterator.
-  /// \param r_src the object to be copied
-  MemoryViewer(MemoryViewer &&r_src) = default;
-
-  /// \brief Move assignment operator for ByteIterator.
-  /// \param r_src the object to be copied
-  MemoryViewer &operator=(MemoryViewer &&r_src) = delete;
-
   /// \brief Prints a hex dump of the given buffer to the console
-  void Print(TProcessorStates &pstates, const me_offset_t vadr, const me_size_t size,
-             const u32 indent = 0U) {
+  static void Print(TProcessorStates &pstates, const TBus &mem, const me_offset_t vadr,
+                    const me_size_t size, const u32 indent = 0U) {
     const me_adr_t vadr_end = vadr + size;
     const auto alignment = 16U;
 
@@ -45,18 +25,38 @@ public:
     // out the address and filler spaces
     if (no_filler_bytes > 0U) {
 
-      print_section(pstates, vadr_filler, vadr_filler + no_filler_bytes, alignment, indent, true);
+      PrintSection(pstates, mem, vadr_filler, vadr_filler + no_filler_bytes, alignment, indent,
+                   true);
     }
 
-    print_section(pstates, vadr, vadr_end, alignment, indent, false);
+    PrintSection(pstates, mem, vadr, vadr_end, alignment, indent, false);
     printf("\n");
   }
 
 private:
-  const TBus &mem_;
+  MemoryViewer() = delete;
 
-  void print_section(TProcessorStates &pstates, const me_adr_t vadr_begin, const me_adr_t vadr_end,
-                     const u32 alignment, u32 indent, bool skip_read) {
+  ~MemoryViewer() = delete;
+
+  /// \brief Copy constructor for MemoryViewer.
+  /// \param r_src the object to be copied
+  MemoryViewer(const MemoryViewer &r_src) = delete;
+
+  /// \brief Copy assignment operator for MemoryViewer.
+  /// \param r_src the object to be copied
+  MemoryViewer &operator=(const MemoryViewer &r_src) = delete;
+
+  /// \brief Move constructor for ByteIterator.
+  /// \param r_src the object to be copied
+  MemoryViewer(MemoryViewer &&r_src) = delete;
+
+  /// \brief Move assignment operator for ByteIterator.
+  /// \param r_src the object to be copied
+  MemoryViewer &operator=(MemoryViewer &&r_src) = delete;
+
+  static void PrintSection(TProcessorStates &pstates, const TBus &mem, const me_adr_t vadr_begin,
+                           const me_adr_t vadr_end, const u32 alignment, u32 indent,
+                           bool skip_read) {
 
     for (me_adr_t ivadr = vadr_begin; ivadr < vadr_end; ivadr++) {
       // Print address first
@@ -69,7 +69,7 @@ private:
 
       // Then the byte
       if (!skip_read) {
-        auto res = mem_.template Read<u8>(pstates, ivadr);
+        auto res = mem.template Read<u8>(pstates, ivadr);
         if (res.IsErr()) {
           printf("xx");
         } else {

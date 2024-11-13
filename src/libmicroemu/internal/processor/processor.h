@@ -198,8 +198,8 @@ public:
     printf(" # System state:\n");
     printf("   Actual PC: 0x%x\n\n", pc);
     printf(" # Memory dump from PC:\n");
-    MemoryViewer<TProcessorStates, TBus> mem_view(bus);
-    mem_view.Print(pstates, pc, 32U, 3U);
+
+    MemoryViewer<TProcessorStates, TBus>::Print(pstates, bus, pc, 32U, 3U);
   }
 
   static Result<void> TakeReset(TProcessorStates &pstates, TBus &bus_) {
