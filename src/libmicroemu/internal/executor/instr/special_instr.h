@@ -13,7 +13,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from register adress to register
+/**
+ * @brief Load from register adress to register
+ */
 template <typename TInstrContext, typename TLogger = NullLogger> class SpecialInstr {
 public:
   using TProcessorStates = decltype(TInstrContext::pstates);
@@ -22,8 +24,11 @@ public:
   using Reg = typename TInstrContext::Reg;
   using SReg = typename TInstrContext::SReg;
   using ExcTrig = typename TInstrContext::ExcTrig;
-  /// It instruction
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.236
+  /**
+   * @brief It instruction
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 236
+   */
   static Result<ExecResult> ItInstr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                     const u32 &firstcond, const u32 &mask) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
@@ -38,8 +43,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Svc instruction
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.213
+  /**
+   * @brief Svc instruction
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 213
+   */
   template <typename TDelegates>
   static Result<ExecResult> Svc(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
                                 TDelegates &delegates) {
@@ -75,8 +83,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Bkpt instruction
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.212
+  /**
+   * @brief Bkpt instruction
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 212
+   */
   template <typename TDelegates>
   static Result<ExecResult> Bkpt(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
                                  TDelegates &delegates) {
@@ -110,8 +121,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Branch condition
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.205
+  /**
+   * @brief Branch condition
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 205
+   */
   static Result<ExecResult> BCond(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                   const u32 &imm32, const u8 &cond) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
@@ -129,8 +143,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Table branch
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.416
+  /**
+   * @brief Table branch
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 416
+   */
   template <typename TArg0, typename TArg1>
   static Result<ExecResult> Tbhh(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_m, TArg1 arg_n) {
@@ -170,8 +187,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Compare branch
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.216
+  /**
+   * @brief Compare branch
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 216
+   */
   template <typename TArg0>
   static Result<ExecResult> CbNZ(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const u32 &imm32) {
@@ -197,8 +217,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Bfi
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.208
+  /**
+   * @brief Bfi
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 208
+   */
   template <typename TArg0, typename TArg1>
   static Result<ExecResult> Bfi(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                 const TArg0 &arg_d, const TArg1 &arg_n, const u8 &lsbit,
@@ -236,8 +259,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Ubfx
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.424
+  /**
+   * @brief Ubfx
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 424
+   */
   template <typename TArg0, typename TArg1>
   static Result<ExecResult> Ubfx(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_d, const TArg1 &arg_n, const u8 &lsbit,
@@ -271,8 +297,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Ldrd
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.257
+  /**
+   * @brief Ldrd
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 257
+   */
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Ldrd(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_t, const TArg1 &arg_t2, const TArg2 &arg_n,
@@ -315,8 +344,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Umull
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.257
+  /**
+   * @brief Umull
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 257
+   */
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Umull(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                   const TArg0 &arg_d_lo, const TArg0 &arg_d_hi, const TArg1 &arg_n,
@@ -345,8 +377,11 @@ public:
     Pc::AdvanceInstr(ictx.pstates, is_32bit);
     return Ok(ExecResult{eflags});
   }
-  /// Umlal
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.434
+  /**
+   * @brief Umlal
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 434
+   */
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Umlal(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                   const TArg0 &arg_d_lo, const TArg0 &arg_d_hi, const TArg1 &arg_n,
@@ -380,8 +415,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Msr
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.677
+  /**
+   * @brief Msr
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 677
+   */
   template <typename TArg0>
   static Result<ExecResult> Msr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                 const TArg0 &arg_n, const uint8_t mask, const uint8_t SYSm) {
@@ -491,8 +529,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Mrs
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.675
+  /**
+   * @brief Mrs
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 675
+   */
   template <typename TArg0>
   static Result<ExecResult> Mrs(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                 const TArg0 &arg_d, const uint8_t mask, const uint8_t SYSm) {
@@ -596,8 +637,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Smull
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.372
+  /**
+   * @brief Smull
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 372
+   */
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Smull(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                   const TArg0 &arg_d_lo, const TArg0 &arg_d_hi, const TArg1 &arg_n,
@@ -626,8 +670,11 @@ public:
     return Ok(ExecResult{eflags});
   }
 
-  /// Strd
-  /// see Armv7-M Architecture Reference Manual Issue E.e p.393
+  /**
+   * @brief Strd
+   *
+   * see Armv7-M Architecture Reference Manual Issue E.e p. 393
+   */
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Strd(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_t, const TArg1 &arg_t2, const TArg2 &arg_n,
@@ -674,7 +721,7 @@ public:
 public:
 private:
   static bool CurrentModeIsPrivileged(TProcessorStates &pstates) {
-    /// see Armv7-M Architecture Reference Manual Issue E.e p.512
+    // see Armv7-M Architecture Reference Manual Issue E.e p.512
     auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
     const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
     const auto is_handler_mode = exec_mode == SysCtrlRegister::kExecModeHandler;
@@ -683,26 +730,38 @@ private:
     return (is_handler_mode || is_privileged);
   }
 
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   SpecialInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~SpecialInstr() = delete;
 
-  /// \brief Copy constructor for SpecialInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for SpecialInstr.
+   * @param r_src the object to be copied
+   */
   SpecialInstr(const SpecialInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for SpecialInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for SpecialInstr.
+   * @param r_src the object to be copied
+   */
   SpecialInstr &operator=(const SpecialInstr &r_src) = delete;
 
-  /// \brief Move constructor for SpecialInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for SpecialInstr.
+   * @param r_src the object to be moved
+   */
   SpecialInstr(SpecialInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for SpecialInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  SpecialInstr.
+   * @param r_src the object to be moved
+   */
   SpecialInstr &operator=(SpecialInstr &&r_src) = delete;
 };
 

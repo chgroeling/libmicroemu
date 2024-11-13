@@ -257,26 +257,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   Alu() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~Alu() = delete;
 
-  /// \brief Copy constructor for Alu.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for Alu.
+   * @param r_src the object to be copied
+   */
   Alu(const Alu &r_src) = delete;
 
-  /// \brief Copy assignment operator for Alu.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Alu.
+   * @param r_src the object to be copied
+   */
   Alu &operator=(const Alu &r_src) = delete;
 
-  /// \brief Move constructor for Alu.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Alu.
+   * @param r_src the object to be moved
+   */
   Alu(Alu &&r_src) = delete;
 
-  /// \brief Move assignment operator for Alu.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Alu.
+   * @param r_src the object to be moved
+   */
   Alu &operator=(Alu &&r_src) = delete;
 }; // namespace libmicroemu
 

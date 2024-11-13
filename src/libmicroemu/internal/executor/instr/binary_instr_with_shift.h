@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Asr
-/// see Armv7-M Architecture Reference Manual Issue E.e p.341
+/**
+ * @brief Asr
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.341
+ */
 template <typename TInstrContext> class Asr1ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -28,8 +31,11 @@ public:
   }
 };
 
-/// Lsl
-/// see Armv7-M Architecture Reference Manual Issue E.e p.282
+/**
+ * @brief Lsl
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.282
+ */
 template <typename TInstrContext> class Lsl1ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -45,8 +51,11 @@ public:
   }
 };
 
-/// Lsr
-/// see Armv7-M Architecture Reference Manual Issue E.e p.282
+/**
+ * @brief Lsr
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.282
+ */
 template <typename TInstrContext> class Lsr1ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -62,8 +71,11 @@ public:
   }
 };
 
-/// Mvn
-/// see Armv7-M Architecture Reference Manual Issue E.e p.304
+/**
+ * @brief Mvn
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.304
+ */
 template <typename TInstrContext> class Mvn1ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -125,26 +137,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryInstrWithShift() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryInstrWithShift() = delete;
 
-  /// \brief Copy constructor for BinaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryInstrWithShift.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithShift(const BinaryInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for BinaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BinaryInstrWithShift.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithShift &operator=(const BinaryInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for BinaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryInstrWithShift.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithShift(BinaryInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryInstrWithShift.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithShift &operator=(BinaryInstrWithShift &&r_src) = delete;
 };
 

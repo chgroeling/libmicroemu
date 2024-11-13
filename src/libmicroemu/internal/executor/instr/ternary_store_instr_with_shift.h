@@ -10,7 +10,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from register adress to register
+/**
+ * @brief Load from register adress to register
+ */
 template <typename TOp, typename TInstrContext> class TernaryStoreInstrWithShift {
 public:
   using It = typename TInstrContext::It;
@@ -61,26 +63,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   TernaryStoreInstrWithShift() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~TernaryStoreInstrWithShift() = delete;
 
-  /// \brief Copy constructor for TernaryStoreInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for TernaryStoreInstrWithShift.
+   * @param r_src the object to be copied
+   */
   TernaryStoreInstrWithShift(const TernaryStoreInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for TernaryStoreInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for TernaryStoreInstrWithShift.
+   * @param r_src the object to be copied
+   */
   TernaryStoreInstrWithShift &operator=(const TernaryStoreInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for TernaryStoreInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for TernaryStoreInstrWithShift.
+   * @param r_src the object to be moved
+   */
   TernaryStoreInstrWithShift(TernaryStoreInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for TernaryStoreInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  TernaryStoreInstrWithShift.
+   * @param r_src the object to be moved
+   */
   TernaryStoreInstrWithShift &operator=(TernaryStoreInstrWithShift &&r_src) = delete;
 };
 

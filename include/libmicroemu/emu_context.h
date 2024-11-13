@@ -85,23 +85,33 @@ public:
       : pc_(pc), op_code_(op_code), instr_decoder_(instr_decoder), reg_access_(reg_access),
         spec_reg_access_(spec_reg_access) {}
 
-  /// @brief Gets the program counter of the current instruction.
+  /**
+   * @brief Gets the program counter of the current instruction.
+   */
   inline me_adr_t GetPc() const noexcept { return pc_; }
 
-  /// @brief Gets the register accessor.
+  /**
+   *  @brief Gets the register accessor.
+   */
   inline IRegAccessor &GetRegisterAccessor() noexcept { return reg_access_; }
 
-  /// @brief Gets the special register accessor.
+  /**
+   * @brief Gets the special register accessor.
+   */
   inline ISpecialRegAccessor &GetSpecialRegisterAccessor() noexcept { return spec_reg_access_; }
 
-  /// @brief Gets the opcode of the current instruction.
+  /**
+   *  @brief Gets the opcode of the current instruction.
+   */
   inline const OpCode &GetOpCode() const noexcept { return op_code_; }
 
-  /// @brief  Builds the mnemonic of the current instruction
-  /// This takes the current instruction and decodes it into a human readable string.
-  /// Attention this is a resource intensive operation.
-  /// @param buf The buffer to store the mnemonic.
-  /// @param buf_len The length of the buffer.
+  /**
+   * @brief  Builds the mnemonic of the current instruction
+   * This takes the current instruction and decodes it into a human readable string.
+   * Attention this is a resource intensive operation.
+   * @param buf The buffer to store the mnemonic.
+   * @param buf_len The length of the buffer.
+   */
   inline void BuildMnemonic(char *buf, std::size_t buf_len) const noexcept {
     instr_decoder_.Build(buf, buf_len);
   }

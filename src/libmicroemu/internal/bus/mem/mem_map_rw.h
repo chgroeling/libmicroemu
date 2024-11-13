@@ -140,26 +140,38 @@ public:
   using SReg = TSpecRegOps;
   using ExcTrig = TExceptionTrigger;
 
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MemMapRw() = default;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   virtual ~MemMapRw() = default;
 
-  /// \brief Copy constructor for MemMapRw.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MemMapRw.
+   * @param r_src the object to be copied
+   */
   MemMapRw(const MemMapRw &r_src) = default;
 
-  /// \brief Copy assignment operator for MemMapRw.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MemMapRw.
+   * @param r_src the object to be copied
+   */
   MemMapRw &operator=(const MemMapRw &r_src) = default;
 
-  /// \brief Move constructor for MemMapRw.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MemMapRw.
+   * @param r_src the object to be moved
+   */
   MemMapRw(MemMapRw &&r_src) = default;
 
-  /// \brief Move assignment operator for MemMapRw.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MemMapRw.
+   * @param r_src the object to be moved
+   */
   MemMapRw &operator=(MemMapRw &&r_src) = default;
 
   static constexpr bool kReadOnly = false;

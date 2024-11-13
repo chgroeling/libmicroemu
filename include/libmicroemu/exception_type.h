@@ -4,9 +4,11 @@
 
 namespace libmicroemu {
 
-/// @brief Exception enumeration
-///
-/// The enumeration of ExceptionsOps that can be triggered by the processor.
+/**
+ * @brief Exception enumeration
+ *
+ * The enumeration of ExceptionsOps that can be triggered by the processor.
+ */
 enum class ExceptionType {
 
   kReset = 1U, ///< Special exception to reset the processor

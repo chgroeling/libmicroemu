@@ -10,8 +10,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Mls
-/// see Armv7-M Architecture Reference Manual Issue E.e p.290
+/**
+ * @brief Mls
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.290
+ */
 template <typename TInstrContext> class Mls3Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -26,8 +29,11 @@ public:
   }
 };
 
-/// Mla
-/// see Armv7-M Architecture Reference Manual Issue E.e p.289
+/**
+ * @brief Mla
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.289
+ */
 template <typename TInstrContext> class Mla3Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -92,26 +98,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   TernaryInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~TernaryInstr() = delete;
 
-  /// \brief Copy constructor for TernaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for TernaryInstr.
+   * @param r_src the object to be copied
+   */
   TernaryInstr(const TernaryInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for TernaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for TernaryInstr.
+   * @param r_src the object to be copied
+   */
   TernaryInstr &operator=(const TernaryInstr &r_src) = delete;
 
-  /// \brief Move constructor for TernaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for TernaryInstr.
+   * @param r_src the object to be moved
+   */
   TernaryInstr(TernaryInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for TernaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  TernaryInstr.
+   * @param r_src the object to be moved
+   */
   TernaryInstr &operator=(TernaryInstr &&r_src) = delete;
 };
 

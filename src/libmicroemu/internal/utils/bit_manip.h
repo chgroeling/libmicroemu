@@ -302,26 +302,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BitManip() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BitManip() = delete;
 
-  /// \brief Copy constructor for BitManip.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BitManip.
+   * \param r_src the object to be copied
+   */
   BitManip(const BitManip &r_src) = delete;
 
-  /// \brief Copy assignment operator for BitManip.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BitManip.
+   * \param r_src the object to be copied
+   */
   BitManip &operator=(const BitManip &r_src) = delete;
 
-  /// \brief Move constructor for BitManip.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BitManip.
+   * \param r_src the object to be moved
+   */
   BitManip(BitManip &&r_src) = delete;
 
-  /// \brief Move assignment operator for BitManip.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for BitManip.
+   *  \param r_src the object to be moved
+   */
   BitManip &operator=(BitManip &&r_src) = delete;
 };
 

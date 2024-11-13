@@ -6,8 +6,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Store u8 to memory
-/// see Armv7-M Architecture Reference Manual Issue E.e p.389
+/**
+ * @brief Store u8 to memory
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.389
+ */
 template <typename TInstrContext> class StoreMemU8 {
 public:
   static inline Result<void> Write(const TInstrContext &ictx, const u32 &address, const u32 &rt) {
@@ -18,8 +21,11 @@ public:
   }
 };
 
-/// Store u16 to memory
-/// see Armv7-M Architecture Reference Manual Issue E.e p.389
+/**
+ * @brief Store u16 to memory
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.389
+ */
 template <typename TInstrContext> class StoreMemU16 {
 public:
   static inline Result<void> Write(const TInstrContext &ictx, const u32 &address, const u32 &rt) {
@@ -30,8 +36,11 @@ public:
   }
 };
 
-/// Store u32 to memory
-/// see Armv7-M Architecture Reference Manual Issue E.e p.386
+/**
+ * @brief Store u32 to memory
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.386
+ */
 template <typename TInstrContext> class StoreMemU32 {
 public:
   static inline Result<void> Write(const TInstrContext &ictx, const u32 &address, const u32 &rt) {
@@ -41,8 +50,11 @@ public:
   }
 };
 
-/// Store (exclusive) u32 to memory
-/// see Armv7-M Architecture Reference Manual Issue E.e p.394
+/**
+ * @brief Store (exclusive) u32 to memory
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.394
+ */
 template <typename TInstrContext> class StoreMemExU32 {
 public:
   static inline Result<void> Write(const TInstrContext &ictx, const u32 &address, const u32 &rt,

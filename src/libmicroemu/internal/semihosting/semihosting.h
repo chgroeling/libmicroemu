@@ -97,7 +97,9 @@ public:
   using Reg = TRegOps;
   using SReg = TSpecRegOps;
 
-  /// \brief Constructs a Semihosting object
+  /**
+   * @brief Constructs a Semihosting object
+   */
   Semihosting(TProcessorStates &pstates, TBus bus) : bus_(bus), pstates_(pstates) {}
 
   template <u32 N> Result<std::array<u32, N>> ReadR1Words();

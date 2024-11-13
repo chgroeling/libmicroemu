@@ -9,14 +9,18 @@
 namespace libmicroemu {
 namespace internal {
 
-/// @brief A class to build a const string in a buffer
+/**
+ * @brief A class to build a const string in a buffer
+ */
 class ConstStringBuilder {
 public:
   ConstStringBuilder(char *buf, std::size_t buf_len) : buf_(buf), buf_len_(buf_len) {}
 
-  /// @brief Add a string to the buffer
-  /// @param str The string to add
-  /// @return A reference to the current object
+  /**
+   * @brief Add a string to the buffer
+   * @param str The string to add
+   * @return A reference to the current object
+   */
   ConstStringBuilder &AddString(const std::string_view &str) {
     for (std::size_t i = 0U; i < str.length(); ++i) {
       if (act_pos_ >= (buf_len_ - 1U)) { // -1 due to null termination
@@ -64,8 +68,9 @@ public:
   }
 
 private:
-  /// @brief Convert a integer number into a const char string ans insert it
-  /// into a given buffer
+  /**
+   * @brief Convert a integer number into a const char string ans insert it into a given buffer
+   */
   u32 IntToString(char *buf, std::size_t len, i32 number) {
     std::size_t index = 0U;
     i32 is_negative = 0;
@@ -94,8 +99,13 @@ private:
     return index;
   }
 
-  /// @brief Convert a integer number into a const char string ans insert it
-  /// into a given buffer
+  /**
+   * @brief Convert a integer number into a const char string ans insert it into a given buffer
+   * @param buf The buffer to insert the string
+   * @param len The length of the buffer
+   * @param number The number to convert
+   * @return The number of characters written
+   */
   u32 UIntToString(char *buf, std::size_t len, u32 number) {
     std::size_t index = 0U;
 

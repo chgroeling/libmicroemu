@@ -8,7 +8,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderBinaryInstrWithImmCarry {
 public:
   using It = typename TContext::It;
@@ -39,28 +41,40 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderBinaryInstrWithImmCarry() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderBinaryInstrWithImmCarry() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderBinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderBinaryInstrWithImmCarry.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryInstrWithImmCarry(const MnemonicBuilderBinaryInstrWithImmCarry &r_src) =
       default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderBinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderBinaryInstrWithImmCarry.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryInstrWithImmCarry &
   operator=(const MnemonicBuilderBinaryInstrWithImmCarry &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderBinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderBinaryInstrWithImmCarry.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryInstrWithImmCarry(MnemonicBuilderBinaryInstrWithImmCarry &&r_src) = delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderBinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderBinaryInstrWithImmCarry.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryInstrWithImmCarry &
   operator=(MnemonicBuilderBinaryInstrWithImmCarry &&r_src) = delete;
 };

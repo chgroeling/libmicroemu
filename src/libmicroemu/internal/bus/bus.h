@@ -28,23 +28,33 @@ public:
 
   explicit Bus(const TBusParticipant &...participant) : TBusParticipant(participant)... {}
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   virtual ~Bus() = default;
 
-  /// \brief Copy constructor for Bus.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for Bus.
+   * @param r_src the object to be copied
+   */
   Bus(const Bus &r_src) = default;
 
-  /// \brief Copy assignment operator for Bus.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Bus.
+   * @param r_src the object to be copied
+   */
   Bus &operator=(const Bus &r_src) = default;
 
-  /// \brief Move constructor for Bus.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Bus.
+   * @param r_src the object to be moved
+   */
   Bus(Bus &&r_src) = default;
 
-  /// \brief Move assignment operator for Bus.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Bus.
+   * @param r_src the object to be moved
+   */
   Bus &operator=(Bus &&r_src) = default;
 
   template <typename T> Result<T> Read(TProcessorStates &pstates, me_adr_t vadr) const {
@@ -246,14 +256,17 @@ private:
     return ReadResult<T>{T{}, ReadStatusCode::kReadNotAllowed};
   }
 
-  /// \brief Forward write operation to the next bus participant
-  /// \details This function is called when the current bus participant is read-only
-  /// \tparam T the type of the value to be written
-  /// \tparam TAct the type of the bus participant
-  /// \tparam Rest the rest of the bus participants
-  /// \param vadr the virtual address to be written
-  /// \param value the value to be written
-  /// \return the result of the write operation
+  /**
+   * @brief Forward write operation to the next bus participant
+   *
+   * This function is called when the current bus participant is read-only
+   * @tparam T the type of the value to be written
+   * @tparam TAct the type of the bus participant
+   * @tparam Rest the rest of the bus participants
+   * @param vadr the virtual address to be written
+   * @param value the value to be written
+   * @return the result of the write operation
+   */
   template <typename T, typename TAct, typename... Rest,
             typename std::enable_if_t<TAct::kReadOnly, T> = 0>
   WriteResult<T> ForwardWrite(TProcessorStates &pstates, me_adr_t vadr, T value) const {
@@ -263,14 +276,17 @@ private:
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
   }
 
-  /// \brief Forward write operation to the next bus participant
-  /// \details This function is called when the current bus participant allows write-access
-  /// \tparam T the type of the value to be written
-  /// \tparam TAct the type of the bus participant
-  /// \tparam Rest the rest of the bus participants
-  /// \param vadr the virtual address to be written
-  /// \param value the value to be written
-  /// \return the result of the write operation
+  /**
+   * @brief Forward write operation to the next bus participant
+   *
+   * This function is called when the current bus participant allows write-access
+   * @tparam T the type of the value to be written
+   * @tparam TAct the type of the bus participant
+   * @tparam Rest the rest of the bus participants
+   * @param vadr the virtual address to be written
+   * @param value the value to be written
+   * @return the result of the write operation
+   */
   template <typename T, typename TAct, typename... Rest,
             typename std::enable_if_t<!TAct::kReadOnly, T> = 0>
   WriteResult<T> ForwardWrite(TProcessorStates &pstates, me_adr_t vadr, T value) const {

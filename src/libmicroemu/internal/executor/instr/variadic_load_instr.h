@@ -10,9 +10,12 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load multiple
-/// LDM - see Armv7-M Architecture Reference Manual Issue E.e p.242
-/// POP - see Armv7-M Architecture Reference Manual Issue E.e p.319
+/**
+ * @brief Load multiple
+ *
+ * LDM - see Armv7-M Architecture Reference Manual Issue E.e p.242
+ * POP - see Armv7-M Architecture Reference Manual Issue E.e p.319
+ */
 template <typename TInstrContext> class VariadicLoadInstr {
 public:
   using It = typename TInstrContext::It;
@@ -81,26 +84,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   VariadicLoadInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~VariadicLoadInstr() = delete;
 
-  /// \brief Copy constructor for VariadicLoadInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for VariadicLoadInstr.
+   * @param r_src the object to be copied
+   */
   VariadicLoadInstr(const VariadicLoadInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for VariadicLoadInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for VariadicLoadInstr.
+   * @param r_src the object to be copied
+   */
   VariadicLoadInstr &operator=(const VariadicLoadInstr &r_src) = delete;
 
-  /// \brief Move constructor for VariadicLoadInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for VariadicLoadInstr.
+   * @param r_src the object to be moved
+   */
   VariadicLoadInstr(VariadicLoadInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for VariadicLoadInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  VariadicLoadInstr.
+   * @param r_src the object to be moved
+   */
   VariadicLoadInstr &operator=(VariadicLoadInstr &&r_src) = delete;
 };
 

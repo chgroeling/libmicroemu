@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Mov
-/// see Armv7-M Architecture Reference Manual Issue E.e p.291
+/**
+ * @brief Mov
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.291
+ */
 template <typename TInstrContext> class MovImmCarryOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -24,8 +27,11 @@ public:
   }
 };
 
-/// Mvn
-/// see Armv7-M Architecture Reference Manual Issue E.e p.291
+/**
+ * @brief Mvn
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.291
+ */
 template <typename TInstrContext> class MvnImmCarryOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -82,26 +88,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   UnaryInstrImmCarry() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~UnaryInstrImmCarry() = delete;
 
-  /// \brief Copy constructor for UnaryInstrImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for UnaryInstrImmCarry.
+   * @param r_src the object to be copied
+   */
   UnaryInstrImmCarry(const UnaryInstrImmCarry &r_src) = default;
 
-  /// \brief Copy assignment operator for UnaryInstrImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for UnaryInstrImmCarry.
+   * @param r_src the object to be copied
+   */
   UnaryInstrImmCarry &operator=(const UnaryInstrImmCarry &r_src) = delete;
 
-  /// \brief Move constructor for UnaryInstrImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for UnaryInstrImmCarry.
+   * @param r_src the object to be moved
+   */
   UnaryInstrImmCarry(UnaryInstrImmCarry &&r_src) = delete;
 
-  /// \brief Move assignment operator for UnaryInstrImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  UnaryInstrImmCarry.
+   * @param r_src the object to be moved
+   */
   UnaryInstrImmCarry &operator=(UnaryInstrImmCarry &&r_src) = delete;
 };
 

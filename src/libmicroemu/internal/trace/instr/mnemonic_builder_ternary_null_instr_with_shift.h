@@ -6,7 +6,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderTernaryNullInstrWithShift {
 public:
   using It = typename TContext::It;
@@ -40,29 +42,41 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderTernaryNullInstrWithShift() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderTernaryNullInstrWithShift() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderTernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderTernaryNullInstrWithShift.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderTernaryNullInstrWithShift(const MnemonicBuilderTernaryNullInstrWithShift &r_src) =
       default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderTernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderTernaryNullInstrWithShift.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderTernaryNullInstrWithShift &
   operator=(const MnemonicBuilderTernaryNullInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderTernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderTernaryNullInstrWithShift.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderTernaryNullInstrWithShift(MnemonicBuilderTernaryNullInstrWithShift &&r_src) =
       delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderTernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderTernaryNullInstrWithShift.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderTernaryNullInstrWithShift &
   operator=(MnemonicBuilderTernaryNullInstrWithShift &&r_src) = delete;
 };

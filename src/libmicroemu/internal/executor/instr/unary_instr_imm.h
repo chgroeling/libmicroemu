@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Add to pc
-/// see Armv7-M Architecture Reference Manual Issue E.e p.190
+/**
+ * @brief Add to pc
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.190
+ */
 template <typename TInstrContext> class AddToPcImmOp {
 public:
   using Reg = typename TInstrContext::Reg;
@@ -72,26 +75,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   UnaryInstrImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~UnaryInstrImm() = delete;
 
-  /// \brief Copy constructor for UnaryInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for UnaryInstrImm.
+   * @param r_src the object to be copied
+   */
   UnaryInstrImm(const UnaryInstrImm &r_src) = default;
 
-  /// \brief Copy assignment operator for UnaryInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for UnaryInstrImm.
+   * @param r_src the object to be copied
+   */
   UnaryInstrImm &operator=(const UnaryInstrImm &r_src) = delete;
 
-  /// \brief Move constructor for UnaryInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for UnaryInstrImm.
+   * @param r_src the object to be moved
+   */
   UnaryInstrImm(UnaryInstrImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for UnaryInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  UnaryInstrImm.
+   * @param r_src the object to be moved
+   */
   UnaryInstrImm &operator=(UnaryInstrImm &&r_src) = delete;
 };
 

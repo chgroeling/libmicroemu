@@ -8,7 +8,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderTernaryLoadStoreInstrWithImm {
 public:
   using It = typename TContext::It;
@@ -38,29 +40,41 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderTernaryLoadStoreInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderTernaryLoadStoreInstrWithImm() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderTernaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderTernaryLoadStoreInstrWithImm.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderTernaryLoadStoreInstrWithImm(
       const MnemonicBuilderTernaryLoadStoreInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderTernaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderTernaryLoadStoreInstrWithImm.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderTernaryLoadStoreInstrWithImm &
   operator=(const MnemonicBuilderTernaryLoadStoreInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderTernaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderTernaryLoadStoreInstrWithImm.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderTernaryLoadStoreInstrWithImm(MnemonicBuilderTernaryLoadStoreInstrWithImm &&r_src) =
       delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderTernaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderTernaryLoadStoreInstrWithImm.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderTernaryLoadStoreInstrWithImm &
   operator=(MnemonicBuilderTernaryLoadStoreInstrWithImm &&r_src) = delete;
 };

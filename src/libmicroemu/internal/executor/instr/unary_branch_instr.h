@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Branch X
-/// see Armv7-M Architecture Reference Manual Issue E.e p.205
+/**
+ * @brief Branch X
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.205
+ */
 template <typename TInstrContext> class Bx1Op {
 public:
   using It = typename TInstrContext::It;
@@ -26,8 +29,11 @@ public:
   }
 };
 
-/// Branch link X
-/// see Armv7-M Architecture Reference Manual Issue E.e p.205
+/**
+ * @brief Branch link X
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.205
+ */
 template <typename TInstrContext> class Blx1Op {
 public:
   using It = typename TInstrContext::It;
@@ -78,26 +84,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   UnaryBranchInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~UnaryBranchInstr() = delete;
 
-  /// \brief Copy constructor for UnaryBranchInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for UnaryBranchInstr.
+   * @param r_src the object to be copied
+   */
   UnaryBranchInstr(const UnaryBranchInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for UnaryBranchInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for UnaryBranchInstr.
+   * @param r_src the object to be copied
+   */
   UnaryBranchInstr &operator=(const UnaryBranchInstr &r_src) = delete;
 
-  /// \brief Move constructor for UnaryBranchInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for UnaryBranchInstr.
+   * @param r_src the object to be moved
+   */
   UnaryBranchInstr(UnaryBranchInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for UnaryBranchInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  UnaryBranchInstr.
+   * @param r_src the object to be moved
+   */
   UnaryBranchInstr &operator=(UnaryBranchInstr &&r_src) = delete;
 };
 

@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Clz
-/// see Armv7-M Architecture Reference Manual Issue E.e p.220
+/**
+ * @brief Clz
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.220
+ */
 template <typename TInstrContext> class Clz1Op {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm) {
@@ -22,8 +25,11 @@ public:
   }
 };
 
-/// Mov
-/// see Armv7-M Architecture Reference Manual Issue E.e p.293
+/**
+ * @brief Mov
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.293
+ */
 template <typename TInstrContext> class Mov1Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -35,8 +41,11 @@ public:
   }
 };
 
-/// Rrx
-/// see Armv7-M Architecture Reference Manual Issue E.e p.340
+/**
+ * @brief Rrx
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.340
+ */
 template <typename TInstrContext> class Rrx1Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -104,26 +113,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   UnaryInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~UnaryInstr() = delete;
 
-  /// \brief Copy constructor for UnaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for UnaryInstr.
+   * @param r_src the object to be copied
+   */
   UnaryInstr(const UnaryInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for UnaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for UnaryInstr.
+   * @param r_src the object to be copied
+   */
   UnaryInstr &operator=(const UnaryInstr &r_src) = delete;
 
-  /// \brief Move constructor for UnaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for UnaryInstr.
+   * @param r_src the object to be moved
+   */
   UnaryInstr(UnaryInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for UnaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  UnaryInstr.
+   * @param r_src the object to be moved
+   */
   UnaryInstr &operator=(UnaryInstr &&r_src) = delete;
 };
 

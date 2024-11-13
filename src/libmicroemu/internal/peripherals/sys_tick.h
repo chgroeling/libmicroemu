@@ -148,26 +148,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   constexpr SysTick() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   virtual ~SysTick() = delete;
 
-  /// \brief Copy constructor for SysTick.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for SysTick.
+   * @param r_src the object to be copied
+   */
   SysTick(const SysTick &r_src) = delete;
 
-  /// \brief Copy assignment operator for SysTick.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for SysTick.
+   * @param r_src the object to be copied
+   */
   SysTick &operator=(const SysTick &r_src) = delete;
 
-  /// \brief Move constructor for SysTick.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for SysTick.
+   * @param r_src the object to be moved
+   */
   SysTick(SysTick &&r_src) = delete;
 
-  /// \brief Move assignment operator for SysTick.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  SysTick.
+   * @param r_src the object to be moved
+   */
   SysTick &operator=(SysTick &&r_src) = delete;
 };
 

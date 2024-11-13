@@ -652,26 +652,38 @@ public:
   }
 
 private:
-  /// \brief Constructs a MnemonicBuilder object
+  /**
+   * @brief Constructs a MnemonicBuilder object
+   */
   MnemonicBuilder() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilder() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilder.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilder.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilder(MnemonicBuilder &r_src) = delete;
 
-  /// \brief Copy assignment operator for MnemonicBuilder.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilder.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilder &operator=(const MnemonicBuilder &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilder.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilder.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilder(MnemonicBuilder &&r_src) = delete;
 
-  /// \brief Move assignment operator for MnemonicBuilder.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilder.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilder &operator=(MnemonicBuilder &&r_src) = delete;
 };
 

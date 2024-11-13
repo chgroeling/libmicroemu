@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Branch
-/// see Armv7-M Architecture Reference Manual Issue E.e p.205
+/**
+ * @brief Branch
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.205
+ */
 template <typename TInstrContext> class B1ImmOp {
 public:
   using It = typename TInstrContext::It;
@@ -27,8 +30,11 @@ public:
   }
 };
 
-/// Branch Link
-/// see Armv7-M Architecture Reference Manual Issue E.e p.213
+/**
+ * @brief Branch Link
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.213
+ */
 template <typename TInstrContext> class Bl1ImmOp {
 public:
   using It = typename TInstrContext::It;
@@ -74,26 +80,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   UnaryBranchInstrImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~UnaryBranchInstrImm() = delete;
 
-  /// \brief Copy constructor for UnaryBranchInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for UnaryBranchInstrImm.
+   * @param r_src the object to be copied
+   */
   UnaryBranchInstrImm(const UnaryBranchInstrImm &r_src) = default;
 
-  /// \brief Copy assignment operator for UnaryBranchInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for UnaryBranchInstrImm.
+   * @param r_src the object to be copied
+   */
   UnaryBranchInstrImm &operator=(const UnaryBranchInstrImm &r_src) = delete;
 
-  /// \brief Move constructor for UnaryBranchInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for UnaryBranchInstrImm.
+   * @param r_src the object to be moved
+   */
   UnaryBranchInstrImm(UnaryBranchInstrImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for UnaryBranchInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  UnaryBranchInstrImm.
+   * @param r_src the object to be moved
+   */
   UnaryBranchInstrImm &operator=(UnaryBranchInstrImm &&r_src) = delete;
 };
 

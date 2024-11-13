@@ -7,38 +7,52 @@
 
 namespace libmicroemu::internal {
 
-/// Optional assignable memory class.
-/// This class represent an memory area which can be read and written to. The memory area is
-/// represented by a buffer and a size. If the buffer is nullptr or the size is 0, the memory
-/// behaves as if it is not present.
-/// \tparam Id the id of the memory
-/// \tparam TEndianessC the endianess converter
-
+/**
+ * @brief Optional assignable memory class.
+ *
+ * This class represent an memory area which can be read and written to. The memory area is
+ * represented by a buffer and a size. If the buffer is nullptr or the size is 0, the memory
+ * behaves as if it is not present.
+ * @tparam Id the id of the memory
+ * @tparam TEndianessC the endianess converter
+ */
 template <unsigned Id, typename TProcessorStates, typename TEndianessC> class MemRwOptional {
 public:
   static constexpr bool kReadOnly = false;
 
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   explicit MemRwOptional(u8 *const buf, const me_size_t buf_size, const me_adr_t vadr_offset)
       : buf_(buf), vadr_offset_(vadr_offset), buf_size_(buf_size) {}
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   virtual ~MemRwOptional() = default;
 
-  /// \brief Copy constructor for MemOpt.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MemOpt.
+   * @param r_src the object to be copied
+   */
   MemRwOptional(const MemRwOptional &r_src) = default;
 
-  /// \brief Copy assignment operator for MemOpt.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MemOpt.
+   * @param r_src the object to be copied
+   */
   MemRwOptional &operator=(const MemRwOptional &r_src) = default;
 
-  /// \brief Move constructor for MemOpt.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MemOpt.
+   * @param r_src the object to be moved
+   */
   MemRwOptional(MemRwOptional &&r_src) = default;
 
-  /// \brief Move assignment operator for MemOpt.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MemOpt.
+   * @param r_src the object to be moved
+   */
   MemRwOptional &operator=(MemRwOptional &&r_src) = default;
 
   template <typename T> ReadResult<T> Read(TProcessorStates &pstates, me_adr_t vadr) const {

@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief In this file the MemoryViewer class is defined.
+ * @brief In this file the MemoryViewer class is defined.
  */
 #pragma once
 
@@ -12,12 +12,14 @@ namespace internal {
 
 template <typename TProcessorStates, typename TBus> class MemoryViewer {
 public:
-  /// \brief Print memory content to the console.
-  /// \param pstates the processor states
-  /// \param mem the memory bus
-  /// \param vadr the virtual address to start printing from
-  /// \param size the number of bytes to print
-  /// \param indent the number of spaces to indent the output
+  /**
+   * @brief Print memory content to the console.
+   * @param pstates the processor states
+   * @param mem the memory bus
+   * @param vadr the virtual address to start printing from
+   * @param size the number of bytes to print
+   * @param indent the number of spaces to indent the output
+   */
   static void Print(TProcessorStates &pstates, const TBus &mem, const me_offset_t vadr,
                     const me_size_t size, const u32 indent = 0U) {
     const me_adr_t vadr_end = vadr + size;
@@ -43,20 +45,28 @@ private:
 
   ~MemoryViewer() = delete;
 
-  /// \brief Copy constructor for MemoryViewer.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MemoryViewer.
+   * @param r_src the object to be copied
+   */
   MemoryViewer(const MemoryViewer &r_src) = delete;
 
-  /// \brief Copy assignment operator for MemoryViewer.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MemoryViewer.
+   * @param r_src the object to be copied
+   */
   MemoryViewer &operator=(const MemoryViewer &r_src) = delete;
 
-  /// \brief Move constructor for ByteIterator.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for ByteIterator.
+   * @param r_src the object to be moved
+   */
   MemoryViewer(MemoryViewer &&r_src) = delete;
 
-  /// \brief Move assignment operator for ByteIterator.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  ByteIterator.
+   * @param r_src the object to be moved
+   */
   MemoryViewer &operator=(MemoryViewer &&r_src) = delete;
 
   static void PrintSection(TProcessorStates &pstates, const TBus &mem, const me_adr_t vadr_begin,

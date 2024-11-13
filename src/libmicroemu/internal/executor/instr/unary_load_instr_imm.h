@@ -11,7 +11,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TOp, typename TInstrContext> class UnaryLoadInstrImm {
 public:
   using It = typename TInstrContext::It;
@@ -64,26 +66,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   UnaryLoadInstrImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~UnaryLoadInstrImm() = delete;
 
-  /// \brief Copy constructor for UnaryLoadInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for UnaryLoadInstrImm.
+   * @param r_src the object to be copied
+   */
   UnaryLoadInstrImm(const UnaryLoadInstrImm &r_src) = default;
 
-  /// \brief Copy assignment operator for UnaryLoadInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for UnaryLoadInstrImm.
+   * @param r_src the object to be copied
+   */
   UnaryLoadInstrImm &operator=(const UnaryLoadInstrImm &r_src) = delete;
 
-  /// \brief Move constructor for UnaryLoadInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for UnaryLoadInstrImm.
+   * @param r_src the object to be moved
+   */
   UnaryLoadInstrImm(UnaryLoadInstrImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for UnaryLoadInstrImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  UnaryLoadInstrImm.
+   * @param r_src the object to be moved
+   */
   UnaryLoadInstrImm &operator=(UnaryLoadInstrImm &&r_src) = delete;
 };
 
