@@ -9,16 +9,15 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderTernaryLoadStoreInstrWithImm {
+template <typename TContext> class MnemonicBuilderBinaryLoadStoreInstrWithImm {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &n, const TArg1 &t, const TArg2 &d,
-                    const u32 &imm32) {
+                    const InstrFlagsSet &iflags, const TArg0 &n, const TArg1 &t, const u32 &imm32) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
@@ -27,8 +26,6 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.pstates))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d.Get()))
-        .AddString(", ")
         .AddString(Reg::GetRegisterName(t.Get()))
         .AddString(", ");
 
@@ -39,29 +36,30 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderTernaryLoadStoreInstrWithImm() = delete;
+  MnemonicBuilderBinaryLoadStoreInstrWithImm() = delete;
 
   /// \brief Destructor
-  ~StrBuilderTernaryLoadStoreInstrWithImm() = delete;
+  ~MnemonicBuilderBinaryLoadStoreInstrWithImm() = delete;
 
-  /// \brief Copy constructor for StrBuilderTernaryLoadStoreInstrWithImm.
+  /// \brief Copy constructor for MnemonicBuilderBinaryLoadStoreInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithImm(const StrBuilderTernaryLoadStoreInstrWithImm &r_src) =
-      default;
+  MnemonicBuilderBinaryLoadStoreInstrWithImm(
+      const MnemonicBuilderBinaryLoadStoreInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderTernaryLoadStoreInstrWithImm.
+  /// \brief Copy assignment operator for MnemonicBuilderBinaryLoadStoreInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithImm &
-  operator=(const StrBuilderTernaryLoadStoreInstrWithImm &r_src) = delete;
+  MnemonicBuilderBinaryLoadStoreInstrWithImm &
+  operator=(const MnemonicBuilderBinaryLoadStoreInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderTernaryLoadStoreInstrWithImm.
+  /// \brief Move constructor for MnemonicBuilderBinaryLoadStoreInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithImm(StrBuilderTernaryLoadStoreInstrWithImm &&r_src) = delete;
+  MnemonicBuilderBinaryLoadStoreInstrWithImm(MnemonicBuilderBinaryLoadStoreInstrWithImm &&r_src) =
+      delete;
 
-  /// \brief Move assignment operator for StrBuilderTernaryLoadStoreInstrWithImm.
+  /// \brief Move assignment operator for MnemonicBuilderBinaryLoadStoreInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithImm &
-  operator=(StrBuilderTernaryLoadStoreInstrWithImm &&r_src) = delete;
+  MnemonicBuilderBinaryLoadStoreInstrWithImm &
+  operator=(MnemonicBuilderBinaryLoadStoreInstrWithImm &&r_src) = delete;
 };
 
 } // namespace internal

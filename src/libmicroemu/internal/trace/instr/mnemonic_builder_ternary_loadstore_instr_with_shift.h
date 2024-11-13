@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderTernaryLoadStoreInstrWithShift {
+template <typename TContext> class MnemonicBuilderTernaryLoadStoreInstrWithShift {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -37,30 +37,30 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderTernaryLoadStoreInstrWithShift() = delete;
+  MnemonicBuilderTernaryLoadStoreInstrWithShift() = delete;
 
   /// \brief Destructor
-  ~StrBuilderTernaryLoadStoreInstrWithShift() = delete;
+  ~MnemonicBuilderTernaryLoadStoreInstrWithShift() = delete;
 
-  /// \brief Copy constructor for StrBuilderTernaryLoadStoreInstrWithShift.
+  /// \brief Copy constructor for MnemonicBuilderTernaryLoadStoreInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithShift(const StrBuilderTernaryLoadStoreInstrWithShift &r_src) =
-      default;
+  MnemonicBuilderTernaryLoadStoreInstrWithShift(
+      const MnemonicBuilderTernaryLoadStoreInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderTernaryLoadStoreInstrWithShift.
+  /// \brief Copy assignment operator for MnemonicBuilderTernaryLoadStoreInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithShift &
-  operator=(const StrBuilderTernaryLoadStoreInstrWithShift &r_src) = delete;
+  MnemonicBuilderTernaryLoadStoreInstrWithShift &
+  operator=(const MnemonicBuilderTernaryLoadStoreInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderTernaryLoadStoreInstrWithShift.
+  /// \brief Move constructor for MnemonicBuilderTernaryLoadStoreInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithShift(StrBuilderTernaryLoadStoreInstrWithShift &&r_src) =
-      delete;
+  MnemonicBuilderTernaryLoadStoreInstrWithShift(
+      MnemonicBuilderTernaryLoadStoreInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderTernaryLoadStoreInstrWithShift.
+  /// \brief Move assignment operator for MnemonicBuilderTernaryLoadStoreInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryLoadStoreInstrWithShift &
-  operator=(StrBuilderTernaryLoadStoreInstrWithShift &&r_src) = delete;
+  MnemonicBuilderTernaryLoadStoreInstrWithShift &
+  operator=(MnemonicBuilderTernaryLoadStoreInstrWithShift &&r_src) = delete;
 };
 
 } // namespace internal

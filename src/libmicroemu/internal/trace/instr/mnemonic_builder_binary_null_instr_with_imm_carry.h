@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderBinaryNullInstrWithImmCarry {
+template <typename TContext> class MnemonicBuilderBinaryNullInstrWithImmCarry {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -31,29 +31,30 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderBinaryNullInstrWithImmCarry() = delete;
+  MnemonicBuilderBinaryNullInstrWithImmCarry() = delete;
 
   /// \brief Destructor
-  ~StrBuilderBinaryNullInstrWithImmCarry() = delete;
+  ~MnemonicBuilderBinaryNullInstrWithImmCarry() = delete;
 
-  /// \brief Copy constructor for StrBuilderBinaryNullInstrWithImmCarry.
+  /// \brief Copy constructor for MnemonicBuilderBinaryNullInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImmCarry(const StrBuilderBinaryNullInstrWithImmCarry &r_src) =
-      default;
+  MnemonicBuilderBinaryNullInstrWithImmCarry(
+      const MnemonicBuilderBinaryNullInstrWithImmCarry &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderBinaryNullInstrWithImmCarry.
+  /// \brief Copy assignment operator for MnemonicBuilderBinaryNullInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImmCarry &
-  operator=(const StrBuilderBinaryNullInstrWithImmCarry &r_src) = delete;
+  MnemonicBuilderBinaryNullInstrWithImmCarry &
+  operator=(const MnemonicBuilderBinaryNullInstrWithImmCarry &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderBinaryNullInstrWithImmCarry.
+  /// \brief Move constructor for MnemonicBuilderBinaryNullInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImmCarry(StrBuilderBinaryNullInstrWithImmCarry &&r_src) = delete;
+  MnemonicBuilderBinaryNullInstrWithImmCarry(MnemonicBuilderBinaryNullInstrWithImmCarry &&r_src) =
+      delete;
 
-  /// \brief Move assignment operator for StrBuilderBinaryNullInstrWithImmCarry.
+  /// \brief Move assignment operator for MnemonicBuilderBinaryNullInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImmCarry &
-  operator=(StrBuilderBinaryNullInstrWithImmCarry &&r_src) = delete;
+  MnemonicBuilderBinaryNullInstrWithImmCarry &
+  operator=(MnemonicBuilderBinaryNullInstrWithImmCarry &&r_src) = delete;
 };
 
 } // namespace internal

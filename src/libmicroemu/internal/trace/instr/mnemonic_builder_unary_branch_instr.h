@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderUnaryBranchInstr {
+template <typename TContext> class MnemonicBuilderUnaryBranchInstr {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -27,26 +27,26 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderUnaryBranchInstr() = delete;
+  MnemonicBuilderUnaryBranchInstr() = delete;
 
   /// \brief Destructor
-  ~StrBuilderUnaryBranchInstr() = delete;
+  ~MnemonicBuilderUnaryBranchInstr() = delete;
 
-  /// \brief Copy constructor for StrBuilderUnaryBranchInstr.
+  /// \brief Copy constructor for MnemonicBuilderUnaryBranchInstr.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstr(const StrBuilderUnaryBranchInstr &r_src) = default;
+  MnemonicBuilderUnaryBranchInstr(const MnemonicBuilderUnaryBranchInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderUnaryBranchInstr.
+  /// \brief Copy assignment operator for MnemonicBuilderUnaryBranchInstr.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstr &operator=(const StrBuilderUnaryBranchInstr &r_src) = delete;
+  MnemonicBuilderUnaryBranchInstr &operator=(const MnemonicBuilderUnaryBranchInstr &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderUnaryBranchInstr.
+  /// \brief Move constructor for MnemonicBuilderUnaryBranchInstr.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstr(StrBuilderUnaryBranchInstr &&r_src) = delete;
+  MnemonicBuilderUnaryBranchInstr(MnemonicBuilderUnaryBranchInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderUnaryBranchInstr.
+  /// \brief Move assignment operator for MnemonicBuilderUnaryBranchInstr.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstr &operator=(StrBuilderUnaryBranchInstr &&r_src) = delete;
+  MnemonicBuilderUnaryBranchInstr &operator=(MnemonicBuilderUnaryBranchInstr &&r_src) = delete;
 };
 
 } // namespace internal

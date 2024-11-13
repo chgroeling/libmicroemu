@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderNullaryInstr {
+template <typename TContext> class MnemonicBuilderNullaryInstr {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -24,26 +24,26 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderNullaryInstr() = delete;
+  MnemonicBuilderNullaryInstr() = delete;
 
   /// \brief Destructor
-  ~StrBuilderNullaryInstr() = delete;
+  ~MnemonicBuilderNullaryInstr() = delete;
 
-  /// \brief Copy constructor for StrBuilderNullaryInstr.
+  /// \brief Copy constructor for MnemonicBuilderNullaryInstr.
   /// \param r_src the object to be copied
-  StrBuilderNullaryInstr(const StrBuilderNullaryInstr &r_src) = default;
+  MnemonicBuilderNullaryInstr(const MnemonicBuilderNullaryInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderNullaryInstr.
+  /// \brief Copy assignment operator for MnemonicBuilderNullaryInstr.
   /// \param r_src the object to be copied
-  StrBuilderNullaryInstr &operator=(const StrBuilderNullaryInstr &r_src) = delete;
+  MnemonicBuilderNullaryInstr &operator=(const MnemonicBuilderNullaryInstr &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderNullaryInstr.
+  /// \brief Move constructor for MnemonicBuilderNullaryInstr.
   /// \param r_src the object to be copied
-  StrBuilderNullaryInstr(StrBuilderNullaryInstr &&r_src) = delete;
+  MnemonicBuilderNullaryInstr(MnemonicBuilderNullaryInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderNullaryInstr.
+  /// \brief Move assignment operator for MnemonicBuilderNullaryInstr.
   /// \param r_src the object to be copied
-  StrBuilderNullaryInstr &operator=(StrBuilderNullaryInstr &&r_src) = delete;
+  MnemonicBuilderNullaryInstr &operator=(MnemonicBuilderNullaryInstr &&r_src) = delete;
 };
 
 } // namespace internal

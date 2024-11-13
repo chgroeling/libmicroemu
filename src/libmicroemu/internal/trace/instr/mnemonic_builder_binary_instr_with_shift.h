@@ -9,7 +9,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderBinaryInstrWithShift {
+template <typename TContext> class MnemonicBuilderBinaryInstrWithShift {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -42,26 +42,28 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderBinaryInstrWithShift() = delete;
+  MnemonicBuilderBinaryInstrWithShift() = delete;
 
   /// \brief Destructor
-  ~StrBuilderBinaryInstrWithShift() = delete;
+  ~MnemonicBuilderBinaryInstrWithShift() = delete;
 
-  /// \brief Copy constructor for StrBuilderBinaryInstrWithShift.
+  /// \brief Copy constructor for MnemonicBuilderBinaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithShift(const StrBuilderBinaryInstrWithShift &r_src) = default;
+  MnemonicBuilderBinaryInstrWithShift(const MnemonicBuilderBinaryInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderBinaryInstrWithShift.
+  /// \brief Copy assignment operator for MnemonicBuilderBinaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithShift &operator=(const StrBuilderBinaryInstrWithShift &r_src) = delete;
+  MnemonicBuilderBinaryInstrWithShift &
+  operator=(const MnemonicBuilderBinaryInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderBinaryInstrWithShift.
+  /// \brief Move constructor for MnemonicBuilderBinaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithShift(StrBuilderBinaryInstrWithShift &&r_src) = delete;
+  MnemonicBuilderBinaryInstrWithShift(MnemonicBuilderBinaryInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderBinaryInstrWithShift.
+  /// \brief Move assignment operator for MnemonicBuilderBinaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithShift &operator=(StrBuilderBinaryInstrWithShift &&r_src) = delete;
+  MnemonicBuilderBinaryInstrWithShift &
+  operator=(MnemonicBuilderBinaryInstrWithShift &&r_src) = delete;
 };
 
 } // namespace internal

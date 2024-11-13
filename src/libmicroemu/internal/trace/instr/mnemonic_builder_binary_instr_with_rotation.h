@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderBinaryInstrWithRotation {
+template <typename TContext> class MnemonicBuilderBinaryInstrWithRotation {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -35,27 +35,29 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderBinaryInstrWithRotation() = delete;
+  MnemonicBuilderBinaryInstrWithRotation() = delete;
 
   /// \brief Destructor
-  ~StrBuilderBinaryInstrWithRotation() = delete;
+  ~MnemonicBuilderBinaryInstrWithRotation() = delete;
 
-  /// \brief Copy constructor for StrBuilderBinaryInstrWithRotation.
+  /// \brief Copy constructor for MnemonicBuilderBinaryInstrWithRotation.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithRotation(const StrBuilderBinaryInstrWithRotation &r_src) = default;
+  MnemonicBuilderBinaryInstrWithRotation(const MnemonicBuilderBinaryInstrWithRotation &r_src) =
+      default;
 
-  /// \brief Copy assignment operator for StrBuilderBinaryInstrWithRotation.
+  /// \brief Copy assignment operator for MnemonicBuilderBinaryInstrWithRotation.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithRotation &
-  operator=(const StrBuilderBinaryInstrWithRotation &r_src) = delete;
+  MnemonicBuilderBinaryInstrWithRotation &
+  operator=(const MnemonicBuilderBinaryInstrWithRotation &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderBinaryInstrWithRotation.
+  /// \brief Move constructor for MnemonicBuilderBinaryInstrWithRotation.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithRotation(StrBuilderBinaryInstrWithRotation &&r_src) = delete;
+  MnemonicBuilderBinaryInstrWithRotation(MnemonicBuilderBinaryInstrWithRotation &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderBinaryInstrWithRotation.
+  /// \brief Move assignment operator for MnemonicBuilderBinaryInstrWithRotation.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithRotation &operator=(StrBuilderBinaryInstrWithRotation &&r_src) = delete;
+  MnemonicBuilderBinaryInstrWithRotation &
+  operator=(MnemonicBuilderBinaryInstrWithRotation &&r_src) = delete;
 };
 
 } // namespace internal
