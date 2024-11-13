@@ -26,8 +26,8 @@ public:
     u32 imm32{0U};
     bool carry_out{false};
 
-    if (Bm32::Slice1R<11U, 10U>(in) == 0x0U) {
-      switch (Bm32::Slice1R<9U, 8U>(in)) {
+    if (Bm32::ExtractBits1R<11U, 10U>(in) == 0x0U) {
+      switch (Bm32::ExtractBits1R<9U, 8U>(in)) {
 
       case 0x0U: {
         imm32 = Bm32::ZeroExtend<u32>(in & 0xFFU);
@@ -63,7 +63,7 @@ public:
       carry_out = carry_in;
     } else {
       const u32 unrotated_value = Bm32::ZeroExtend<u32>(0x80U | (in & 0x7FU));
-      const auto r_ror = Alu32::ROR_C(unrotated_value, Bm32::Slice1R<11U, 7U>(in));
+      const auto r_ror = Alu32::ROR_C(unrotated_value, Bm32::ExtractBits1R<11U, 7U>(in));
 
       imm32 = r_ror.result;
       carry_out = r_ror.carry_out;

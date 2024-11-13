@@ -133,7 +133,8 @@ public:
    * @param value The value to extract bits from.
    * @return The extracted bits.
    */
-  template <unsigned last_bit, unsigned first_bit> static constexpr T Slice1R(const T &value) {
+  template <unsigned last_bit, unsigned first_bit>
+  static constexpr T ExtractBits1R(const T &value) {
     return (value & GenerateBitMask<last_bit, first_bit>()) >> first_bit;
   }
 
@@ -185,7 +186,7 @@ public:
    */
   template <unsigned r2_last_bit, unsigned r2_first_bit, unsigned r1_last_bit,
             unsigned r1_first_bit>
-  static constexpr T Slice2R(const T &value) {
+  static constexpr T ExtractBits2R(const T &value) {
     return ((value & GenerateBitMask<r2_last_bit, r2_first_bit>()) >>
             (r2_first_bit - r1_last_bit + r1_first_bit - 1U)) +
            ((value & GenerateBitMask<r1_last_bit, r1_first_bit>()) >> (r1_first_bit));

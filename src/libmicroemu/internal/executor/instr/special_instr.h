@@ -397,7 +397,7 @@ public:
       return Ok(ExecResult{eflags});
     }
     const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
-    const auto SYSm_7_3 = Bm32::Slice1R<7U, 3U>(SYSm);
+    const auto SYSm_7_3 = Bm32::ExtractBits1R<7U, 3U>(SYSm);
     switch (SYSm_7_3) {
     case 0b00000U: {
       if (mask & 0x1) {
@@ -410,7 +410,7 @@ public:
       break;
     }
     case 0b00001U: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
+      const auto SYSm_2_0 = Bm32::ExtractBits1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
       case 0b000U: {
         // MSP - Main Stack Pointer
@@ -432,7 +432,7 @@ public:
       break;
     }
     case 0b00010U: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
+      const auto SYSm_2_0 = Bm32::ExtractBits1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
       case 0b000U:
         // PRIMASK - Priority Mask
@@ -507,7 +507,7 @@ public:
       return Ok(ExecResult{eflags});
     }
 
-    const auto SYSm_7_3 = Bm32::Slice1R<7U, 3U>(SYSm);
+    const auto SYSm_7_3 = Bm32::ExtractBits1R<7U, 3U>(SYSm);
     u32 rd_val = 0U;
     switch (SYSm_7_3) {
     case 0b00000U: {
@@ -521,7 +521,7 @@ public:
       break;
     }
     case 0b00001U: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
+      const auto SYSm_2_0 = Bm32::ExtractBits1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
       case 0b000U: {
         // MSP - Main Stack Pointer
@@ -543,7 +543,7 @@ public:
       break;
     }
     case 0b00010U: {
-      const auto SYSm_2_0 = Bm32::Slice1R<2U, 0U>(SYSm);
+      const auto SYSm_2_0 = Bm32::ExtractBits1R<2U, 0U>(SYSm);
       switch (SYSm_2_0) {
       case 0b000U:
         // PRIMASK - Priority Mask

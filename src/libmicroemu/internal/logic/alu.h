@@ -111,10 +111,11 @@ public:
     const U extended_x = (static_cast<U>(x) << no_of_bits<T>::N) >> shift;
 
     const T result = static_cast<T>(
-        BitManip<U>::template Slice1R<no_of_bits<U>::N - 1U, no_of_bits<T>::N>(extended_x));
+        BitManip<U>::template ExtractBits1R<no_of_bits<U>::N - 1U, no_of_bits<T>::N>(extended_x));
 
     const bool carry_out =
-        BitManip<U>::template Slice1R<no_of_bits<T>::N - 1, no_of_bits<T>::N - 1>(extended_x) == 1U;
+        BitManip<U>::template ExtractBits1R<no_of_bits<T>::N - 1, no_of_bits<T>::N - 1>(
+            extended_x) == 1U;
 
     return LSR_C_Results{result, carry_out};
   }
@@ -131,10 +132,10 @@ public:
     using U = next_bigger_type_t<T>;
     const U extended_x = (static_cast<U>(x) << shift);
     const T result =
-        static_cast<T>(BitManip<U>::template Slice1R<no_of_bits<T>::N - 1U, 0>(extended_x));
+        static_cast<T>(BitManip<U>::template ExtractBits1R<no_of_bits<T>::N - 1U, 0>(extended_x));
 
     const bool carry_out =
-        BitManip<U>::template Slice1R<no_of_bits<T>::N, no_of_bits<T>::N>(extended_x) == 1U;
+        BitManip<U>::template ExtractBits1R<no_of_bits<T>::N, no_of_bits<T>::N>(extended_x) == 1U;
 
     return LSL_C_Results{result, carry_out};
   }
@@ -158,7 +159,7 @@ public:
     constexpr auto N = no_of_bits<T>::N;
     const auto m = shift % N;
     const T result = LSR(x, m) | LSL(x, N - m);
-    const auto carry_out = BitManip<T>::template Slice1R<N - 1U, N - 1U>(result);
+    const auto carry_out = BitManip<T>::template ExtractBits1R<N - 1U, N - 1U>(result);
     return ROR_C_Results{result, carry_out == 0x1U};
   }
 
@@ -170,7 +171,7 @@ public:
   static RXR_C_Results RXR_C(const T &x, bool carry_in) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.27
     const u32 N = no_of_bits<T>::N;
-    const auto carry_out = BitManip<T>::template Slice1R<0, 0>(x) == 0x1U;
+    const auto carry_out = BitManip<T>::template ExtractBits1R<0, 0>(x) == 0x1U;
     const T carry_in_t = carry_in ? static_cast<T>(0x1U) : static_cast<T>(0x0U);
     const T result = (x >> 1U) | (carry_in_t << (N - 1U));
 

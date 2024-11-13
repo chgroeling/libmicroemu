@@ -20,18 +20,18 @@ def generate_pre_block(pattern):
                     )
                     i += 1
                 else:
-                    # Group consecutive '0' or '1' bits for Slice1R
+                    # Group consecutive '0' or '1' bits for ExtractBits1R
                     slice_start = i
                     while i < length and bit_string[i] in "01":
                         i += 1
                     slice_end = i - 1
                     fixed_bits = bit_string[slice_start:i]
 
-                    # Calculate bit positions for Slice1R
+                    # Calculate bit positions for ExtractBits1R
                     bit_pos_start = length - 1 - slice_start
                     bit_pos_end = length - 1 - slice_end
                     pre_block.append(
-                        f"assert((Bm16::Slice1R<{bit_pos_start}u, {bit_pos_end}u>({instr_name})) == 0b{fixed_bits}u);"
+                        f"assert((Bm16::ExtractBits1R<{bit_pos_start}u, {bit_pos_end}u>({instr_name})) == 0b{fixed_bits}u);"
                     )
             elif bit_string[i] == "x":  # Skip 'x' (don't care) bits
                 i += 1
