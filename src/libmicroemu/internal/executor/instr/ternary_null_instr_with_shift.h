@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Compare two registers
-/// see Armv7-M Architecture Reference Manual Issue E.e p.224
+/**
+ * @brief Compare two registers
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.224
+ */
 template <typename TInstrContext> class Cmp2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -29,8 +32,11 @@ public:
   }
 };
 
-/// TST - Test two registers
-/// see Armv7-M Architecture Reference Manual Issue E.e p.420
+/**
+ * @brief TST - Test two registers
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.420
+ */
 template <typename TInstrContext> class Tst2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -48,8 +54,11 @@ public:
   }
 };
 
-/// TEQ - Test two registers
-/// see Armv7-M Architecture Reference Manual Issue E.e p.418
+/**
+ * @brief TEQ - Test two registers
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.418
+ */
 template <typename TInstrContext> class Teq2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -111,26 +120,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   TernaryNullInstrWithShift() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~TernaryNullInstrWithShift() = delete;
 
-  /// \brief Copy constructor for TernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for TernaryNullInstrWithShift.
+   * @param r_src the object to be copied
+   */
   TernaryNullInstrWithShift(const TernaryNullInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for TernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for TernaryNullInstrWithShift.
+   * @param r_src the object to be copied
+   */
   TernaryNullInstrWithShift &operator=(const TernaryNullInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for TernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for TernaryNullInstrWithShift.
+   * @param r_src the object to be moved
+   */
   TernaryNullInstrWithShift(TernaryNullInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for TernaryNullInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  TernaryNullInstrWithShift.
+   * @param r_src the object to be moved
+   */
   TernaryNullInstrWithShift &operator=(TernaryNullInstrWithShift &&r_src) = delete;
 };
 

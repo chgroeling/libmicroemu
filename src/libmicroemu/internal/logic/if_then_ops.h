@@ -42,26 +42,38 @@ template <typename TProcessorStates, typename TSpecRegOps> class IfThenOps {
 public:
   using SReg = TSpecRegOps;
 
-  /// \brief Constructs a IfThenOps object
+  /**
+   * @brief Constructs a IfThenOps object
+   */
   IfThenOps() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~IfThenOps() = delete;
 
-  /// \brief Copy constructor for IfThenOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for IfThenOps.
+   * @param r_src the object to be copied
+   */
   IfThenOps(IfThenOps &r_src) = delete;
 
-  /// \brief Copy assignment operator for IfThenOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for IfThenOps.
+   * @param r_src the object to be copied
+   */
   IfThenOps &operator=(const IfThenOps &r_src) = delete;
 
-  /// \brief Move constructor for IfThenOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for IfThenOps.
+   * @param r_src the object to be moved
+   */
   IfThenOps(IfThenOps &&r_src) = delete;
 
-  /// \brief Move assignment operator for IfThenOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  IfThenOps.
+   * @param r_src the object to be moved
+   */
   IfThenOps &operator=(IfThenOps &&r_src) = delete;
 
   static inline bool InITBlock(const TProcessorStates &pstates) {

@@ -6,7 +6,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderBinaryNullInstrWithImm {
 public:
   using It = typename TContext::It;
@@ -29,28 +31,40 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderBinaryNullInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderBinaryNullInstrWithImm() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderBinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderBinaryNullInstrWithImm.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryNullInstrWithImm(const MnemonicBuilderBinaryNullInstrWithImm &r_src) =
       default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderBinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderBinaryNullInstrWithImm.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryNullInstrWithImm &
   operator=(const MnemonicBuilderBinaryNullInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderBinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderBinaryNullInstrWithImm.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryNullInstrWithImm(MnemonicBuilderBinaryNullInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderBinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderBinaryNullInstrWithImm.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryNullInstrWithImm &
   operator=(MnemonicBuilderBinaryNullInstrWithImm &&r_src) = delete;
 };

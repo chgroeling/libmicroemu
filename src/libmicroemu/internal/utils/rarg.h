@@ -6,7 +6,7 @@
 #include <cstdint>
 #include <type_traits>
 
-/** \brief Register argument constant class
+/** @brief Register argument constant class
  *
  */
 template <libmicroemu::RegisterId Rid> class RArgConst {
@@ -14,26 +14,38 @@ public:
   static constexpr auto kRegId = Rid;
   constexpr libmicroemu::RegisterId Get() const { return kRegId; }
 
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   constexpr RArgConst() = default;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~RArgConst() = default;
 
-  /// \brief Copy constructor for ArgConst.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for ArgConst.
+   * @param r_src the object to be copied
+   */
   constexpr RArgConst(const RArgConst &r_src) = default;
 
-  /// \brief Copy assignment operator for ArgConst.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for ArgConst.
+   * @param r_src the object to be copied
+   */
   constexpr RArgConst &operator=(const RArgConst &r_src) = default;
 
-  /// \brief Move constructor for ArgConst.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for ArgConst.
+   * @param r_src the object to be moved
+   */
   constexpr RArgConst(RArgConst &&r_src) = default;
 
-  /// \brief Move assignment operator for ArgConst.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  ArgConst.
+   * @param r_src the object to be moved
+   */
   constexpr RArgConst &operator=(RArgConst &&r_src) = default;
 
   // Equality operator
@@ -43,13 +55,15 @@ public:
   template <typename R> bool operator!=(const R &other) const { return !(Get() == other.Get()); }
 };
 
-/** \brief Register argument class
+/** @brief Register argument class
  *
  * This class is used to represent a register argument.
  */
 template <typename T> class RArg {
 public:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   RArg(T reg_id) : val_(reg_id) {
     static_assert(std::is_integral<T>::value, "T must be an integral type");
     static_assert(std::is_unsigned<T>::value, "T must be an unsigned type");
@@ -57,23 +71,33 @@ public:
                   "RArg only allows underlying type of RegisterId");
   }
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~RArg() = default;
 
-  /// \brief Copy constructor for Arg.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for Arg.
+   * @param r_src the object to be copied
+   */
   RArg(const RArg &r_src) = default;
 
-  /// \brief Copy assignment operator for Arg.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Arg.
+   * @param r_src the object to be copied
+   */
   RArg &operator=(const RArg &r_src) = default;
 
-  /// \brief Move constructor for Arg.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Arg.
+   * @param r_src the object to be moved
+   */
   RArg(RArg &&r_src) = default;
 
-  /// \brief Move assignment operator for Arg.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Arg.
+   * @param r_src the object to be moved
+   */
   RArg &operator=(RArg &&r_src) = default;
 
   inline libmicroemu::RegisterId Get() const { return static_cast<libmicroemu::RegisterId>(val_); }

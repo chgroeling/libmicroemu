@@ -38,7 +38,9 @@ enum class RegisterId : u8 {
 /// @brief The last register ID.
 constexpr auto kLastRegister = RegisterId::kR15;
 
-/// @brief Returns the number of general-purpose registers.
-/// @return The number of general-purpose registers.
+/**
+ * @brief Returns the number of general-purpose registers.
+ * @return The number of general-purpose registers.
+ */
 static constexpr u32 CountRegisters() noexcept { return static_cast<u32>(kLastRegister) + 1U; };
 } // namespace libmicroemu

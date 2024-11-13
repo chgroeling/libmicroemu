@@ -38,22 +38,32 @@ public:
   }
 
 private:
-  /// \brief Constructs a Fetcher object
+  /**
+   * @brief Constructs a Fetcher object
+   */
   Fetcher() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~Fetcher() = delete;
 
-  /// \brief Copy assignment operator for Fetcher.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Fetcher.
+   * @param r_src the object to be copied
+   */
   Fetcher &operator=(const Fetcher &r_src) = delete;
 
-  /// \brief Move constructor for Fetcher.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Fetcher.
+   * @param r_src the object to be moved
+   */
   Fetcher(Fetcher &&r_src) = delete;
 
-  /// \brief Move assignment operator for Fetcher.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Fetcher.
+   * @param r_src the object to be moved
+   */
   Fetcher &operator=(Fetcher &&r_src) = delete;
 };
 

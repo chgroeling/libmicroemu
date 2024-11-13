@@ -8,7 +8,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderBinaryLoadStoreInstrWithImm {
 public:
   using It = typename TContext::It;
@@ -35,29 +37,41 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderBinaryLoadStoreInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderBinaryLoadStoreInstrWithImm() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderBinaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderBinaryLoadStoreInstrWithImm.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryLoadStoreInstrWithImm(
       const MnemonicBuilderBinaryLoadStoreInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderBinaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderBinaryLoadStoreInstrWithImm.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryLoadStoreInstrWithImm &
   operator=(const MnemonicBuilderBinaryLoadStoreInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderBinaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderBinaryLoadStoreInstrWithImm.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryLoadStoreInstrWithImm(MnemonicBuilderBinaryLoadStoreInstrWithImm &&r_src) =
       delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderBinaryLoadStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderBinaryLoadStoreInstrWithImm.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryLoadStoreInstrWithImm &
   operator=(MnemonicBuilderBinaryLoadStoreInstrWithImm &&r_src) = delete;
 };

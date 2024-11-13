@@ -6,9 +6,13 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Loads u8 from memory and extends the result to u32
-/// see Armv7-M Architecture Reference Manual Issue E.e p.252
-/// see Armv7-M Architecture Reference Manual Issue E.e p.255
+/**
+ * @brief Loads u8 from memory and extends the result to u32
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.252, p.255
+ *
+ */
+
 template <typename TInstrContext> class LoadMemU8 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {
@@ -20,8 +24,11 @@ public:
   }
 };
 
-/// Loads i8 from memory and extends the result to i32
-/// see Armv7-M Architecture Reference Manual Issue E.e p.270
+/**
+ * @brief Loads i8 from memory and extends the result to i32
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.270
+ */
 template <typename TInstrContext> class LoadMemI8 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {
@@ -34,8 +41,11 @@ public:
   }
 };
 
-/// Loads u16 from memory and extends the result to u32
-/// see Armv7-M Architecture Reference Manual Issue E.e p.264
+/**
+ * @brief Loads u16 from memory and extends the result to u32
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.264
+ */
 template <typename TInstrContext> class LoadMemU16 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {
@@ -47,8 +57,11 @@ public:
   }
 };
 
-/// Loads i16 from memory and extends the result to u32
-/// see Armv7-M Architecture Reference Manual Issue E.e p.275
+/**
+ * @brief Loads i16 from memory and extends the result to u32
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.275
+ */
 template <typename TInstrContext> class LoadMemI16 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {
@@ -60,8 +73,11 @@ public:
   }
 };
 
-/// Loads u32 from memory
-/// see Armv7-M Architecture Reference Manual Issue E.e p.246
+/**
+ * @brief Loads u32 from memory
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.246
+ */
 template <typename TInstrContext> class LoadMemU32 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {
@@ -72,8 +88,11 @@ public:
   }
 };
 
-/// Loads u32 (exlusive) from memory
-/// see Armv7-M Architecture Reference Manual Issue E.e p.261
+/**
+ * @brief Loads u32 (exlusive) from memory
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.261
+ */
 template <typename TInstrContext> class LoadMemExU32 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {

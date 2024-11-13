@@ -72,26 +72,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   Thumb() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~Thumb() = delete;
 
-  /// \brief Copy constructor for Thumb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for Thumb.
+   * @param r_src the object to be copied
+   */
   Thumb(const Thumb &r_src) = delete;
 
-  /// \brief Copy assignment operator for Thumb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Thumb.
+   * @param r_src the object to be copied
+   */
   Thumb &operator=(const Thumb &r_src) = delete;
 
-  /// \brief Move constructor for Thumb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Thumb.
+   * @param r_src the object to be moved
+   */
   Thumb(Thumb &&r_src) = delete;
 
-  /// \brief Move assignment operator for Thumb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Thumb.
+   * @param r_src the object to be moved
+   */
   Thumb &operator=(Thumb &&r_src) = delete;
 };
 

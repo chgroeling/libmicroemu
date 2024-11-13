@@ -100,26 +100,38 @@ private:
     return StatusCode::kScSuccess;
   }
 
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MemoryHelpers() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MemoryHelpers() = delete;
 
-  /// \brief Copy constructor for MemoryHelpers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MemoryHelpers.
+   * @param r_src the object to be copied
+   */
   MemoryHelpers(const MemoryHelpers &r_src) = delete;
 
-  /// \brief Copy assignment operator for MemoryHelpers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MemoryHelpers.
+   * @param r_src the object to be copied
+   */
   MemoryHelpers &operator=(const MemoryHelpers &r_src) = delete;
 
-  /// \brief Move constructor for MemoryHelpers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MemoryHelpers.
+   * @param r_src the object to be moved
+   */
   MemoryHelpers(MemoryHelpers &&r_src) = delete;
 
-  /// \brief Move assignment operator for MemoryHelpers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MemoryHelpers.
+   * @param r_src the object to be moved
+   */
   MemoryHelpers &operator=(MemoryHelpers &&r_src) = delete;
 };
 

@@ -48,28 +48,40 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderVariadicLoadStoreInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderVariadicLoadStoreInstr() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderVariadicLoadStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderVariadicLoadStoreInstr.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderVariadicLoadStoreInstr(const MnemonicBuilderVariadicLoadStoreInstr &r_src) =
       default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderVariadicLoadStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderVariadicLoadStoreInstr.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderVariadicLoadStoreInstr &
   operator=(const MnemonicBuilderVariadicLoadStoreInstr &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderVariadicLoadStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderVariadicLoadStoreInstr.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderVariadicLoadStoreInstr(MnemonicBuilderVariadicLoadStoreInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderVariadicLoadStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderVariadicLoadStoreInstr.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderVariadicLoadStoreInstr &
   operator=(MnemonicBuilderVariadicLoadStoreInstr &&r_src) = delete;
 };

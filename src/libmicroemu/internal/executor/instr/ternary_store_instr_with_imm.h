@@ -58,26 +58,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   TernaryStoreInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~TernaryStoreInstrWithImm() = delete;
 
-  /// \brief Copy constructor for MemoTernaryStoreInstrWithImmryRouter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MemoTernaryStoreInstrWithImmryRouter.
+   * @param r_src the object to be copied
+   */
   TernaryStoreInstrWithImm(const TernaryStoreInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for TernaryStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for TernaryStoreInstrWithImm.
+   * @param r_src the object to be copied
+   */
   TernaryStoreInstrWithImm &operator=(const TernaryStoreInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for TernaryStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for TernaryStoreInstrWithImm.
+   * @param r_src the object to be moved
+   */
   TernaryStoreInstrWithImm(TernaryStoreInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for TernaryStoreInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  TernaryStoreInstrWithImm.
+   * @param r_src the object to be moved
+   */
   TernaryStoreInstrWithImm &operator=(TernaryStoreInstrWithImm &&r_src) = delete;
 };
 

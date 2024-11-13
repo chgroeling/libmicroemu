@@ -10,8 +10,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Store Multiple
-/// STM - see Armv7-M Architecture Reference Manual Issue E.e p.383
+/**
+ * @brief Store Multiple
+ *
+ * STM - see Armv7-M Architecture Reference Manual Issue E.e p.383
+ */
 template <typename TInstrContext> class VariadicStoreInstr {
 public:
   using It = typename TInstrContext::It;
@@ -70,26 +73,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   VariadicStoreInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~VariadicStoreInstr() = delete;
 
-  /// \brief Copy constructor for VariadicStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for VariadicStoreInstr.
+   * @param r_src the object to be copied
+   */
   VariadicStoreInstr(const VariadicStoreInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for VariadicStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for VariadicStoreInstr.
+   * @param r_src the object to be copied
+   */
   VariadicStoreInstr &operator=(const VariadicStoreInstr &r_src) = delete;
 
-  /// \brief Move constructor for VariadicStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for VariadicStoreInstr.
+   * @param r_src the object to be moved
+   */
   VariadicStoreInstr(VariadicStoreInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for VariadicStoreInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  VariadicStoreInstr.
+   * @param r_src the object to be moved
+   */
   VariadicStoreInstr &operator=(VariadicStoreInstr &&r_src) = delete;
 };
 

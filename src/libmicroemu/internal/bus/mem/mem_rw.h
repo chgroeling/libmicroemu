@@ -10,27 +10,39 @@ template <unsigned Id, typename TProcessorStates, typename TEndianessC> class Me
 public:
   static constexpr bool kReadOnly = false;
 
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   explicit MemRw(u8 *const buf, const me_size_t buf_size, const me_adr_t vadr_offset)
       : buf_(buf), vadr_offset_(vadr_offset), buf_size_(buf_size) {}
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   virtual ~MemRw() = default;
 
-  /// \brief Copy constructor for Mem.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for Mem.
+   * @param r_src the object to be copied
+   */
   MemRw(const MemRw &r_src) = default;
 
-  /// \brief Copy assignment operator for Mem.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Mem.
+   * @param r_src the object to be copied
+   */
   MemRw &operator=(const MemRw &r_src) = default;
 
-  /// \brief Move constructor for Mem.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Mem.
+   * @param r_src the object to be moved
+   */
   MemRw(MemRw &&r_src) = default;
 
-  /// \brief Move assignment operator for Mem.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Mem.
+   * @param r_src the object to be moved
+   */
   MemRw &operator=(MemRw &&r_src) = default;
 
   template <typename T> ReadResult<T> Read(TProcessorStates &pstates, me_adr_t vadr) const {

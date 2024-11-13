@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Uxtb
-/// see Armv7-M Architecture Reference Manual Issue E.e p.452
+/**
+ * @brief Uxtb
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.452
+ */
 template <typename TInstrContext> class Uxtb1Rotation {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
@@ -23,8 +26,11 @@ public:
   }
 };
 
-/// Sxtb
-/// see Armv7-M Architecture Reference Manual Issue E.e p.413
+/**
+ * @brief Sxtb
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.413
+ */
 template <typename TInstrContext> class Sxtb1Rotation {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
@@ -35,8 +41,11 @@ public:
   }
 };
 
-/// Uxth
-/// see Armv7-M Architecture Reference Manual Issue E.e p.454
+/**
+ * @brief Uxth
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.454
+ */
 template <typename TInstrContext> class Uxth1Rotation {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
@@ -47,8 +56,11 @@ public:
   }
 };
 
-/// Sxth
-/// see Armv7-M Architecture Reference Manual Issue E.e p.414
+/**
+ * @brief Sxth
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.414
+ */
 template <typename TInstrContext> class Sxth1Rotation {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
@@ -105,26 +117,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryInstrWithRotation() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryInstrWithRotation() = delete;
 
-  /// \brief Copy constructor for BinaryInstrWithRotation.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryInstrWithRotation.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithRotation(const BinaryInstrWithRotation &r_src) = default;
 
-  /// \brief Copy assignment operator for MeBinaryInstrWithRotationmoryRouter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MeBinaryInstrWithRotationmoryRouter.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithRotation &operator=(const BinaryInstrWithRotation &r_src) = delete;
 
-  /// \brief Move constructor for BinaryInstrWithRotation.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryInstrWithRotation.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithRotation(BinaryInstrWithRotation &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryInstrWithRotation.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryInstrWithRotation.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithRotation &operator=(BinaryInstrWithRotation &&r_src) = delete;
 };
 

@@ -6,7 +6,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderBinaryNullInstrWithImmCarry {
 public:
   using It = typename TContext::It;
@@ -30,29 +32,41 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderBinaryNullInstrWithImmCarry() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderBinaryNullInstrWithImmCarry() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderBinaryNullInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderBinaryNullInstrWithImmCarry.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryNullInstrWithImmCarry(
       const MnemonicBuilderBinaryNullInstrWithImmCarry &r_src) = default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderBinaryNullInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderBinaryNullInstrWithImmCarry.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryNullInstrWithImmCarry &
   operator=(const MnemonicBuilderBinaryNullInstrWithImmCarry &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderBinaryNullInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderBinaryNullInstrWithImmCarry.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryNullInstrWithImmCarry(MnemonicBuilderBinaryNullInstrWithImmCarry &&r_src) =
       delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderBinaryNullInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderBinaryNullInstrWithImmCarry.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryNullInstrWithImmCarry &
   operator=(MnemonicBuilderBinaryNullInstrWithImmCarry &&r_src) = delete;
 };

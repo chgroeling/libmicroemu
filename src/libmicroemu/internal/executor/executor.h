@@ -952,22 +952,32 @@ public:
   };
 
 private:
-  /// \brief Constructs a Executor object
+  /**
+   * @brief Constructs a Executor object
+   */
   Executor() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~Executor() = delete;
 
-  /// \brief Copy assignment operator for Executor.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Executor.
+   * @param r_src the object to be copied
+   */
   Executor &operator=(const Executor &r_src) = delete;
 
-  /// \brief Move constructor for Executor.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Executor.
+   * @param r_src the object to be moved
+   */
   Executor(Executor &&r_src) = delete;
 
-  /// \brief Move assignment operator for Executor.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Executor.
+   * @param r_src the object to be moved
+   */
   Executor &operator=(Executor &&r_src) = delete;
 };
 

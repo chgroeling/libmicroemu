@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Orr
-/// see Armv7-M Architecture Reference Manual Issue E.e p.309
+/**
+ * @brief Orr
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.309
+ */
 template <typename TInstrContext> class Orr1ImmCarryOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -26,8 +29,11 @@ public:
   }
 };
 
-/// Eor
-/// see Armv7-M Architecture Reference Manual Issue E.e p.232
+/**
+ * @brief Eor
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.232
+ */
 template <typename TInstrContext> class Eor1ImmCarryOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -41,8 +47,11 @@ public:
   }
 };
 
-/// And
-/// see Armv7-M Architecture Reference Manual Issue E.e p.200
+/**
+ * @brief And
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.200
+ */
 template <typename TInstrContext> class And1ImmCarryOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -56,8 +65,11 @@ public:
   }
 };
 
-/// Bit clear
-/// see Armv7-M Architecture Reference Manual Issue E.e p.190
+/**
+ * @brief Bit clear
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.190
+ */
 template <typename TInstrContext> class Bic1ImmCarryOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -117,26 +129,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryInstrWithImmCarry() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryInstrWithImmCarry() = delete;
 
-  /// \brief Copy constructor for BinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryInstrWithImmCarry.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithImmCarry(const BinaryInstrWithImmCarry &r_src) = default;
 
-  /// \brief Copy assignment operator for BinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BinaryInstrWithImmCarry.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithImmCarry &operator=(const BinaryInstrWithImmCarry &r_src) = delete;
 
-  /// \brief Move constructor for BinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryInstrWithImmCarry.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithImmCarry(BinaryInstrWithImmCarry &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryInstrWithImmCarry.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryInstrWithImmCarry.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithImmCarry &operator=(BinaryInstrWithImmCarry &&r_src) = delete;
 };
 

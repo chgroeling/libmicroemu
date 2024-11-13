@@ -109,25 +109,37 @@ public:
   }
 
 private:
-  /// \brief Constructs a RegPrinter object
+  /**
+   * @brief Constructs a RegPrinter object
+   */
   RegPrinter() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~RegPrinter() = delete;
 
-  /// \brief Copy constructor for RegPrinter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for RegPrinter.
+   * @param r_src the object to be copied
+   */
   RegPrinter(RegPrinter &r_src) = delete;
 
-  /// \brief Copy assignment operator for RegPrinter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for RegPrinter.
+   * @param r_src the object to be copied
+   */
   RegPrinter &operator=(const RegPrinter &r_src) = delete;
 
-  /// \brief Move constructor for RegPrinter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for RegPrinter.
+   * @param r_src the object to be moved
+   */
   RegPrinter(RegPrinter &&r_src) = delete;
 
-  /// \brief Move assignment operator for RegPrinter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  RegPrinter.
+   * @param r_src the object to be moved
+   */
   RegPrinter &operator=(RegPrinter &&r_src) = delete;
 };

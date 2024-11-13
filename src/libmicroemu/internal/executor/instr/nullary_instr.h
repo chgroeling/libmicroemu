@@ -11,17 +11,24 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Nop instruction
-/// see Armv7-M Architecture Reference Manual Issue E.e p.212
+/**
+ * @brief Nop instruction
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.212
+ */
 template <typename TInstrContext> class Nop0Op {
 public:
   static inline void Call(const TInstrContext &ictx) { static_cast<void>(ictx); }
 };
 
-/// Dmb instruction
-/// A Data Memory Barrier operation completes when all explicit memory accesses before the DMB
-/// On this emulator, it is a NOP
-/// see Armv7-M Architecture Reference Manual Issue E.e p.230
+/**
+ * @brief Dmb instruction
+ *
+ * A Data Memory Barrier operation completes when all explicit memory accesses before the DMB.
+ * On this emulator, it is a NOP
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.230
+ */
 template <typename TInstrContext> class Dmb0Op {
 public:
   static inline void Call(const TInstrContext &ictx) { static_cast<void>(ictx); }
@@ -54,26 +61,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   NullaryInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~NullaryInstr() = delete;
 
-  /// \brief Copy constructor for NullaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for NullaryInstr.
+   * @param r_src the object to be copied
+   */
   NullaryInstr(const NullaryInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for NullaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for NullaryInstr.
+   * @param r_src the object to be copied
+   */
   NullaryInstr &operator=(const NullaryInstr &r_src) = delete;
 
-  /// \brief Move constructor for NullaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for NullaryInstr.
+   * @param r_src the object to be moved
+   */
   NullaryInstr(NullaryInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for NullaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  NullaryInstr.
+   * @param r_src the object to be moved
+   */
   NullaryInstr &operator=(NullaryInstr &&r_src) = delete;
 };
 

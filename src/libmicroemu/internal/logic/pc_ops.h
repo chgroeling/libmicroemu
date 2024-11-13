@@ -84,8 +84,10 @@ public:
     BranchWritePC(pstates, address);
   }
 
-  /// @brief Advances the program counter to the next instruction
-  /// @param is_32bit is the current instruction 32 bit in size?
+  /**
+   * @brief Advances the program counter to the next instruction
+   * @param is_32bit is the current instruction 32 bit in size?
+   */
   static inline void AdvanceInstr(TProcessorStates &pstates, bool is_32bit) {
     // The pc points to the current instruction +4. Therefore decrement 2
     // in case we have a 16 bit instruction
@@ -96,26 +98,38 @@ public:
   }
 
 private:
-  /// \brief Constructs a PcOps object
+  /**
+   * @brief Constructs a PcOps object
+   */
   PcOps() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~PcOps() = delete;
 
-  /// \brief Copy constructor for PcOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for PcOps.
+   * @param r_src the object to be copied
+   */
   PcOps(PcOps &r_src) = delete;
 
-  /// \brief Copy assignment operator for PcOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for PcOps.
+   * @param r_src the object to be copied
+   */
   PcOps &operator=(const PcOps &r_src) = delete;
 
-  /// \brief Move constructor for PcOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for PcOps.
+   * @param r_src the object to be moved
+   */
   PcOps(PcOps &&r_src) = delete;
 
-  /// \brief Move assignment operator for PcOps.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  PcOps.
+   * @param r_src the object to be moved
+   */
   PcOps &operator=(PcOps &&r_src) = delete;
 };
 

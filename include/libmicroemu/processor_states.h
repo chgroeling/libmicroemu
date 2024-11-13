@@ -28,15 +28,21 @@ public:
     special_registers_.fill(0U);
   };
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~ProcessorStates() noexcept = default;
 
-  /// \brief Copy constructor for Registers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for Registers.
+   * @param r_src the object to be copied
+   */
   ProcessorStates(ProcessorStates &r_src) noexcept = default;
 
-  /// \brief Move constructor for Registers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for Registers.
+   * @param r_src the object to be moved
+   */
   ProcessorStates(ProcessorStates &&r_src) noexcept = default;
 
   /** @brief Get a reference on the raw register array.
@@ -88,12 +94,16 @@ public:
   inline const auto &GetExceptionStates() const noexcept { return exception_states_; }
 
 private:
-  /// \brief Copy assignment operator for Registers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for Registers.
+   * @param r_src the object to be copied
+   */
   ProcessorStates &operator=(const ProcessorStates &r_src) noexcept = delete;
 
-  /// \brief Move assignment operator for Registers.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  Registers.
+   * @param r_src the object to be moved
+   */
   ProcessorStates &operator=(ProcessorStates &&r_src) noexcept = delete;
 
   std::array<u32, CountRegisters()> registers_;

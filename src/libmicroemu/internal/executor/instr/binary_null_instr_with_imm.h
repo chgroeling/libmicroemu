@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Cmp
-/// see Armv7-M Architecture Reference Manual Issue E.e p.224
+/**
+ * @brief Cmp
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.224
+ */
 template <typename TInstrContext> class Cmp1ImmOp {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
@@ -25,8 +28,11 @@ public:
   }
 };
 
-/// Cmn
-/// see Armv7-M Architecture Reference Manual Issue E.e p.221
+/**
+ * @brief Cmn
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.221
+ */
 template <typename TInstrContext> class Cmn1ImmOp {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
@@ -80,26 +86,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryNullInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryNullInstrWithImm() = delete;
 
-  /// \brief Copy constructor for BinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryNullInstrWithImm.
+   * @param r_src the object to be copied
+   */
   BinaryNullInstrWithImm(const BinaryNullInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for BinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BinaryNullInstrWithImm.
+   * @param r_src the object to be copied
+   */
   BinaryNullInstrWithImm &operator=(const BinaryNullInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for BinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryNullInstrWithImm.
+   * @param r_src the object to be moved
+   */
   BinaryNullInstrWithImm(BinaryNullInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryNullInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryNullInstrWithImm.
+   * @param r_src the object to be moved
+   */
   BinaryNullInstrWithImm &operator=(BinaryNullInstrWithImm &&r_src) = delete;
 };
 

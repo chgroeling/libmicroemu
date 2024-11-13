@@ -10,8 +10,10 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Store Multiple Decrement Before
-/// PUSH - see Armv7-M Architecture Reference Manual Issue E.e p.322
+/*
+ * @brief Store Multiple Decrement Before
+ * PUSH - see Armv7-M Architecture Reference Manual Issue E.e p.322
+ */
 template <typename TInstrContext> class VariadicStoreInstrDb {
 public:
   using It = typename TInstrContext::It;
@@ -66,26 +68,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   VariadicStoreInstrDb() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~VariadicStoreInstrDb() = delete;
 
-  /// \brief Copy constructor for VariadicStoreInstrDb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for VariadicStoreInstrDb.
+   * @param r_src the object to be copied
+   */
   VariadicStoreInstrDb(const VariadicStoreInstrDb &r_src) = default;
 
-  /// \brief Copy assignment operator for VariadicStoreInstrDb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for VariadicStoreInstrDb.
+   * @param r_src the object to be copied
+   */
   VariadicStoreInstrDb &operator=(const VariadicStoreInstrDb &r_src) = delete;
 
-  /// \brief Move constructor for VariadicStoreInstrDb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for VariadicStoreInstrDb.
+   * @param r_src the object to be moved
+   */
   VariadicStoreInstrDb(VariadicStoreInstrDb &&r_src) = delete;
 
-  /// \brief Move assignment operator for VariadicStoreInstrDb.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  VariadicStoreInstrDb.
+   * @param r_src the object to be moved
+   */
   VariadicStoreInstrDb &operator=(VariadicStoreInstrDb &&r_src) = delete;
 };
 

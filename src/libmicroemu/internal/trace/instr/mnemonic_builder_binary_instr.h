@@ -8,7 +8,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TContext> class MnemonicBuilderBinaryInstr {
 public:
   using It = typename TContext::It;
@@ -37,26 +39,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   MnemonicBuilderBinaryInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~MnemonicBuilderBinaryInstr() = delete;
 
-  /// \brief Copy constructor for MnemonicBuilderBinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MnemonicBuilderBinaryInstr.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryInstr(const MnemonicBuilderBinaryInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for MnemonicBuilderBinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for MnemonicBuilderBinaryInstr.
+   * @param r_src the object to be copied
+   */
   MnemonicBuilderBinaryInstr &operator=(const MnemonicBuilderBinaryInstr &r_src) = delete;
 
-  /// \brief Move constructor for MnemonicBuilderBinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for MnemonicBuilderBinaryInstr.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryInstr(MnemonicBuilderBinaryInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for MnemonicBuilderBinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  MnemonicBuilderBinaryInstr.
+   * @param r_src the object to be moved
+   */
   MnemonicBuilderBinaryInstr &operator=(MnemonicBuilderBinaryInstr &&r_src) = delete;
 };
 

@@ -10,8 +10,11 @@
 
 namespace libmicroemu {
 namespace internal {
-/// Add
-/// see Armv7-M Architecture Reference Manual Issue E.e p.190
+/**
+ * @brief Add
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.190
+ */
 template <typename TInstrContext> class Add1ImmOp {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
@@ -21,8 +24,11 @@ public:
   }
 };
 
-/// Adc
-/// see Armv7-M Architecture Reference Manual Issue E.e p.187
+/**
+ * @brief Adc
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.187
+ */
 template <typename TInstrContext> class Adc1ImmOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -35,8 +41,11 @@ public:
   }
 };
 
-/// Subtract
-/// see Armv7-M Architecture Reference Manual Issue E.e p.402
+/**
+ * @brief Subtract
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.402
+ */
 template <typename TInstrContext> class Sub1ImmOp {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
@@ -46,8 +55,11 @@ public:
   }
 };
 
-/// Subtract with carry
-/// see Armv7-M Architecture Reference Manual Issue E.e p.346
+/**
+ * @brief Subtract with carry
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.346
+ */
 template <typename TInstrContext> class Sbc1ImmOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -60,8 +72,11 @@ public:
   }
 };
 
-/// Reverse Subtract
-/// see Armv7-M Architecture Reference Manual Issue E.e p.341
+/**
+ * @brief Reverse Subtract
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.341
+ */
 template <typename TInstrContext> class Rsb1ImmOp {
 public:
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
@@ -116,26 +131,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryInstrWithImm() = delete;
 
-  /// \brief Copy constructor for BinaryInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryInstrWithImm.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithImm(const BinaryInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for BinaryInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BinaryInstrWithImm.
+   * @param r_src the object to be copied
+   */
   BinaryInstrWithImm &operator=(const BinaryInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for BinaryInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryInstrWithImm.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithImm(BinaryInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryInstrWithImm.
+   * @param r_src the object to be moved
+   */
   BinaryInstrWithImm &operator=(BinaryInstrWithImm &&r_src) = delete;
 };
 

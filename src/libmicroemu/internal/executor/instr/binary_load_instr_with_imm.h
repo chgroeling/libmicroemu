@@ -11,7 +11,9 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Load from immediate adr to register
+/**
+ * @brief Load from immediate adr to register
+ */
 template <typename TOp, typename TInstrContext> class BinaryLoadInstrWithImm {
 public:
   using It = typename TInstrContext::It;
@@ -68,26 +70,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryLoadInstrWithImm() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryLoadInstrWithImm() = delete;
 
-  /// \brief Copy constructor for BinaryLoadInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryLoadInstrWithImm.
+   * @param r_src the object to be copied
+   */
   BinaryLoadInstrWithImm(const BinaryLoadInstrWithImm &r_src) = default;
 
-  /// \brief Copy assignment operator for BinaryLoadInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BinaryLoadInstrWithImm.
+   * @param r_src the object to be copied
+   */
   BinaryLoadInstrWithImm &operator=(const BinaryLoadInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for BinaryLoadInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryLoadInstrWithImm.
+   * @param r_src the object to be moved
+   */
   BinaryLoadInstrWithImm(BinaryLoadInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryLoadInstrWithImm.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryLoadInstrWithImm.
+   * @param r_src the object to be moved
+   */
   BinaryLoadInstrWithImm &operator=(BinaryLoadInstrWithImm &&r_src) = delete;
 };
 

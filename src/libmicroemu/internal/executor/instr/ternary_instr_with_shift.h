@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Exclusive Or operation
-/// see Armv7-M Architecture Reference Manual Issue E.e p.233
+/**
+ * @brief Exclusive Or operation
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.233
+ */
 template <typename TInstrContext> class Eor2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -30,8 +33,11 @@ public:
   }
 };
 
-/// Orr operation
-/// see Armv7-M Architecture Reference Manual Issue E.e p.310
+/**
+ * @brief Orr operation
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.310
+ */
 template <typename TInstrContext> class Orr2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -49,8 +55,11 @@ public:
   }
 };
 
-/// And operation
-/// see Armv7-M Architecture Reference Manual Issue E.e p.201
+/**
+ * @brief And operation
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.201
+ */
 template <typename TInstrContext> class And2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -68,8 +77,11 @@ public:
   }
 };
 
-/// Bit clear operation
-/// see Armv7-M Architecture Reference Manual Issue E.e p.309
+/**
+ * @brief Bit clear operation
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.309
+ */
 template <typename TInstrContext> class Bic2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -87,8 +99,11 @@ public:
   }
 };
 
-/// Subtract with carry
-/// see Armv7-M Architecture Reference Manual Issue E.e p.347
+/**
+ * @brief Subtract with carry
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.347
+ */
 template <typename TInstrContext> class Sbc2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -105,8 +120,11 @@ public:
   }
 };
 
-/// Subtract
-/// see Armv7-M Architecture Reference Manual Issue E.e p.404
+/**
+ * @brief Subtract
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.404
+ */
 template <typename TInstrContext> class Sub2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -121,8 +139,11 @@ public:
   }
 };
 
-/// Reverse Subtract
-/// see Armv7-M Architecture Reference Manual Issue E.e p.342
+/**
+ * @brief Reverse Subtract
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.342
+ */
 template <typename TInstrContext> class Rsb2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -136,8 +157,11 @@ public:
     return OpResult{result.value, result.carry_out, result.overflow};
   }
 };
-/// Add
-/// see Armv7-M Architecture Reference Manual Issue E.e p.192
+/**
+ * @brief Add
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.192
+ */
 template <typename TInstrContext> class Add2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -151,8 +175,11 @@ public:
     return OpResult{result.value, result.carry_out, result.overflow};
   }
 };
-/// Adc
-/// see Armv7-M Architecture Reference Manual Issue E.e p.188
+/**
+ * @brief Adc
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.188
+ */
 template <typename TInstrContext> class Adc2ShiftOp {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -216,26 +243,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   TernaryInstrWithShift() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~TernaryInstrWithShift() = delete;
 
-  /// \brief Copy constructor for MemorTernaryInstrWithShiftyRouter.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for MemorTernaryInstrWithShiftyRouter.
+   * @param r_src the object to be copied
+   */
   TernaryInstrWithShift(const TernaryInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for TernaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for TernaryInstrWithShift.
+   * @param r_src the object to be copied
+   */
   TernaryInstrWithShift &operator=(const TernaryInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for TernaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for TernaryInstrWithShift.
+   * @param r_src the object to be moved
+   */
   TernaryInstrWithShift(TernaryInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for TernaryInstrWithShift.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  TernaryInstrWithShift.
+   * @param r_src the object to be moved
+   */
   TernaryInstrWithShift &operator=(TernaryInstrWithShift &&r_src) = delete;
 };
 

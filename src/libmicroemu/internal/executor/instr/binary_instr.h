@@ -11,8 +11,11 @@
 namespace libmicroemu {
 namespace internal {
 
-/// Lsr
-/// see Armv7-M Architecture Reference Manual Issue E.e p.285
+/**
+ * @brief Lsr
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.285
+ */
 template <typename TInstrContext> class Lsr2Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -30,8 +33,11 @@ public:
   }
 };
 
-/// Asr
-/// see Armv7-M Architecture Reference Manual Issue E.e p.204
+/**
+ * @brief Asr
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.204
+ */
 template <typename TInstrContext> class Asr2Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -49,8 +55,11 @@ public:
   }
 };
 
-/// Lsl
-/// see Armv7-M Architecture Reference Manual Issue E.e p.283
+/**
+ * @brief Lsl
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.283
+ */
 template <typename TInstrContext> class Lsl2Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -67,8 +76,11 @@ public:
   }
 };
 
-/// Mul
-/// see Armv7-M Architecture Reference Manual Issue E.e p.302
+/**
+ * @brief Mul
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.302
+ */
 template <typename TInstrContext> class Mul2Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -82,8 +94,11 @@ public:
   }
 };
 
-/// Udiv
-/// see Armv7-M Architecture Reference Manual Issue E.e p.426
+/**
+ * @brief Udiv
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.426
+ */
 template <typename TInstrContext> class UDiv2Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -119,8 +134,11 @@ public:
   }
 };
 
-/// Sdiv
-/// see Armv7-M Architecture Reference Manual Issue E.e p.350
+/**
+ * @brief Sdiv
+ *
+ * see Armv7-M Architecture Reference Manual Issue E.e p.350
+ */
 template <typename TInstrContext> class SDiv2Op {
 public:
   using SReg = typename TInstrContext::SReg;
@@ -201,26 +219,38 @@ public:
   }
 
 private:
-  /// \brief Constructor
+  /**
+   * @brief Constructor
+   */
   BinaryInstr() = delete;
 
-  /// \brief Destructor
+  /**
+   * @brief Destructor
+   */
   ~BinaryInstr() = delete;
 
-  /// \brief Copy constructor for BinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy constructor for BinaryInstr.
+   * @param r_src the object to be copied
+   */
   BinaryInstr(const BinaryInstr &r_src) = default;
 
-  /// \brief Copy assignment operator for BinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Copy assignment operator for BinaryInstr.
+   * @param r_src the object to be copied
+   */
   BinaryInstr &operator=(const BinaryInstr &r_src) = delete;
 
-  /// \brief Move constructor for BinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move constructor for BinaryInstr.
+   * @param r_src the object to be moved
+   */
   BinaryInstr(BinaryInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for BinaryInstr.
-  /// \param r_src the object to be copied
+  /**
+   * @brief Move assignment operator for  BinaryInstr.
+   * @param r_src the object to be moved
+   */
   BinaryInstr &operator=(BinaryInstr &&r_src) = delete;
 };
 
