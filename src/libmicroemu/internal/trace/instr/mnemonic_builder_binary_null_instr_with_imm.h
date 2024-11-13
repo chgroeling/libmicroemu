@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderBinaryNullInstrWithImm {
+template <typename TContext> class MnemonicBuilderBinaryNullInstrWithImm {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -30,27 +30,29 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderBinaryNullInstrWithImm() = delete;
+  MnemonicBuilderBinaryNullInstrWithImm() = delete;
 
   /// \brief Destructor
-  ~StrBuilderBinaryNullInstrWithImm() = delete;
+  ~MnemonicBuilderBinaryNullInstrWithImm() = delete;
 
-  /// \brief Copy constructor for StrBuilderBinaryNullInstrWithImm.
+  /// \brief Copy constructor for MnemonicBuilderBinaryNullInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImm(const StrBuilderBinaryNullInstrWithImm &r_src) = default;
+  MnemonicBuilderBinaryNullInstrWithImm(const MnemonicBuilderBinaryNullInstrWithImm &r_src) =
+      default;
 
-  /// \brief Copy assignment operator for StrBuilderBinaryNullInstrWithImm.
+  /// \brief Copy assignment operator for MnemonicBuilderBinaryNullInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImm &
-  operator=(const StrBuilderBinaryNullInstrWithImm &r_src) = delete;
+  MnemonicBuilderBinaryNullInstrWithImm &
+  operator=(const MnemonicBuilderBinaryNullInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderBinaryNullInstrWithImm.
+  /// \brief Move constructor for MnemonicBuilderBinaryNullInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImm(StrBuilderBinaryNullInstrWithImm &&r_src) = delete;
+  MnemonicBuilderBinaryNullInstrWithImm(MnemonicBuilderBinaryNullInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderBinaryNullInstrWithImm.
+  /// \brief Move assignment operator for MnemonicBuilderBinaryNullInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderBinaryNullInstrWithImm &operator=(StrBuilderBinaryNullInstrWithImm &&r_src) = delete;
+  MnemonicBuilderBinaryNullInstrWithImm &
+  operator=(MnemonicBuilderBinaryNullInstrWithImm &&r_src) = delete;
 };
 
 } // namespace internal

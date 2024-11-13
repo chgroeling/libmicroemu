@@ -6,7 +6,7 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TContext> class StrBuilderVariadicLoadStoreInstr {
+template <typename TContext> class MnemonicBuilderVariadicLoadStoreInstr {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -49,27 +49,29 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderVariadicLoadStoreInstr() = delete;
+  MnemonicBuilderVariadicLoadStoreInstr() = delete;
 
   /// \brief Destructor
-  ~StrBuilderVariadicLoadStoreInstr() = delete;
+  ~MnemonicBuilderVariadicLoadStoreInstr() = delete;
 
-  /// \brief Copy constructor for StrBuilderVariadicLoadStoreInstr.
+  /// \brief Copy constructor for MnemonicBuilderVariadicLoadStoreInstr.
   /// \param r_src the object to be copied
-  StrBuilderVariadicLoadStoreInstr(const StrBuilderVariadicLoadStoreInstr &r_src) = default;
+  MnemonicBuilderVariadicLoadStoreInstr(const MnemonicBuilderVariadicLoadStoreInstr &r_src) =
+      default;
 
-  /// \brief Copy assignment operator for StrBuilderVariadicLoadStoreInstr.
+  /// \brief Copy assignment operator for MnemonicBuilderVariadicLoadStoreInstr.
   /// \param r_src the object to be copied
-  StrBuilderVariadicLoadStoreInstr &
-  operator=(const StrBuilderVariadicLoadStoreInstr &r_src) = delete;
+  MnemonicBuilderVariadicLoadStoreInstr &
+  operator=(const MnemonicBuilderVariadicLoadStoreInstr &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderVariadicLoadStoreInstr.
+  /// \brief Move constructor for MnemonicBuilderVariadicLoadStoreInstr.
   /// \param r_src the object to be copied
-  StrBuilderVariadicLoadStoreInstr(StrBuilderVariadicLoadStoreInstr &&r_src) = delete;
+  MnemonicBuilderVariadicLoadStoreInstr(MnemonicBuilderVariadicLoadStoreInstr &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderVariadicLoadStoreInstr.
+  /// \brief Move assignment operator for MnemonicBuilderVariadicLoadStoreInstr.
   /// \param r_src the object to be copied
-  StrBuilderVariadicLoadStoreInstr &operator=(StrBuilderVariadicLoadStoreInstr &&r_src) = delete;
+  MnemonicBuilderVariadicLoadStoreInstr &
+  operator=(MnemonicBuilderVariadicLoadStoreInstr &&r_src) = delete;
 };
 
 } // namespace internal

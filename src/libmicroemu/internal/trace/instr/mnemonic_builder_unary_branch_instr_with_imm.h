@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderUnaryBranchInstrWithImm {
+template <typename TContext> class MnemonicBuilderUnaryBranchInstrWithImm {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -25,27 +25,29 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderUnaryBranchInstrWithImm() = delete;
+  MnemonicBuilderUnaryBranchInstrWithImm() = delete;
 
   /// \brief Destructor
-  ~StrBuilderUnaryBranchInstrWithImm() = delete;
+  ~MnemonicBuilderUnaryBranchInstrWithImm() = delete;
 
-  /// \brief Copy constructor for StrBuilderUnaryBranchInstrWithImm.
+  /// \brief Copy constructor for MnemonicBuilderUnaryBranchInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstrWithImm(const StrBuilderUnaryBranchInstrWithImm &r_src) = default;
+  MnemonicBuilderUnaryBranchInstrWithImm(const MnemonicBuilderUnaryBranchInstrWithImm &r_src) =
+      default;
 
-  /// \brief Copy assignment operator for StrBuilderUnaryBranchInstrWithImm.
+  /// \brief Copy assignment operator for MnemonicBuilderUnaryBranchInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstrWithImm &
-  operator=(const StrBuilderUnaryBranchInstrWithImm &r_src) = delete;
+  MnemonicBuilderUnaryBranchInstrWithImm &
+  operator=(const MnemonicBuilderUnaryBranchInstrWithImm &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderUnaryBranchInstrWithImm.
+  /// \brief Move constructor for MnemonicBuilderUnaryBranchInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstrWithImm(StrBuilderUnaryBranchInstrWithImm &&r_src) = delete;
+  MnemonicBuilderUnaryBranchInstrWithImm(MnemonicBuilderUnaryBranchInstrWithImm &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderUnaryBranchInstrWithImm.
+  /// \brief Move assignment operator for MnemonicBuilderUnaryBranchInstrWithImm.
   /// \param r_src the object to be copied
-  StrBuilderUnaryBranchInstrWithImm &operator=(StrBuilderUnaryBranchInstrWithImm &&r_src) = delete;
+  MnemonicBuilderUnaryBranchInstrWithImm &
+  operator=(MnemonicBuilderUnaryBranchInstrWithImm &&r_src) = delete;
 };
 
 } // namespace internal

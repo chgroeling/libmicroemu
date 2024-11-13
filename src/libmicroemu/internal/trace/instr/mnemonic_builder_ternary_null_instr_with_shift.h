@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderTernaryNullInstrWithShift {
+template <typename TContext> class MnemonicBuilderTernaryNullInstrWithShift {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -41,28 +41,30 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderTernaryNullInstrWithShift() = delete;
+  MnemonicBuilderTernaryNullInstrWithShift() = delete;
 
   /// \brief Destructor
-  ~StrBuilderTernaryNullInstrWithShift() = delete;
+  ~MnemonicBuilderTernaryNullInstrWithShift() = delete;
 
-  /// \brief Copy constructor for StrBuilderTernaryNullInstrWithShift.
+  /// \brief Copy constructor for MnemonicBuilderTernaryNullInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryNullInstrWithShift(const StrBuilderTernaryNullInstrWithShift &r_src) = default;
+  MnemonicBuilderTernaryNullInstrWithShift(const MnemonicBuilderTernaryNullInstrWithShift &r_src) =
+      default;
 
-  /// \brief Copy assignment operator for StrBuilderTernaryNullInstrWithShift.
+  /// \brief Copy assignment operator for MnemonicBuilderTernaryNullInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryNullInstrWithShift &
-  operator=(const StrBuilderTernaryNullInstrWithShift &r_src) = delete;
+  MnemonicBuilderTernaryNullInstrWithShift &
+  operator=(const MnemonicBuilderTernaryNullInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderTernaryNullInstrWithShift.
+  /// \brief Move constructor for MnemonicBuilderTernaryNullInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryNullInstrWithShift(StrBuilderTernaryNullInstrWithShift &&r_src) = delete;
+  MnemonicBuilderTernaryNullInstrWithShift(MnemonicBuilderTernaryNullInstrWithShift &&r_src) =
+      delete;
 
-  /// \brief Move assignment operator for StrBuilderTernaryNullInstrWithShift.
+  /// \brief Move assignment operator for MnemonicBuilderTernaryNullInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryNullInstrWithShift &
-  operator=(StrBuilderTernaryNullInstrWithShift &&r_src) = delete;
+  MnemonicBuilderTernaryNullInstrWithShift &
+  operator=(MnemonicBuilderTernaryNullInstrWithShift &&r_src) = delete;
 };
 
 } // namespace internal

@@ -7,7 +7,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderTernaryInstrWithShift {
+template <typename TContext> class MnemonicBuilderTernaryInstrWithShift {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -49,26 +49,28 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderTernaryInstrWithShift() = delete;
+  MnemonicBuilderTernaryInstrWithShift() = delete;
 
   /// \brief Destructor
-  ~StrBuilderTernaryInstrWithShift() = delete;
+  ~MnemonicBuilderTernaryInstrWithShift() = delete;
 
-  /// \brief Copy constructor for StrBuilderTernaryInstrWithShift.
+  /// \brief Copy constructor for MnemonicBuilderTernaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryInstrWithShift(const StrBuilderTernaryInstrWithShift &r_src) = default;
+  MnemonicBuilderTernaryInstrWithShift(const MnemonicBuilderTernaryInstrWithShift &r_src) = default;
 
-  /// \brief Copy assignment operator for StrBuilderTernaryInstrWithShift.
+  /// \brief Copy assignment operator for MnemonicBuilderTernaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryInstrWithShift &operator=(const StrBuilderTernaryInstrWithShift &r_src) = delete;
+  MnemonicBuilderTernaryInstrWithShift &
+  operator=(const MnemonicBuilderTernaryInstrWithShift &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderTernaryInstrWithShift.
+  /// \brief Move constructor for MnemonicBuilderTernaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryInstrWithShift(StrBuilderTernaryInstrWithShift &&r_src) = delete;
+  MnemonicBuilderTernaryInstrWithShift(MnemonicBuilderTernaryInstrWithShift &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderTernaryInstrWithShift.
+  /// \brief Move assignment operator for MnemonicBuilderTernaryInstrWithShift.
   /// \param r_src the object to be copied
-  StrBuilderTernaryInstrWithShift &operator=(StrBuilderTernaryInstrWithShift &&r_src) = delete;
+  MnemonicBuilderTernaryInstrWithShift &
+  operator=(MnemonicBuilderTernaryInstrWithShift &&r_src) = delete;
 };
 
 } // namespace internal

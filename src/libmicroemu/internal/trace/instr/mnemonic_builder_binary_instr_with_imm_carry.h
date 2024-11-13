@@ -9,7 +9,7 @@ namespace libmicroemu {
 namespace internal {
 
 /// Load from immediate adr to register
-template <typename TContext> class StrBuilderBinaryInstrWithImmCarry {
+template <typename TContext> class MnemonicBuilderBinaryInstrWithImmCarry {
 public:
   using It = typename TContext::It;
   using Reg = typename TContext::Reg;
@@ -40,27 +40,29 @@ public:
 
 private:
   /// \brief Constructor
-  StrBuilderBinaryInstrWithImmCarry() = delete;
+  MnemonicBuilderBinaryInstrWithImmCarry() = delete;
 
   /// \brief Destructor
-  ~StrBuilderBinaryInstrWithImmCarry() = delete;
+  ~MnemonicBuilderBinaryInstrWithImmCarry() = delete;
 
-  /// \brief Copy constructor for StrBuilderBinaryInstrWithImmCarry.
+  /// \brief Copy constructor for MnemonicBuilderBinaryInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithImmCarry(const StrBuilderBinaryInstrWithImmCarry &r_src) = default;
+  MnemonicBuilderBinaryInstrWithImmCarry(const MnemonicBuilderBinaryInstrWithImmCarry &r_src) =
+      default;
 
-  /// \brief Copy assignment operator for StrBuilderBinaryInstrWithImmCarry.
+  /// \brief Copy assignment operator for MnemonicBuilderBinaryInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithImmCarry &
-  operator=(const StrBuilderBinaryInstrWithImmCarry &r_src) = delete;
+  MnemonicBuilderBinaryInstrWithImmCarry &
+  operator=(const MnemonicBuilderBinaryInstrWithImmCarry &r_src) = delete;
 
-  /// \brief Move constructor for StrBuilderBinaryInstrWithImmCarry.
+  /// \brief Move constructor for MnemonicBuilderBinaryInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithImmCarry(StrBuilderBinaryInstrWithImmCarry &&r_src) = delete;
+  MnemonicBuilderBinaryInstrWithImmCarry(MnemonicBuilderBinaryInstrWithImmCarry &&r_src) = delete;
 
-  /// \brief Move assignment operator for StrBuilderBinaryInstrWithImmCarry.
+  /// \brief Move assignment operator for MnemonicBuilderBinaryInstrWithImmCarry.
   /// \param r_src the object to be copied
-  StrBuilderBinaryInstrWithImmCarry &operator=(StrBuilderBinaryInstrWithImmCarry &&r_src) = delete;
+  MnemonicBuilderBinaryInstrWithImmCarry &
+  operator=(MnemonicBuilderBinaryInstrWithImmCarry &&r_src) = delete;
 };
 
 } // namespace internal

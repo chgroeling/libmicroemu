@@ -11,15 +11,15 @@ class RelativeAdrBuilder {
 public:
   /// @brief Uses the given str builder to build a string representing the different addressing
   /// modes of instructions
-  /// @tparam TStrBuilder
+  /// @tparam TMnemonicBuilder
   /// @param builder
   /// @param is_add
   /// @param is_index
   /// @param is_wback
   /// @param n
   /// @param imm
-  template <typename TStrBuilder, typename TRegOps, typename TArg0>
-  static void Build(TStrBuilder &builder, const bool &is_add, const bool &is_index,
+  template <typename TMnemonicBuilder, typename TRegOps, typename TArg0>
+  static void Build(TMnemonicBuilder &builder, const bool &is_add, const bool &is_index,
                     const bool &is_wback, const TArg0 &n, const u32 &imm) {
     using Reg = TRegOps;
     assert(((is_index != false) || (is_wback != false))); // no viable option
@@ -39,8 +39,8 @@ public:
   }
 
 private:
-  template <typename TStrBuilder>
-  static void AddImm(TStrBuilder &builder, const bool &is_add, const u32 &imm) {
+  template <typename TMnemonicBuilder>
+  static void AddImm(TMnemonicBuilder &builder, const bool &is_add, const u32 &imm) {
     builder.AddChar('#');
     if (is_add == false) {
       builder.AddChar('-');
