@@ -5,14 +5,14 @@
 
 namespace libmicroemu {
 namespace internal {
-template <typename TProcessorStates, typename TItOps, typename TRegOps, typename TSpecRegOps>
+template <typename TCpuAccessor, typename TItOps, typename TRegOps, typename TSpecRegOps>
 struct MnemonicBuilderContext {
 
   using It = TItOps;
   using Reg = TRegOps;
   using SReg = TSpecRegOps;
 
-  const TProcessorStates &pstates;
+  const TCpuAccessor &cpua;
   ConstStringBuilder &builder;
 };
 

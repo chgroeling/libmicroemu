@@ -28,10 +28,8 @@ enum class SysCtrlBlockAddressMap : me_adr_t {
   kCpacr = 0xED88  // Coprocessor Access Control Register (RW)
 };
 
-template <typename TProcessorStates, typename TSpecRegOps, typename TLogger = NullLogger>
-class SysCtrlBlock {
+template <typename TCpuAccessor, typename TLogger = NullLogger> class SysCtrlBlock {
 public:
-  using SReg = TSpecRegOps;
   using MapEnum = SysCtrlBlockAddressMap;
 
   static constexpr u32 GetBeginPhysicalAddress() { return 0xED00; }
@@ -43,15 +41,15 @@ public:
     static constexpr bool kUseReadModifyWrite = true; // Perform read before write
     static constexpr bool kReadOnly = false;          // Disable write operation
 
-    static u32 ReadRegister(TProcessorStates &pstates) {
-      auto read_val = SReg::template ReadRegister<SpecialRegisterId::kCcr>(pstates);
+    static u32 ReadRegister(TCpuAccessor &cpua) {
+      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kCcr>();
       LOG_TRACE(TLogger, "READ CCR: 0x%X", read_val);
       return read_val;
     }
 
-    static void WriteRegister(TProcessorStates &pstates, u32 value) {
+    static void WriteRegister(TCpuAccessor &cpua, u32 value) {
       LOG_TRACE(TLogger, "WRITE CCR: 0x%X", value);
-      SReg::template WriteRegister<SpecialRegisterId::kCcr>(pstates, value);
+      cpua.template WriteRegister<SpecialRegisterId::kCcr>(value);
     }
   };
 
@@ -61,17 +59,17 @@ public:
     static constexpr bool kUseReadModifyWrite = false; // Perform read before write
     static constexpr bool kReadOnly = false;           // Disable write operation
 
-    static u32 ReadRegister(TProcessorStates &pstates) {
-      auto read_val = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+    static u32 ReadRegister(TCpuAccessor &cpua) {
+      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       LOG_TRACE(TLogger, "READ CFSR: 0x%X", read_val);
       return read_val;
     }
 
-    static void WriteRegister(TProcessorStates &pstates, u32 value) {
-      auto read_val = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+    static void WriteRegister(TCpuAccessor &cpua, u32 value) {
+      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       value = read_val & (~value);
       LOG_TRACE(TLogger, "WRITE CFSR: 0x%X", value);
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, value);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(value);
     }
   };
 
@@ -81,15 +79,15 @@ public:
     static constexpr bool kUseReadModifyWrite = true; // Perform read before write
     static constexpr bool kReadOnly = false;          // Disable write operation
 
-    static u32 ReadRegister(TProcessorStates &pstates) {
-      auto read_val = SReg::template ReadRegister<SpecialRegisterId::kBfar>(pstates);
+    static u32 ReadRegister(TCpuAccessor &cpua) {
+      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kBfar>();
       LOG_TRACE(TLogger, "READ BFAR: 0x%X", read_val);
       return read_val;
     }
 
-    static void WriteRegister(TProcessorStates &pstates, u32 value) {
+    static void WriteRegister(TCpuAccessor &cpua, u32 value) {
       LOG_TRACE(TLogger, "WRITE BFAR: 0x%X", value);
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, value);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(value);
     }
   };
 

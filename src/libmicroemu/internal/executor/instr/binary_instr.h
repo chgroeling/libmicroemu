@@ -1,4 +1,5 @@
 #pragma once
+#include "libmicroemu/internal/cpu_accessor.h"
 #include "libmicroemu/internal/decoder/decoder.h"
 #include "libmicroemu/internal/executor/exec_results.h"
 #include "libmicroemu/internal/executor/instr/op_result.h"
@@ -18,13 +19,11 @@ namespace internal {
  */
 template <typename TInstrContext> class Lsr2Op {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
     static_cast<void>(ictx);
     const auto shift_n = rm & 0xFFU;
 
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_LSR, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -40,13 +39,11 @@ public:
  */
 template <typename TInstrContext> class Asr2Op {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
     static_cast<void>(ictx);
     const auto shift_n = rm & 0xFFU;
 
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_ASR, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -62,12 +59,10 @@ public:
  */
 template <typename TInstrContext> class Lsl2Op {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
     const auto shift_n = rm & 0xFFU;
 
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_LSL, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -83,10 +78,8 @@ public:
  */
 template <typename TInstrContext> class Mul2Op {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result = static_cast<u32>(static_cast<i32>(rn) * static_cast<i32>(rm));
 
     return OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
@@ -101,22 +94,21 @@ public:
  */
 template <typename TInstrContext> class UDiv2Op {
 public:
-  using SReg = typename TInstrContext::SReg;
   using ExcTrig = typename TInstrContext::ExcTrig;
   static inline bool IntegerZeroDivideTrappingEnabled(const TInstrContext &ictx) {
-    const auto ccr = SReg::template ReadRegister<SpecialRegisterId::kCcr>(ictx.pstates);
+    const auto ccr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCcr>();
     return (ccr & CcrRegister::kDivByZeroTrapEnableMsk) != 0U;
   }
 
   static inline void GenerateIntegerZeroDivide(const TInstrContext &ictx) {
-    ExcTrig::SetPending(ictx.pstates, ExceptionType::kUsageFault);
-    auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(ictx.pstates);
+    ExcTrig::SetPending(ictx.cpua, ExceptionType::kUsageFault);
+    auto cfsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
     cfsr |= CfsrUsageFault::kDivByZeroMsk;
-    SReg::template WriteRegister<SpecialRegisterId::kCfsr>(ictx.pstates, cfsr);
+    ictx.cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
   }
 
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     u32 result = 0U;
     if (rm == 0U) {
 
@@ -141,22 +133,21 @@ public:
  */
 template <typename TInstrContext> class SDiv2Op {
 public:
-  using SReg = typename TInstrContext::SReg;
   using ExcTrig = typename TInstrContext::ExcTrig;
 
   static inline bool IntegerZeroDivideTrappingEnabled(const TInstrContext &ictx) {
-    const auto ccr = SReg::template ReadRegister<SpecialRegisterId::kCcr>(ictx.pstates);
+    const auto ccr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCcr>();
     return (ccr & CcrRegister::kDivByZeroTrapEnableMsk) != 0U;
   }
 
   static inline void GenerateIntegerZeroDivide(const TInstrContext &ictx) {
-    ExcTrig::SetPending(ictx.pstates, ExceptionType::kUsageFault);
-    auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(ictx.pstates);
+    ExcTrig::SetPending(ictx.cpua, ExceptionType::kUsageFault);
+    auto cfsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
     cfsr |= CfsrUsageFault::kDivByZeroMsk;
-    SReg::template WriteRegister<SpecialRegisterId::kCfsr>(ictx.pstates, cfsr);
+    ictx.cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
   }
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     u32 result = 0U;
     if (rm == 0U) {
       if (IntegerZeroDivideTrappingEnabled(ictx)) {
@@ -176,8 +167,6 @@ template <typename TOp, typename TInstrContext> class BinaryInstr {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
@@ -185,22 +174,22 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
-    const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
-    const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto result = TOp::Call(ictx, rn, rm);
 
-    Reg::WriteRegister(ictx.pstates, arg_d.Get(), result.value);
+    ictx.cpua.WriteRegister(arg_d.Get(), result.value);
 
     if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+      auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
 
       // Clear N, Z, C, V flags
       apsr &=
@@ -210,10 +199,10 @@ public:
       apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
       apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
       apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
-      SReg::template WriteRegister<SpecialRegisterId::kApsr>(ictx.pstates, apsr);
+      ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

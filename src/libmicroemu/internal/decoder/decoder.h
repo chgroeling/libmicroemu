@@ -11,13 +11,10 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TProcessorStates, typename TSpecRegOps, typename TItOps>
-
-class Decoder {
+template <typename TCpuStates, typename TItOps> class Decoder {
 public:
-  static Result<Instr> Decode(TProcessorStates &pstates, RawInstr instr) {
-
-    auto result = call_decoder<TProcessorStates, TSpecRegOps, TItOps>(instr, pstates);
+  static Result<Instr> Decode(TCpuStates &cpua, RawInstr instr) {
+    auto result = call_decoder<TCpuStates, TItOps>(instr, cpua);
     return result;
   }
 

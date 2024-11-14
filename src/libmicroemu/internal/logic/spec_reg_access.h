@@ -8,24 +8,21 @@ namespace internal {
  * @brief Provides access to special registers.
  *
  * The SpecialRegAccessor class allows reading and writing values to special registers.
- * It is templated on the types TProcessorStates and TSpecRegOps, which represent the processor
- * states and special register operations respectively.
- *
- * @tparam TProcessorStates The type representing the processor states.
+ * It is templated on the type TCpuAccessor , which gives internal access to the registers.
+ * @tparam TCpuAccessor The type of the cpu accessor object.
  * @tparam TSpecRegOps The type representing the operations on special registers.
  */
-template <typename TProcessorStates, typename TSpecRegOps>
-class SpecialRegAccessor : public ISpecialRegAccessor {
+template <typename TCpuAccessor> class SpecialRegAccessor : public ISpecialRegAccessor {
 public:
-  using PState = TProcessorStates;
-  using SReg = TSpecRegOps;
+  using CpuAccessor = TCpuAccessor;
+  using SReg = typename CpuAccessor::SReg;
 
   /**
    * @brief Constructs a SpecialRegAccessor object with the given processor states.
    *
-   * @param pstate The processor states to be used by the SpecialRegAccessor object.
+   * @param CpuAccessor The processor states to be used by the SpecialRegAccessor object.
    */
-  SpecialRegAccessor(PState &pstates) : pstates_(pstates) {}
+  SpecialRegAccessor(CpuAccessor &cpua) : cpua_(cpua) {}
 
   /**
    * @brief Default destructor for the SpecialRegAccessor object.
@@ -59,16 +56,16 @@ public:
 
   /// @copydoc ISpecialRegAccessor::ReadRegister
   u32 ReadRegister(const SpecialRegisterId &reg_id) const override {
-    return SReg::ReadRegister(pstates_, reg_id);
+    return cpua_.ReadRegister(reg_id);
   }
 
   /// @copydoc ISpecialRegAccessor::WriteRegister
   void WriteRegister(const SpecialRegisterId &reg_id, u32 value) override {
-    return SReg::WriteRegister(pstates_, reg_id, value);
+    return cpua_.WriteRegister(reg_id, value);
   }
 
 private:
-  PState &pstates_; /**< The processor states used by the SpecialRegAccessor object. */
+  CpuAccessor &cpua_; /**< The cpu accessor used by the SpecialRegAccessor object. */
 };
 
 } // namespace internal

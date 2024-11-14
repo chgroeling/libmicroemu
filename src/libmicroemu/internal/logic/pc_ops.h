@@ -9,35 +9,34 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TProcessorStates, typename TBus, typename TRegOps, typename TSpecRegOps,
-          typename TExceptionReturn, typename TLogger = NullLogger>
+template <typename TCpuAccessor, typename TBus, typename TExceptionReturn,
+          typename TLogger = NullLogger>
 class PcOps {
 public:
   using ExcRet = TExceptionReturn;
-  using SReg = TSpecRegOps;
 
-  static inline void BranchTo(TProcessorStates &pstates, const u32 &value) {
-    TRegOps::ForceWritePC(pstates, value);
+  static inline void BranchTo(TCpuAccessor &cpua, const u32 &pc) {
+    auto &registers = cpua.GetRegisters();
+    registers[static_cast<u8>(RegisterId::kPc)] = pc;
   }
 
-  static inline void BranchWritePC(TProcessorStates &pstates, const me_adr_t &address) {
+  static inline void BranchWritePC(TCpuAccessor &cpua, const me_adr_t &address) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.30
-    BranchTo(pstates, address & (~0x1U));
+    BranchTo(cpua, address & (~0x1U));
   }
 
-  static inline Result<void> BXWritePC(TProcessorStates &pstates, TBus &bus,
-                                       const me_adr_t &address) {
+  static inline Result<void> BXWritePC(TCpuAccessor &cpua, TBus &bus, const me_adr_t &address) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.31
-    const auto is_handler_mode = Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+    const auto is_handler_mode = Predicates::IsHandlerMode(cpua);
 
     // if CurrentMode == Mode_Handler && address<31:28> == ‘1111’ then
     if (is_handler_mode && ((address & 0xF0000000U) == 0xF0000000U)) {
       LOG_TRACE(TLogger, "BXWritePC (Exception Return): address=0x%08X, is_handler_mode=%d",
                 address, is_handler_mode);
       //     ExceptionReturn(address<27:0>);
-      return ExcRet::Return(pstates, bus, address & 0x0FFFFFFFU);
+      return ExcRet::Return(cpua, bus, address & 0x0FFFFFFFU);
     } else {
-      auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
+      auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
 
       if ((address & 0x1) == 0U) {
         LOG_ERROR(TLogger, "BXWritePC: Set wrong execution state");
@@ -47,14 +46,14 @@ public:
       // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction
       epsr &= ~EpsrRegister::kTMsk;
       epsr |= (address & 0x1U) << EpsrRegister::kTPos;
-      SReg::template WriteRegister<SpecialRegisterId::kEpsr>(pstates, epsr);
-      BranchTo(pstates, address & (~0x1));
+      cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
+      BranchTo(cpua, address & (~0x1));
       return Ok();
     }
     // should never reach here
   }
 
-  static inline void BLXWritePC(TProcessorStates &pstates, const me_adr_t &address) {
+  static inline void BLXWritePC(TCpuAccessor &cpua, const me_adr_t &address) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.31
 
     if (address & 0x1) {
@@ -62,36 +61,35 @@ public:
     }
     // EPSR.T = address<0>;
     // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction
-    auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
+    auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
     epsr &= ~EpsrRegister::kTMsk;
     epsr |= (address & 0x1U) << EpsrRegister::kTPos;
-    SReg::template WriteRegister<SpecialRegisterId::kEpsr>(pstates, epsr);
-    pstates.BranchTo(address & (~0x1U));
+    cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
+    cpua.BranchTo(address & (~0x1U));
   }
 
-  static inline Result<void> LoadWritePC(TProcessorStates &pstates, TBus &bus,
-                                         const me_adr_t &address) {
+  static inline Result<void> LoadWritePC(TCpuAccessor &cpua, TBus &bus, const me_adr_t &address) {
 
     // see Armv7-M Architecture Reference Manual Issue E.e p.31
-    return BXWritePC(pstates, bus, address);
+    return BXWritePC(cpua, bus, address);
   }
 
-  static inline void ALUWritePC(TProcessorStates &pstates, const me_adr_t &address) {
+  static inline void ALUWritePC(TCpuAccessor &cpua, const me_adr_t &address) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.31
-    BranchWritePC(pstates, address);
+    BranchWritePC(cpua, address);
   }
 
   /**
    * @brief Advances the program counter to the next instruction
    * @param is_32bit is the current instruction 32 bit in size?
    */
-  static inline void AdvanceInstr(TProcessorStates &pstates, bool is_32bit) {
+  static inline void AdvanceInstr(TCpuAccessor &cpua, bool is_32bit) {
     // The pc points to the current instruction +4. Therefore decrement 2
     // in case we have a 16 bit instruction
 
-    u32 pc = TRegOps::ReadPC(pstates);
+    u32 pc = cpua.template ReadRegister<RegisterId::kPc>();
     pc += is_32bit ? 0U : -2U;
-    BranchTo(pstates, pc);
+    BranchTo(cpua, pc);
   }
 
 private:

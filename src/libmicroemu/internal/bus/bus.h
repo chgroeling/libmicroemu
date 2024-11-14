@@ -19,11 +19,10 @@ enum class BusExceptionType {
   kRaiseInstructionBusError,   // IBUSERR: An instruction bus error has occurred.
 };
 
-template <typename TProcessorStates, typename TSpecRegOps, typename TExceptionTrigger,
-          typename TLogger, typename... TBusParticipant>
+template <typename TCpuAccessor, typename TExceptionTrigger, typename TLogger,
+          typename... TBusParticipant>
 class Bus : public TBusParticipant... {
 public:
-  using SReg = TSpecRegOps;
   using ExcTrig = TExceptionTrigger;
 
   explicit Bus(const TBusParticipant &...participant) : TBusParticipant(participant)... {}
@@ -57,14 +56,14 @@ public:
    */
   Bus &operator=(Bus &&r_src) = default;
 
-  template <typename T> Result<T> Read(TProcessorStates &pstates, me_adr_t vadr) const {
-    auto read_result = ForwardRead<T, TBusParticipant...>(pstates, vadr);
+  template <typename T> Result<T> Read(TCpuAccessor &cpua, me_adr_t vadr) const {
+    auto read_result = ForwardRead<T, TBusParticipant...>(cpua, vadr);
     switch (read_result.status_code) {
     case ReadStatusCode::kOk: {
       return Ok<T>(read_result.content);
     }
     case ReadStatusCode::kReadNotAllowed: {
-      // ExcTrig::SetPending(pstates, ExceptionType::kSysTick);
+      // ExcTrig::SetPending(cpua, ExceptionType::kSysTick);
       return Err<T>(StatusCode::kScMemInaccesible);
     }
     default: {
@@ -75,8 +74,8 @@ public:
   }
 
   template <typename T>
-  Result<T> ReadOrRaise(TProcessorStates &pstates, me_adr_t vadr, BusExceptionType exc_type) const {
-    auto read_res = ForwardRead<T, TBusParticipant...>(pstates, vadr);
+  Result<T> ReadOrRaise(TCpuAccessor &cpua, me_adr_t vadr, BusExceptionType exc_type) const {
+    auto read_res = ForwardRead<T, TBusParticipant...>(cpua, vadr);
 
     if (read_res.status_code == ReadStatusCode::kOk) {
       return Ok(read_res.content);
@@ -88,60 +87,60 @@ public:
     }
     case BusExceptionType::kRaiseStkerr: {
       // Bfar will not be updated according to the ARMv7-M Architecture Reference Manual
-      // SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kStkerrMsk;
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaiseUnstkerr: {
       // Bfar will not be updated according to the ARMv7-M Architecture Reference Manual
-      // SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kUnstkerrMsk;
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaiseImpreciseDataBusError: {
-      // SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kImpreciseErrMsk;
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaisePreciseDataBusError: {
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kPreciseErrMsk;
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaiseInstructionBusError: {
-      // SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kIbuErrMsk;
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     }
@@ -149,10 +148,9 @@ public:
     return Err<T>(StatusCode::kScUnexpected);
   }
 
-  template <typename T>
-  Result<void> Write(TProcessorStates &pstates, me_adr_t vadr, T value) const {
+  template <typename T> Result<void> Write(TCpuAccessor &cpua, me_adr_t vadr, T value) const {
 
-    auto write_res = ForwardWrite<T, TBusParticipant...>(pstates, vadr, value);
+    auto write_res = ForwardWrite<T, TBusParticipant...>(cpua, vadr, value);
     switch (write_res.status_code) {
     case WriteStatusCode::kOk: {
       return Ok();
@@ -169,9 +167,9 @@ public:
   }
 
   template <typename T>
-  Result<void> WriteOrRaise(TProcessorStates &pstates, me_adr_t vadr, T value,
+  Result<void> WriteOrRaise(TCpuAccessor &cpua, me_adr_t vadr, T value,
                             BusExceptionType exc_type) const {
-    auto write_res = ForwardWrite<T, TBusParticipant...>(pstates, vadr, value);
+    auto write_res = ForwardWrite<T, TBusParticipant...>(cpua, vadr, value);
     if (write_res.status_code == WriteStatusCode::kOk) {
       return Ok();
     }
@@ -181,58 +179,58 @@ public:
       return Ok(); // No exception to be triggered
     }
     case BusExceptionType::kRaiseStkerr: {
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kStkerrMsk;
 
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok();
     }
     case BusExceptionType::kRaiseUnstkerr: {
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kUnstkerrMsk;
 
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     case BusExceptionType::kRaiseImpreciseDataBusError: {
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kImpreciseErrMsk;
 
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     case BusExceptionType::kRaisePreciseDataBusError: {
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kPreciseErrMsk;
 
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     case BusExceptionType::kRaiseInstructionBusError: {
-      SReg::template WriteRegister<SpecialRegisterId::kBfar>(pstates, vadr);
+      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
 
-      ExcTrig::SetPending(pstates, ExceptionType::kBusFault);
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kIbuErrMsk;
 
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     }
@@ -242,17 +240,17 @@ public:
 
 private:
   template <typename T, typename TAct, typename... Rest>
-  ReadResult<T> ForwardRead(TProcessorStates &pstates, me_adr_t vadr) const {
+  ReadResult<T> ForwardRead(TCpuAccessor &cpua, me_adr_t vadr) const {
     if (!TAct::IsVAdrInRange(vadr)) {
-      return ForwardRead<T, Rest...>(pstates, vadr);
+      return ForwardRead<T, Rest...>(cpua, vadr);
     }
-    const auto read_result = TAct::template Read<T>(pstates, vadr);
+    const auto read_result = TAct::template Read<T>(cpua, vadr);
     return read_result;
   }
 
-  template <typename T> ReadResult<T> ForwardRead(TProcessorStates &pstates, me_adr_t vadr) const {
+  template <typename T> ReadResult<T> ForwardRead(TCpuAccessor &cpua, me_adr_t vadr) const {
     static_cast<void>(vadr);
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     return ReadResult<T>{T{}, ReadStatusCode::kReadNotAllowed};
   }
 
@@ -269,9 +267,9 @@ private:
    */
   template <typename T, typename TAct, typename... Rest,
             typename std::enable_if_t<TAct::kReadOnly, T> = 0>
-  WriteResult<T> ForwardWrite(TProcessorStates &pstates, me_adr_t vadr, T value) const {
+  WriteResult<T> ForwardWrite(TCpuAccessor &cpua, me_adr_t vadr, T value) const {
     if (!TAct::IsVAdrInRange(vadr)) {
-      return ForwardWrite<T, Rest...>(pstates, vadr, value);
+      return ForwardWrite<T, Rest...>(cpua, vadr, value);
     }
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
   }
@@ -289,19 +287,19 @@ private:
    */
   template <typename T, typename TAct, typename... Rest,
             typename std::enable_if_t<!TAct::kReadOnly, T> = 0>
-  WriteResult<T> ForwardWrite(TProcessorStates &pstates, me_adr_t vadr, T value) const {
+  WriteResult<T> ForwardWrite(TCpuAccessor &cpua, me_adr_t vadr, T value) const {
     if (!TAct::IsVAdrInRange(vadr)) {
-      return ForwardWrite<T, Rest...>(pstates, vadr, value);
+      return ForwardWrite<T, Rest...>(cpua, vadr, value);
     }
-    const auto write_res = TAct::template Write<T>(pstates, vadr, value);
+    const auto write_res = TAct::template Write<T>(cpua, vadr, value);
     return write_res;
   }
 
   template <typename T>
-  WriteResult<T> ForwardWrite(TProcessorStates &pstates, me_adr_t vadr, T value) const {
+  WriteResult<T> ForwardWrite(TCpuAccessor &cpua, me_adr_t vadr, T value) const {
     static_cast<void>(vadr);
     static_cast<void>(value);
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
   }
 };

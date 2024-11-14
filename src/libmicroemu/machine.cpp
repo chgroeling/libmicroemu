@@ -1,7 +1,7 @@
+#include "libmicroemu/machine.h"
 #include "libmicroemu/internal/elf/elf_reader.h"
 #include "libmicroemu/internal/emulator.h"
 #include "libmicroemu/internal/trace/intstr_to_mnemonic.h"
-#include "libmicroemu/machine.h"
 #include "libmicroemu/version.h"
 #include <ctype.h>
 #include <fstream>
@@ -12,8 +12,8 @@ namespace libmicroemu {
 
 using namespace internal;
 
-Emulator<ProcessorStates> Machine::BuildEmulator() {
-  auto emu = Emulator<ProcessorStates>(pstates_);
+Emulator<CpuStates> Machine::BuildEmulator() {
+  auto emu = Emulator<CpuStates>(cpu_states_);
 
   emu.SetFlashSegment(flash_, flash_size_, flash_vadr_);
   emu.SetRam1Segment(ram1_, ram1_size_, ram1_vadr_);
@@ -123,11 +123,10 @@ Result<EmuResult> Machine::Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exe
 void Machine::EvaluateState(FStateCallback cb) noexcept {
 
   auto emu = BuildEmulator();
-  using TProcessorStates = decltype(emu)::ProcessorStates;
-  using Reg = decltype(emu)::RegOps;
-  using SReg = decltype(emu)::SpecRegOps;
-  auto reg_access = RegAccessor<TProcessorStates, Reg, SReg>(pstates_);
-  auto spec_reg_access = SpecialRegAccessor<TProcessorStates, SReg>(pstates_);
+  using TCpuAccessor = decltype(emu)::CpuAccessor;
+  auto &CpuAccessor = static_cast<TCpuAccessor &>(cpu_states_);
+  auto reg_access = RegAccessor(CpuAccessor);
+  auto spec_reg_access = SpecialRegAccessor(CpuAccessor);
 
   cb(reg_access, spec_reg_access);
 }

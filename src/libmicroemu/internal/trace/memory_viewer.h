@@ -10,17 +10,17 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TProcessorStates, typename TBus> class MemoryViewer {
+template <typename TCpuAccessor, typename TBus> class MemoryViewer {
 public:
   /**
    * @brief Print memory content to the console.
-   * @param pstates the processor states
+   * @param cpua the processor states
    * @param mem the memory bus
    * @param vadr the virtual address to start printing from
    * @param size the number of bytes to print
    * @param indent the number of spaces to indent the output
    */
-  static void Print(TProcessorStates &pstates, const TBus &mem, const me_offset_t vadr,
+  static void Print(TCpuAccessor &cpua, const TBus &mem, const me_offset_t vadr,
                     const me_size_t size, const u32 indent = 0U) {
     const me_adr_t vadr_end = vadr + size;
     const auto alignment = 16U;
@@ -32,11 +32,10 @@ public:
     // out the address and filler spaces
     if (no_filler_bytes > 0U) {
 
-      PrintSection(pstates, mem, vadr_filler, vadr_filler + no_filler_bytes, alignment, indent,
-                   true);
+      PrintSection(cpua, mem, vadr_filler, vadr_filler + no_filler_bytes, alignment, indent, true);
     }
 
-    PrintSection(pstates, mem, vadr, vadr_end, alignment, indent, false);
+    PrintSection(cpua, mem, vadr, vadr_end, alignment, indent, false);
     printf("\n");
   }
 
@@ -69,7 +68,7 @@ private:
    */
   MemoryViewer &operator=(MemoryViewer &&r_src) = delete;
 
-  static void PrintSection(TProcessorStates &pstates, const TBus &mem, const me_adr_t vadr_begin,
+  static void PrintSection(TCpuAccessor &cpua, const TBus &mem, const me_adr_t vadr_begin,
                            const me_adr_t vadr_end, const u32 alignment, u32 indent,
                            bool skip_read) {
 
@@ -84,7 +83,7 @@ private:
 
       // Then the byte
       if (!skip_read) {
-        auto res = mem.template Read<u8>(pstates, ivadr);
+        auto res = mem.template Read<u8>(cpua, ivadr);
         if (res.IsErr()) {
           printf("xx");
         } else {

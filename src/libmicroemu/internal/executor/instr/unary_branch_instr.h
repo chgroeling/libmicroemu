@@ -20,8 +20,7 @@ template <typename TInstrContext> class Bx1Op {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
+
   static inline BranchOpResult Call(const TInstrContext &ictx, const me_adr_t &pc, const u32 &rm) {
     static_cast<void>(ictx);
     static_cast<void>(pc);
@@ -38,14 +37,13 @@ template <typename TInstrContext> class Blx1Op {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
+
   static inline BranchOpResult Call(const TInstrContext &ictx, const me_adr_t &pc, const u32 &rm) {
     static_cast<void>(ictx);
     const me_adr_t next_instr_address = static_cast<me_adr_t>(pc - 2U);
 
-    Reg::WriteRegister(ictx.pstates, RegisterId::kLr,
-                       static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1U));
+    ictx.cpua.WriteRegister(RegisterId::kLr,
+                            static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1U));
     return BranchOpResult{static_cast<me_adr_t>(rm)};
   }
 };
@@ -54,8 +52,7 @@ template <typename TOp, typename TInstrContext> class UnaryBranchInstr {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
+
   using ExcTrig = typename TInstrContext::ExcTrig;
 
   template <typename TArg0>
@@ -65,20 +62,20 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
-    const me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(ictx.pstates));
-    const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
+    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto result = TOp::Call(ictx, pc, rm);
 
-    It::ITAdvance(ictx.pstates);
-    TRY(ExecResult, Pc::BXWritePC(ictx.pstates, ictx.bus, result.new_pc));
+    It::ITAdvance(ictx.cpua);
+    TRY(ExecResult, Pc::BXWritePC(ictx.cpua, ictx.bus, result.new_pc));
 
     return Ok(ExecResult{eflags});
   }

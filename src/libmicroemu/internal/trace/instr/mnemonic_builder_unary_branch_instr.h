@@ -21,7 +21,7 @@ public:
     static_cast<void>(bflags);
     static_cast<void>(iflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(n.Get()))
         .Terminate();

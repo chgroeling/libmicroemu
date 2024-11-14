@@ -10,15 +10,13 @@
 
 namespace libmicroemu::internal {
 
-template <typename TProcessorStates, typename TSpecRegOps, typename TPeripheral,
-          typename TLogger = NullLogger>
+template <typename TCpuAccessor, typename TPeripheral, typename TLogger = NullLogger>
 class MemMapAccessPoint {
 public:
   static_assert(has_kRegisters_v<TPeripheral>, "TPeripheral must have kRegisters");
   static_assert(std::is_const_v<decltype(TPeripheral::kRegisters)>,
                 "kRegisters must be a constant");
 
-  using SReg = TSpecRegOps;
   using MapEnum = typename TPeripheral::MapEnum;
 
   static constexpr u32 GetBeginPhysicalAddress() { return TPeripheral::GetBeginPhysicalAddress(); }
@@ -26,19 +24,18 @@ public:
 
   static constexpr auto kRegisters = TPeripheral::kRegisters;
 
-  template <typename T>
-  static ReadResult<T> ReadRegister(TProcessorStates &pstates, me_adr_t padr) {
-    return ReadRegisterRecursive<T, decltype(kRegisters)>(padr, pstates);
+  template <typename T> static ReadResult<T> ReadRegister(TCpuAccessor &cpua, me_adr_t padr) {
+    return ReadRegisterRecursive<T, decltype(kRegisters)>(padr, cpua);
   }
 
   template <typename T>
-  static WriteResult<T> WriteRegister(TProcessorStates &pstates, me_adr_t padr, T value) {
-    return WriteRegisterRecursive<T, decltype(kRegisters)>(padr, pstates, value);
+  static WriteResult<T> WriteRegister(TCpuAccessor &cpua, me_adr_t padr, T value) {
+    return WriteRegisterRecursive<T, decltype(kRegisters)>(padr, cpua, value);
   }
 
 private:
   template <typename T, typename Registers, std::size_t Index = 0U>
-  static ReadResult<T> ReadRegisterRecursive(const u32 &padr, TProcessorStates &pstates) {
+  static ReadResult<T> ReadRegisterRecursive(const u32 &padr, TCpuAccessor &cpua) {
     if constexpr (Index < std::tuple_size_v<Registers>) {
       using TypeRegAccess = std::tuple_element_t<Index, Registers>;
 
@@ -46,14 +43,14 @@ private:
       auto constexpr pend_adr = static_cast<me_adr_t>(pstart_adr + sizeof(u32) - 1U);
       if (padr >= pstart_adr && padr <= pend_adr) {
 
-        const auto read_32 = TypeRegAccess::ReadRegister(pstates);
+        const auto read_32 = TypeRegAccess::ReadRegister(cpua);
         const me_adr_t start_byte = padr - pstart_adr;
         T read_t = Bm32::ExtractType<T>(read_32, start_byte);
         LOG_TRACE(TLogger, "READ: padr = 0x%X, width = %u, value = 0x%X", padr, sizeof(T), read_t);
 
         return ReadResult<T>{read_t, ReadStatusCode::kOk};
       } else {
-        return ReadRegisterRecursive<T, Registers, Index + 1U>(padr, pstates);
+        return ReadRegisterRecursive<T, Registers, Index + 1U>(padr, cpua);
       }
     }
     return ReadResult<T>{0x0U, ReadStatusCode::kReadNotAllowed};
@@ -62,7 +59,7 @@ private:
   template <
       typename TRegAccess, typename T,
       typename std::enable_if_t<!TRegAccess::kReadOnly && !TRegAccess::kUseReadModifyWrite, T> = 0>
-  static WriteResult<T> PerformWrite(const u32 &padr, TProcessorStates &pstates, T value) {
+  static WriteResult<T> PerformWrite(const u32 &padr, TCpuAccessor &cpua, T value) {
     u32 write_value{0x0U};
     if constexpr (std::is_same_v<T, u32>) {
       write_value = value;
@@ -74,7 +71,7 @@ private:
     LOG_TRACE(TLogger, "WRITE (No read): padr = 0x%X, width = %u, value = 0x%X", padr, sizeof(T),
               write_value);
 
-    TRegAccess::WriteRegister(pstates, write_value);
+    TRegAccess::WriteRegister(cpua, write_value);
 
     return WriteResult<T>{WriteStatusCode::kOk};
   }
@@ -82,7 +79,7 @@ private:
   template <
       typename TRegAccess, typename T,
       typename std::enable_if_t<!TRegAccess::kReadOnly && TRegAccess::kUseReadModifyWrite, T> = 0>
-  static WriteResult<T> PerformWrite(const u32 &padr, TProcessorStates &pstates, T value) {
+  static WriteResult<T> PerformWrite(const u32 &padr, TCpuAccessor &cpua, T value) {
     u32 write_value{0x0U};
 
     if constexpr (std::is_same_v<T, u32>) {
@@ -91,14 +88,14 @@ private:
       me_adr_t start_byte = padr - static_cast<me_adr_t>(TRegAccess::kAdr);
 
       // read modify write
-      const auto read_32 = TRegAccess::ReadRegister(pstates);
+      const auto read_32 = TRegAccess::ReadRegister(cpua);
       write_value = Bm32::InsertType(read_32, start_byte, value);
     }
 
     LOG_TRACE(TLogger, "WRITE: padr = 0x%X, width = %u, value = 0x%X", padr, sizeof(T),
               write_value);
 
-    TRegAccess::WriteRegister(pstates, write_value);
+    TRegAccess::WriteRegister(cpua, write_value);
 
     return WriteResult<T>{WriteStatusCode::kOk};
   }
@@ -106,16 +103,15 @@ private:
   template <
       typename TRegAccess, typename T,
       typename std::enable_if_t<TRegAccess::kReadOnly && !TRegAccess::kUseReadModifyWrite, T> = 0>
-  static WriteResult<T> PerformWrite(const u32 &padr, TProcessorStates &pstates, T value) {
+  static WriteResult<T> PerformWrite(const u32 &padr, TCpuAccessor &cpua, T value) {
     static_cast<void>(padr);
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     static_cast<void>(value);
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
   }
 
   template <typename T, typename Registers, std::size_t Index = 0U>
-  static WriteResult<T> WriteRegisterRecursive(const u32 &padr, TProcessorStates &pstates,
-                                               T value) {
+  static WriteResult<T> WriteRegisterRecursive(const u32 &padr, TCpuAccessor &cpua, T value) {
     if constexpr (Index < std::tuple_size_v<Registers>) {
       using TypeRegAccess = std::tuple_element_t<Index, Registers>;
 
@@ -123,21 +119,19 @@ private:
       auto constexpr pend_adr = static_cast<me_adr_t>(pstart_adr + sizeof(u32) - 1U);
 
       if (padr >= pstart_adr && padr <= pend_adr) {
-        return PerformWrite<TypeRegAccess, T>(padr, pstates, value);
+        return PerformWrite<TypeRegAccess, T>(padr, cpua, value);
       } else {
-        return WriteRegisterRecursive<T, Registers, Index + 1U>(padr, pstates, value);
+        return WriteRegisterRecursive<T, Registers, Index + 1U>(padr, cpua, value);
       }
     }
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
   }
 };
 
-template <unsigned Id, unsigned VadrOffset, unsigned VadrRange, typename TProcessorStates,
-          typename TSpecRegOps, typename TExceptionTrigger, typename TLogger,
-          typename... TPeripherals>
+template <unsigned Id, unsigned VadrOffset, unsigned VadrRange, typename TCpuAccessor,
+          typename TExceptionTrigger, typename TLogger, typename... TPeripherals>
 class MemMapRw {
 public:
-  using SReg = TSpecRegOps;
   using ExcTrig = TExceptionTrigger;
 
   /**
@@ -181,20 +175,19 @@ public:
   // -------------------------------------------------
 
   template <typename T, typename First, typename... Rest>
-  static ReadResult<T> ReadRegisters(TProcessorStates &pstates, const u32 &padr) {
-    using Type = MemMapAccessPoint<TProcessorStates, TSpecRegOps, First, TLogger>;
+  static ReadResult<T> ReadRegisters(TCpuAccessor &cpua, const u32 &padr) {
+    using Type = MemMapAccessPoint<TCpuAccessor, First, TLogger>;
 
     if (padr >= Type::GetBeginPhysicalAddress() && padr <= Type::GetEndPhysicalAddress()) {
-      const auto read_32 = Type::template ReadRegister<T>(pstates, padr);
+      const auto read_32 = Type::template ReadRegister<T>(cpua, padr);
       return read_32;
     } else {
-      return ReadRegisters<T, Rest...>(pstates, padr);
+      return ReadRegisters<T, Rest...>(cpua, padr);
     }
   }
 
-  template <typename T>
-  static ReadResult<T> ReadRegisters(TProcessorStates &pstates, const u32 &padr) {
-    static_cast<void>(pstates);
+  template <typename T> static ReadResult<T> ReadRegisters(TCpuAccessor &cpua, const u32 &padr) {
+    static_cast<void>(cpua);
     static_cast<void>(padr);
     return ReadResult<T>{0x0U, ReadStatusCode::kReadNotAllowed};
   }
@@ -203,20 +196,20 @@ public:
   // Write from Peripheral List
   // -------------------------------------------------
   template <typename T, typename First, typename... Rest>
-  static WriteResult<T> WriteRegisters(TProcessorStates &pstates, const u32 &padr, const T &value) {
-    using Type = MemMapAccessPoint<TProcessorStates, TSpecRegOps, First, TLogger>;
+  static WriteResult<T> WriteRegisters(TCpuAccessor &cpua, const u32 &padr, const T &value) {
+    using Type = MemMapAccessPoint<TCpuAccessor, First, TLogger>;
 
     if (padr >= Type::GetBeginPhysicalAddress() && padr <= Type::GetEndPhysicalAddress()) {
-      const auto write_32 = Type::template WriteRegister<T>(pstates, padr, value);
+      const auto write_32 = Type::template WriteRegister<T>(cpua, padr, value);
       return write_32;
     } else {
-      return WriteRegisters<T, Rest...>(pstates, padr, value);
+      return WriteRegisters<T, Rest...>(cpua, padr, value);
     }
   }
 
   template <typename T>
-  static WriteResult<T> WriteRegisters(TProcessorStates &pstates, const u32 &padr, const T &value) {
-    static_cast<void>(pstates);
+  static WriteResult<T> WriteRegisters(TCpuAccessor &cpua, const u32 &padr, const T &value) {
+    static_cast<void>(cpua);
     static_cast<void>(padr);
     static_cast<void>(value);
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};
@@ -225,7 +218,7 @@ public:
   // -------------------------------------------------
   // API Methods
   // -------------------------------------------------
-  template <typename T> ReadResult<T> Read(TProcessorStates &pstates, me_adr_t vadr) const {
+  template <typename T> ReadResult<T> Read(TCpuAccessor &cpua, me_adr_t vadr) const {
     // clang-format off
     static_assert(
         std::is_same<T, u32>::value || 
@@ -236,12 +229,12 @@ public:
 
     const me_adr_t padr = ConvertToPhysicalAdr(vadr);
     assert(IsPAdrInRange(padr) == true);
-    auto read_res = ReadRegisters<T, TPeripherals...>(pstates, padr);
+    auto read_res = ReadRegisters<T, TPeripherals...>(cpua, padr);
     return ReadResult<T>{static_cast<T>(read_res.content), read_res.status_code};
   }
 
   template <typename T>
-  WriteResult<T> Write(TProcessorStates &pstates, me_adr_t vadr, const T &value) const {
+  WriteResult<T> Write(TCpuAccessor &cpua, me_adr_t vadr, const T &value) const {
     // clang-format off
     static_assert(
         std::is_same<T, u32>::value || 
@@ -253,7 +246,7 @@ public:
     const me_adr_t padr = ConvertToPhysicalAdr(vadr);
     assert(IsPAdrInRange(padr) == true);
 
-    auto write_res = WriteRegisters<T, TPeripherals...>(pstates, padr, value);
+    auto write_res = WriteRegisters<T, TPeripherals...>(cpua, padr, value);
 
     return WriteResult<T>{write_res.status_code};
   }

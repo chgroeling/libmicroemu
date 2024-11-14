@@ -19,7 +19,7 @@ public:
     static_cast<void>(bflags);
     static_cast<void>(iflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddString(" #")
         .AddInt(static_cast<int>(imm))
         .Terminate();

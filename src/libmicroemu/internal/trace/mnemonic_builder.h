@@ -32,14 +32,13 @@ namespace internal {
 
 class MnemonicBuilder {
 public:
-  template <typename TProcessorStates, typename TItOps, typename TRegOps, typename TSpecRegOps>
-  static void Build(const TProcessorStates &pstates, const Instr &instr, char *buf,
-                    std::size_t buf_len) {
+  template <typename TCpuAccessor, typename TItOps, typename TRegOps, typename TSpecRegOps>
+  static void Build(const TCpuAccessor &cpua, const Instr &instr, char *buf, std::size_t buf_len) {
 
     auto cstr_builder = ConstStringBuilder(buf, buf_len);
     using TMnemonicBuilderContext =
-        MnemonicBuilderContext<TProcessorStates, TItOps, TRegOps, TSpecRegOps>;
-    auto mctx = TMnemonicBuilderContext{pstates, cstr_builder};
+        MnemonicBuilderContext<TCpuAccessor, TItOps, TRegOps, TSpecRegOps>;
+    auto mctx = TMnemonicBuilderContext{cpua, cstr_builder};
     MnemonicBuilderFlagsSet bflags =
         static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kNone);
     switch (instr.id) {

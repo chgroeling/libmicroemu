@@ -13,21 +13,20 @@ namespace internal {
  * The class also handles edge cases where the register ID is out of range (greater than or equal to
  * 16).
  *
- * @tparam TProcessorStates The type of the processor states used by the RegAccessor object.
+ * @tparam TCpuAccessor The type of the cpu accessor object used by the RegAccessor object.
  * @tparam TRegOps The type of the register operations used by the RegAccessor object.
  */
-template <typename TProcessorStates, typename TRegOps, typename TSpecRegOps>
-class RegAccessor : public IRegAccessor {
+template <typename TCpuAccessor> class RegAccessor : public IRegAccessor {
 public:
-  using PState = TProcessorStates;
-  using Reg = TRegOps;
-  using SReg = TSpecRegOps;
+  using CpuAccessor = TCpuAccessor;
+  using Reg = typename CpuAccessor::Reg;
+  using SReg = typename CpuAccessor::SReg;
   /**
    * @brief Constructs a RegAccessor object with the given processor states.
    *
-   * @param pstate The processor states to be used by the RegAccessor object.
+   * @param CpuAccessor The processor states to be used by the RegAccessor object.
    */
-  RegAccessor(PState &pstates) : pstates_(pstates) {}
+  RegAccessor(CpuAccessor &cpua) : cpua_(cpua) {}
 
   /**
    * @brief Default destructor for the RegAccessor object.
@@ -61,17 +60,13 @@ public:
   }
 
   /// @copydoc IRegAccessor::ReadRegister
-  u32 ReadRegister(const RegisterId &id) const override { return Reg::ReadRegister(pstates_, id); }
+  u32 ReadRegister(const RegisterId &id) const override { return cpua_.ReadRegister(id); }
 
   /// @copydoc IRegAccessor::WriteRegister
-  void WriteRegister(const RegisterId &id, u32 value) override {
-    using enum_type = std::underlying_type<RegisterId>::type;
-    const enum_type rid = static_cast<enum_type>(id);
-    Reg::WriteRegister(pstates_, static_cast<RegisterId>(rid), value);
-  }
+  void WriteRegister(const RegisterId &id, u32 value) override { cpua_.WriteRegister(id, value); }
 
 private:
-  PState &pstates_; /**< The processor states used by the RegAccessor object. */
+  CpuAccessor &cpua_; /**< The processor states used by the RegAccessor object. */
 };
 } // namespace internal
 } // namespace libmicroemu

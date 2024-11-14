@@ -17,8 +17,6 @@ template <typename TOp, typename TInstrContext> class TernaryStoreInstrWithShift
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
 
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
@@ -29,18 +27,18 @@ public:
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
-    const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
-    const auto rm = Reg::ReadRegister(ictx.pstates, arg_m.Get());
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
 
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
 
     auto offset = Alu32::Shift(rm, shift_res.type, shift_res.value,
                                (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
@@ -49,15 +47,15 @@ public:
     const u32 offset_address = is_add == true ? rn + offset : rn - offset;
     const u32 address = is_index == true ? offset_address : rn;
 
-    const auto rt = Reg::ReadRegister(ictx.pstates, arg_t.Get());
+    const auto rt = ictx.cpua.ReadRegister(arg_t.Get());
     TRY(ExecResult, TOp::Write(ictx, address, rt));
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     if (is_wback == true) {
-      Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_address);
+      ictx.cpua.WriteRegister(arg_n.Get(), offset_address);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

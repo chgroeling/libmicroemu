@@ -11,14 +11,14 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TProcessorStates, typename TBus> class Fetcher {
+template <typename TCpuAccessor, typename TBus> class Fetcher {
 public:
-  static Result<RawInstr> Fetch(TProcessorStates &pstates, TBus &bus, const me_adr_t pc) {
+  static Result<RawInstr> Fetch(TCpuAccessor &cpua, TBus &bus, const me_adr_t pc) {
 
     // make first 16 bit access to fetch instruction
     TRY_ASSIGN(
         instr_l, RawInstr,
-        bus.template ReadOrRaise<u16>(pstates, pc, BusExceptionType::kRaiseInstructionBusError));
+        bus.template ReadOrRaise<u16>(cpua, pc, BusExceptionType::kRaiseInstructionBusError));
 
     const u32 opc = Bm32::ExtractBits1R<kFlagsOpCodeLast, kFlagsOpCodeFirst>(instr_l);
 
@@ -29,7 +29,7 @@ public:
     if ((flags & static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit)) != 0U) {
       // make the second access
       TRY_ASSIGN(instr_h_im, RawInstr,
-                 bus.template ReadOrRaise<u16>(pstates, pc + 2U,
+                 bus.template ReadOrRaise<u16>(cpua, pc + 2U,
                                                BusExceptionType::kRaiseInstructionBusError));
       instr_h = instr_h_im;
     }

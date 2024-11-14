@@ -18,47 +18,42 @@ namespace libmicroemu {
 namespace internal {
 
 // todo: rename these to ops and separate the ops from the processor
-template <typename TRegOps, typename TSpecRegOps, typename TItOps, typename TPcOps,
-          typename TExcOps, typename TExcTrig>
+template <typename TItOps, typename TPcOps, typename TExcOps, typename TExcTrig>
 class ProcessorOps {
 public:
-  using Reg = TRegOps;
-  using SReg = TSpecRegOps;
   using It = TItOps;
   using Pc = TPcOps;
   using Exc = TExcOps;
   using ExcTrig = TExcTrig;
 };
 
-template <typename TProcessorStates, typename TBus, typename TProcessorOps, typename TFetcher,
+template <typename TCpuAccessor, typename TBus, typename TProcessorOps, typename TFetcher,
           typename TDecoder, typename TExecutor, typename TLogger = NullLogger>
 class Processor {
 public:
-  using Reg = typename TProcessorOps::Reg;
-  using SReg = typename TProcessorOps::SReg;
   using It = typename TProcessorOps::It;
   using Exc = typename TProcessorOps::Exc;
   using Pc = typename TProcessorOps::Pc;
   using ExcTrig = typename TProcessorOps::ExcTrig;
 
   // Check if execution mode is thumb .. if not, raise usage fault and return true
-  static bool IsThumbModeOrRaise(TProcessorStates &pstates) {
-    const auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
+  static bool IsThumbModeOrRaise(TCpuAccessor &cpua) {
+    const auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
     const bool is_thumb = (epsr & static_cast<u32>(EpsrRegister::kTMsk)) != 0U;
 
     // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken
     if (!is_thumb) {
-      auto cfsr = SReg::template ReadRegister<SpecialRegisterId::kCfsr>(pstates);
+      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrUsageFault::kInvStateMsk;
-      SReg::template WriteRegister<SpecialRegisterId::kCfsr>(pstates, cfsr);
-      ExcTrig::SetPending(pstates, ExceptionType::kUsageFault);
+      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      ExcTrig::SetPending(cpua, ExceptionType::kUsageFault);
       return false;
     }
     return true;
   }
 
   template <typename TDelegates>
-  static Result<StepFlagsSet> Step(TProcessorStates &pstates, TBus &bus, TDelegates &delegates) {
+  static Result<StepFlagsSet> Step(TCpuAccessor &cpua, TBus &bus, TDelegates &delegates) {
     static constexpr u8 kRaw32BitMsk = static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit);
 
     StepFlagsSet step_flags{0U};
@@ -68,26 +63,28 @@ public:
     // get the current address.
 
     // Get the current program counter
-    me_adr_t pc_this_instr = static_cast<me_adr_t>(Reg::ReadPC(pstates) - 4U);
+    const me_adr_t pc = static_cast<me_adr_t>(cpua.template ReadRegister<RegisterId::kPc>());
+    me_adr_t pc_this_instr = static_cast<me_adr_t>(pc - 4U);
 
     // Check for exceptions raised by peripherals before fetching the instruction
     const auto exc_ctx_pre_fetch = ExceptionContext{pc_this_instr};
     TRY_ASSIGN(if_pre_fetch_exception, StepFlagsSet,
-               Exc::template CheckExceptions<ExceptionPreFetch>(pstates, bus, exc_ctx_pre_fetch));
+               Exc::template CheckExceptions<ExceptionPreFetch>(cpua, bus, exc_ctx_pre_fetch));
 
     // If an asynchronous exception should be executed, the pc must be updated
     // to the new instruction address.
     if (if_pre_fetch_exception) {
-      pc_this_instr = static_cast<me_adr_t>(Reg::ReadPC(pstates) - 4U);
+      const me_adr_t pc = static_cast<me_adr_t>(cpua.template ReadRegister<RegisterId::kPc>());
+      pc_this_instr = static_cast<me_adr_t>(pc - 4U);
     }
 
     RawInstr raw_instr;
 
     // Check if execution mode is thumb .. if not, raise usage fault and continue
-    if (IsThumbModeOrRaise(pstates)) {
-      auto r_raw_instr = TFetcher::Fetch(pstates, bus, pc_this_instr);
+    if (IsThumbModeOrRaise(cpua)) {
+      auto r_raw_instr = TFetcher::Fetch(cpua, bus, pc_this_instr);
       if (r_raw_instr.IsErr()) {
-        ErrorHandler(pstates, r_raw_instr, bus);
+        ErrorHandler(cpua, r_raw_instr, bus);
         return Err<RawInstr, StepFlagsSet>(r_raw_instr);
       }
       raw_instr = r_raw_instr.content;
@@ -98,7 +95,7 @@ public:
     // If an invalid state exception was raised, this will processed here
     // Check for exceptions after fetching the instruction
     TRY_ASSIGN(is_fetch_exception, StepFlagsSet,
-               Exc::template CheckExceptions<ExceptionPostFetch>(pstates, bus, exc_ctx_post_fetch));
+               Exc::template CheckExceptions<ExceptionPostFetch>(cpua, bus, exc_ctx_post_fetch));
 
     if (is_fetch_exception) {
       // special case: if the instruction fetch raises an exception, this cycle is
@@ -110,9 +107,9 @@ public:
     }
 
     // *** DECODE ***
-    auto r_instr = TDecoder::Decode(pstates, raw_instr);
+    auto r_instr = TDecoder::Decode(cpua, raw_instr);
     if (r_instr.IsErr()) {
-      ErrorHandler(pstates, r_instr, bus);
+      ErrorHandler(cpua, r_instr, bus);
       return Err<Instr, StepFlagsSet>(r_instr);
     }
     const auto &instr = r_instr.content;
@@ -129,9 +126,9 @@ public:
     if (delegates.IsPreExecSet()) {
       const auto is_32bit = (raw_instr.flags & kRaw32BitMsk) == kRaw32BitMsk;
       auto op_code = OpCode{raw_instr.low, raw_instr.high, is_32bit};
-      auto instr_to_mnemonic = InstrToMnemonic<TProcessorStates, It, Reg, SReg>(pstates, instr);
-      auto reg_access = RegAccessor<TProcessorStates, Reg, SReg>(pstates);
-      auto spec_reg_access = SpecialRegAccessor<TProcessorStates, SReg>(pstates);
+      auto instr_to_mnemonic = InstrToMnemonic<TCpuAccessor, It>(cpua, instr);
+      auto reg_access = RegAccessor(cpua);
+      auto spec_reg_access = SpecialRegAccessor(cpua);
 
       auto emu_ctx =
           EmuContext(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);
@@ -139,19 +136,19 @@ public:
     }
 
     // *** EXECUTE ***
-    const auto r_execute = TExecutor::Execute(pstates, bus, instr, delegates);
+    const auto r_execute = TExecutor::Execute(cpua, bus, instr, delegates);
 
     if (r_execute.IsErr()) {
-      ErrorHandler(pstates, r_execute, bus);
+      ErrorHandler(cpua, r_execute, bus);
       return Err<ExecResult, StepFlagsSet>(r_execute);
     }
 
     if (delegates.IsPostExecSet()) {
       const auto is_32bit = (raw_instr.flags & kRaw32BitMsk) == kRaw32BitMsk;
       auto op_code = OpCode{raw_instr.low, raw_instr.high, is_32bit};
-      auto instr_to_mnemonic = InstrToMnemonic<TProcessorStates, It, Reg, SReg>(pstates, instr);
-      auto reg_access = RegAccessor<TProcessorStates, Reg, SReg>(pstates);
-      auto spec_reg_access = SpecialRegAccessor<TProcessorStates, SReg>(pstates);
+      auto instr_to_mnemonic = InstrToMnemonic<TCpuAccessor, It>(cpua, instr);
+      auto reg_access = RegAccessor(cpua);
+      auto spec_reg_access = SpecialRegAccessor(cpua);
       auto emu_ctx =
           EmuContext(pc_this_instr, op_code, instr_to_mnemonic, reg_access, spec_reg_access);
       delegates.PostExec(emu_ctx);
@@ -182,31 +179,32 @@ public:
     const auto exc_ctc_post_exec = ExceptionContext{pc_this_instr};
 
     TRY(StepFlagsSet,
-        Exc::template CheckExceptions<ExceptionPostExecution>(pstates, bus, exc_ctc_post_exec));
+        Exc::template CheckExceptions<ExceptionPostExecution>(cpua, bus, exc_ctc_post_exec));
 
     step_flags |= static_cast<StepFlagsSet>(StepFlags::kStepOk);
     return Ok<StepFlagsSet>(step_flags);
   }
 
   template <typename TResult>
-  static void ErrorHandler(TProcessorStates &pstates, const TResult &res, const TBus &bus) {
+  static void ErrorHandler(TCpuAccessor &cpua, const TResult &res, const TBus &bus) {
     printf("ERROR: Emulator panic - StatusCode: %s(%i)\n", res.ToString(),
            static_cast<u32>(res.status_code));
 
     // error return
-    me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(pstates)) - 0x4U;
+    const me_adr_t pc = static_cast<me_adr_t>(cpua.template ReadRegister<RegisterId::kPc>());
+    me_adr_t pc_this_instr = static_cast<me_adr_t>(pc - 0x4U);
     printf(" # System state:\n");
-    printf("   Actual PC: 0x%x\n\n", pc);
+    printf("   Actual PC: 0x%x\n\n", pc_this_instr);
     printf(" # Memory dump from PC:\n");
 
-    MemoryViewer<TProcessorStates, TBus>::Print(pstates, bus, pc, 32U, 3U);
+    MemoryViewer<TCpuAccessor, TBus>::Print(cpua, bus, pc_this_instr, 32U, 3U);
   }
 
-  static Result<void> TakeReset(TProcessorStates &pstates, TBus &bus_) {
+  static Result<void> TakeReset(TCpuAccessor &cpua, TBus &bus_) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.531
     LOG_INFO(TLogger, "Resetting processor");
 
-    auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+    auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
 
     // CurrentMode = Mode_Thread;
     sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kExecModeMsk);
@@ -238,11 +236,11 @@ public:
       sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlNPrivMsk);
     }
 
-    SReg::template WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
+    cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
 
     // for i = 0 to 511 /* all exceptions Inactive */
     //   ExceptionActive[i] = '0';
-    Exc::InitDefaultExceptionStates(pstates);
+    Exc::InitDefaultExceptionStates(cpua);
 
     // ResetSCSRegs(); /* catch-all function for System Control Space reset */
     // ClearExclusiveLocal(ProcessorID()); /* Synchronization (LDREX* / STREX*) monitor support */
@@ -253,26 +251,27 @@ public:
     //   R[i] = bits(32) UNKNOWN;
 
     // bits(32) vectortable = VTOR<31:7>:'0000000';
-    const auto vtor = SReg::template ReadRegister<SpecialRegisterId::kVtor>(pstates);
+    const auto vtor = cpua.template ReadRegister<SpecialRegisterId::kVtor>();
     me_adr_t vectortable = vtor << 7 | 0x0U;
 
     //   SP_main = MemA_with_priv[vectortable, 4, AccType_VECTABLE] AND 0xFFFFFFFC<31:0>;
     TRY_ASSIGN(sp_main, void,
-               bus_.template ReadOrRaise<u32>(pstates, vectortable,
+               bus_.template ReadOrRaise<u32>(cpua, vectortable,
                                               BusExceptionType::kRaisePreciseDataBusError));
-    SReg::template WriteRegister<SpecialRegisterId::kSpMain>(pstates, sp_main);
+    cpua.template WriteRegister<SpecialRegisterId::kSpMain>(sp_main);
 
     //   SP_process = ((bits(30) UNKNOWN):'00');
-    auto sp_process = SReg::template ReadRegister<SpecialRegisterId::kSpProcess>(pstates);
+    auto sp_process = cpua.template ReadRegister<SpecialRegisterId::kSpProcess>();
     sp_process &= ~0x3U; // clear the two least significant bits
-    SReg::template WriteRegister<SpecialRegisterId::kSpProcess>(pstates, sp_process);
+    cpua.template WriteRegister<SpecialRegisterId::kSpProcess>(sp_process);
 
     //   LR = 0xFFFFFFFF<31:0>; /* preset to an illegal exception return value */
-    Reg::template WriteRegister<RegisterId::kLr>(pstates, 0xFFFFFFFFU);
+
+    cpua.template WriteRegister<RegisterId::kLr>(0xFFFFFFFFU);
 
     //   tmp = MemA_with_priv[vectortable+4, 4, AccType_VECTABLE];
     TRY_ASSIGN(tmp, void,
-               bus_.template ReadOrRaise<u32>(pstates, vectortable + 0x4U,
+               bus_.template ReadOrRaise<u32>(cpua, vectortable + 0x4U,
                                               BusExceptionType::kRaisePreciseDataBusError));
 
     // tbit = tmp<0>;
@@ -281,36 +280,36 @@ public:
     //   APSR = bits(32) UNKNOWN; /* flags UNPREDICTABLE from reset */
 
     //   IPSR<8:0> = Zeros(9); /* Exception Number cleared */
-    auto ipsr = SReg::template ReadRegister<SpecialRegisterId::kIpsr>(pstates);
+    auto ipsr = cpua.template ReadRegister<SpecialRegisterId::kIpsr>();
     ipsr &= ~static_cast<u32>(IpsrRegister::kExceptionNumberMsk);
-    SReg::template WriteRegister<SpecialRegisterId::kIpsr>(pstates, ipsr);
+    cpua.template WriteRegister<SpecialRegisterId::kIpsr>(ipsr);
 
-    auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
+    auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
     //   EPSR.T = tbit; /* T bit set from vector */
     //   EPSR.IT<7:0> = Zeros(8); /* IT/ICI bits cleared */
     epsr &= ~static_cast<u32>(EpsrRegister::kItMsk) & // clear it bits
             ~static_cast<u32>(EpsrRegister::kTMsk);   // clear t bit
     epsr |= tbit << EpsrRegister::kTPos;
-    SReg::template WriteRegister<SpecialRegisterId::kEpsr>(pstates, epsr);
+    cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
 
     //   BranchTo(tmp AND 0xFFFFFFFE<31:0>); /* address of reset service routine */
     auto entry_point = tmp & 0xFFFFFFFEU;
-    Pc::BranchTo(pstates, entry_point);
+    Pc::BranchTo(cpua, entry_point);
     LOG_DEBUG(TLogger, "Set entry Point to 0x%08X / tbit:%i", entry_point, tbit);
 
     // CSR.STKALIGN = '1'; <-- added as default
     /* stack alignment is 8-byte aligned per default*/
-    auto ccr = SReg::template ReadRegister<SpecialRegisterId::kCcr>(pstates);
+    auto ccr = cpua.template ReadRegister<SpecialRegisterId::kCcr>();
     ccr |= static_cast<u32>(CcrRegister::kStkAlignMsk);
-    SReg::template WriteRegister<SpecialRegisterId::kCcr>(pstates, ccr);
+    cpua.template WriteRegister<SpecialRegisterId::kCcr>(ccr);
     LOG_TRACE(TLogger, "CSR: 0x%08X", ccr);
 
 #if IS_LOGLEVEL_TRACE_ENABLED == true // LOG TRACE apsr, ipsr, epsr, xpsr
     {
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
-      auto ipsr = SReg::template ReadRegister<SpecialRegisterId::kIpsr>(pstates);
-      auto epsr = SReg::template ReadRegister<SpecialRegisterId::kEpsr>(pstates);
-      auto xpsr = SReg::template ReadRegister<SpecialRegisterId::kXpsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto ipsr = cpua.template ReadRegister<SpecialRegisterId::kIpsr>();
+      auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
+      auto xpsr = cpua.template ReadRegister<SpecialRegisterId::kXpsr>();
       LOG_DEBUG(TLogger, "APSR: 0x%08X, IPSR: 0x%08X, EPSR: 0x%08X, XPSR: 0x%08X", apsr, ipsr, epsr,
                 xpsr);
     }
