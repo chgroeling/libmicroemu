@@ -1,5 +1,6 @@
 #pragma once
 
+#include "libmicroemu/internal/logic/predicates.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_id.h"
 #include "libmicroemu/result.h"
@@ -62,10 +63,9 @@ public:
 
   static inline SpecialRegisterId LookUpSP(const TProcessorStates &pstates) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.521
-    auto sys_ctrl = SReg::ReadRegister(pstates, SpecialRegisterId::kSysCtrl);
-
+    const auto is_process_stack = Predicates::IsProcessStack<TProcessorStates, SReg>(pstates);
     // if CONTROL.SPSEL == '1' then
-    if ((sys_ctrl & SysCtrlRegister::kControlSpSelMsk) == SysCtrlRegister::kControlSpSelMsk) {
+    if (is_process_stack) {
 
       //    if CurrentMode==Mode_Thread then
       //        sp = RNameSP_process;

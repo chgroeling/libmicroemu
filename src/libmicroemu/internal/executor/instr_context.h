@@ -7,14 +7,15 @@ namespace internal {
 template <typename TProcessorStates, typename TBus, typename TRegOps, typename TSpecRegOps,
           typename TPcOps, typename TItOps, typename TExceptionTrigger>
 struct InstrContext {
-  TBus &bus;
-  TProcessorStates &pstates;
-
+  using ProcessorStates = TProcessorStates;
   using Pc = TPcOps;
   using It = TItOps;
   using Reg = TRegOps;
   using SReg = TSpecRegOps;
   using ExcTrig = TExceptionTrigger;
+
+  TBus &bus;
+  TProcessorStates &pstates;
 };
 
 } // namespace internal
