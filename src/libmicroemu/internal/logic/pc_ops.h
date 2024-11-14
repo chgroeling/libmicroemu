@@ -1,5 +1,6 @@
 #pragma once
 
+#include "libmicroemu/internal/logic/predicates.h"
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 #include <cstddef>
@@ -27,11 +28,7 @@ public:
   static inline Result<void> BXWritePC(TProcessorStates &pstates, TBus &bus,
                                        const me_adr_t &address) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.31
-
-    auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
-
-    const auto current_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
-    const auto is_handler_mode = current_mode == SysCtrlRegister::kExecModeHandler;
+    const auto is_handler_mode = Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
 
     // if CurrentMode == Mode_Handler && address<31:28> == ‘1111’ then
     if (is_handler_mode && ((address & 0xF0000000U) == 0xF0000000U)) {

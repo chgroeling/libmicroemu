@@ -3,6 +3,7 @@
 #include "libmicroemu/internal/executor/exec_results.h"
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/i_breakpoint.h"
+#include "libmicroemu/internal/logic/predicates.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_details.h"
@@ -490,16 +491,17 @@ public:
         break;
       case 0b100U: {
         // CONTROL- Control
-        if (CurrentModeIsPrivileged(ictx.pstates)) {
+        const auto is_privileged =
+            Predicates::IsCurrentModePrivileged<TProcessorStates, SReg>(ictx.pstates);
+
+        if (is_privileged) {
           auto control = SReg::template ReadRegister<SpecialRegisterId::kControl>(ictx.pstates);
           //    CONTROL.nPRIV = R[n]<0>;
           control &= ~ControlRegister::kNPrivMsk;
           control |= ((rn & 0x1) >> 0U) << ControlRegister::kNPrivPos;
-
-          auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(ictx.pstates);
-          const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
-          const auto is_thread_mode = exec_mode == SysCtrlRegister::kExecModeThread;
-          if (is_thread_mode) {
+          using ProcessorStates = typename TInstrContext::ProcessorStates;
+          using SReg = typename TInstrContext::SReg;
+          if (Predicates::IsThreadMode<ProcessorStates, SReg>(ictx.pstates)) {
             // CONTROL.SPSEL = R[n]<1>;
             control &= ~ControlRegister::kSpselMsk;
             control |= ((rn & 0x2U) >> 1U) << ControlRegister::kSpselPos;
@@ -720,16 +722,6 @@ public:
 
 public:
 private:
-  static bool CurrentModeIsPrivileged(TProcessorStates &pstates) {
-    // see Armv7-M Architecture Reference Manual Issue E.e p.512
-    auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
-    const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
-    const auto is_handler_mode = exec_mode == SysCtrlRegister::kExecModeHandler;
-    const auto is_privileged = (sys_ctrl & SysCtrlRegister::kControlNPrivMsk) == 0U;
-
-    return (is_handler_mode || is_privileged);
-  }
-
   /**
    * @brief Constructor
    */

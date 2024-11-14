@@ -2,6 +2,7 @@
 
 #include "libmicroemu/exception_states.h"
 #include "libmicroemu/exception_type.h"
+#include "libmicroemu/internal/logic/predicates.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_details.h"
@@ -68,15 +69,6 @@ public:
   ExceptionsOps &operator=(ExceptionsOps &&r_src) = delete;
   ExceptionsOps(const ExceptionsOps &r_src) = delete;
 
-  static ProcessorMode GetProcessorMode(const TProcessorStates &pstates) {
-    auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
-
-    auto exec_mode = (sys_ctrl & SysCtrlRegister::kExecModeMsk);
-
-    return exec_mode == static_cast<u32>(SysCtrlRegister::kExecModeHandler)
-               ? ProcessorMode::kHandler
-               : ProcessorMode::kThread;
-  }
   static void SetProcessorMode(TProcessorStates &pstates, const ProcessorMode &mode) {
     auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
 
@@ -86,23 +78,11 @@ public:
     SReg::template WriteRegister<SId::kSysCtrl>(pstates, sys_ctrl);
   }
 
-  static bool IsMainStack(TProcessorStates &pstates) {
-    auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
-    auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
-    return spsel == 0U;
-  }
-
-  static bool IsProcessStack(TProcessorStates &pstates) {
-    auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
-    auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
-    return spsel != 0U;
-  }
-
   static void LogImportantRegisters(TProcessorStates &pstates, const char *preamble,
                                     const ExceptionType &exception_type) {
 #if IS_LOGLEVEL_TRACE_ENABLED == true
-    auto exec_mode = GetProcessorMode(pstates);
-    auto mode_str = exec_mode == ProcessorMode::kHandler ? "Handler" : "Thread";
+    const auto is_handler_mode = Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+    const auto mode_str = is_handler_mode ? "Handler" : "Thread";
 
     auto &exception_states = pstates.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
@@ -112,7 +92,7 @@ public:
     auto epsr = SReg::template ReadRegister<SId::kEpsr>(pstates);
     auto xpsr = SReg::template ReadRegister<SId::kXpsr>(pstates);
     auto sp = Reg::template ReadRegister<RegisterId::kSp>(pstates);
-    auto stack_type = IsMainStack(pstates) ? "Main" : "Process";
+    auto stack_type = Predicates::IsMainStack<TProcessorStates, SReg>(pstates) ? "Main" : "Process";
     LOG_TRACE(TLogger,
               "%s: "
               "type_id = %d, "
@@ -214,8 +194,8 @@ public:
     u32 frameptralign{0U};
     u32 frameptr{0U};
 
-    const bool is_thread_mode = GetProcessorMode(pstates) == ProcessorMode::kThread;
-    const bool is_process_stack = IsProcessStack(pstates);
+    const bool is_thread_mode = Predicates::IsThreadMode<TProcessorStates, TSpecRegOps>(pstates);
+    const bool is_process_stack = Predicates::IsProcessStack<TProcessorStates, SReg>(pstates);
 
     // if CONTROL.SPSEL == '1' && CurrentMode == Mode_Thread then
     if (is_process_stack && is_thread_mode) {
@@ -322,7 +302,9 @@ public:
       //   LR = Ones(27):NOT(CONTROL.FPCA):'0001'; else
       //   LR = Ones(27):NOT(CONTROL.FPCA):'1':CONTROL.SPSEL:'01';
     } else {
-      if (GetProcessorMode(pstates) == ProcessorMode::kHandler) {
+      const auto is_handler_mode =
+          Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+      if (is_handler_mode) {
         // LR = Ones(28):'0001';
         const auto lr = Bm32::GenerateBitMask<31U, 4U>() | 0b0001U;
         LOG_TRACE(TLogger, "Setting LR = 0x%08X (currently in Handler mode)", lr);
@@ -516,7 +498,8 @@ public:
 
     LOG_TRACE(TLogger, "[BEGIN] ExceptionReturn: exc_return = 0x%08X", exc_return);
 
-    assert(GetProcessorMode(pstates) == ProcessorMode::kHandler);
+    assert((Predicates::IsHandlerMode<TProcessorStates, SReg>(pstates) == true) &&
+           "ExceptionReturn should only be called in Handler mode");
 
     // if HaveFPExt() then
     if (false) {
@@ -621,7 +604,10 @@ public:
       const auto ipsr_8_0 =
           SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
 
-      if (GetProcessorMode(pstates) == ProcessorMode::kHandler && ipsr_8_0 == 0U) {
+      const auto is_handler_mode =
+          Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+
+      if (is_handler_mode && ipsr_8_0 == 0U) {
         // UFSR.INVPC = '1';
         // PushStack(UsageFault); // to negate PopStack()
         // LR = '1111':EXC_RETURN;
@@ -631,7 +617,8 @@ public:
         return Err(StatusCode::kScUsageFault);
       }
 
-      if (GetProcessorMode(pstates) == ProcessorMode::kThread && ipsr_8_0 != 0U) {
+      const auto is_thread_mode = Predicates::IsThreadMode<TProcessorStates, TSpecRegOps>(pstates);
+      if (is_thread_mode && ipsr_8_0 != 0U) {
         // UFSR.INVPC = '1';
         // PushStack(UsageFault); // to negate PopStack()
         // LR = '1111':EXC_RETURN;
