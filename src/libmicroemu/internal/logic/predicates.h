@@ -16,69 +16,64 @@ namespace libmicroemu {
 namespace internal {
 
 /**
- * @brief Provides predicates for the processor
+ * @brief Provides predicates for certain cpu states
  */
 class Predicates {
 public:
   /**
-   * @brief Check if the processor is in thread mode
-   * @param pstates the processor states
-   * @return true if the processor is in thread mode, false otherwise
+   * @brief Check if the cpu is in thread mode
+   * @param cpua a reference to a cpu accessor
+   * @return true if the cpu is in thread mode, false otherwise
    */
-  template <typename TProcessorStates, typename TSpecRegOps>
-  static bool IsThreadMode(const TProcessorStates &pstates) {
-    const auto sys_ctrl = TSpecRegOps::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+  template <typename TCpuAccessor> static bool IsThreadMode(const TCpuAccessor &cpua) {
+    const auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
     const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
     return exec_mode == SysCtrlRegister::kExecModeThread;
   }
 
   /**
-   * @brief Check if the processor is in handler mode
-   * @param pstates the processor states
-   * @return true if the processor is in handler mode, false otherwise
+   * @brief Check if the cpu is in handler mode
+   * @param cpua a reference to a cpu accessor
+   * @return true if the cpu is in handler mode, false otherwise
    */
-  template <typename TProcessorStates, typename TSpecRegOps>
-  static bool IsHandlerMode(const TProcessorStates &pstates) {
-    const auto sys_ctrl = TSpecRegOps::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+  template <typename TCpuAccessor> static bool IsHandlerMode(const TCpuAccessor &cpua) {
+    const auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
     const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
     return exec_mode == SysCtrlRegister::kExecModeHandler;
   }
 
   /**
-   * @brief Check if the processor is using the main stack
-   * @param pstates the processor states
-   * @return true if the processor is using the main stack, false otherwise
+   * @brief Check if the cpu is using the main stack
+   * @param cpua a reference to a cpu accessor
+   * @return true if the cpu is using the main stack, false otherwise
    */
-  template <typename TProcessorStates, typename TSpecRegOps>
-  static bool IsMainStack(const TProcessorStates &pstates) {
+  template <typename TCpuAccessor> static bool IsMainStack(const TCpuAccessor &cpua) {
     using SId = SpecialRegisterId;
-    auto sys_ctrl = TSpecRegOps::template ReadRegister<SId::kSysCtrl>(pstates);
+    auto sys_ctrl = cpua.template ReadRegister<SId::kSysCtrl>();
     auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
     return spsel == 0U;
   }
 
   /**
-   * @brief Check if the processor is using the process stack
-   * @param pstates the processor states
-   * @return true if the processor is using the process stack, false otherwise
+   * @brief Check if the cpu is using the process stack
+   * @param cpua a reference to a cpu accessor
+   * @return true if the cpu is using the process stack, false otherwise
    */
-  template <typename TProcessorStates, typename TSpecRegOps>
-  static bool IsProcessStack(const TProcessorStates &pstates) {
+  template <typename TCpuAccessor> static bool IsProcessStack(const TCpuAccessor &cpua) {
     using SId = SpecialRegisterId;
-    auto sys_ctrl = TSpecRegOps::template ReadRegister<SId::kSysCtrl>(pstates);
+    auto sys_ctrl = cpua.template ReadRegister<SId::kSysCtrl>();
     auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
     return spsel != 0U;
   }
 
   /**
-   * @brief Check if the processor is in privileged mode
-   * @param pstates the processor states
-   * @return true if the processor is in privileged mode, false otherwise
+   * @brief Check if the cpu is in privileged mode
+   * @param cpua a reference to a cpu accessor
+   * @return true if the cpu is in privileged mode, false otherwise
    */
-  template <typename TProcessorStates, typename TSpecRegOps>
-  static bool IsCurrentModePrivileged(TProcessorStates &pstates) {
+  template <typename TCpuAccessor> static bool IsCurrentModePrivileged(TCpuAccessor &cpua) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.512
-    auto sys_ctrl = TSpecRegOps::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+    auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
     const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
     const auto is_handler_mode = exec_mode == SysCtrlRegister::kExecModeHandler;
     const auto is_privileged = (sys_ctrl & SysCtrlRegister::kControlNPrivMsk) == 0U;

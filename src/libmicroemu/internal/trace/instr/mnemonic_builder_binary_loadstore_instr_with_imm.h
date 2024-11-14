@@ -26,7 +26,7 @@ public:
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(t.Get()))
         .AddString(", ");

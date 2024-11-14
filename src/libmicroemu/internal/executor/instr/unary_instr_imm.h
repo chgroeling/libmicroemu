@@ -18,11 +18,10 @@ namespace internal {
  */
 template <typename TInstrContext> class AddToPcImmOp {
 public:
-  using Reg = typename TInstrContext::Reg;
   static inline OpResult Call(const TInstrContext &ictx, const InstrFlagsSet &iflags,
                               const u32 &imm32) {
     static_cast<void>(ictx);
-    const me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(ictx.pstates));
+    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
     const auto apc = Bm32::AlignDown<4>(pc);
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
     const auto result = is_add != false ? apc + imm32 : apc - imm32;
@@ -34,8 +33,6 @@ template <typename TOp, typename TInstrContext> class UnaryInstrImm {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
 
   template <typename TArg0>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
@@ -44,20 +41,20 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
     auto result = TOp::Call(ictx, iflags, imm32);
 
-    Reg::WriteRegister(ictx.pstates, arg_d.Get(), result.value);
+    ictx.cpua.WriteRegister(arg_d.Get(), result.value);
 
     if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+      auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       // Clear N, Z, C, V flags
       apsr &=
           ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
@@ -66,10 +63,10 @@ public:
       apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
       apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
       apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
-      SReg::template WriteRegister<SpecialRegisterId::kApsr>(ictx.pstates, apsr);
+      ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

@@ -38,24 +38,22 @@ template <typename TOp, typename TInstrContext> class NullaryInstr {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
 
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     ExecFlagsSet eflags{0x0U};
 
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
     TOp::Call(ictx);
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

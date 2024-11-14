@@ -18,8 +18,7 @@ template <typename TOp, typename TInstrContext> class UnaryLoadInstrImm {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
+
   using ExcTrig = typename TInstrContext::ExcTrig;
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags, const u32 &imm32,
@@ -27,18 +26,18 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     // unary loads always refer to the pc
-    const me_adr_t pc = static_cast<me_adr_t>(Reg::ReadPC(ictx.pstates));
+    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
 
     const me_adr_t base = Bm32::AlignDown<4>(pc);
     const me_adr_t address = is_add == true ? base + imm32 : base - imm32;
@@ -49,18 +48,18 @@ public:
       // When the given address was unaligend the behaviour is
       // unpredtictable
       if ((address & 0x3U) == 0U) {
-        It::ITAdvance(ictx.pstates);
-        TRY(ExecResult, Pc::LoadWritePC(ictx.pstates, ictx.bus, data));
+        It::ITAdvance(ictx.cpua);
+        TRY(ExecResult, Pc::LoadWritePC(ictx.cpua, ictx.bus, data));
 
         return Ok(ExecResult{eflags});
       } else {
         return Err<ExecResult>(StatusCode::kScExecutorUnpredictable);
       }
     } else {
-      Reg::WriteRegister(ictx.pstates, arg_t.Get(), data);
+      ictx.cpua.WriteRegister(arg_t.Get(), data);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

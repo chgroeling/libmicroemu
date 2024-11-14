@@ -9,7 +9,7 @@ using libmicroemu::Result;
 namespace libmicroemu ::internal {
 
 // Read only memory access
-template <unsigned Id, typename TProcessorStates, typename TEndianessC> class MemRo {
+template <unsigned Id, typename TCpuAccessor, typename TEndianessC> class MemRo {
 public:
   static constexpr bool kReadOnly = true;
 
@@ -48,7 +48,7 @@ public:
    */
   MemRo &operator=(MemRo &&r_src) = default;
 
-  template <typename T> ReadResult<T> Read(TProcessorStates &pstates, me_adr_t vadr) const {
+  template <typename T> ReadResult<T> Read(TCpuAccessor &cpua, me_adr_t vadr) const {
     // clang-format off
     static_assert(
         std::is_same<T, u32>::value || 
@@ -56,7 +56,7 @@ public:
         std::is_same<T, u8>::value,  
         "Read only allows u32, u16 and u8 types");
     // clang-format on
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
 
     const me_adr_t padr = ConvertToPhysicalAdr(vadr);
     assert(IsPAdrInRange(padr) == true);
@@ -66,8 +66,7 @@ public:
     return ReadResult<T>{cval, ReadStatusCode::kOk};
   }
 
-  template <typename T>
-  WriteResult<T> Write(TProcessorStates &pstates, me_adr_t vadr, T value) const {
+  template <typename T> WriteResult<T> Write(TCpuAccessor &cpua, me_adr_t vadr, T value) const {
     static_cast<void>(vadr); // only used in debug mode
 
     // clang-format off
@@ -78,7 +77,7 @@ public:
         "Write only allows u32, u16 and u8 types");
     // clang-format on
     static_cast<void>(value);
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
 
     assert(IsPAdrInRange(ConvertToPhysicalAdr(vadr)) == true);
     return WriteResult<T>{WriteStatusCode::kWriteNotAllowed};

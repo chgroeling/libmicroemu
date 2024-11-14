@@ -37,11 +37,9 @@ enum class Condition : u32 {
   kUndefined = 0b1111U, // Undefined
 };
 
-template <typename TProcessorStates, typename TSpecRegOps> class IfThenOps {
+template <typename TCpuAccessor> class IfThenOps {
 
 public:
-  using SReg = TSpecRegOps;
-
   /**
    * @brief Constructs a IfThenOps object
    */
@@ -76,18 +74,18 @@ public:
    */
   IfThenOps &operator=(IfThenOps &&r_src) = delete;
 
-  static inline bool InITBlock(const TProcessorStates &pstates) {
-    auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
+  static inline bool InITBlock(const TCpuAccessor &cpua) {
+    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
     return ((istate & IstateRegister::kItBit3to0Msk) != 0b0000U);
   }
 
-  static inline bool LastInITBlock(TProcessorStates &pstates) {
-    auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
+  static inline bool LastInITBlock(TCpuAccessor &cpua) {
+    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
     return ((istate & IstateRegister::kItBit3to0Msk) == 0b1000U);
   }
 
-  static inline void ITAdvance(TProcessorStates &pstates) {
-    auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
+  static inline void ITAdvance(TCpuAccessor &cpua) {
+    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
     const auto istate_2_0 = istate & IstateRegister::kItBit2to0Msk;
 
     if (istate_2_0 == 0x0U) {
@@ -98,16 +96,16 @@ public:
       istate = (istate & ~IstateRegister::kItBit4to0Msk) | next_istate_4_0;
     }
 
-    SReg::template WriteRegister<SpecialRegisterId::kIstate>(pstates, istate);
+    cpua.template WriteRegister<SpecialRegisterId::kIstate>(istate);
   }
 
-  static inline Result<u32> CurrentCond(const TProcessorStates &pstates) {
+  static inline Result<u32> CurrentCond(const TCpuAccessor &cpua) {
     // • For the T1 and T3 encodings of the Branch instruction shown in B on
     //   page A7-205, it returns the 4-bit cond field of the encoding.
     // --> This is handled by the encoder by Using ConiditionPassed(cond)
 
     // • For all other Thumb instructions:
-    auto istate = SReg::template ReadRegister<SpecialRegisterId::kIstate>(pstates);
+    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
 
     const auto it_3_0 = istate & IstateRegister::kItBit3to0Msk;
 
@@ -168,8 +166,8 @@ public:
     return "invalid";
   }
 
-  static std::string_view GetConditionAsStr(const TProcessorStates &pstates) {
-    const auto r_cond = CurrentCond(pstates);
+  static std::string_view GetConditionAsStr(const TCpuAccessor &cpua) {
+    const auto r_cond = CurrentCond(cpua);
     if (r_cond.IsErr()) {
       return "invalid";
     }
@@ -178,47 +176,47 @@ public:
     return ConditionToString(cond);
   }
 
-  static inline bool ConditionPassed(const TProcessorStates &pstates, u8 cond) {
+  static inline bool ConditionPassed(const TCpuAccessor &cpua, u8 cond) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.178 - 179
     bool result{false};
 
     auto cond_3_1 = (cond & IstateRegister::kItBit3to1Msk) >> IstateRegister::kItBit1Pos;
     switch (cond_3_1) {
     case 0b000U: { // EQ - Equal or NE - Not equal
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kZMsk) == ApsrRegister::kZMsk;
       break;
     }
     case 0b001U: { // CS - Carry set  or CC - Carry clear
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk;
       break;
     }
     case 0b010U: { // MI - Minus, negative  or PL - Plus, positive or zero
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kNMsk) == ApsrRegister::kNMsk;
       break;
     }
     case 0b011U: { // VS - Overflow or VC - No overflow
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk;
       break;
     }
     case 0b100U: { // HI - Unsigned higher or LS - Unsigned lower or same
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = ((apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk) &&
                ((apsr & ApsrRegister::kZMsk) != ApsrRegister::kZMsk);
       break;
     }
     case 0b101U: { // GE - Signed greater than or equal or LT - Signed less than
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = ((apsr & ApsrRegister::kNMsk) >> ApsrRegister::kNPos) ==
                ((apsr & ApsrRegister::kVMsk) >> ApsrRegister::kVPos);
       break;
     }
     case 0b110U: { // GT - Signed greater than  or LE - Signed less than or
                    // equal
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(pstates);
+      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       result = (((apsr & ApsrRegister::kNMsk) >> ApsrRegister::kNPos) ==
                 ((apsr & ApsrRegister::kVMsk) >> ApsrRegister::kVPos)) &&
                ((apsr & ApsrRegister::kZMsk) != ApsrRegister::kZMsk);
@@ -245,17 +243,17 @@ public:
     return result;
   }
 
-  static inline Result<bool> ConditionPassed(const TProcessorStates &pstates) {
+  static inline Result<bool> ConditionPassed(const TCpuAccessor &cpua) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.179
 
-    const auto r_cond = CurrentCond(pstates);
+    const auto r_cond = CurrentCond(cpua);
     if (r_cond.IsErr()) {
       return Err<u32, bool>(r_cond);
     }
 
     const auto &cond = r_cond.content;
 
-    return Ok(ConditionPassed(pstates, cond));
+    return Ok(ConditionPassed(cpua, cond));
   }
 };
 

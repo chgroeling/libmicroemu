@@ -1,6 +1,5 @@
 #pragma once
 
-#include "libmicroemu/processor_states.h"
 #include "libmicroemu/register_id.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"

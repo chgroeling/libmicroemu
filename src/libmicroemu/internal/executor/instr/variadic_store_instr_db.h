@@ -18,8 +18,6 @@ template <typename TInstrContext> class VariadicStoreInstrDb {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
 
   template <typename TArg>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
@@ -27,24 +25,24 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
-    const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     auto reg_count = Bm32::BitCount(registers);
     u32 address = rn - 4U * reg_count;
 
     for (u32 reg = 0U; reg <= 14U; ++reg) {
       u32 bm = 0x1U << reg;
       if ((registers & bm) != 0U) {
-        const auto r = Reg::ReadRegister(ictx.pstates, static_cast<RegisterId>(reg));
+        const auto r = ictx.cpua.ReadRegister(static_cast<RegisterId>(reg));
         TRY(ExecResult, ictx.bus.template WriteOrRaise<u32>(
-                            ictx.pstates, address, r, BusExceptionType::kRaisePreciseDataBusError));
+                            ictx.cpua, address, r, BusExceptionType::kRaisePreciseDataBusError));
         address += 4U;
       }
     }
@@ -59,10 +57,10 @@ public:
       const auto wback_val = rn - 4U * reg_count;
 
       // Update n register
-      Reg::WriteRegister(ictx.pstates, arg_n.Get(), wback_val);
+      ictx.cpua.WriteRegister(arg_n.Get(), wback_val);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

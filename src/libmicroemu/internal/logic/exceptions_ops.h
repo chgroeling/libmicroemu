@@ -53,13 +53,10 @@ public:
   static constexpr bool isSynchronous = true;
 };
 
-template <typename TProcessorStates, typename TRegOps, typename TSpecRegOps, typename TPcOps,
-          typename TLogger = NullLogger>
+template <typename TCpuAccessor, typename TPcOps, typename TLogger = NullLogger>
 class ExceptionsOps {
 public:
   using SId = SpecialRegisterId;
-  using Reg = TRegOps;
-  using SReg = TSpecRegOps;
   using Pc = TPcOps;
 
   ExceptionsOps() = delete;
@@ -69,30 +66,30 @@ public:
   ExceptionsOps &operator=(ExceptionsOps &&r_src) = delete;
   ExceptionsOps(const ExceptionsOps &r_src) = delete;
 
-  static void SetProcessorMode(TProcessorStates &pstates, const ProcessorMode &mode) {
-    auto sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
+  static void SetProcessorMode(TCpuAccessor &cpua, const ProcessorMode &mode) {
+    auto sys_ctrl = cpua.template ReadRegister<SId::kSysCtrl>();
 
     sys_ctrl &= ~SysCtrlRegister::kExecModeMsk;
     sys_ctrl |= mode == ProcessorMode::kHandler ? SysCtrlRegister::kExecModeHandler
                                                 : SysCtrlRegister::kExecModeThread;
-    SReg::template WriteRegister<SId::kSysCtrl>(pstates, sys_ctrl);
+    cpua.template WriteRegister<SId::kSysCtrl>(sys_ctrl);
   }
 
-  static void LogImportantRegisters(TProcessorStates &pstates, const char *preamble,
+  static void LogImportantRegisters(TCpuAccessor &cpua, const char *preamble,
                                     const ExceptionType &exception_type) {
 #if IS_LOGLEVEL_TRACE_ENABLED == true
-    const auto is_handler_mode = Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+    const auto is_handler_mode = Predicates::IsHandlerMode(cpua);
     const auto mode_str = is_handler_mode ? "Handler" : "Thread";
 
-    auto &exception_states = pstates.GetExceptionStates();
+    auto &exception_states = cpua.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
-    auto apsr = SReg::template ReadRegister<SId::kApsr>(pstates);
-    auto ipsr = SReg::template ReadRegister<SId::kIpsr>(pstates);
-    auto epsr = SReg::template ReadRegister<SId::kEpsr>(pstates);
-    auto xpsr = SReg::template ReadRegister<SId::kXpsr>(pstates);
-    auto sp = Reg::template ReadRegister<RegisterId::kSp>(pstates);
-    auto stack_type = Predicates::IsMainStack<TProcessorStates, SReg>(pstates) ? "Main" : "Process";
+    auto apsr = cpua.template ReadRegister<SId::kApsr>();
+    auto ipsr = cpua.template ReadRegister<SId::kIpsr>();
+    auto epsr = cpua.template ReadRegister<SId::kEpsr>();
+    auto xpsr = cpua.template ReadRegister<SId::kXpsr>();
+    auto sp = cpua.template ReadRegister<RegisterId::kSp>();
+    auto stack_type = Predicates::IsMainStack(cpua) ? "Main" : "Process";
     LOG_TRACE(TLogger,
               "%s: "
               "type_id = %d, "
@@ -106,13 +103,13 @@ public:
               preamble, static_cast<uint32_t>(exception_type), selected_exception.GetPriority(),
               mode_str, apsr, ipsr, epsr, xpsr, sp, stack_type);
 #else
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     static_cast<void>(preamble);
     static_cast<void>(exception_type);
 #endif
   }
-  static void InitDefaultExceptionStates(TProcessorStates &pstates) {
-    auto &exception_states = pstates.GetExceptionStates();
+  static void InitDefaultExceptionStates(TCpuAccessor &cpua) {
+    auto &exception_states = cpua.GetExceptionStates();
     exception_states.pending_exceptions = 0U;
     auto &exceptions = exception_states.exception;
     for (u32 i = 0U; i < CountExceptions(); ++i) {
@@ -145,36 +142,33 @@ public:
   }
 
   template <typename ExcInstant, typename TBus>
-  static Result<void> ExceptionEntry(TProcessorStates &pstates, TBus &bus,
+  static Result<void> ExceptionEntry(TCpuAccessor &cpua, TBus &bus,
                                      const ExceptionType &exception_type,
                                      const ExceptionContext &context) {
 #if IS_LOGLEVEL_TRACE_ENABLED == true
     if (constexpr auto instant = ExcInstant::kInstant; instant == ExecutionInstant::kPreFetch) {
-      LogImportantRegisters(pstates, "[BEGIN] ExceptionEntry (PreFetch)", exception_type);
+      LogImportantRegisters(cpua, "[BEGIN] ExceptionEntry (PreFetch)", exception_type);
     } else if (instant == ExecutionInstant::kPostFetch) {
-      LogImportantRegisters(pstates, "[BEGIN] ExceptionEntry (PostFetch)", exception_type);
+      LogImportantRegisters(cpua, "[BEGIN] ExceptionEntry (PostFetch)", exception_type);
     } else {
-      LogImportantRegisters(pstates, "[BEGIN] ExceptionEntry (PostExec)", exception_type);
+      LogImportantRegisters(cpua, "[BEGIN] ExceptionEntry (PostExec)", exception_type);
     }
 #endif
 
-    TRY(void, PushStack<ExcInstant>(pstates, bus, exception_type, context));
+    TRY(void, PushStack<ExcInstant>(cpua, bus, exception_type, context));
 
-    TRY(void, ExceptionTaken(pstates, bus, exception_type));
+    TRY(void, ExceptionTaken(cpua, bus, exception_type));
 
     LOG_TRACE(TLogger, "[END] ExceptionEntry");
     return Ok();
   }
 
   template <typename ExcInstant, typename TBus>
-  static Result<void> PushStack(TProcessorStates &pstates, TBus &bus,
-                                const ExceptionType &exception_type,
+  static Result<void> PushStack(TCpuAccessor &cpua, TBus &bus, const ExceptionType &exception_type,
                                 const ExceptionContext &context) {
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p532
 
     static_cast<void>(exception_type);
-    using SReg = TSpecRegOps;
-    using Reg = TRegOps;
 
     u32 framesize{0U};
     u32 forcealign{0U};
@@ -185,7 +179,7 @@ public:
       // forcealign = '1';
     } else {
       framesize = 0x20U;
-      auto ccr = SReg::template ReadRegister<SId::kCcr>(pstates);
+      auto ccr = cpua.template ReadRegister<SId::kCcr>();
       forcealign = (ccr & CcrRegister::kStkAlignMsk) >> CcrRegister::kStkAlignPos;
     }
 
@@ -194,18 +188,18 @@ public:
     u32 frameptralign{0U};
     u32 frameptr{0U};
 
-    const bool is_thread_mode = Predicates::IsThreadMode<TProcessorStates, TSpecRegOps>(pstates);
-    const bool is_process_stack = Predicates::IsProcessStack<TProcessorStates, SReg>(pstates);
+    const bool is_thread_mode = Predicates::IsThreadMode(cpua);
+    const bool is_process_stack = Predicates::IsProcessStack(cpua);
 
     // if CONTROL.SPSEL == '1' && CurrentMode == Mode_Thread then
     if (is_process_stack && is_thread_mode) {
-      auto sp_process = SReg::template ReadRegister<SId::kSpProcess>(pstates);
+      auto sp_process = cpua.template ReadRegister<SId::kSpProcess>();
 
       frameptralign = ((sp_process & 0x4U) >> 2U) & forcealign;
 
       sp_process = (sp_process - framesize) & spmask;
       LOG_TRACE(TLogger, "Setting processes stack pointer to = 0x%08X", sp_process);
-      SReg::template WriteRegister<SId::kSpProcess>(pstates, sp_process);
+      cpua.template WriteRegister<SId::kSpProcess>(sp_process);
 
       // frameptralign = SP_process<2> AND forcealign;
       // SP_process = (SP_process - framesize) AND spmask;
@@ -213,13 +207,13 @@ public:
 
       frameptr = sp_process;
     } else {
-      auto sp_main = SReg::template ReadRegister<SId::kSpMain>(pstates);
+      auto sp_main = cpua.template ReadRegister<SId::kSpMain>();
 
       frameptralign = ((sp_main & 0x4U) >> 2U) & forcealign;
 
       sp_main = (sp_main - framesize) & spmask;
       LOG_TRACE(TLogger, "Setting main stack pointer to = 0x%08X", sp_main);
-      SReg::template WriteRegister<SId::kSpMain>(pstates, sp_main);
+      cpua.template WriteRegister<SId::kSpMain>(sp_main);
 
       frameptr = sp_main;
     }
@@ -227,48 +221,47 @@ public:
     /* only the stack locations, not the store order, are architected */
 
     // MemA[frameptr,4     ] = R[0];
-    const auto r0 = Reg::template ReadRegister<RegisterId::kR0>(pstates);
-    TRY(void,
-        bus.template WriteOrRaise<u32>(pstates, frameptr, r0, BusExceptionType::kRaiseUnstkerr));
+    const auto r0 = cpua.template ReadRegister<RegisterId::kR0>();
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr, r0, BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0x4,4 ] = R[1];
-    const auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates);
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x4U, r1,
+    const auto r1 = cpua.template ReadRegister<RegisterId::kR1>();
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0x4U, r1,
                                              BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0x8,4 ] = R[2];
-    const auto r2 = Reg::template ReadRegister<RegisterId::kR2>(pstates);
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x8U, r2,
+    const auto r2 = cpua.template ReadRegister<RegisterId::kR2>();
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0x8U, r2,
                                              BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0xC,4 ] = R[3];
-    const auto r3 = Reg::template ReadRegister<RegisterId::kR3>(pstates);
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0xCU, r3,
+    const auto r3 = cpua.template ReadRegister<RegisterId::kR3>();
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0xCU, r3,
                                              BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0x10,4] = R[12];
-    const auto r12 = Reg::template ReadRegister<RegisterId::kR12>(pstates);
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x10U, r12,
+    const auto r12 = cpua.template ReadRegister<RegisterId::kR12>();
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0x10U, r12,
                                              BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0x14,4] = LR;
-    const auto lr = Reg::template ReadRegister<RegisterId::kLr>(pstates);
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x14U, lr,
+    const auto lr = cpua.template ReadRegister<RegisterId::kLr>();
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0x14U, lr,
                                              BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0x18,4] = ReturnAddress(ExceptionType);
-    const auto return_address = ReturnAddress<ExcInstant>(pstates, exception_type, context);
+    const auto return_address = ReturnAddress<ExcInstant>(cpua, exception_type, context);
 
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x18U, return_address,
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0x18U, return_address,
                                              BusExceptionType::kRaiseUnstkerr));
 
     // MemA[frameptr+0x1C,4] = (XPSR<31:10>:frameptralign:XPSR<8:0>);
     //                         //see ReturnAddress() in-line note for information on XPSR.IT bits
-    const auto xpsr = SReg::template ReadRegister<SId::kXpsr>(pstates);
+    const auto xpsr = cpua.template ReadRegister<SId::kXpsr>();
     const auto xpsr_adapt = (xpsr & Bm32::GenerateBitMask<8U, 0U>()) | (frameptralign << 9U) |
                             (xpsr & Bm32::GenerateBitMask<31U, 10U>());
 
-    TRY(void, bus.template WriteOrRaise<u32>(pstates, frameptr + 0x1CU, xpsr_adapt,
+    TRY(void, bus.template WriteOrRaise<u32>(cpua, frameptr + 0x1CU, xpsr_adapt,
                                              BusExceptionType::kRaiseUnstkerr));
 
     LOG_TRACE(TLogger,
@@ -302,22 +295,21 @@ public:
       //   LR = Ones(27):NOT(CONTROL.FPCA):'0001'; else
       //   LR = Ones(27):NOT(CONTROL.FPCA):'1':CONTROL.SPSEL:'01';
     } else {
-      const auto is_handler_mode =
-          Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+      const auto is_handler_mode = Predicates::IsHandlerMode(cpua);
       if (is_handler_mode) {
         // LR = Ones(28):'0001';
         const auto lr = Bm32::GenerateBitMask<31U, 4U>() | 0b0001U;
         LOG_TRACE(TLogger, "Setting LR = 0x%08X (currently in Handler mode)", lr);
-        Reg::template WriteRegister<RegisterId::kLr>(pstates, lr);
+        cpua.template WriteRegister<RegisterId::kLr>(lr);
       } else { // Thread mode
         // LR = Ones(29):CONTROL.SPSEL:'01';
-        const auto sctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
+        const auto sctrl = cpua.template ReadRegister<SId::kSysCtrl>();
         const auto spsel =
             (sctrl & SysCtrlRegister::kControlSpSelMsk) >> SysCtrlRegister::kControlSpSelPos;
         const auto lr = Bm32::GenerateBitMask<31U, 3U>() | (spsel << 2U) | 0b01U;
 
         LOG_TRACE(TLogger, "Setting LR = 0x%08X (currently in Thread mode)", lr);
-        Reg::template WriteRegister<RegisterId::kLr>(pstates, lr);
+        cpua.template WriteRegister<RegisterId::kLr>(lr);
       }
     }
     return Ok();
@@ -328,9 +320,9 @@ public:
   // The return address is the address of the instruction which will be fetched next.
   template <typename ExcInstant,
             typename std::enable_if_t<ExcInstant::kInstant == ExecutionInstant::kPreFetch, int> = 0>
-  static u32 ReturnAddress(TProcessorStates &pstates, const ExceptionType &exception_type,
+  static u32 ReturnAddress(TCpuAccessor &cpua, const ExceptionType &exception_type,
                            const ExceptionContext &context) {
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p534
     // bits(32) ReturnAddress(integer ExceptionType)
     // // Returns the following values based on the exception cause
@@ -359,9 +351,9 @@ public:
 
   template <typename ExcInstant, typename std::enable_if_t<
                                      ExcInstant::kInstant == ExecutionInstant::kPostFetch, int> = 0>
-  static u32 ReturnAddress(TProcessorStates &pstates, const ExceptionType &exception_type,
+  static u32 ReturnAddress(TCpuAccessor &cpua, const ExceptionType &exception_type,
                            const ExceptionContext &context) {
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     static_cast<void>(context);
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p534
     // bits(32) ReturnAddress(integer ExceptionType)
@@ -392,9 +384,9 @@ public:
   template <
       typename ExcInstant,
       typename std::enable_if_t<ExcInstant::kInstant == ExecutionInstant::kPostExecution, int> = 0>
-  static u32 ReturnAddress(TProcessorStates &pstates, const ExceptionType &exception_type,
+  static u32 ReturnAddress(TCpuAccessor &cpua, const ExceptionType &exception_type,
                            const ExceptionContext &context) {
-    static_cast<void>(pstates);
+    static_cast<void>(cpua);
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p534
     // bits(32) ReturnAddress(integer ExceptionType)
     // // Returns the following values based on the exception cause
@@ -418,7 +410,7 @@ public:
   }
 
   template <typename TBus>
-  static Result<void> ExceptionTaken(TProcessorStates &pstates, TBus &bus,
+  static Result<void> ExceptionTaken(TCpuAccessor &cpua, TBus &bus,
                                      const ExceptionType &exception_type) {
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p533
     // ExceptionTaken(integer ExceptionNumber)
@@ -430,54 +422,54 @@ public:
     // R[12] = bits(32) UNKNOWN;
 
     // bits(32) VectorTable = VTOR<31:7>:'0000000';
-    const auto vector_table = SReg::template ReadRegister<SId::kVtor>(pstates) << 7U;
+    const auto vector_table = cpua.template ReadRegister<SId::kVtor>() << 7U;
 
     // tmp = MemA[VectorTable+4*ExceptionNumber,4];
     TRY_ASSIGN(tmp, void,
-               bus.template ReadOrRaise<u32>(pstates,
+               bus.template ReadOrRaise<u32>(cpua,
                                              vector_table + 4U * static_cast<u32>(exception_type),
                                              BusExceptionType::kRaisePreciseDataBusError));
     // BranchTo(tmp AND 0xFFFFFFFE<31:0>);
     const auto exception_address = tmp & 0xFFFFFFFEU;
     LOG_TRACE(TLogger, "Branching to exception address = 0x%08X", exception_address);
-    Pc::BranchTo(pstates, exception_address);
+    Pc::BranchTo(cpua, exception_address);
 
     const auto tbit = tmp & 0x1U; // tbit = tmp<0>;
 
-    SetProcessorMode(pstates, ProcessorMode::kHandler);
+    SetProcessorMode(cpua, ProcessorMode::kHandler);
 
     // APSR = bits(32) UNKNOWN; // Flags UNPREDICTABLE due to other activations
 
-    auto ipsr = SReg::template ReadRegister<SId::kIpsr>(pstates);
+    auto ipsr = cpua.template ReadRegister<SId::kIpsr>();
 
     // IPSR SECTION
     // ------------
     const auto exception_number = static_cast<u32>(exception_type);
     ipsr &= ~static_cast<u32>(IpsrRegister::kExceptionNumberMsk);
     ipsr |= exception_number; // ExceptionNumber set in IPSR
-    SReg::template WriteRegister<SId::kIpsr>(pstates, ipsr);
+    cpua.template WriteRegister<SId::kIpsr>(ipsr);
 
     // EPSR SECTION
     // ------------
-    auto epsr = SReg::template ReadRegister<SId::kEpsr>(pstates);
+    auto epsr = cpua.template ReadRegister<SId::kEpsr>();
     epsr &= ~static_cast<u32>(EpsrRegister::kTMsk);  // clear t bit
     epsr |= tbit << EpsrRegister::kTPos;             // T-bit set from vector
     epsr &= ~static_cast<u32>(EpsrRegister::kItMsk); // IT/ICI bits cleared
-    SReg::template WriteRegister<SId::kEpsr>(pstates, epsr);
+    cpua.template WriteRegister<SId::kEpsr>(epsr);
 
-    auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+    auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
     /* PRIMASK, FAULTMASK, BASEPRI unchanged on exception entry */
-    sys_ctrl = SReg::template ReadRegister<SId::kSysCtrl>(pstates);
+    sys_ctrl = cpua.template ReadRegister<SId::kSysCtrl>();
 
     // CONTROL.FPCA = '0'; // Mark Floating-point inactive
 
     // current Stack is Main, CONTROL.nPRIV unchanged
     sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
-    SReg::template WriteRegister<SId::kSysCtrl>(pstates, sys_ctrl);
+    cpua.template WriteRegister<SId::kSysCtrl>(sys_ctrl);
 
     /* CONTROL.nPRIV unchanged */
 
-    SetExceptionActive(pstates, exception_type);
+    SetExceptionActive(cpua, exception_type);
 
     // SCS_UpdateStatusRegs(); // update SCS registers as appropriate
     // ClearExclusiveLocal(ProcessorID());
@@ -492,13 +484,13 @@ public:
   }
 
   template <typename TBus>
-  static Result<void> ExceptionReturn(TProcessorStates &pstates, TBus &bus, u32 exc_return) {
+  static Result<void> ExceptionReturn(TCpuAccessor &cpua, TBus &bus, u32 exc_return) {
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p541
     // ExceptionReturn(bits(28) EXC_RETURN)
 
     LOG_TRACE(TLogger, "[BEGIN] ExceptionReturn: exc_return = 0x%08X", exc_return);
 
-    assert((Predicates::IsHandlerMode<TProcessorStates, SReg>(pstates) == true) &&
+    assert((Predicates::IsHandlerMode(cpua) == true) &&
            "ExceptionReturn should only be called in Handler mode");
 
     // if HaveFPExt() then
@@ -513,7 +505,7 @@ public:
 
     // integer ReturningExceptionNumber = UInt(IPSR<8:0>);
     auto ret_exception_n =
-        SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
+        cpua.template ReadRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
 
     // integer NestedActivation;
     // used for Handler => Thread check when value == 1
@@ -533,15 +525,15 @@ public:
 
       switch (exc_return & 0xFU) {
       case 0b0001: { // return to Handler
-        frameptr = SReg::template ReadRegister<SId::kSpMain>(pstates);
-        SetProcessorMode(pstates, ProcessorMode::kHandler);
+        frameptr = cpua.template ReadRegister<SId::kSpMain>();
+        SetProcessorMode(cpua, ProcessorMode::kHandler);
 
-        auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+        auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
 
         // CONTROL.SPSEL = '0';
         sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
 
-        SReg::template WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
+        cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         break;
       }
 
@@ -554,15 +546,15 @@ public:
           // ExceptionTaken(UsageFault); // return to Thread exception mismatch
           // return;
         } else {
-          frameptr = SReg::template ReadRegister<SId::kSpMain>(pstates);
-          SetProcessorMode(pstates, ProcessorMode::kThread);
+          frameptr = cpua.template ReadRegister<SId::kSpMain>();
+          SetProcessorMode(cpua, ProcessorMode::kThread);
 
-          auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+          auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
 
           // CONTROL.SPSEL = '0';
           sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
 
-          SReg::template WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
+          cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         }
         break;
       case 0b1101: // returning to Thread using Process stack
@@ -574,15 +566,15 @@ public:
           // ExceptionTaken(UsageFault); // return to Thread exception mismatch
           // return;
         } else {
-          frameptr = SReg::template ReadRegister<SId::kSpProcess>(pstates);
-          SetProcessorMode(pstates, ProcessorMode::kThread);
+          frameptr = cpua.template ReadRegister<SId::kSpProcess>();
+          SetProcessorMode(cpua, ProcessorMode::kThread);
 
-          auto sys_ctrl = SReg::template ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+          auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
 
           // CONTROL.SPSEL = '1';
           sys_ctrl |= static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
 
-          SReg::template WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
+          cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         }
         break;
       default:
@@ -596,16 +588,15 @@ public:
         break;
       }
 
-      ClearExceptionActive(pstates, static_cast<ExceptionType>(ret_exception_n));
+      ClearExceptionActive(cpua, static_cast<ExceptionType>(ret_exception_n));
 
       // PopStack(frameptr, EXC_RETURN);
-      TRY(void, PopStack(pstates, bus, frameptr, exc_return));
+      TRY(void, PopStack(cpua, bus, frameptr, exc_return));
 
       const auto ipsr_8_0 =
-          SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
+          cpua.template ReadRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
 
-      const auto is_handler_mode =
-          Predicates::IsHandlerMode<TProcessorStates, TSpecRegOps>(pstates);
+      const auto is_handler_mode = Predicates::IsHandlerMode(cpua);
 
       if (is_handler_mode && ipsr_8_0 == 0U) {
         // UFSR.INVPC = '1';
@@ -617,7 +608,7 @@ public:
         return Err(StatusCode::kScUsageFault);
       }
 
-      const auto is_thread_mode = Predicates::IsThreadMode<TProcessorStates, TSpecRegOps>(pstates);
+      const auto is_thread_mode = Predicates::IsThreadMode(cpua);
       if (is_thread_mode && ipsr_8_0 != 0U) {
         // UFSR.INVPC = '1';
         // PushStack(UsageFault); // to negate PopStack()
@@ -636,7 +627,7 @@ public:
       //   SleepOnExit(); // IMPLEMENTATION DEFINED
 
 #if IS_LOGLEVEL_TRACE_ENABLED == true
-      LogImportantRegisters(pstates, "[END] ExceptionReturn",
+      LogImportantRegisters(cpua, "[END] ExceptionReturn",
                             static_cast<ExceptionType>(ret_exception_n));
 #else
       static_cast<void>(ret_exception_n);
@@ -646,10 +637,7 @@ public:
     }
   }
   template <typename TBus>
-  static Result<void> PopStack(TProcessorStates &pstates, TBus &bus, u32 frameptr, u32 exc_return) {
-    using SReg = TSpecRegOps;
-    using Reg = TRegOps;
-    using Pc = TPcOps;
+  static Result<void> PopStack(TCpuAccessor &cpua, TBus &bus, u32 frameptr, u32 exc_return) {
     static_cast<void>(bus);
 
     // Taken from: Armv7-M Architecture Reference Manual Issue E.e p542
@@ -668,57 +656,57 @@ public:
     } else {
       framesize = 0x20U;
 
-      auto ccr = SReg::template ReadRegister<SId::kCcr>(pstates);
+      auto ccr = cpua.template ReadRegister<SId::kCcr>();
       forcealign = (ccr & CcrRegister::kStkAlignMsk) >> CcrRegister::kStkAlignPos;
     }
 
     // R[0] = MemA[frameptr,4];
     TRY_ASSIGN(r0, void,
-               (bus.template ReadOrRaise<u32>(pstates, frameptr, BusExceptionType::kRaiseStkerr)));
+               (bus.template ReadOrRaise<u32>(cpua, frameptr, BusExceptionType::kRaiseStkerr)));
 
     LOG_TRACE(TLogger, " R0 ADR = 0x%08X", frameptr);
-    Reg::template WriteRegister<RegisterId::kR0>(pstates, r0);
+    cpua.template WriteRegister<RegisterId::kR0>(r0);
 
     // R[1] = MemA[frameptr+0x4,4];
     TRY_ASSIGN(
         r1, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0x4U, BusExceptionType::kRaiseStkerr)));
-    Reg::template WriteRegister<RegisterId::kR1>(pstates, r1);
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0x4U, BusExceptionType::kRaiseStkerr)));
+    cpua.template WriteRegister<RegisterId::kR1>(r1);
 
     // R[2] = MemA[frameptr+0x8,4];
     TRY_ASSIGN(
         r2, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0x8U, BusExceptionType::kRaiseStkerr)));
-    Reg::template WriteRegister<RegisterId::kR2>(pstates, r2);
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0x8U, BusExceptionType::kRaiseStkerr)));
+    cpua.template WriteRegister<RegisterId::kR2>(r2);
 
     // R[3] = MemA[frameptr+0xC,4];
     TRY_ASSIGN(
         r3, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0xCU, BusExceptionType::kRaiseStkerr)));
-    Reg::template WriteRegister<RegisterId::kR3>(pstates, r3);
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0xCU, BusExceptionType::kRaiseStkerr)));
+    cpua.template WriteRegister<RegisterId::kR3>(r3);
 
     // R[12] = MemA[frameptr+0x10,4];
     TRY_ASSIGN(
         r12, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0x10U, BusExceptionType::kRaiseStkerr)));
-    Reg::template WriteRegister<RegisterId::kR12>(pstates, r12);
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0x10U, BusExceptionType::kRaiseStkerr)));
+    cpua.template WriteRegister<RegisterId::kR12>(r12);
 
     // LR = MemA[frameptr+0x14,4];
     TRY_ASSIGN(
         lr, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0x14U, BusExceptionType::kRaiseStkerr)));
-    Reg::template WriteRegister<RegisterId::kLr>(pstates, lr);
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0x14U, BusExceptionType::kRaiseStkerr)));
+    cpua.template WriteRegister<RegisterId::kLr>(lr);
 
     // BranchTo(MemA[frameptr+0x18,4]); UNPREDICTABLE if the new PC not halfword aligned
     TRY_ASSIGN(
         return_adr, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0x18U, BusExceptionType::kRaiseStkerr)));
-    Pc::BranchTo(pstates, return_adr);
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0x18U, BusExceptionType::kRaiseStkerr)));
+    Pc::BranchTo(cpua, return_adr);
 
     // psr = MemA[frameptr+0x1C,4];
     TRY_ASSIGN(
         psr, void,
-        (bus.template ReadOrRaise<u32>(pstates, frameptr + 0x1CU, BusExceptionType::kRaiseStkerr)));
+        (bus.template ReadOrRaise<u32>(cpua, frameptr + 0x1CU, BusExceptionType::kRaiseStkerr)));
 
     // Combine every LOG_TRACE into on single LOG_TRACE
     LOG_TRACE(TLogger,
@@ -752,25 +740,24 @@ public:
     switch (exc_return & 0xFU) {
     case 0b0001: { // returning to Handler  using Main stack
       // SP_main = (SP_main + framesize) OR spmask;
-      auto sp_main = (SReg::template ReadRegister<SId::kSpMain>(pstates) + framesize) | spmask;
+      auto sp_main = (cpua.template ReadRegister<SId::kSpMain>() + framesize) | spmask;
       LOG_TRACE(TLogger, "Returning to handler mode using main stack: SP_main = 0x%08X", sp_main);
-      SReg::template WriteRegister<SId::kSpMain>(pstates, sp_main);
+      cpua.template WriteRegister<SId::kSpMain>(sp_main);
       break;
     }
     case 0b1001: { // returning to Thread using Main stack
       // SP_main = (SP_main + framesize) OR spmask;
-      auto sp_main = (SReg::template ReadRegister<SId::kSpMain>(pstates) + framesize) | spmask;
+      auto sp_main = (cpua.template ReadRegister<SId::kSpMain>() + framesize) | spmask;
       LOG_TRACE(TLogger, "Returning to thread mode using main stack: SP_main = 0x%08X", sp_main);
-      SReg::template WriteRegister<SId::kSpMain>(pstates, sp_main);
+      cpua.template WriteRegister<SId::kSpMain>(sp_main);
       break;
     }
 
     case 0b1101: { // returning to Thread using Process stack
-      auto sp_process =
-          (SReg::template ReadRegister<SId::kSpProcess>(pstates) + framesize) | spmask;
+      auto sp_process = (cpua.template ReadRegister<SId::kSpProcess>() + framesize) | spmask;
       LOG_TRACE(TLogger, "Returning to thread mode using process stack: SP_process = 0x%08X",
                 sp_process);
-      SReg::template WriteRegister<SId::kSpProcess>(pstates, sp_process);
+      cpua.template WriteRegister<SId::kSpProcess>(sp_process);
       break;
     }
     default: {
@@ -780,7 +767,7 @@ public:
 
     // APSR<31:27> = psr<31:27>; // valid APSR bits loaded from memory
     auto psr_31_27 = Bm32::ExtractBits1R<ApsrRegister::kNPos, ApsrRegister::kQPos>(psr);
-    SReg::template WriteRegister<SId::kApsr>(pstates, psr_31_27 << ApsrRegister::kQPos);
+    cpua.template WriteRegister<SId::kApsr>(psr_31_27 << ApsrRegister::kQPos);
 
     // if HaveDSPExt() then
     if (false) {
@@ -790,7 +777,7 @@ public:
     // IPSR<8:0> = psr<8:0>; // valid IPSR bits loaded from memory
     auto ipsr_8_0 = psr & IpsrRegister::kExceptionNumberMsk;
 
-    SReg::template WriteRegister<SId::kIpsr>(pstates, ipsr_8_0);
+    cpua.template WriteRegister<SId::kIpsr>(ipsr_8_0);
 
     // EPSR<26:24,15:10> = psr<26:24,15:10>; // valid EPSR bits loaded from memory
     auto epsr_new = (Bm32::ExtractBits1R<EpsrRegister::kItBit1Pos, EpsrRegister::kTPos>(psr)
@@ -798,12 +785,12 @@ public:
                     (Bm32::ExtractBits1R<EpsrRegister::kItBit7Pos, EpsrRegister::kItBit2Pos>(psr)
                      << EpsrRegister::kItBit2Pos);
 
-    SReg::template WriteRegister<SId::kEpsr>(pstates, epsr_new);
+    cpua.template WriteRegister<SId::kEpsr>(epsr_new);
 
     return Ok();
   }
 
-  static void SetExceptionPending(TProcessorStates &pstates, ExceptionType exception_type) {
+  static void SetExceptionPending(TCpuAccessor &cpua, ExceptionType exception_type) {
 #ifdef LOGLEVEL_ERROR
     switch (exception_type) {
 
@@ -828,7 +815,7 @@ public:
     assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
-    auto &exception_states = pstates.GetExceptionStates();
+    auto &exception_states = cpua.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
     // cannot have multiple pending exceptions of the same type
@@ -842,11 +829,11 @@ public:
               static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
-  static void ClearExceptionPending(TProcessorStates &pstates, ExceptionType exception_type) {
+  static void ClearExceptionPending(TCpuAccessor &cpua, ExceptionType exception_type) {
     assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
-    auto &exception_states = pstates.GetExceptionStates();
+    auto &exception_states = cpua.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
     // cannot clear a non-pending exception
@@ -859,11 +846,11 @@ public:
               static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
-  static void SetExceptionActive(TProcessorStates &pstates, ExceptionType exception_type) {
+  static void SetExceptionActive(TCpuAccessor &cpua, ExceptionType exception_type) {
     assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
-    auto &exception_states = pstates.GetExceptionStates();
+    auto &exception_states = cpua.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
     assert(selected_exception.IsActive() == false);
     selected_exception.SetActive();
@@ -872,11 +859,11 @@ public:
               static_cast<uint32_t>(exception_type), selected_exception.GetPriority());
   }
 
-  static void ClearExceptionActive(TProcessorStates &pstates, ExceptionType exception_type) {
+  static void ClearExceptionActive(TCpuAccessor &cpua, ExceptionType exception_type) {
     assert(static_cast<u32>(exception_type) >= 1U);
     assert(static_cast<u32>(exception_type) <= CountExceptions());
 
-    auto &exception_states = pstates.GetExceptionStates();
+    auto &exception_states = cpua.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
     assert(selected_exception.IsActive() == true);
     selected_exception.ClearActive();
@@ -935,9 +922,9 @@ public:
   }
 
   template <typename ExcInstant, typename TBus>
-  static Result<bool> CheckExceptions(TProcessorStates &pstates, TBus &bus,
+  static Result<bool> CheckExceptions(TCpuAccessor &cpua, TBus &bus,
                                       const ExceptionContext &context) {
-    auto &exception_states = pstates.GetExceptionStates();
+    auto &exception_states = cpua.GetExceptionStates();
     auto &pending_exceptions = exception_states.pending_exceptions;
 
     // if no exceptions are pending, return
@@ -946,7 +933,7 @@ public:
     }
 
     auto executing_exc_type =
-        SReg::template ReadRegister<SId::kIpsr>(pstates) & IpsrRegister::kExceptionNumberMsk;
+        cpua.template ReadRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
 
     i16 executing_exc_priority =
         kLowestExceptionPriority + 1U; // one lower than the lowest priority
@@ -1000,8 +987,8 @@ public:
 
     auto e_preemp_exc_type = static_cast<ExceptionType>(preempt_exc_type);
 
-    ClearExceptionPending(pstates, e_preemp_exc_type);
-    TRY(bool, ExceptionEntry<ExcInstant>(pstates, bus, e_preemp_exc_type, context));
+    ClearExceptionPending(cpua, e_preemp_exc_type);
+    TRY(bool, ExceptionEntry<ExcInstant>(cpua, bus, e_preemp_exc_type, context));
 
     return Ok(true);
   };

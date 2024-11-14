@@ -1,9 +1,9 @@
 #pragma once
 
+#include "libmicroemu/cpu_states.h"
 #include "libmicroemu/emu_context.h"
 #include "libmicroemu/emu_flags.h"
 #include "libmicroemu/logger.h"
-#include "libmicroemu/processor_states.h"
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
@@ -22,7 +22,7 @@ namespace libmicroemu {
  */
 namespace internal {
 // forward declarations
-template <typename TProcessorStates> class Emulator;
+template <typename TCpuStates> class Emulator;
 }; // namespace internal
 
 using FPreExecStepCallback = std::function<void(EmuContext &)>;
@@ -109,7 +109,7 @@ public:
   std::string_view GetVersion() noexcept;
 
 private:
-  internal::Emulator<ProcessorStates> BuildEmulator();
+  internal::Emulator<CpuStates> BuildEmulator();
   u8 *flash_{nullptr};
   me_size_t flash_size_{0U};
   me_adr_t flash_vadr_{0x0U};
@@ -122,7 +122,7 @@ private:
   me_size_t ram2_size_{0U};
   me_adr_t ram2_vadr_{0x0U};
 
-  ProcessorStates pstates_{};
+  CpuStates cpu_states_{};
 };
 
 } // namespace libmicroemu

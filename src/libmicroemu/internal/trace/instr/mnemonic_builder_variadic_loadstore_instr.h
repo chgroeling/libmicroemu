@@ -18,7 +18,7 @@ public:
                     bool suppress_dest_register) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
-    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
+    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.cpua)).AddChar(' ');
 
     if (!suppress_dest_register) {
       mctx.builder.AddString(Reg::GetRegisterName(n.Get()));
@@ -31,10 +31,10 @@ public:
     }
     mctx.builder.AddChar('{');
     auto regs_cnt = Bm32::BitCount(registers);
-    for (u32 pstates = 0U; pstates <= 15U; ++pstates) {
-      u32 bm = 0b1U << pstates;
+    for (u32 cpua = 0U; cpua <= 15U; ++cpua) {
+      u32 bm = 0b1U << cpua;
       if ((registers & bm) != 0U) {
-        auto r_spec = Reg::GetRegisterName(static_cast<RegisterId>(pstates));
+        auto r_spec = Reg::GetRegisterName(static_cast<RegisterId>(cpua));
 
         mctx.builder.AddString(r_spec);
         regs_cnt--;

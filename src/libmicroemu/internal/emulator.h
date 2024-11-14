@@ -7,6 +7,7 @@
 #include "libmicroemu/internal/bus/mem/mem_ro.h"
 #include "libmicroemu/internal/bus/mem/mem_rw.h"
 #include "libmicroemu/internal/bus/mem/mem_rw_optional.h"
+#include "libmicroemu/internal/cpu_accessor.h"
 #include "libmicroemu/internal/decoder/decoder.h"
 #include "libmicroemu/internal/delegates.h"
 #include "libmicroemu/internal/executor/executor.h"
@@ -26,31 +27,31 @@
 #include "libmicroemu/types.h"
 
 namespace libmicroemu::internal {
-template <typename TProcessorStates> class Emulator {
+template <typename TCpuStates> class Emulator {
   // Forward declarations
   class ExceptionTrigger;
   class ExceptionReturn;
 
 public:
-  using ProcessorStates = TProcessorStates;
-
   // Aliases for register operations
-  using SpecRegOps = SpecRegOps<TProcessorStates, StaticLogger>;
-  using RegOps = RegOps<TProcessorStates, SpecRegOps, StaticLogger>;
+  using SpecRegOps = SpecRegOps<TCpuStates, StaticLogger>;
+  using RegOps = RegOps<TCpuStates, SpecRegOps, StaticLogger>;
+
+  using CpuAccessor = CpuAccessor<TCpuStates, RegOps, SpecRegOps>;
 
   // Aliases for peripherals
-  using SysCtrlBlock = SysCtrlBlock<TProcessorStates, SpecRegOps, StaticLogger>;
-  using SysTick = SysTick<TProcessorStates, SpecRegOps, ExceptionTrigger, StaticLogger>;
+  using SysCtrlBlock = SysCtrlBlock<CpuAccessor, StaticLogger>;
+  using SysTick = SysTick<CpuAccessor, ExceptionTrigger, StaticLogger>;
 
   // Aliases for bus clients
   using EndConv = LittleToLittleEndianConverter;
-  using Flash = MemRo<0U, TProcessorStates, EndConv>;
-  using Ram0 = MemRw<1U, TProcessorStates, EndConv>;
-  using Ram1 = MemRwOptional<2U, TProcessorStates, EndConv>;
+  using Flash = MemRo<0U, CpuAccessor, EndConv>;
+  using Ram0 = MemRw<1U, CpuAccessor, EndConv>;
+  using Ram1 = MemRwOptional<2U, CpuAccessor, EndConv>;
 
   // clang-format off
   using Peripherals = MemMapRw<3U, 0xE0000000U, 0xFFFFU, 
-      TProcessorStates, SpecRegOps, ExceptionTrigger, StaticLogger,
+      CpuAccessor, ExceptionTrigger, StaticLogger,
 
       // Peripherals
       SysCtrlBlock, 
@@ -60,7 +61,7 @@ public:
 
   // clang-format off
   using Bus = Bus<
-      TProcessorStates, SpecRegOps, ExceptionTrigger, StaticLogger, 
+      CpuAccessor, ExceptionTrigger, StaticLogger, 
       
       // Bus clients
       Flash,
@@ -68,28 +69,26 @@ public:
       Ram1, 
       Peripherals
    >;
-
   // clang-format on
 
   // Aliases for advance processor operations
-  using PcOps = PcOps<TProcessorStates, Bus, RegOps, SpecRegOps, ExceptionReturn, StaticLogger>;
-  using ExcOps = ExceptionsOps<TProcessorStates, RegOps, SpecRegOps, PcOps, StaticLogger>;
-  using ItOps = IfThenOps<TProcessorStates, SpecRegOps>;
+  using PcOps = PcOps<CpuAccessor, Bus, ExceptionReturn, StaticLogger>;
+  using ExcOps = ExceptionsOps<CpuAccessor, PcOps, StaticLogger>;
+  using ItOps = IfThenOps<CpuAccessor>;
 
-  using Semihosting = Semihosting<TProcessorStates, Bus, RegOps, SpecRegOps, StaticLogger>;
+  using Semihosting = Semihosting<CpuAccessor, Bus, StaticLogger>;
 
   // aliases for uC steps
-  using Fetcher = Fetcher<TProcessorStates, Bus>;
-  using Decoder = Decoder<TProcessorStates, SpecRegOps, ItOps>;
-  using Executor = Executor<TProcessorStates, Bus, RegOps, SpecRegOps, PcOps, ItOps,
-                            ExceptionTrigger, StaticLogger>;
+  using Fetcher = Fetcher<CpuAccessor, Bus>;
+  using Decoder = Decoder<CpuAccessor, ItOps>;
+  using Executor = Executor<CpuAccessor, Bus, PcOps, ItOps, ExceptionTrigger, StaticLogger>;
 
   // aliases for processor
-  using ProcessorOps = ProcessorOps<RegOps, SpecRegOps, ItOps, PcOps, ExcOps, ExceptionTrigger>;
+  using ProcessorOps = ProcessorOps<ItOps, PcOps, ExcOps, ExceptionTrigger>;
   using Processor =
-      Processor<TProcessorStates, Bus, ProcessorOps, Fetcher, Decoder, Executor, StaticLogger>;
+      Processor<CpuAccessor, Bus, ProcessorOps, Fetcher, Decoder, Executor, StaticLogger>;
 
-  Emulator(TProcessorStates &pstates) : pstates_(pstates) {}
+  Emulator(TCpuStates &cpu_states) : cpu_states_(cpu_states) {}
 
   void SetFlashSegment(const u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) {
     flash_ = seg_ptr;
@@ -120,8 +119,11 @@ public:
   }
 
   Result<void> Reset() {
+
     auto bus = BuildBus();
-    auto res = Processor::TakeReset(pstates_, bus);
+    auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
+
+    auto res = Processor::TakeReset(cpua, bus);
     TRY(void, res);
     return Ok();
   }
@@ -130,13 +132,15 @@ public:
     const auto aligned_entry_point = entry_point & (~0x1U);
 
     LOG_INFO(StaticLogger, "Overwrite entry point to 0x%X", aligned_entry_point);
-    PcOps::BranchTo(pstates_, aligned_entry_point);
+    auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
+    PcOps::BranchTo(cpua, aligned_entry_point);
   }
 
   Result<EmuResult> Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
                          FPostExecStepCallback cb_post_exec) {
     auto bus = BuildBus();
-    auto semihosting = Semihosting(pstates_, bus);
+    auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
+    auto semihosting = Semihosting(cpua, bus);
 
     u32 iter{0U};
     bool is_instr_limit = instr_limit > 0;
@@ -162,14 +166,14 @@ public:
     while (true) {
       EmuFlagsSet emu_flags{0U};
 
-      auto ret = Processor::Step(pstates_, bus, delegates);
+      auto ret = Processor::Step(cpua, bus, delegates);
       TRY_ASSIGN(step_flags, EmuResult, ret);
 
       if (step_flags & static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest)) {
         emu_flags |= static_cast<EmuFlagsSet>(EmuFlags::kEmuTerminated);
         return Ok(EmuResult{emu_flags, semihosting.GetExitStatusCode()});
       }
-      TRY(EmuResult, SysTick::Step(pstates_));
+      TRY(EmuResult, SysTick::Step(cpua));
 
       ++iter;
 
@@ -226,7 +230,7 @@ private:
   me_size_t ram2_size_{0U};
   me_adr_t ram2_vadr_{0U};
 
-  TProcessorStates &pstates_;
+  TCpuStates &cpu_states_;
 };
 
 } // namespace libmicroemu::internal

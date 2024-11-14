@@ -21,19 +21,19 @@ using Bm32 = BitManip<u32>;
 static constexpr u32 kDecodersOpCodeLast = 15U;
 static constexpr u32 kDecodersOpCodeFirst = 11U;
 
-template<typename TProcessorStates, typename TSpecRegOps, typename TItOps> 
-static Result<Instr> InvalidInstrDecoder(const RawInstr& rinstr,  TProcessorStates& pstates) {
+template<typename TCpuAccessor, typename TItOps> 
+static Result<Instr> InvalidInstrDecoder(const RawInstr& rinstr,  TCpuAccessor& cpua) {
   static_cast<void>(rinstr);
-  static_cast<void>(pstates); // prevents warning when pstate is not used
+  static_cast<void>(cpua); // prevents warning when cpua is not used
   return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
 }
 
 {{""}}
 {%- for k, i in data['decoders'].items() %}
     {%-if i['name_enum'] != "kInvalid" %}
-template<typename TProcessorStates, typename TSpecRegOps, typename TItOps> 
-static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TProcessorStates& pstates) {
-  static_cast<void>(pstates); // prevents warning when pstates is not used
+template<typename TCpuAccessor, typename TItOps> 
+static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TCpuAccessor& cpua) {
+  static_cast<void>(cpua); // prevents warning when cpua is not used
   const InstrId iid{InstrId::{{i['name_enum']}} };
   u8 flags = 0x0U;
    {{""}}
@@ -83,8 +83,8 @@ static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TProcessorSt
 {{""}}
 
 {%- for k, i in data['splitters'].items() %}
-template<typename TProcessorStates, typename TSpecRegOps, typename TItOps> 
-static Result<Instr> Splitter{{k}}(const RawInstr& rinstr,TProcessorStates& pstates) {
+template<typename TCpuAccessor, typename TItOps> 
+static Result<Instr> Splitter{{k}}(const RawInstr& rinstr,TCpuAccessor& cpua) {
     {%- for line in i['splitters'] %}
     {{line}}
     {%- endfor %}
@@ -94,15 +94,15 @@ static Result<Instr> Splitter{{k}}(const RawInstr& rinstr,TProcessorStates& psta
 
 {{""}}
 
-template<typename TProcessorStates, typename TSpecRegOps, typename TItOps> 
-static Result<Instr> call_decoder(const RawInstr& rinstr, TProcessorStates& pstates) {
+template<typename TCpuAccessor, typename TItOps> 
+static Result<Instr> call_decoder(const RawInstr& rinstr, TCpuAccessor& cpua) {
 const u16 opc =
         Bm32::ExtractBits1R<kDecodersOpCodeLast, kDecodersOpCodeFirst>(rinstr.low);
    switch(opc) {
 {%- for k, i in data['opcodes'].items() %}
     case 0b{{i['bin']}}U: {
     {#-#} return 
-    {#-#} {{i['name_decoder']}}<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates)
+    {#-#} {{i['name_decoder']}}<TCpuAccessor, TItOps>(rinstr, cpua)
     {#-#} ;}
     {#-#}{%if not loop.last%}{%endif%}
 {%- endfor %}
@@ -112,7 +112,7 @@ const u16 opc =
     break;
     }
     }
-    return InvalidInstrDecoder<TProcessorStates, TSpecRegOps, TItOps>(rinstr, pstates);
+    return InvalidInstrDecoder<TCpuAccessor, TItOps>(rinstr, cpua);
 };
 
 

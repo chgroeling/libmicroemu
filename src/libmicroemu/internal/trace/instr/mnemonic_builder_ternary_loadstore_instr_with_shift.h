@@ -23,7 +23,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(t.Get()))
         .AddString(", [")

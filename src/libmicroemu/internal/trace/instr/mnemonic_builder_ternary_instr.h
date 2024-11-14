@@ -25,7 +25,7 @@ public:
         (bflags & static_cast<MnemonicBuilderFlagsSet>(MnemonicBuilderFlags::kReduceRd)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ');
 
     if ((d != n) || (!is_reduced_rd)) {

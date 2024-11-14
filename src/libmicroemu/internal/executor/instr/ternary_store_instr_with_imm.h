@@ -15,8 +15,7 @@ template <typename TOp, typename TInstrContext> class TernaryStoreInstrWithImm {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
+
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                  const TArg0 &arg_n, const TArg1 &arg_t, const TArg2 &arg_d,
@@ -26,33 +25,33 @@ public:
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
-    const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
 
     const me_adr_t offset_addr = is_add == true ? rn + imm32 : rn - imm32;
     const me_adr_t address = is_index == true ? offset_addr : rn;
 
-    const auto rt = Reg::ReadRegister(ictx.pstates, arg_t.Get());
+    const auto rt = ictx.cpua.ReadRegister(arg_t.Get());
     u32 rd{0U};
 
     TRY(ExecResult, TOp::Write(ictx, address, rt, rd));
 
     // write back if write succeeded
-    Reg::WriteRegister(ictx.pstates, arg_d.Get(), rd);
+    ictx.cpua.WriteRegister(arg_d.Get(), rd);
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     if (is_wback == true) {
-      Reg::WriteRegister(ictx.pstates, arg_n.Get(), offset_addr);
+      ictx.cpua.WriteRegister(arg_n.Get(), offset_addr);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

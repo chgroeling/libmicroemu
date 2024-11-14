@@ -1,7 +1,6 @@
 #pragma once
 
 #include "libmicroemu/emu_context.h"
-#include "libmicroemu/processor_states.h"
 #include <cstddef>
 #include <cstdint>
 

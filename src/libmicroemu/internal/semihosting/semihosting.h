@@ -90,35 +90,31 @@ static char kFeatureData[] = {
     0x3U   // feature byte 0 : SH_EXT_EXIT_EXTENDED + SH_EXT_STDOUT_STDERR
 };
 
-template <typename TProcessorStates, typename TBus, typename TRegOps, typename TSpecRegOps,
-          typename TLogger = NullLogger>
+template <typename TCpuAccessor, typename TBus, typename TLogger = NullLogger>
 class Semihosting : public IBreakpoint {
 public:
-  using Reg = TRegOps;
-  using SReg = TSpecRegOps;
-
   /**
    * @brief Constructs a Semihosting object
    */
-  Semihosting(TProcessorStates &pstates, TBus bus) : bus_(bus), pstates_(pstates) {}
+  Semihosting(TCpuAccessor &cpua, TBus bus) : bus_(bus), cpua_(cpua) {}
 
   template <u32 N> Result<std::array<u32, N>> ReadR1Words();
 
   template <> Result<std::array<u32, 3>> ReadR1Words<3U>() {
-    auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
-    auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1, r1 + 0x4, r1 + 0x8);
+    auto r1 = cpua_.template ReadRegister<RegisterId::kR1>();
+    auto mem = MemoryHelpers::ReadMemory(cpua_, bus_, r1, r1 + 0x4, r1 + 0x8);
     return mem;
   }
 
   template <> Result<std::array<u32, 2>> ReadR1Words<2U>() {
-    auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
-    auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1, r1 + 0x4);
+    auto r1 = cpua_.template ReadRegister<RegisterId::kR1>();
+    auto mem = MemoryHelpers::ReadMemory(cpua_, bus_, r1, r1 + 0x4);
     return mem;
   }
 
   template <> Result<std::array<u32, 1>> ReadR1Words<1U>() {
-    auto r1 = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
-    auto mem = MemoryHelpers::ReadMemory(pstates_, bus_, r1);
+    auto r1 = cpua_.template ReadRegister<RegisterId::kR1>();
+    auto mem = MemoryHelpers::ReadMemory(cpua_, bus_, r1);
     return mem;
   }
 
@@ -148,7 +144,7 @@ public:
 
       char buf[kBufferLen];
       // keep one char reserve for null-termination
-      MemoryHelpers::CpyFromEmuMem(pstates_, bus_, buf, sizeof(buf) - 1, ptr, w_len);
+      MemoryHelpers::CpyFromEmuMem(cpua_, bus_, buf, sizeof(buf) - 1, ptr, w_len);
       buf[w_len] = '\0';
       LOG_DEBUG(TLogger, "kSysOpen(0x%0x) - 0x%0x 0x%0x 0x%0x - '%s'", r0, ptr, mode, w_len, buf);
       u32 result = -1U;
@@ -184,7 +180,7 @@ public:
       char buf[kBufferLen];
       // keep one char reserve for null-termination
       TRY(SemihostResult,
-          MemoryHelpers::CpyFromEmuMem(pstates_, bus_, buf, sizeof(buf) - 1, ptr, w_len));
+          MemoryHelpers::CpyFromEmuMem(cpua_, bus_, buf, sizeof(buf) - 1, ptr, w_len));
       buf[w_len] = '\0';
 
       LOG_TRACE(TLogger, "kSysWrite(0x%0x)- 0x%0x 0x%0x 0x%0x", r0, fhandle, ptr, w_len, buf);
@@ -208,9 +204,9 @@ public:
         auto *feature_data = &kFeatureData[semihost_features_position_];
         auto features_data_size = sizeof(kFeatureData) - semihost_features_position_;
 
-        TRY_ASSIGN(read_bytes, SemihostResult,
-                   MemoryHelpers::CpyToEmuMem(pstates_, bus_, ptr, r_len, feature_data,
-                                              features_data_size));
+        TRY_ASSIGN(
+            read_bytes, SemihostResult,
+            MemoryHelpers::CpyToEmuMem(cpua_, bus_, ptr, r_len, feature_data, features_data_size));
 
         semihost_features_position_ += read_bytes;
         // 0 indicates everything is ok
@@ -281,7 +277,7 @@ public:
       break;
     }
     case kSysClock: {
-      auto reason_code = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
+      auto reason_code = cpua_.template ReadRegister<RegisterId::kR1>();
       if (reason_code != 0x0) {
         return Err<SemihostResult>(StatusCode::kScUnexpected);
       }
@@ -301,7 +297,7 @@ public:
     case kSysExit: {
       LOG_INFO(TLogger, "kSysExit(0x%0x)", r0);
 
-      auto reason_code = Reg::template ReadRegister<RegisterId::kR1>(pstates_);
+      auto reason_code = cpua_.template ReadRegister<RegisterId::kR1>();
       status_code_ = 0U; // no status code available
       if (reason_code == static_cast<u32>(ReasonCodes::kADPStoppedApplicationExit)) {
         bkpt_flags |= static_cast<BkptFlagsSet>(BkptFlags::kRequestExit);
@@ -366,9 +362,9 @@ public:
     if (imm32 != 0xabu) {
       return Ok<u8>(0U); // no semihosting call
     }
-    auto r0 = Reg::template ReadRegister<RegisterId::kR0>(pstates_);
+    auto r0 = cpua_.template ReadRegister<RegisterId::kR0>();
     TRY_ASSIGN(sh_res, u8, CallSemihost(r0));
-    Reg::WriteRegister(pstates_, RegisterId::kR0, sh_res.ret_r0);
+    cpua_.WriteRegister(RegisterId::kR0, sh_res.ret_r0);
 
     return Ok(sh_res.bkpt_flags);
   }
@@ -379,7 +375,7 @@ private:
   static constexpr u32 kBufferLen = 128U;
 
   TBus bus_;
-  TProcessorStates &pstates_;
+  TCpuAccessor &cpua_;
   u32 file_id_{0xa};
   i32 status_code_{0U};
   u32 semihost_features_position_{0U};

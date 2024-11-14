@@ -1,6 +1,5 @@
 #pragma once
 
-#include "libmicroemu/internal/logic/predicates.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_id.h"
 #include "libmicroemu/result.h"
@@ -14,8 +13,7 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TProcessorStates, typename TSpecRegOps, typename TLogger = NullLogger>
-class RegOps {
+template <typename TCpuStates, typename TSpecRegOps, typename TLogger = NullLogger> class RegOps {
 public:
   using SReg = TSpecRegOps;
 
@@ -61,11 +59,13 @@ public:
     }
   }
 
-  static inline SpecialRegisterId LookUpSP(const TProcessorStates &pstates) {
+  static inline SpecialRegisterId LookUpSP(const TCpuStates &cpus) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.521
-    const auto is_process_stack = Predicates::IsProcessStack<TProcessorStates, SReg>(pstates);
+    auto sys_ctrl = TSpecRegOps::template ReadRegister<SpecialRegisterId::kSysCtrl>(cpus);
+    auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
+
     // if CONTROL.SPSEL == '1' then
-    if (is_process_stack) {
+    if (spsel == 1) {
 
       //    if CurrentMode==Mode_Thread then
       //        sp = RNameSP_process;
@@ -76,62 +76,57 @@ public:
 
     return SpecialRegisterId::kSpMain;
   }
-  static inline u32 ReadSP(const TProcessorStates &pstates) {
+  static inline u32 ReadSP(const TCpuStates &cpus) {
     // The actual value of R13 is determined by the current stack
     // pointer selection bit in the CONTROL. The value in the
     // register array is not used.
-    const auto sp_reg = LookUpSP(pstates);
-    const auto sp = SReg::ReadRegister(pstates, sp_reg);
+    const auto sp_reg = LookUpSP(cpus);
+    const auto sp = SReg::ReadRegister(cpus, sp_reg);
     return sp;
   }
 
-  static inline void WriteSP(TProcessorStates &pstates, const u32 &value) {
-    const auto sp_reg = LookUpSP(pstates);
-    SReg::WriteRegister(pstates, sp_reg, value);
+  static inline void WriteSP(TCpuStates &cpus, const u32 &value) {
+    const auto sp_reg = LookUpSP(cpus);
+    SReg::WriteRegister(cpus, sp_reg, value);
   }
 
-  static inline void ForceWritePC(TProcessorStates &pstates, const u32 &pc) {
-    auto &registers = pstates.GetRegisters();
-    registers[static_cast<u8>(RegisterId::kPc)] = pc;
-  }
-
-  static inline u32 ReadPC(const TProcessorStates &pstates) {
+  static inline u32 ReadPC(const TCpuStates &cpus) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.521
-    const auto &registers = pstates.GetRegisters();
+    const auto &registers = cpus.GetRegisters();
     const auto &pc = std::get<static_cast<u8>(RegisterId::kPc)>(registers);
     return pc + 0x4U;
   }
 
-  template <RegisterId Id> static inline u32 ReadRegister(const TProcessorStates &pstates) {
+  template <RegisterId Id> static inline u32 ReadRegister(const TCpuStates &cpus) {
     static_assert(static_cast<u8>(Id) < CountRegisters(), "Invalid register id");
 
     using enum_type = std::underlying_type<RegisterId>::type;
 
     switch (Id) {
     case RegisterId::kSp:
-      return ReadSP(pstates);
+      return ReadSP(cpus);
     case RegisterId::kPc:
-      return ReadPC(pstates);
+      return ReadPC(cpus);
     default:
       // Retrieve the register array from the processor state
-      const auto &registers = pstates.GetRegisters();
+      const auto &registers = cpus.GetRegisters();
       return registers[static_cast<enum_type>(Id)];
     }
     // Should not happen, but returns 0U if somehow out of range
     return 0;
   }
 
-  static inline u32 ReadRegister(const TProcessorStates &pstates, RegisterId id) {
+  static inline u32 ReadRegister(const TCpuStates &cpus, RegisterId id) {
     using enum_type = std::underlying_type<RegisterId>::type;
     assert(static_cast<enum_type>(id) < CountRegisters() && "Invalid register id");
     switch (id) {
     case RegisterId::kSp:
-      return ReadSP(pstates);
+      return ReadSP(cpus);
     case RegisterId::kPc:
-      return ReadPC(pstates);
+      return ReadPC(cpus);
     default:
       // Retrieve the register array from the processor state
-      const auto &registers = pstates.GetRegisters();
+      const auto &registers = cpus.GetRegisters();
       return registers[static_cast<enum_type>(id)];
     }
 
@@ -139,8 +134,7 @@ public:
     return 0U;
   }
 
-  template <RegisterId Id>
-  static inline void WriteRegister(TProcessorStates &pstates, const u32 &value) {
+  template <RegisterId Id> static inline void WriteRegister(TCpuStates &cpus, const u32 &value) {
     static_assert(static_cast<u8>(Id) < CountRegisters(), "Invalid register id");
     static_assert(Id != RegisterId::kPc, "PC is not assignable by this function");
 
@@ -148,29 +142,29 @@ public:
 
     switch (Id) {
     case RegisterId::kSp:
-      return WriteSP(pstates, value);
+      return WriteSP(cpus, value);
     default:
       // Retrieve the register array from the processor state
-      auto &registers = pstates.GetRegisters();
+      auto &registers = cpus.GetRegisters();
       registers[static_cast<enum_type>(Id)] = value;
     }
     // No action needed for out-of-range or unhandled IDs
   }
 
-  static inline void WriteRegister(TProcessorStates &pstates, RegisterId id, u32 value) {
+  static inline void WriteRegister(TCpuStates &cpus, RegisterId id, u32 value) {
     using enum_type = std::underlying_type<RegisterId>::type;
 
     assert(static_cast<enum_type>(id) < CountRegisters() && "Invalid register id");
 
     switch (id) {
     case RegisterId::kSp:
-      return WriteSP(pstates, value);
+      return WriteSP(cpus, value);
     case RegisterId::kPc:
       assert(false && "PC is not assignable by this function");
       break;
     default:
       // Retrieve the register array from the processor state
-      auto &registers = pstates.GetRegisters();
+      auto &registers = cpus.GetRegisters();
       registers[static_cast<enum_type>(id)] = value;
     }
     // No action needed for out-of-range or unhandled IDs

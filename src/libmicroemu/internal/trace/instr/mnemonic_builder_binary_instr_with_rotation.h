@@ -22,7 +22,7 @@ public:
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(d.Get()))
         .AddString(", ")

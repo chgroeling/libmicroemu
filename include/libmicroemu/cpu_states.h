@@ -13,17 +13,17 @@
 
 namespace libmicroemu {
 
-/** @brief Processor states class.
+/** @brief Cpu states class.
  *
- * This class holds all the states necessary for emulating a processor.
+ * This class holds all the states necessary for emulating a central processing unit (CPU).
  * Mainly these are the registers, special registers and exception states.
  */
-class ProcessorStates {
+class CpuStates {
 
 public:
-  /** @brief Constructs a ProcessorStates object.
+  /** @brief Constructs a CpuStates object.
    */
-  ProcessorStates() : registers_{}, special_registers_{}, exception_states_{} {
+  CpuStates() : registers_{}, special_registers_{}, exception_states_{} {
     registers_.fill(0U);
     special_registers_.fill(0U);
   };
@@ -31,19 +31,19 @@ public:
   /**
    * @brief Destructor
    */
-  ~ProcessorStates() noexcept = default;
+  ~CpuStates() noexcept = default;
 
   /**
-   * @brief Copy constructor for Registers.
+   * @brief Copy constructor for CpuStates.
    * @param r_src the object to be copied
    */
-  ProcessorStates(ProcessorStates &r_src) noexcept = default;
+  CpuStates(CpuStates &r_src) noexcept = default;
 
   /**
-   * @brief Move constructor for Registers.
+   * @brief Move constructor for CpuStates.
    * @param r_src the object to be moved
    */
-  ProcessorStates(ProcessorStates &&r_src) noexcept = default;
+  CpuStates(CpuStates &&r_src) noexcept = default;
 
   /** @brief Get a reference on the raw register array.
    *
@@ -95,16 +95,16 @@ public:
 
 private:
   /**
-   * @brief Copy assignment operator for Registers.
+   * @brief Copy assignment operator for CpuStates.
    * @param r_src the object to be copied
    */
-  ProcessorStates &operator=(const ProcessorStates &r_src) noexcept = delete;
+  CpuStates &operator=(const CpuStates &r_src) noexcept = delete;
 
   /**
-   * @brief Move assignment operator for  Registers.
+   * @brief Move assignment operator for  CpuStates.
    * @param r_src the object to be moved
    */
-  ProcessorStates &operator=(ProcessorStates &&r_src) noexcept = delete;
+  CpuStates &operator=(CpuStates &&r_src) noexcept = delete;
 
   std::array<u32, CountRegisters()> registers_;
   std::array<u32, CountPersistentSpecialRegisters()> special_registers_;

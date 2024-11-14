@@ -27,7 +27,7 @@ public:
 
     if (is_tbh) {
       mctx.builder.AddString("TBH")
-          .AddString(It::GetConditionAsStr(mctx.pstates))
+          .AddString(It::GetConditionAsStr(mctx.cpua))
           .AddString(" [")
           .AddString(Reg::GetRegisterName(n.Get()))
           .AddString(", ")
@@ -36,7 +36,7 @@ public:
           .AddChar(']');
     } else {
       mctx.builder.AddString("TBB")
-          .AddString(It::GetConditionAsStr(mctx.pstates))
+          .AddString(It::GetConditionAsStr(mctx.cpua))
           .AddString(" [")
           .AddString(Reg::GetRegisterName(n.Get()))
           .AddString(", ")
@@ -113,7 +113,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(t.Get()))
         .AddString(", [PC, #")
@@ -183,7 +183,7 @@ public:
                        const TArg0 &d, const u8 &mask, const u8 &SYSm) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
-    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
+    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.cpua)).AddChar(' ');
     mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
     BuildMsrMrs(mctx, mask, SYSm);
     mctx.builder.Terminate();
@@ -195,7 +195,7 @@ public:
                        const TArg0 &n, const u8 &mask, const u8 &SYSm) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
-    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.pstates)).AddChar(' ');
+    mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.cpua)).AddChar(' ');
     BuildMsrMrs(mctx, mask, SYSm);
     mctx.builder.AddString(", ").AddString(Reg::GetRegisterName(n.Get())).Terminate();
   }
@@ -207,7 +207,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(d_lo.Get()))
         .AddString(", ")
@@ -226,7 +226,7 @@ public:
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(d_lo.Get()))
         .AddString(", ")
@@ -247,7 +247,7 @@ public:
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
     mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
         .AddString(Reg::GetRegisterName(t.Get()))
         .AddString(", ")

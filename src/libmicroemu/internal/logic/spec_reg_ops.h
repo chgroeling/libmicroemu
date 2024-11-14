@@ -16,7 +16,7 @@ namespace internal {
 
 //----
 
-template <typename TProcessorStates, typename TLogger = NullLogger> class SpecRegOps {
+template <typename TCpuStates, typename TLogger = NullLogger> class SpecRegOps {
 public:
   static std::string_view GetRegisterName(const SpecialRegisterId &reg_id) {
     switch (reg_id) {
@@ -41,130 +41,128 @@ public:
     }
   }
 
-  template <SpecialRegisterId SId> static inline u32 ReadRegister(const TProcessorStates &pstates) {
+  template <SpecialRegisterId SId> static inline u32 ReadRegister(const TCpuStates &cpus) {
     constexpr auto RegId = static_cast<u8>(SId);
     static_assert(RegId < CountSpecialRegisters(), "Invalid special register id");
 
     switch (SId) {
     case SpecialRegisterId::kEpsr:
-      return ReadEpsr(pstates);
+      return ReadEpsr(cpus);
     case SpecialRegisterId::kXpsr:
-      return ReadXpsr(pstates);
+      return ReadXpsr(cpus);
     case SpecialRegisterId::kControl:
-      return ReadControl(pstates);
+      return ReadControl(cpus);
     default:
       // Persistent special register access
-      return pstates.GetSpecialRegisters()[RegId];
+      return cpus.GetSpecialRegisters()[RegId];
     }
     // Not reachable
     return 0U;
   }
 
-  static inline u32 ReadRegister(const TProcessorStates &pstates, const SpecialRegisterId &reg_id) {
+  static inline u32 ReadRegister(const TCpuStates &cpus, const SpecialRegisterId &reg_id) {
     assert(static_cast<u8>(reg_id) < CountSpecialRegisters() && "Invalid special register id");
     switch (reg_id) {
     case SpecialRegisterId::kEpsr:
-      return ReadEpsr(pstates);
+      return ReadEpsr(cpus);
     case SpecialRegisterId::kXpsr:
-      return ReadXpsr(pstates);
+      return ReadXpsr(cpus);
     case SpecialRegisterId::kControl:
-      return ReadControl(pstates);
+      return ReadControl(cpus);
     default:
       // Persistent special register access
-      return pstates.GetSpecialRegisters()[static_cast<u8>(reg_id)];
+      return cpus.GetSpecialRegisters()[static_cast<u8>(reg_id)];
     }
     // Not reachable
     return 0U;
   }
 
-  template <SpecialRegisterId SId>
-  static inline void WriteRegister(TProcessorStates &pstates, u32 value) {
+  template <SpecialRegisterId SId> static inline void WriteRegister(TCpuStates &cpus, u32 value) {
     constexpr auto RegId = static_cast<u8>(SId);
     static_assert(RegId < CountSpecialRegisters(), "Invalid special register id");
 
     switch (SId) {
     case SpecialRegisterId::kEpsr:
-      return WriteEpsr(pstates, value);
+      return WriteEpsr(cpus, value);
     case SpecialRegisterId::kXpsr:
-      return WriteXpsr(pstates, value);
+      return WriteXpsr(cpus, value);
     case SpecialRegisterId::kControl:
-      return WriteControl(pstates, value);
+      return WriteControl(cpus, value);
     default:
       // Persistent special register access
-      pstates.GetSpecialRegisters()[RegId] = value;
+      cpus.GetSpecialRegisters()[RegId] = value;
     }
 
     // not reachable
   }
 
-  static inline void WriteRegister(TProcessorStates &pstates, const SpecialRegisterId &reg_id,
-                                   u32 value) {
+  static inline void WriteRegister(TCpuStates &cpus, const SpecialRegisterId &reg_id, u32 value) {
     assert(static_cast<u8>(reg_id) < CountSpecialRegisters() && "Invalid special register id");
     switch (reg_id) {
     case SpecialRegisterId::kEpsr:
-      return WriteEpsr(pstates, value);
+      return WriteEpsr(cpus, value);
     case SpecialRegisterId::kXpsr:
-      return WriteXpsr(pstates, value);
+      return WriteXpsr(cpus, value);
     case SpecialRegisterId::kControl:
-      return WriteControl(pstates, value);
+      return WriteControl(cpus, value);
     default:
       const auto rid = static_cast<u8>(reg_id);
       // Persistent special register access
-      pstates.GetSpecialRegisters()[rid] = value;
+      cpus.GetSpecialRegisters()[rid] = value;
     }
   }
 
-  static inline u32 ReadEpsr(const TProcessorStates &pstates) {
+  static inline u32 ReadEpsr(const TCpuStates &cpus) {
     u32 epsr = 0U;
-    auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+    auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(cpus);
     auto BitT = (sys_ctrl & SysCtrlRegister::kTMsk) >> SysCtrlRegister::kTPos; // Thumb mode bit
     epsr |= BitT << EpsrRegister::kTPos;
 
     // extract it bits from Istate and write them to epsr
-    auto istate = ReadRegister<SpecialRegisterId::kIstate>(pstates);
+    auto istate = ReadRegister<SpecialRegisterId::kIstate>(cpus);
     auto it_1_0 = (istate & IstateRegister::kItBit1to0Msk) >> IstateRegister::kItBit0Pos;
     auto it_7_2 = (istate & IstateRegister::kItBit7to2Msk) >> IstateRegister::kItBit2Pos;
     epsr |= (it_1_0 << EpsrRegister::kItBit0Pos) | (it_7_2 << EpsrRegister::kItBit2Pos);
     return epsr;
   }
 
-  static inline void WriteEpsr(TProcessorStates &pstates, u32 value) {
-    auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+  static inline void WriteEpsr(TCpuStates &cpus, u32 value) {
+    auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(cpus);
     auto BitT = (value & EpsrRegister::kTMsk) >> EpsrRegister::kTPos; // Thumb mode bit
     sys_ctrl &= ~SysCtrlRegister::kTMsk;
     sys_ctrl |= BitT << SysCtrlRegister::kTPos;
-    WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
+    WriteRegister<SpecialRegisterId::kSysCtrl>(cpus, sys_ctrl);
 
     // extract it bits from "value"  and write them to Istate register
     u32 istate = 0U;
     auto it_1_0 = (value & EpsrRegister::kItBit1to0Msk) >> EpsrRegister::kItBit0Pos;
     auto it_7_2 = (value & EpsrRegister::kItBit7to2Msk) >> EpsrRegister::kItBit2Pos;
     istate |= (it_1_0 << IstateRegister::kItBit0Pos) | (it_7_2 << IstateRegister::kItBit2Pos);
-    WriteRegister<SpecialRegisterId::kIstate>(pstates, istate);
+    WriteRegister<SpecialRegisterId::kIstate>(cpus, istate);
   }
 
-  static inline u32 ReadXpsr(const TProcessorStates &pstates) {
+  static inline u32 ReadXpsr(const TCpuStates &cpus) {
     auto xpsr = 0U;
-    auto apsr = ReadRegister<SpecialRegisterId::kApsr>(pstates);
+    auto apsr = ReadRegister<SpecialRegisterId::kApsr>(cpus);
     xpsr |= apsr;
 
-    auto epsr = ReadEpsr(pstates);
+    auto epsr = ReadEpsr(cpus);
     xpsr |= epsr;
 
-    auto ipsr = ReadRegister<SpecialRegisterId::kIpsr>(pstates);
+    auto ipsr = ReadRegister<SpecialRegisterId::kIpsr>(cpus);
     xpsr |= ipsr;
 
     return xpsr;
   }
 
-  static inline void WriteXpsr(TProcessorStates &pstates, u32 value) {
-    static_cast<void>(pstates);
+  static inline void WriteXpsr(TCpuStates &cpus, u32 value) {
+    static_cast<void>(cpus);
     static_cast<void>(value);
     assert(false && "Not implemented");
   }
 
-  static inline u32 ReadControl(const TProcessorStates &pstates) {
-    const auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+  static inline u32 ReadControl(const TCpuStates &cpus) {
+    const auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(cpus);
     const auto npriv = (sys_ctrl & static_cast<u32>(SysCtrlRegister::kControlNPrivMsk)) >>
                        SysCtrlRegister::kControlNPrivPos;
     const auto spsel = (sys_ctrl & static_cast<u32>(SysCtrlRegister::kControlSpSelMsk)) >>
@@ -176,11 +174,11 @@ public:
     control |= npriv << ControlRegister::kNPrivPos;
     control |= spsel << ControlRegister::kSpselPos;
     control |= fpca << ControlRegister::kFpcaPos;
-    static_cast<void>(pstates);
+    static_cast<void>(cpus);
     return control;
   }
 
-  static inline void WriteControl(TProcessorStates &pstates, u32 value) {
+  static inline void WriteControl(TCpuStates &cpus, u32 value) {
     const auto npriv =
         (value & static_cast<u32>(ControlRegister::kNPrivMsk)) >> ControlRegister::kNPrivPos;
     const auto spsel =
@@ -189,7 +187,7 @@ public:
     const auto fpca =
         (value & static_cast<u32>(ControlRegister::kFpcaMsk)) >> ControlRegister::kFpcaPos;
 
-    auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(pstates);
+    auto sys_ctrl = ReadRegister<SpecialRegisterId::kSysCtrl>(cpus);
     sys_ctrl &= ~SysCtrlRegister::kControlNPrivMsk;
     sys_ctrl |= npriv << SysCtrlRegister::kControlNPrivPos;
 
@@ -199,7 +197,7 @@ public:
     sys_ctrl &= ~SysCtrlRegister::kControlFpcaMsk;
     sys_ctrl |= fpca << SysCtrlRegister::kControlFpcaPos;
 
-    WriteRegister<SpecialRegisterId::kSysCtrl>(pstates, sys_ctrl);
+    WriteRegister<SpecialRegisterId::kSysCtrl>(cpus, sys_ctrl);
   }
 
 private:

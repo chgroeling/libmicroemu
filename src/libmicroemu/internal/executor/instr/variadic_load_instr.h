@@ -20,8 +20,7 @@ template <typename TInstrContext> class VariadicLoadInstr {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
+
   using ExcTrig = typename TInstrContext::ExcTrig;
 
   template <typename TArg>
@@ -30,38 +29,38 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags = 0x0U;
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
-    const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     auto address = static_cast<me_adr_t>(rn);
 
     for (u32 rid = 0U; rid <= 14U; ++rid) {
       const u32 bm = 0x1U << rid;
       if ((registers & bm) != 0U) {
         TRY_ASSIGN(rdat, ExecResult,
-                   ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
+                   ictx.bus.template ReadOrRaise<u32>(ictx.cpua, address,
                                                       BusExceptionType::kRaisePreciseDataBusError));
-        Reg::WriteRegister(ictx.pstates, static_cast<RegisterId>(rid), rdat);
+        ictx.cpua.WriteRegister(static_cast<RegisterId>(rid), rdat);
         address += static_cast<me_adr_t>(4U);
       }
     }
 
     if (Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) {
       TRY_ASSIGN(rdat, ExecResult,
-                 ictx.bus.template ReadOrRaise<u32>(ictx.pstates, address,
+                 ictx.bus.template ReadOrRaise<u32>(ictx.cpua, address,
                                                     BusExceptionType::kRaisePreciseDataBusError));
-      It::ITAdvance(ictx.pstates);
-      TRY(ExecResult, Pc::LoadWritePC(ictx.pstates, ictx.bus, rdat));
+      It::ITAdvance(ictx.cpua);
+      TRY(ExecResult, Pc::LoadWritePC(ictx.cpua, ictx.bus, rdat));
 
       //  do not advance pc
     } else {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
     }
 
     // For debugging purposes
@@ -77,7 +76,7 @@ public:
       const auto wback_val = rn + 4U * regcount;
 
       // Update n register
-      Reg::WriteRegister(ictx.pstates, arg_n.Get(), wback_val);
+      ictx.cpua.WriteRegister(arg_n.Get(), wback_val);
     }
 
     return Ok(ExecResult{eflags});

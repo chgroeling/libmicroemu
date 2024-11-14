@@ -18,11 +18,9 @@ namespace internal {
  */
 template <typename TInstrContext> class Orr1ImmCarryOp {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn,
                               const ThumbImmediateResult &imm_carry) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result = Alu32::OR(rn, imm_carry.out);
     return OpResult{result, imm_carry.carry_out,
                     (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -36,11 +34,9 @@ public:
  */
 template <typename TInstrContext> class Eor1ImmCarryOp {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn,
                               const ThumbImmediateResult &imm_carry) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result = Alu32::EOR(rn, imm_carry.out);
     return OpResult{result, imm_carry.carry_out,
                     (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -54,11 +50,9 @@ public:
  */
 template <typename TInstrContext> class And1ImmCarryOp {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn,
                               const ThumbImmediateResult &imm_carry) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result = Alu32::AND(rn, imm_carry.out);
     return OpResult{result, imm_carry.carry_out,
                     (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -72,11 +66,9 @@ public:
  */
 template <typename TInstrContext> class Bic1ImmCarryOp {
 public:
-  using SReg = typename TInstrContext::SReg;
-
   static inline OpResult Call(const TInstrContext &ictx, const u32 &rn,
                               const ThumbImmediateResult &imm_carry) {
-    auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result = Alu32::AND(rn, ~imm_carry.out);
     return OpResult{result, imm_carry.carry_out,
                     (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -87,8 +79,6 @@ template <typename TOp, typename TInstrContext> class BinaryInstrWithImmCarry {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
-  using Reg = typename TInstrContext::Reg;
-  using SReg = typename TInstrContext::SReg;
 
   template <typename TArg0, typename TArg1>
   static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
@@ -97,21 +87,21 @@ public:
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.pstates));
+    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.pstates);
-      Pc::AdvanceInstr(ictx.pstates, is_32bit);
+      It::ITAdvance(ictx.cpua);
+      Pc::AdvanceInstr(ictx.cpua, is_32bit);
       return Ok(ExecResult{eflags});
     }
 
-    const auto rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     auto result = TOp::Call(ictx, rn, imm_carry);
 
-    Reg::WriteRegister(ictx.pstates, arg_d.Get(), result.value);
+    ictx.cpua.WriteRegister(arg_d.Get(), result.value);
 
     if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
-      auto apsr = SReg::template ReadRegister<SpecialRegisterId::kApsr>(ictx.pstates);
+      auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
       // Clear N, Z, C, V flags
       apsr &=
           ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
@@ -120,10 +110,10 @@ public:
       apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
       apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
       apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
-      SReg::template WriteRegister<SpecialRegisterId::kApsr>(ictx.pstates, apsr);
+      ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
     }
-    It::ITAdvance(ictx.pstates);
-    Pc::AdvanceInstr(ictx.pstates, is_32bit);
+    It::ITAdvance(ictx.cpua);
+    Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
     return Ok(ExecResult{eflags});
   }

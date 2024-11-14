@@ -28,7 +28,7 @@ public:
         0;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
-        .AddString(It::GetConditionAsStr(mctx.pstates))
+        .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ');
     if ((d != n) || (!is_reduced_rd)) {
       mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
