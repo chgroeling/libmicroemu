@@ -45,15 +45,14 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TCpuAccessor, typename TBus, typename TPcOps, typename TItOps,
-          typename TExceptionTrigger, typename TLogger = NullLogger>
+template <typename TCpuAccessor, typename TBus, typename TCpuOps, typename TLogger = NullLogger>
 class Executor {
 public:
   template <typename TDelegates>
   static Result<ExecResult> Execute(TCpuAccessor &cpua, TBus &bus, const Instr &instr,
                                     TDelegates &delegates) {
     u8 flags = 0x0U;
-    using TInstrCtx = InstrContext<TCpuAccessor, TBus, TPcOps, TItOps, TExceptionTrigger>;
+    using TInstrCtx = InstrContext<TCpuAccessor, TBus, TCpuOps>;
     auto ictx = TInstrCtx{cpua, bus};
 
     switch (instr.id) {

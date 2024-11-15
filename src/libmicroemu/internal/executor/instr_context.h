@@ -6,12 +6,10 @@
 namespace libmicroemu {
 namespace internal {
 
-template <typename TCpuAccessor, typename TBus, typename TPcOps, typename TItOps,
-          typename TExceptionTrigger>
-struct InstrContext {
-  using Pc = TPcOps;
-  using It = TItOps;
-  using ExcTrig = TExceptionTrigger;
+template <typename TCpuAccessor, typename TBus, typename TCpuOps> struct InstrContext {
+  using Pc = typename TCpuOps::Pc;
+  using It = typename TCpuOps::It;
+  using ExcTrig = typename TCpuOps::ExcTrig;
 
   TCpuAccessor &cpua;
   TBus &bus;

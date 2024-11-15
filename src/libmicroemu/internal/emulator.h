@@ -8,6 +8,7 @@
 #include "libmicroemu/internal/bus/mem/mem_rw.h"
 #include "libmicroemu/internal/bus/mem/mem_rw_optional.h"
 #include "libmicroemu/internal/cpu_accessor.h"
+#include "libmicroemu/internal/cpu_ops.h"
 #include "libmicroemu/internal/decoder/decoder.h"
 #include "libmicroemu/internal/delegates.h"
 #include "libmicroemu/internal/executor/executor.h"
@@ -71,22 +72,22 @@ public:
    >;
   // clang-format on
 
+  // Semihosting modules
+  using Semihosting = Semihosting<CpuAccessor, Bus, StaticLogger>;
+
   // Aliases for advance processor operations
   using PcOps = PcOps<CpuAccessor, Bus, ExceptionReturn, StaticLogger>;
   using ExcOps = ExceptionsOps<CpuAccessor, PcOps, StaticLogger>;
   using ItOps = IfThenOps<CpuAccessor>;
-
-  using Semihosting = Semihosting<CpuAccessor, Bus, StaticLogger>;
+  using CpuOps = CpuOps<ItOps, PcOps, ExcOps, ExceptionTrigger>;
 
   // aliases for uC steps
   using Fetcher = Fetcher<CpuAccessor, Bus>;
   using Decoder = Decoder<CpuAccessor, ItOps>;
-  using Executor = Executor<CpuAccessor, Bus, PcOps, ItOps, ExceptionTrigger, StaticLogger>;
+  using Executor = Executor<CpuAccessor, Bus, CpuOps, StaticLogger>;
 
   // aliases for processor
-  using ProcessorOps = ProcessorOps<ItOps, PcOps, ExcOps, ExceptionTrigger>;
-  using Processor =
-      Processor<CpuAccessor, Bus, ProcessorOps, Fetcher, Decoder, Executor, StaticLogger>;
+  using Processor = Processor<CpuAccessor, Bus, CpuOps, Fetcher, Decoder, Executor, StaticLogger>;
 
   Emulator(TCpuStates &cpu_states) : cpu_states_(cpu_states) {}
 
