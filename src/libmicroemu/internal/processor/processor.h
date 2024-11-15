@@ -17,16 +17,6 @@
 namespace libmicroemu {
 namespace internal {
 
-// todo: rename these to ops and separate the ops from the processor
-template <typename TItOps, typename TPcOps, typename TExcOps, typename TExcTrig>
-class ProcessorOps {
-public:
-  using It = TItOps;
-  using Pc = TPcOps;
-  using Exc = TExcOps;
-  using ExcTrig = TExcTrig;
-};
-
 template <typename TCpuAccessor, typename TBus, typename TProcessorOps, typename TFetcher,
           typename TDecoder, typename TExecutor, typename TLogger = NullLogger>
 class Processor {
