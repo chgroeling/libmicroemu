@@ -15,7 +15,7 @@ class PcOps {
 public:
   using ExcRet = TExceptionReturn;
 
-  static inline void BranchTo(TCpuAccessor &cpua, const u32 &pc) {
+  static inline void BranchTo(TCpuAccessor &cpua, const me_adr_t &pc) {
     auto &registers = cpua.GetRegisters();
     registers[static_cast<u8>(RegisterId::kPc)] = pc;
   }
@@ -87,7 +87,7 @@ public:
     // The pc points to the current instruction +4. Therefore decrement 2
     // in case we have a 16 bit instruction
 
-    u32 pc = cpua.template ReadRegister<RegisterId::kPc>();
+    me_adr_t pc = static_cast<me_adr_t>(cpua.template ReadRegister<RegisterId::kPc>());
     pc += is_32bit ? 0U : -2U;
     BranchTo(cpua, pc);
   }
