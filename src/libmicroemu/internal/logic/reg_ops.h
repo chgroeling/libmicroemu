@@ -90,10 +90,11 @@ public:
     SReg::WriteRegister(cpus, sp_reg, value);
   }
 
-  static inline u32 ReadPC(const TCpuStates &cpus) {
+  static inline me_adr_t ReadPC(const TCpuStates &cpus) {
     // see Armv7-M Architecture Reference Manual Issue E.e p.521
     const auto &registers = cpus.GetRegisters();
-    const auto &pc = std::get<static_cast<u8>(RegisterId::kPc)>(registers);
+    const me_adr_t &pc =
+        static_cast<me_adr_t>(std::get<static_cast<u8>(RegisterId::kPc)>(registers));
     return pc + 0x4U;
   }
 
