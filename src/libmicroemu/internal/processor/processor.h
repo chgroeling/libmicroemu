@@ -127,7 +127,6 @@ public:
 
     // *** EXECUTE ***
     const auto r_execute = TExecutor::Execute(cpua, bus, instr, delegates);
-
     if (r_execute.IsErr()) {
       ErrorHandler(cpua, r_execute, bus);
       return Err<InstrExecResult, StepFlagsSet>(r_execute);
