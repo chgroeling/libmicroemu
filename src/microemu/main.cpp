@@ -403,26 +403,16 @@ int main(int argc, const char *argv[]) {
     }
   }
 
-  // Here we execute the arm code
-  auto res_exec = machine.Exec(instr_limit, pre_instr, post_instr);
-
-  if (res_exec.IsErr()) {
-    fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", res_exec.ToString(),
-               static_cast<uint32_t>(res_exec.status_code));
-    return EXIT_FAILURE;
+  // Execute the arm code
+  const auto exec_result = machine.Exec(instr_limit, pre_instr, post_instr);
+  if (exec_result.IsErr()) {
+    // Is Max instructions reached error?
+    if (exec_result.IsMaxInstructionsReached()) {
+      fmt::print(stdout, "INFO: Max instructions reached\n");
+    } else {
+      fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", exec_result.ToString(),
+                 static_cast<uint32_t>(exec_result.GetStatusCode()));
+    }
   }
-  auto &emu_flags = res_exec.content.flags;
-
-  if ((emu_flags & static_cast<libmicroemu::EmuFlagsSet>(
-                       libmicroemu::EmuFlags::kEmuMaxInstructionsReached)) != 0) {
-    fmt::print(stdout, "INFO: Max instructions reached\n");
-    return 0;
-  }
-  if ((emu_flags & static_cast<libmicroemu::EmuFlagsSet>(libmicroemu::EmuFlags::kEmuTerminated)) !=
-      0) {
-    return res_exec.content.status_code;
-  }
-
-  // in case the emulator was not terminated gracefully, return failure
-  return EXIT_FAILURE;
+  return exec_result.GetProgramExitCode();
 }

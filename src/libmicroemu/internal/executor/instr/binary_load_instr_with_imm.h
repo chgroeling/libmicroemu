@@ -1,7 +1,7 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/exec_results.h"
 #include "libmicroemu/internal/executor/instr_context.h"
+#include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/logic/reg_ops.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
@@ -22,26 +22,26 @@ public:
   using ExcTrig = typename TInstrContext::ExcTrig;
 
   template <typename TArg>
-  static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                 const TArg &arg_n, const u32 &imm32, const TArg &arg_t) {
+  static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                      const TArg &arg_n, const u32 &imm32, const TArg &arg_t) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
-    ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
+    InstrExecFlagsSet eflags{0x0U};
+    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
       It::ITAdvance(ictx.cpua);
       Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(ExecResult{eflags});
+      return Ok(InstrExecResult{eflags});
     }
 
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     const me_adr_t offset_addr = is_add == true ? rn + imm32 : rn - imm32;
     const me_adr_t address = is_index == true ? offset_addr : rn;
 
-    TRY_ASSIGN(data, ExecResult, TOp::Read(ictx, address));
+    TRY_ASSIGN(data, InstrExecResult, TOp::Read(ictx, address));
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     if (is_wback == true) {
@@ -53,11 +53,11 @@ public:
       // unpredtictable
       if ((address & 0x3U) == 0U) {
         It::ITAdvance(ictx.cpua);
-        TRY(ExecResult, Pc::LoadWritePC(ictx.cpua, ictx.bus, data));
+        TRY(InstrExecResult, Pc::LoadWritePC(ictx.cpua, ictx.bus, data));
 
-        return Ok(ExecResult{eflags});
+        return Ok(InstrExecResult{eflags});
       } else {
-        return Err<ExecResult>(StatusCode::kScExecutorUnpredictable);
+        return Err<InstrExecResult>(StatusCode::kScExecutorUnpredictable);
       }
     } else {
       ictx.cpua.WriteRegister(arg_t.Get(), data);
@@ -65,7 +65,7 @@ public:
     It::ITAdvance(ictx.cpua);
     Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
-    return Ok(ExecResult{eflags});
+    return Ok(InstrExecResult{eflags});
   }
 
 private:
