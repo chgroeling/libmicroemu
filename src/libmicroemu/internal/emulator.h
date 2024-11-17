@@ -164,15 +164,12 @@ public:
         });
 
     while (true) {
-
       const auto step_ret = Processor::Step(cpua, bus, delegates);
-
       if (step_ret.IsErr()) {
         return ExecResult(step_ret.status_code, EXIT_FAILURE);
       }
 
       const auto step_flags = step_ret.content;
-
       if (step_flags & static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest)) {
         return ExecResult(StatusCode::kScSuccess, semihosting.GetExitStatusCode());
       }
@@ -183,7 +180,6 @@ public:
       }
 
       ++instr_count;
-
       if (is_instr_limit && instr_count >= u_instr_limit) {
         return ExecResult(StatusCode::kScMaxInstructionsReached, EXIT_SUCCESS);
       }
