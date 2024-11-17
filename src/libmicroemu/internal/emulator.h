@@ -1,6 +1,5 @@
 #pragma once
 
-#include "libmicroemu/emu_flags.h"
 #include "libmicroemu/internal/bus/bus.h"
 #include "libmicroemu/internal/bus/endianess_converters.h"
 #include "libmicroemu/internal/bus/mem/mem_map_rw.h"
@@ -137,13 +136,13 @@ public:
     PcOps::BranchTo(cpua, aligned_entry_point);
   }
 
-  Result<EmuResult> Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
-                         FPostExecStepCallback cb_post_exec) {
+  ExecResult Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
+                  FPostExecStepCallback cb_post_exec) {
     auto bus = BuildBus();
     auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
     auto semihosting = Semihosting(cpua, bus);
 
-    u32 iter{0U};
+    u32 instr_count{0U};
     bool is_instr_limit = instr_limit > 0;
     u32 u_instr_limit = static_cast<u32>(instr_limit);
 
@@ -165,25 +164,33 @@ public:
         });
 
     while (true) {
-      EmuFlagsSet emu_flags{0U};
 
-      auto ret = Processor::Step(cpua, bus, delegates);
-      TRY_ASSIGN(step_flags, EmuResult, ret);
+      const auto step_ret = Processor::Step(cpua, bus, delegates);
+
+      if (step_ret.IsErr()) {
+        return ExecResult(step_ret.status_code, EXIT_FAILURE);
+      }
+
+      const auto step_flags = step_ret.content;
 
       if (step_flags & static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest)) {
-        emu_flags |= static_cast<EmuFlagsSet>(EmuFlags::kEmuTerminated);
-        return Ok(EmuResult{emu_flags, semihosting.GetExitStatusCode()});
+        return ExecResult(StatusCode::kScSuccess, semihosting.GetExitStatusCode());
       }
-      TRY(EmuResult, SysTick::Step(cpua));
 
-      ++iter;
+      const auto systick_ret = SysTick::Step(cpua);
+      if (systick_ret.IsErr()) {
+        return ExecResult(systick_ret.status_code, EXIT_FAILURE);
+      }
 
-      if (is_instr_limit && iter >= u_instr_limit) {
-        emu_flags |= static_cast<EmuFlagsSet>(EmuFlags::kEmuMaxInstructionsReached);
-        return Ok(EmuResult{emu_flags, 0U});
+      ++instr_count;
+
+      if (is_instr_limit && instr_count >= u_instr_limit) {
+        return ExecResult(StatusCode::kScMaxInstructionsReached, EXIT_SUCCESS);
       }
     }
-    return Err<EmuResult>(StatusCode::kScUnexpected);
+
+    // Should never reach here
+    return ExecResult(StatusCode::kScUnexpected, EXIT_FAILURE);
   }
 
 private:

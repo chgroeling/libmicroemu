@@ -113,8 +113,8 @@ Result<void> Machine::Reset() noexcept {
   return Ok();
 }
 
-Result<EmuResult> Machine::Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
-                                FPostExecStepCallback cb_post_exec) noexcept {
+ExecResult Machine::Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
+                         FPostExecStepCallback cb_post_exec) noexcept {
   auto emu = BuildEmulator();
   auto res = emu.Exec(instr_limit, cb_pre_exec, cb_post_exec);
   return res;

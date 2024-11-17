@@ -130,7 +130,7 @@ public:
 
     if (r_execute.IsErr()) {
       ErrorHandler(cpua, r_execute, bus);
-      return Err<ExecResult, StepFlagsSet>(r_execute);
+      return Err<InstrExecResult, StepFlagsSet>(r_execute);
     }
 
     if (delegates.IsPostExecSet()) {
@@ -145,22 +145,22 @@ public:
     }
 
     // *** Exit Conditions ***
-    const auto &execute_flags = r_execute.content.flags;
+    const auto &eflags = r_execute.content.flags;
 
     // all exit flags are mutually exclusive
-    if ((execute_flags & kExitFlagsMask) != 0U) {
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kBkptReqExit)) != 0U) {
+    if ((eflags & kExitFlagsMask) != 0U) {
+      if ((eflags & static_cast<InstrExecFlagsSet>(InstrExecFlags::kBkptReqExit)) != 0U) {
         step_flags |= static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest);
         return Ok<StepFlagsSet>(step_flags);
       }
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kSvcReqExit)) != 0U) {
+      if ((eflags & static_cast<InstrExecFlagsSet>(InstrExecFlags::kSvcReqExit)) != 0U) {
         step_flags |= static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest);
         return Ok<StepFlagsSet>(step_flags);
       }
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kBkptReqErrorExit)) != 0U) {
+      if ((eflags & static_cast<InstrExecFlagsSet>(InstrExecFlags::kBkptReqErrorExit)) != 0U) {
         return Err<StepFlagsSet>(StatusCode::kScExecutorExitWithError);
       }
-      if ((execute_flags & static_cast<ExecFlagsSet>(ExecFlags::kSvcReqErrorExit)) != 0U) {
+      if ((eflags & static_cast<InstrExecFlagsSet>(InstrExecFlags::kSvcReqErrorExit)) != 0U) {
         return Err<StepFlagsSet>(StatusCode::kScExecutorExitWithError);
       }
     }

@@ -2,7 +2,7 @@
 
 #include "libmicroemu/cpu_states.h"
 #include "libmicroemu/emu_context.h"
-#include "libmicroemu/emu_flags.h"
+#include "libmicroemu/exec_result.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
@@ -57,8 +57,8 @@ public:
    * @param cb_post_exec Callback function to be called after each instruction is executed
    * @return Result of the execution
    */
-  Result<EmuResult> Exec(i32 max_instructions = -1, FPreExecStepCallback cb_pre_exec = nullptr,
-                         FPostExecStepCallback cb_post_exec = nullptr) noexcept;
+  ExecResult Exec(i32 max_instructions = -1, FPreExecStepCallback cb_pre_exec = nullptr,
+                  FPostExecStepCallback cb_post_exec = nullptr) noexcept;
 
   /**
    * @brief Sets the Flash segment

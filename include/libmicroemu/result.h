@@ -42,10 +42,13 @@ enum class StatusCode : u32 {
   // Arm related errors
   kScUsageFault = 0x7001U,
 
+  // Execution result
+  kScMaxInstructionsReached = 0x8001U,
+
   // clang-format on
 };
 
-static constexpr const char *StatusCodeToString(const StatusCode &status_code) noexcept {
+static constexpr const char *StatusCodeToString(const StatusCode status_code) noexcept {
   switch (status_code) {
   case StatusCode::kScSuccess: {
     return "Success";
@@ -106,6 +109,14 @@ static constexpr const char *StatusCodeToString(const StatusCode &status_code) n
   }
   case StatusCode::kScUnsuporrted: {
     return "Unsuporrted";
+  }
+
+  case StatusCode::kScMaxInstructionsReached: {
+    return "MaxInstructionsReached";
+  }
+
+  default: {
+    return "UnknownStatusCode";
   }
   }
   return "UnknownStatusCode";

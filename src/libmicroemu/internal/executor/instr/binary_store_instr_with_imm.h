@@ -1,7 +1,7 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/exec_results.h"
 #include "libmicroemu/internal/executor/instr_context.h"
+#include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
 
@@ -20,19 +20,19 @@ public:
   using Pc = typename TInstrContext::Pc;
 
   template <typename TArg0, typename TArg1>
-  static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                 const TArg0 &arg_n, const TArg1 &arg_t, const u32 &imm32) {
+  static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                      const TArg0 &arg_n, const TArg1 &arg_t, const u32 &imm32) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
-    ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
+    InstrExecFlagsSet eflags{0x0U};
+    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
       It::ITAdvance(ictx.cpua);
       Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(ExecResult{eflags});
+      return Ok(InstrExecResult{eflags});
     }
 
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
@@ -40,7 +40,7 @@ public:
     const me_adr_t address = is_index == true ? offset_addr : rn;
 
     const auto rt = ictx.cpua.ReadRegister(arg_t.Get());
-    TRY(ExecResult, TOp::Write(ictx, address, rt));
+    TRY(InstrExecResult, TOp::Write(ictx, address, rt));
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     if (is_wback == true) {
@@ -49,7 +49,7 @@ public:
     It::ITAdvance(ictx.cpua);
     Pc::AdvanceInstr(ictx.cpua, is_32bit);
 
-    return Ok(ExecResult{eflags});
+    return Ok(InstrExecResult{eflags});
   }
 
 private:

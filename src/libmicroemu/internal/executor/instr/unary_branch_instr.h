@@ -1,8 +1,8 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/exec_results.h"
 #include "libmicroemu/internal/executor/instr/op_result.h"
 #include "libmicroemu/internal/executor/instr_context.h"
+#include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
 #include "libmicroemu/result.h"
@@ -56,18 +56,18 @@ public:
   using ExcTrig = typename TInstrContext::ExcTrig;
 
   template <typename TArg0>
-  static Result<ExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                 const TArg0 &arg_m) {
+  static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                      const TArg0 &arg_m) {
 
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
-    ExecFlagsSet eflags{0x0U};
-    TRY_ASSIGN(condition_passed, ExecResult, It::ConditionPassed(ictx.cpua));
+    InstrExecFlagsSet eflags{0x0U};
+    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
       It::ITAdvance(ictx.cpua);
       Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(ExecResult{eflags});
+      return Ok(InstrExecResult{eflags});
     }
 
     const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
@@ -75,9 +75,9 @@ public:
     auto result = TOp::Call(ictx, pc, rm);
 
     It::ITAdvance(ictx.cpua);
-    TRY(ExecResult, Pc::BXWritePC(ictx.cpua, ictx.bus, result.new_pc));
+    TRY(InstrExecResult, Pc::BXWritePC(ictx.cpua, ictx.bus, result.new_pc));
 
-    return Ok(ExecResult{eflags});
+    return Ok(InstrExecResult{eflags});
   }
 
 private:
