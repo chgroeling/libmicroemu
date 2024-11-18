@@ -64,10 +64,10 @@ public:
     }
     case ReadStatusCode::kReadNotAllowed: {
       // ExcTrig::SetPending(cpua, ExceptionType::kSysTick);
-      return Err<T>(StatusCode::kScMemInaccesible);
+      return Err<T>(StatusCode::kMemInaccesible);
     }
     default: {
-      return Err<T>(StatusCode::kScUnexpected);
+      return Err<T>(StatusCode::kUnexpected);
     }
     }
     // not reachable
@@ -145,7 +145,7 @@ public:
     }
     }
     // not reachable
-    return Err<T>(StatusCode::kScUnexpected);
+    return Err<T>(StatusCode::kUnexpected);
   }
 
   template <typename T> Result<void> Write(TCpuAccessor &cpua, me_adr_t vadr, T value) const {
@@ -156,10 +156,10 @@ public:
       return Ok();
     }
     case WriteStatusCode::kWriteNotAllowed: {
-      return Err(StatusCode::kScMemInaccesible);
+      return Err(StatusCode::kMemInaccesible);
     }
     default: {
-      return Err(StatusCode::kScUnexpected);
+      return Err(StatusCode::kUnexpected);
     }
     }
 
@@ -235,7 +235,7 @@ public:
     }
     }
     // not reachable
-    return Err(StatusCode::kScUnexpected);
+    return Err(StatusCode::kUnexpected);
   }
 
 private:

@@ -13,7 +13,7 @@ enum class SysCtrlBlockAddressMap : me_adr_t {
   kIcsr = 0xED04,  // Interrupt Control and State Register (RW)
   kVtor = 0xED08,  // Vector Table Offset Register (RW)
   kAircr = 0xED0C, // Application Interrupt and Reset Control Register (RW)
-  kScr = 0xED10,   // System Control Register (RW)
+  kr = 0xED10,     // System Control Register (RW)
   kCcr = 0xED14,   // Configuration and Control Register (RW)
   kShpr1 = 0xED18, // System Handler Priority Register 1 (RW)
   kShpr2 = 0xED1C, // System Handler Priority Register 2 (RW)

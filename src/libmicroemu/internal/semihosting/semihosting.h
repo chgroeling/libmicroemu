@@ -156,12 +156,12 @@ public:
         } else if ((mode >= 8U) && (mode <= 11U)) {
           result = kHandleStderr;
         } else {
-          return Err<SemihostResult>(StatusCode::kScOutOfRange);
+          return Err<SemihostResult>(StatusCode::kOutOfRange);
         }
       } else if (strcmp(buf, ":semihosting-features") == 0) {
         result = kHandleSemihostFeatures;
       } else {
-        return Err<SemihostResult>(StatusCode::kScOpenFileFailed);
+        return Err<SemihostResult>(StatusCode::kOpenFileFailed);
       }
       // return handle
       sh_ret = result;
@@ -175,7 +175,7 @@ public:
 
       if ((fhandle != kHandleStdout) && (fhandle != kHandleStderr)) {
         // currently only support Write to stdout and stderr
-        return Err<SemihostResult>(StatusCode::kScUnsuporrted);
+        return Err<SemihostResult>(StatusCode::kUnsuporrted);
       }
       char buf[kBufferLen];
       // keep one char reserve for null-termination
@@ -212,7 +212,7 @@ public:
         // 0 indicates everything is ok
         sh_ret = 0U;
       } else {
-        return Err<SemihostResult>(StatusCode::kScUnsuporrted);
+        return Err<SemihostResult>(StatusCode::kUnsuporrted);
       }
       break;
     }
@@ -224,7 +224,7 @@ public:
 
       if (fhandle != kHandleStdout) {
         // currently only support Write to stdout
-        return Err<SemihostResult>(StatusCode::kScUnsuporrted);
+        return Err<SemihostResult>(StatusCode::kUnsuporrted);
       }
 
       // 1 if the handle identifies an interactive device
@@ -248,7 +248,7 @@ public:
 #endif
         break;
       }
-      return Err<SemihostResult>(StatusCode::kScUnexpected);
+      return Err<SemihostResult>(StatusCode::kUnexpected);
       break;
     }
     case kSysSeek: {
@@ -262,11 +262,11 @@ public:
           semihost_features_position_ = fpos;
           sh_ret = 0U;
         } else {
-          return Err<SemihostResult>(StatusCode::kScOutOfRange);
+          return Err<SemihostResult>(StatusCode::kOutOfRange);
         }
 
       } else {
-        return Err<SemihostResult>(StatusCode::kScUnexpected);
+        return Err<SemihostResult>(StatusCode::kUnexpected);
       }
 
       break;
@@ -279,7 +279,7 @@ public:
     case kSysClock: {
       auto reason_code = cpua_.template ReadRegister<RegisterId::kR1>();
       if (reason_code != 0x0) {
-        return Err<SemihostResult>(StatusCode::kScUnexpected);
+        return Err<SemihostResult>(StatusCode::kUnexpected);
       }
       u32 ticks = clock();
 
@@ -340,7 +340,7 @@ public:
 
       if ((fhandle != kHandleStdin) && (fhandle != kHandleStdout) && (fhandle != kHandleStderr) &&
           (fhandle != kHandleSemihostFeatures)) {
-        return Err<SemihostResult>(StatusCode::kScUnexpected);
+        return Err<SemihostResult>(StatusCode::kUnexpected);
       }
       LOG_DEBUG(TLogger, "kSysClose(0x%0x) - 0x%0x", r0, fhandle);
       sh_ret = 0U;
@@ -349,7 +349,7 @@ public:
 
     default: {
       LOG_ERROR(TLogger, "Unknown(0x%0x)", r0);
-      return Err<SemihostResult>(StatusCode::kScUnsuporrted);
+      return Err<SemihostResult>(StatusCode::kUnsuporrted);
       sh_ret = -1U; // signals error
       break;
     }

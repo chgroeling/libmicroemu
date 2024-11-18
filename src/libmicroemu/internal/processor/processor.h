@@ -157,10 +157,10 @@ public:
         return Ok<StepFlagsSet>(step_flags);
       }
       if ((eflags & static_cast<InstrExecFlagsSet>(InstrExecFlags::kBkptReqErrorExit)) != 0U) {
-        return Err<StepFlagsSet>(StatusCode::kScExecutorExitWithError);
+        return Err<StepFlagsSet>(StatusCode::kExecutorExitWithError);
       }
       if ((eflags & static_cast<InstrExecFlagsSet>(InstrExecFlags::kSvcReqErrorExit)) != 0U) {
-        return Err<StepFlagsSet>(StatusCode::kScExecutorExitWithError);
+        return Err<StepFlagsSet>(StatusCode::kExecutorExitWithError);
       }
     }
 

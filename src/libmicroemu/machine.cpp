@@ -34,7 +34,7 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
     auto file = std::ifstream(elf_file, std::ios::binary);
     if (!file.is_open()) {
       // Failed to open file
-      return Err(StatusCode::kScOpenFileFailed);
+      return Err(StatusCode::kOpenFileFailed);
     }
     auto res_reader = ElfReader::ReadElf(file);
     if (res_reader.IsErr()) {
@@ -52,7 +52,7 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
         if ((phdr.p_vaddr < flash_vadr_) ||
             (phdr.p_vaddr + phdr.p_filesz >= flash_vadr_ + flash_size_)) {
           // size of buffer is not big enough
-          return Err(StatusCode::kScBufferTooSmall);
+          return Err(StatusCode::kBufferTooSmall);
         }
         auto res = reader.GetSegmentData(phdr, flash_, phdr.p_filesz, 0x0, 0x0);
         if (res.IsErr()) {
@@ -65,7 +65,7 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
         if ((phdr.p_vaddr < ram1_vadr_) ||
             (phdr.p_vaddr + phdr.p_filesz >= ram1_vadr_ + ram1_size_)) {
           // size of buffer is not big enough
-          return Err(StatusCode::kScBufferTooSmall);
+          return Err(StatusCode::kBufferTooSmall);
         }
         auto data_seg_vadr = static_cast<me_adr_t>(phdr.p_vaddr);
 

@@ -171,7 +171,7 @@ public:
 
       const auto step_flags = step_ret.content;
       if (step_flags & static_cast<StepFlagsSet>(StepFlags::kStepTerminationRequest)) {
-        return ExecResult(StatusCode::kScSuccess, semihosting.GetExitStatusCode());
+        return ExecResult(StatusCode::kSuccess, semihosting.GetExitStatusCode());
       }
 
       const auto systick_ret = SysTick::Step(cpua);
@@ -181,12 +181,12 @@ public:
 
       ++instr_count;
       if (is_instr_limit && instr_count >= u_instr_limit) {
-        return ExecResult(StatusCode::kScMaxInstructionsReached, EXIT_SUCCESS);
+        return ExecResult(StatusCode::kMaxInstructionsReached, EXIT_SUCCESS);
       }
     }
 
     // Should never reach here
-    return ExecResult(StatusCode::kScUnexpected, EXIT_FAILURE);
+    return ExecResult(StatusCode::kUnexpected, EXIT_FAILURE);
   }
 
 private:

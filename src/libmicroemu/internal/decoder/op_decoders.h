@@ -24,7 +24,7 @@ template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> InvalidInstrDecoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   static_cast<void>(rinstr);
   static_cast<void>(cpua); // prevents warning when cpua is not used
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 
 template <typename TCpuAccessor, typename TItOps>
@@ -125,7 +125,7 @@ static Result<Instr> LslImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   assert(shift_res.type == SRType::SRType_LSL);
   assert(((imm3 << 2U) | imm2) != 0b0U);
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -172,7 +172,7 @@ static Result<Instr> LslRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 m = static_cast<u8>(Rm);
 
   if (d == 13U || d == 15 || n == 13U || n == 15 || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -194,12 +194,12 @@ static Result<Instr> ClzT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u16 Rm_1 = Bm16::ExtractBits1R<3U, 0U>(rinstr.low);
   const u16 Rm_2 = Bm16::ExtractBits1R<3U, 0U>(rinstr.high);
   if (Rm_1 != Rm_2) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   const u8 m = static_cast<u8>(Rm_1);
 
   if (d == 13U || d == 15 || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -259,10 +259,10 @@ static Result<Instr> CmpRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};
 
   if (n < 8U && m < 8U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (n == 15U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrCmpRegister{iid, flags, n, m, shift_res}});
@@ -288,7 +288,7 @@ static Result<Instr> CmpRegisterT3Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = Alu32::DecodeImmShift(type, (imm3 << 2) | imm2);
 
   if (n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -330,7 +330,7 @@ static Result<Instr> CmpImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm((i << 11U) | (imm3 << 8U) | imm8));
 
   if (n == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -356,7 +356,7 @@ static Result<Instr> CmnImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm((i << 11U) | (imm3 << 8U) | imm8));
 
   if (n == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -407,7 +407,7 @@ static Result<Instr> MovImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (d == 13U || d == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -435,7 +435,7 @@ static Result<Instr> MovImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor 
       ThumbImmediateResult{(imm4 << 12U) | (i << 11U) | (imm3 << 8U) | imm8, false};
 
   if (d == 13U || d == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -466,7 +466,7 @@ static Result<Instr> MvnImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (d == 13U || d == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -490,10 +490,10 @@ static Result<Instr> TbbHT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 n = static_cast<u8>(Rn);
 
   if (n == 13U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -543,7 +543,7 @@ static Result<Instr> RsbImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm(imm12));
 
   if (d == 13U || d == 15U || n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -565,7 +565,7 @@ static Result<Instr> MovRegisterT1Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 m = static_cast<u8>(Rm);
 
   if (d == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrMovRegister{iid, flags, d, m}});
@@ -586,7 +586,7 @@ static Result<Instr> MovRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 m = static_cast<u8>(Rm);
 
   if (TItOps::InITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrMovRegister{iid, flags, d, m}});
@@ -612,11 +612,11 @@ static Result<Instr> MovRegisterT3Decoder(const RawInstr &rinstr, TCpuAccessor &
 
   if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) != 0U) &&
       (d == 13U || d == 15U || m == 13U || m == 15U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) == 0U) &&
       (d == 15U || m == 15U || (d == 13U && m == 13U))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -642,7 +642,7 @@ static Result<Instr> RrxT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 m = static_cast<u8>(Rm);
 
   if ((d == 13U) || (d == 15U) || (m == 13U) || (m == 15U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -681,7 +681,7 @@ static Result<Instr> LdrLiteralT2Decoder(const RawInstr &rinstr, TCpuAccessor &c
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (t == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -730,7 +730,7 @@ static Result<Instr> LdrbImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor
   assert(Rt != 0b1111U);
   assert(Rn != 0b1111U);
   if (t == 13U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -764,13 +764,13 @@ static Result<Instr> LdrbImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor
   assert((P != 0b1U) || (U != 0b1U) || (W != 0b0U));
   assert((Rn != 0b1101U) || (P != 0x0U) || (U != 0x1U) || (W != 0x1U) || (imm8 != 0b00000100U));
   if ((P == 0x0U) && (W == 0x0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (t == 15U && ((P == 0U) || (U == 1U) || (W == 1U))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -798,7 +798,7 @@ static Result<Instr> LdrsbImmediateT1Decoder(const RawInstr &rinstr, TCpuAccesso
   assert(Rt != 0b1111U);
   assert(Rn != 0b1111U);
   if (t == 13U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -833,11 +833,11 @@ static Result<Instr> LdrsbImmediateT2Decoder(const RawInstr &rinstr, TCpuAccesso
   assert((P != 0b1U) || (U != 0b1U) || (W != 0b0U));
   assert((Rn != 0b1101U) || (P != 0x0U) || (U != 0x1U) || (W != 0x1U) || (imm8 != 0b00000100U));
   if ((P == 0x0U) && (W == 0x0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || (t == 15U && (W == 1U)) ||
       (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -865,7 +865,7 @@ static Result<Instr> LdrshImmediateT1Decoder(const RawInstr &rinstr, TCpuAccesso
   assert(Rn != 0b1111U);
   assert(Rt != 0b1111U);
   if (t == 13U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -898,11 +898,11 @@ static Result<Instr> LdrshImmediateT2Decoder(const RawInstr &rinstr, TCpuAccesso
   assert(Rt != 0b1111U || P != 1U || U != 0U || W != 0U);
   assert(P != 0b1U || U != 0b1U || W != 0b0U);
   if (P == 0b0U && W == 0b0U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || (t == 15U && W == 1U) ||
       (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -951,7 +951,7 @@ static Result<Instr> LdrhImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor
   assert(Rt != 0b1111U);
   assert(Rn != 0b1111U);
   if (t == 13U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -984,11 +984,11 @@ static Result<Instr> LdrhImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor
   assert(Rt != 0b1111U || P != 1U || U != 0U || W != 0U);
   assert(P != 0b1U || U != 0b1U || W != 0b0U);
   if (P == 0b0U && W == 0b0U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || (t == 15U && W == 1U) ||
       (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1009,11 +1009,11 @@ static Result<Instr> PopT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u32 registers = (P << 15U) | register_list;
 
   if (Bm32::BitCount(registers) < 1U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if ((Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) && (TItOps::InITBlock(cpua)) &&
       (!TItOps::LastInITBlock(cpua))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrPop{iid, flags, registers}});
@@ -1035,11 +1035,11 @@ static Result<Instr> PopT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u32 registers = (P << 15U) | (M << 14U) | register_list;
 
   if ((Bm32::BitCount(registers) < 2U) || ((P == 1U) && M == 1U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if ((Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) && (TItOps::InITBlock(cpua)) &&
       (!TItOps::LastInITBlock(cpua))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1061,7 +1061,7 @@ static Result<Instr> PopT3Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u32 registers = 1U << Rt;
 
   if (t == 13U || (t == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1128,7 +1128,7 @@ static Result<Instr> LdrImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (t == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1164,11 +1164,11 @@ static Result<Instr> LdrImmediateT4Decoder(const RawInstr &rinstr, TCpuAccessor 
     return PopT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
   if ((P == 0x0U) && (W == 0x0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t) ||
       t == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1195,7 +1195,7 @@ static Result<Instr> LdrexT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) 
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm8);
 
   if (t == 13U || t == 15U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1230,10 +1230,10 @@ static Result<Instr> LdrdImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor
   assert((P != 0U) || (W != 0));
   assert(Rn != 0b1111U);
   if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((n == t) || (n == t2))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (t == 13U || t == 15 || (t2 == 13U) || (t2 == 15) || (t == t2)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1255,11 +1255,11 @@ static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
 
   assert(mask != 0x0U);
   if (firstcond == 0xFU || (firstcond == 0b1110U && Bm8::BitCount(mask) != 1U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   if (TItOps::InITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrIt{iid, flags, firstcond, mask}});
@@ -1286,7 +1286,7 @@ static Result<Instr> BlT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const i32 imm32 = static_cast<int32_t>(Bm32::SignExtend<u32, 24U>(imm32_us));
 
   if (TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1305,7 +1305,7 @@ static Result<Instr> BxT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 m = static_cast<u8>(Rm);
 
   if (TItOps::InITBlock(cpua) && (!TItOps::LastInITBlock(cpua))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrBx{iid, flags, m}});
@@ -1323,10 +1323,10 @@ static Result<Instr> BlxT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 m = static_cast<u8>(Rm);
 
   if (m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrBlx{iid, flags, m}});
@@ -1339,7 +1339,7 @@ static Result<Instr> BT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   u8 flags = 0x0U;
 
   if (TItOps::InITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   const u32 cond_32 = Bm16::ExtractBits1R<11U, 8U>(rinstr.low);
@@ -1363,7 +1363,7 @@ static Result<Instr> BT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const i32 imm32 = Bm32::SignExtend<u32, 11U>((imm_11_32) << 1U);
 
   if (TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrB{iid, flags, imm32}});
@@ -1390,7 +1390,7 @@ static Result<Instr> BT3Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const i32 imm32 = static_cast<int32_t>(Bm32::SignExtend<u32, 20U>(imm32_us));
 
   if (TItOps::InITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1418,7 +1418,7 @@ static Result<Instr> BT4Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const i32 imm32 = static_cast<int32_t>(Bm32::SignExtend<u32, 24U>(imm32_us));
 
   if (TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1465,7 +1465,7 @@ static Result<Instr> SubSpMinusImmediateT2Decoder(const RawInstr &rinstr, TCpuAc
 
   assert((d != 0b1111U) || (S != 1U));
   if (d == 15U && (S == 0x0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1493,7 +1493,7 @@ static Result<Instr> SubSpMinusImmediateT3Decoder(const RawInstr &rinstr, TCpuAc
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (d == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1564,7 +1564,7 @@ static Result<Instr> SubImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor 
     return SubSpMinusImmediateT2Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
   if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1598,7 +1598,7 @@ static Result<Instr> SubImmediateT4Decoder(const RawInstr &rinstr, TCpuAccessor 
     return SubSpMinusImmediateT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
   if (d == 13U || d == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1631,7 +1631,7 @@ static Result<Instr> SbcImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   assert(!((d == 0xFU) && (S == 1U)));
   assert(n != 0xDU);
   if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1694,7 +1694,7 @@ static Result<Instr> AddSpPlusImmediateT3Decoder(const RawInstr &rinstr, TCpuAcc
 
   assert((Rd != 0b1111U) || (S != 1));
   if (d == 15U && S == 0x0U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1722,7 +1722,7 @@ static Result<Instr> AddSpPlusImmediateT4Decoder(const RawInstr &rinstr, TCpuAcc
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (d == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1791,7 +1791,7 @@ static Result<Instr> AddImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor 
     return AddSpPlusImmediateT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
   if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1825,7 +1825,7 @@ static Result<Instr> AddImmediateT4Decoder(const RawInstr &rinstr, TCpuAccessor 
     return AddSpPlusImmediateT4Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
   if (d == 13U || d == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1856,7 +1856,7 @@ static Result<Instr> AdcImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   TRY_ASSIGN(imm32, Instr, Thumb::ThumbExpandImm(imm12));
 
   if (d == 13U || d == 15U || n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1885,7 +1885,7 @@ static Result<Instr> TstImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1914,7 +1914,7 @@ static Result<Instr> TeqImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1958,7 +1958,7 @@ static Result<Instr> TeqRegisterT1Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = Alu32::DecodeImmShift(type, (imm3 << 2) | imm2);
 
   if (n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -1991,7 +1991,7 @@ static Result<Instr> AndImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (d == 13U || (d == 15U && S == 0U) || n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2024,7 +2024,7 @@ static Result<Instr> OrrImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
 
   assert(Rn != 0b1111U);
   if (d == 13U || d == 15U || n == 13U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2056,7 +2056,7 @@ static Result<Instr> EorImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (d == 13U || (d == 15U && (S == 0U)) || n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2106,7 +2106,7 @@ static Result<Instr> SubRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   assert((Rd != 0b1111U) || (S != 1U));
   assert(Rn != 0b1101U);
   if (d == 13U || (d == 15U && S == 0U) || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2136,7 +2136,7 @@ static Result<Instr> RsbRegisterT1Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 d = static_cast<u8>(Rd);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2164,10 +2164,10 @@ static Result<Instr> UmlalT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) 
 
   if (dLo == 13U || dLo == 15U || dHi == 13U || dHi == 15U || n == 13U || n == 15U || m == 13U ||
       m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (dHi == dLo) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2195,10 +2195,10 @@ static Result<Instr> UmullT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) 
 
   if (dLo == 13U || dLo == 15U || dHi == 13U || dHi == 15U || n == 13U || n == 15U || m == 13U ||
       m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (dHi == dLo) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2225,7 +2225,7 @@ static Result<Instr> SmullT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) 
   const u8 n = static_cast<u8>(Rn);
 
   if (dHi == dLo) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2251,7 +2251,7 @@ static Result<Instr> MulT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 n = static_cast<u8>(Rn);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2276,7 +2276,7 @@ static Result<Instr> UdivT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 n = static_cast<u8>(Rn);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2301,7 +2301,7 @@ static Result<Instr> SdivT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 n = static_cast<u8>(Rn);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2328,7 +2328,7 @@ static Result<Instr> MlsT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U || (a == 13U) ||
       (a == 15U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2357,7 +2357,7 @@ static Result<Instr> MlaT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   assert(Ra != 0b1111U);
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U || (a == 13U) ||
       (a == 15U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2401,10 +2401,10 @@ static Result<Instr> AddRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   assert(d != 0b1101U);
   assert(n != 0b1101U);
   if (d == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (d == 15U && m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrAddRegister{iid, flags, shift_res, m, n, d}});
@@ -2435,7 +2435,7 @@ static Result<Instr> AddRegisterT3Decoder(const RawInstr &rinstr, TCpuAccessor &
   assert((d != 0b1111U) || (S != 1U));
   assert(m != 0b1101U);
   if (d == 13U || (d == 15U && S == 0U) || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2486,7 +2486,7 @@ static Result<Instr> AdcRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 d = static_cast<u8>(Rd);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2515,7 +2515,7 @@ static Result<Instr> StmdbT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) 
 
   assert((W != 0x1U) || (Rn != 0b1101U));
   if (n == 15 || (Bm32::BitCount(registers) < 2U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   // if wback && registers<n> == '1' then UNPREDICTABLE;
   flags |= static_cast<u8>(InstrFlags::k32Bit);
@@ -2537,7 +2537,7 @@ static Result<Instr> PushT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u32 registers = (M << 14U) | register_list;
 
   if (Bm32::BitCount(registers) < 1U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrPush{iid, flags, registers}});
@@ -2559,7 +2559,7 @@ static Result<Instr> PushT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u32 registers = (M << 14U) | register_list;
 
   if (Bm32::BitCount(registers) < 2U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2581,7 +2581,7 @@ static Result<Instr> PushT3Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u32 registers = 1U << Rt;
 
   if (t == 13U || t == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2606,7 +2606,7 @@ static Result<Instr> LdmT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 n = static_cast<u8>(Rn);
 
   if (Bm32::BitCount(registers) < 1U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrLdm{iid, flags, registers, n}});
@@ -2633,14 +2633,14 @@ static Result<Instr> LdmT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
 
   assert((W != 1) || (Rn != 0b1101U));
   if (n == 15 || (Bm32::BitCount(registers) < 2U) || ((P == 1U) && M == 1U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if ((Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) && (TItOps::InITBlock(cpua)) &&
       (!TItOps::LastInITBlock(cpua))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((registers & (1 << n)) != 0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2685,10 +2685,10 @@ static Result<Instr> StmT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 n = static_cast<u8>(Rn);
 
   if (n == 15 || (Bm32::BitCount(registers) < 2U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((registers & (1 << n)) != 0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2730,7 +2730,7 @@ static Result<Instr> SxthT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 rotation = static_cast<u8>(rotate << 3U);
 
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2772,7 +2772,7 @@ static Result<Instr> UxtbT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 rotation = static_cast<u8>(rotate << 3U);
 
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2814,7 +2814,7 @@ static Result<Instr> SxtbT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 rotation = static_cast<u8>(rotate << 3U);
 
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2856,7 +2856,7 @@ static Result<Instr> UxthT2Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 rotation = rotate << 3U;
 
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2884,7 +2884,7 @@ static Result<Instr> BfiT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 msbit = static_cast<u8>(msb);
 
   if (d == 13U || d == 15U || n == 13U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2912,7 +2912,7 @@ static Result<Instr> UbfxT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 widthminus1 = static_cast<u8>(widthm1);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2964,7 +2964,7 @@ static Result<Instr> EorRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
 
   assert((Rd != 0b1111U) || (S != 1));
   if (d == 13U || (d == 15U && (S == 0)) || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -2994,7 +2994,7 @@ static Result<Instr> SbcRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = Alu32::DecodeImmShift(type, (imm3 << 2U) | imm2);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3046,7 +3046,7 @@ static Result<Instr> OrrRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
 
   assert(Rn != 0b1111U);
   if (d == 13U || d == 15U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3098,7 +3098,7 @@ static Result<Instr> AndRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
 
   assert((Rd != 0b1111U) || (S != 0b1U));
   if (d == 13U || (d == 15U && (S == 0U)) || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3129,7 +3129,7 @@ static Result<Instr> BicImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
   if (d == 13U || d == 15U || n == 13U || n == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3180,7 +3180,7 @@ static Result<Instr> BicRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = Alu32::DecodeImmShift(type, (imm3 << 2U) | imm2);
 
   if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3227,7 +3227,7 @@ static Result<Instr> LsrRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 m = static_cast<u8>(Rm);
 
   if (d == 13U || d == 15 || n == 13U || n == 15 || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3274,7 +3274,7 @@ static Result<Instr> AsrRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const u8 m = static_cast<u8>(Rm);
 
   if (d == 13U || d == 15 || n == 13U || n == 15 || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3324,7 +3324,7 @@ static Result<Instr> LsrImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
 
   assert(shift_res.type == SRType::SRType_LSR);
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3353,7 +3353,7 @@ static Result<Instr> MvnRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = Alu32::DecodeImmShift(type, (imm3 << 2U) | imm2);
 
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3383,7 +3383,7 @@ static Result<Instr> AsrImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
 
   assert(shift_res.type == SRType::SRType_ASR);
   if (d == 13U || d == 15U || m == 13U || m == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3434,7 +3434,7 @@ static Result<Instr> StrRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, static_cast<u8>(imm2)};
 
   if (t == 15U || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3485,10 +3485,10 @@ static Result<Instr> StrbRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, static_cast<u8>(imm2)};
 
   if (Rn == 0b1111U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || t == 15U || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3517,10 +3517,10 @@ static Result<Instr> StrhRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, static_cast<u8>(imm2)};
 
   if (Rn == 0b1111U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || t == 15U || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3594,10 +3594,10 @@ static Result<Instr> LdrRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, static_cast<u8>(imm2)};
 
   if (m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (t == 15U && TItOps::InITBlock(cpua) && !TItOps::LastInITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3628,7 +3628,7 @@ static Result<Instr> LdrhRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   assert(Rn != 0b1111U);
   assert(Rt != 0b1111U);
   if (t == 13U || m == 13U || m == 15) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3662,10 +3662,10 @@ static Result<Instr> StrdImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor
 
   assert((P != 0U) || (W != 0U));
   if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && (n == t || n == t2)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if (n == 15U || t == 13U || t == 15U || t2 == 13U || t2 == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3712,7 +3712,7 @@ static Result<Instr> StrhImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (t == 13U || t == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3743,11 +3743,11 @@ static Result<Instr> StrhImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor
 
   assert(P != 0b1U || U != 0b1U || W != 0b0U);
   if ((Rn == 0b1111U) || (P == 0b0 && W == 0b0U)) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if ((t == 13U || t == 15U) &&
       (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3794,10 +3794,10 @@ static Result<Instr> StrbImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (Rn == 0b1111U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || t == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3828,10 +3828,10 @@ static Result<Instr> StrbImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor
 
   assert((P != 1U) || (U != 1) || (W != 0U));
   if (n == 15U || ((P == 0U) && (W == 0U))) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 13U || t == 15U || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3898,10 +3898,10 @@ static Result<Instr> StrImmediateT3Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm12);
 
   if (n == 0b1111U) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 15U) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3935,10 +3935,10 @@ static Result<Instr> StrImmediateT4Decoder(const RawInstr &rinstr, TCpuAccessor 
     return PushT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
   if (n == 15U || ((P == 0U) && (W == 0U))) {
-    return Err<Instr>(StatusCode::kScDecoderUndefined);
+    return Err<Instr>(StatusCode::kDecoderUndefined);
   }
   if (t == 15U || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3966,7 +3966,7 @@ static Result<Instr> StrexT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) 
   const u32 imm32 = Bm32::ZeroExtend<u32>(imm8_32);
 
   if (d == n || d == t) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -3992,7 +3992,7 @@ static Result<Instr> CbNZT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const i32 imm32 = Bm32::ZeroExtend<u32>((i << 6U) | (imm5 << 1U));
 
   if (TItOps::InITBlock(cpua)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
 
   return Ok(Instr{InstrCbNZ{iid, flags, n, imm32}});
@@ -4041,13 +4041,13 @@ static Result<Instr> MsrT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const u8 SYSm = static_cast<u8>(Bm16::ExtractBits1R<7U, 0U>(rinstr.high));
 
   if (mask == 0b00U || (mask != 0b10U && !(SYSm == 0U || SYSm == 1U || SYSm == 2U || SYSm == 3U))) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   if ((n == 13U) || (n == 15U) ||
       !(SYSm == 0U || SYSm == 1U || SYSm == 2U || SYSm == 3U || SYSm == 5U || SYSm == 6U ||
         SYSm == 7U || SYSm == 8U || SYSm == 9U || SYSm == 16U || SYSm == 17U || SYSm == 18U ||
         SYSm == 19U || SYSm == 20U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -4071,7 +4071,7 @@ static Result<Instr> MrsT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
       !(SYSm == 0U || SYSm == 1U || SYSm == 2U || SYSm == 3U || SYSm == 5U || SYSm == 6U ||
         SYSm == 7U || SYSm == 8U || SYSm == 9U || SYSm == 16U || SYSm == 17U || SYSm == 18U ||
         SYSm == 19U || SYSm == 20U)) {
-    return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+    return Err<Instr>(StatusCode::kDecoderUnpredictable);
   }
   flags |= static_cast<u8>(InstrFlags::k32Bit);
 
@@ -4092,7 +4092,7 @@ static Result<Instr> Splitter16bit_op00000(const RawInstr &rinstr, TCpuAccessor 
       return LslImmediateT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     }
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op00011(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4111,7 +4111,7 @@ static Result<Instr> Splitter16bit_op00011(const RawInstr &rinstr, TCpuAccessor 
   } else if (opcode == 0b01111U) {
     return SubImmediateT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op01010(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4125,7 +4125,7 @@ static Result<Instr> Splitter16bit_op01010(const RawInstr &rinstr, TCpuAccessor 
   } else if (op_a == 0b0101U && op_b == 0b010U) {
     return StrbRegisterT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op10111(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4152,7 +4152,7 @@ static Result<Instr> Splitter16bit_op10111(const RawInstr &rinstr, TCpuAccessor 
       return NopT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     }
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op10110(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4181,7 +4181,7 @@ static Result<Instr> Splitter16bit_op10110(const RawInstr &rinstr, TCpuAccessor 
   } else if (Bm16::ExtractBits1R<6U, 4U>(opcode) == 0b010U) {
     return PushT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op01000(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4227,7 +4227,7 @@ static Result<Instr> Splitter16bit_op01000(const RawInstr &rinstr, TCpuAccessor 
       return BicRegisterT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     }
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op01011(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4242,7 +4242,7 @@ static Result<Instr> Splitter16bit_op01011(const RawInstr &rinstr, TCpuAccessor 
   } else if (opB == 0b110U) {
     return LdrbRegisterT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op01101(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4255,7 +4255,7 @@ static Result<Instr> Splitter16bit_op01101(const RawInstr &rinstr, TCpuAccessor 
   if (Bm16::ExtractBits1R<2U, 2U>(opB) == 0b1U) {
     return LdrImmediateT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter16bit_op11011(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4270,7 +4270,7 @@ static Result<Instr> Splitter16bit_op11011(const RawInstr &rinstr, TCpuAccessor 
   } else if (opcode == 0b1111U) {
     return SvcT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4318,7 +4318,7 @@ static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TCpuAccessor 
     } else if (op == 0b0100U && Rd == 0b1111U && S == 1) {
       return TeqRegisterT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     } else if (op == 0b0100U && Rd == 0b1111U && S == 0) {
-      return Err<Instr>(StatusCode::kScDecoderUnpredictable);
+      return Err<Instr>(StatusCode::kDecoderUnpredictable);
     } else if (op == 0b1101U && Rd != 0b1111U) {
       return SubRegisterT2Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     } else if (op == 0b1010U) {
@@ -4375,7 +4375,7 @@ static Result<Instr> Splitter32bit_op11101(const RawInstr &rinstr, TCpuAccessor 
       return TbbHT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     }
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter32bit_op11110(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4464,7 +4464,7 @@ static Result<Instr> Splitter32bit_op11110(const RawInstr &rinstr, TCpuAccessor 
       return UbfxT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     }
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 template <typename TCpuAccessor, typename TItOps>
 static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TCpuAccessor &cpua) {
@@ -4621,7 +4621,7 @@ static Result<Instr> Splitter32bit_op11111(const RawInstr &rinstr, TCpuAccessor 
       return UmlalT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);
     }
   }
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 
 template <typename TCpuAccessor, typename TItOps>

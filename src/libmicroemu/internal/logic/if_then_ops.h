@@ -119,7 +119,7 @@ public:
     }
 
     // Otherwise, execution of the instruction is UNPREDICTABLE.
-    return Err<u32>(StatusCode::kScExecutorUnpredictable);
+    return Err<u32>(StatusCode::kExecutorUnpredictable);
   }
 
   static inline Condition DecodeCondition(u8 cond) {

@@ -47,20 +47,20 @@ public:
    * @brief Checks if the execution result is a success.
    * @return true if the execution result is a success, false otherwise.
    */
-  inline bool IsOk() const noexcept { return status_code == StatusCode::kScSuccess; };
+  inline bool IsOk() const noexcept { return status_code == StatusCode::kSuccess; };
 
   /**
    * @brief Checks if the execution result is an error.
    * @return true if the execution result is an error, false otherwise.
    */
-  inline bool IsErr() const noexcept { return status_code != StatusCode::kScSuccess; };
+  inline bool IsErr() const noexcept { return status_code != StatusCode::kSuccess; };
 
   /**
    * @brief Checks if the maximum number of instructions has been reached.
    * @return true if the maximum number of instructions has been reached, false otherwise.
    */
   inline bool IsMaxInstructionsReached() const noexcept {
-    return status_code == StatusCode::kScMaxInstructionsReached;
+    return status_code == StatusCode::kMaxInstructionsReached;
   };
 
   /**

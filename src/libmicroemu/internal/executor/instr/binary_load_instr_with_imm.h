@@ -57,7 +57,7 @@ public:
 
         return Ok(InstrExecResult{eflags});
       } else {
-        return Err<InstrExecResult>(StatusCode::kScExecutorUnpredictable);
+        return Err<InstrExecResult>(StatusCode::kExecutorUnpredictable);
       }
     } else {
       ictx.cpua.WriteRegister(arg_t.Get(), data);
