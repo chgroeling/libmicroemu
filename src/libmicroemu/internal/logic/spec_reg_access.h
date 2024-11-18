@@ -1,3 +1,5 @@
+#pragma once
+
 #include "libmicroemu/emu_context.h"
 
 namespace libmicroemu {
