@@ -20,9 +20,9 @@ public:
 
   using ExcTrig = typename TInstrContext::ExcTrig;
 
-  template <typename TArg>
+  template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg &arg_n, const TArg &arg_m, const TArg &arg_t,
+                                      const TArg0 &arg_t, const TArg1 &arg_n, const TArg2 &arg_m,
                                       const ImmShiftResults &shift_res) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;

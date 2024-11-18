@@ -18,7 +18,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_n, const TArg1 &arg_t, const TArg2 &arg_d,
+                                      const TArg0 &arg_d, const TArg1 &arg_t, const TArg2 &arg_n,
                                       const u32 &imm32) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;

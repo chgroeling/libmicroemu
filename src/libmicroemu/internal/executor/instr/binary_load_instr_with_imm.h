@@ -21,9 +21,9 @@ public:
 
   using ExcTrig = typename TInstrContext::ExcTrig;
 
-  template <typename TArg>
+  template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg &arg_n, const u32 &imm32, const TArg &arg_t) {
+                                      const TArg0 &arg_t, const TArg1 &arg_n, const u32 &imm32) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
