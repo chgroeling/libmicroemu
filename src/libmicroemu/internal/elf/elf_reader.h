@@ -119,20 +119,20 @@ public:
     stream.read(reinterpret_cast<char *>(&ehdr), sizeof(ehdr));
     if (!stream) {
       // Failed to read ELF header.
-      return Err<ElfReader>(StatusCode::kScElfWrongHeader);
+      return Err<ElfReader>(StatusCode::kElfWrongHeader);
     }
 
     // Check if it's a valid ELF file
     if (ehdr.e_ident[0] != 0x7f || ehdr.e_ident[1] != 'E' || ehdr.e_ident[2] != 'L' ||
         ehdr.e_ident[3] != 'F') {
       // Not a valid ELF file."
-      return Err<ElfReader>(StatusCode::kScElfNotValid);
+      return Err<ElfReader>(StatusCode::kElfNotValid);
     }
 
     // Check if it's a 32-bit ELF file
     if (ehdr.e_ident[4] != 1) {
       // Not a 32-bit ELF file.
-      return Err<ElfReader>(StatusCode::kScElfNotValid);
+      return Err<ElfReader>(StatusCode::kElfNotValid);
     }
 
     // Store program header offset, count, and entry point
@@ -150,12 +150,12 @@ public:
                               u32 segment_vadr) {
     if (buffer_size < phdr.p_filesz) {
       // Buffer size is too small to hold the segment data.
-      return Err(StatusCode::kScBufferTooSmall);
+      return Err(StatusCode::kBufferTooSmall);
     }
     stream_.seekg(phdr.p_offset, std::ios::beg);
     stream_.read(reinterpret_cast<char *>(buffer) + (segment_vadr - buffer_vadr), buffer_size);
     if (!stream_.good()) {
-      return Err(StatusCode::kScError);
+      return Err(StatusCode::kError);
     }
     return Ok();
   }

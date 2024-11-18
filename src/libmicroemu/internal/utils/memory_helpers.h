@@ -95,7 +95,7 @@ private:
       return r_w1.status_code;
     }
     result_ma[I] = r_w1.content;
-    return StatusCode::kScSuccess;
+    return StatusCode::kSuccess;
   }
 
   /**

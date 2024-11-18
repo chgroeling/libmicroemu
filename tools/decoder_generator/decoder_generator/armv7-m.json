@@ -1095,7 +1095,7 @@
                 "assert(shift_res.type == SRType::SRType_LSL);",
                 "assert(((imm3 << 2U) | imm2) != 0b0U);",
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1172,7 +1172,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15 || n == 13U || n == 15 || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1199,7 +1199,7 @@
                         "const u16 Rm_1 = Bm16::ExtractBits1R<3U, 0U>(rinstr.low);",
                         "const u16 Rm_2 = Bm16::ExtractBits1R<3U, 0U>(rinstr.high);",
                         "if (Rm_1 != Rm_2) {",
-                        "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                        "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                         "}",
                         "const u8 m = static_cast<u8>(Rm_1);"
                     ]
@@ -1207,7 +1207,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15 || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1302,10 +1302,10 @@
             },
             "post_block": [
                 "if (n < 8U && m < 8U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (n == 15U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1344,7 +1344,7 @@
             },
             "post_block": [
                 "if (n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1400,7 +1400,7 @@
             },
             "post_block": [
                 "if (n == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1434,7 +1434,7 @@
             },
             "post_block": [
                 "if (n == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1505,7 +1505,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1544,7 +1544,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1586,7 +1586,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1622,10 +1622,10 @@
             },
             "post_block": [
                 "if (n == 13U || m == 13U  || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ( TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1705,7 +1705,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U ||  n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1737,7 +1737,7 @@
             },
             "post_block": [
                 "if (d == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1769,7 +1769,7 @@
             },
             "post_block": [
                 "if ( TItOps::InITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1807,10 +1807,10 @@
             },
             "post_block": [
                 "if ((flags& static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) != 0U) && (d==13U || d==15U || m==13U || m==15U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ((flags& static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) == 0U) && (d==15U || m==15U || (d==13U && m==13U))) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1848,7 +1848,7 @@
             },
             "post_block": [
                 "if ((d == 13U) || (d == 15U) || (m == 13U) || (m == 15U)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -1909,7 +1909,7 @@
             },
             "post_block": [
                 "if (t == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2005,7 +2005,7 @@
                 "assert (Rt != 0b1111U);",
                 "assert (Rn != 0b1111U);",
                 "if (t == 13U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2063,13 +2063,13 @@
                 "assert ((P != 0b1U) || (U != 0b1U) || (W != 0b0U));",
                 "assert ((Rn != 0b1101U) || (P != 0x0U) || (U != 0x1U) || (W != 0x1U) || (imm8 != 0b00000100U) );",
                 "if ((P == 0x0U) && (W == 0x0U) ) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (t == 15U && ((P == 0U)||(U == 1U)||(W == 1U))) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2121,7 +2121,7 @@
                 "assert (Rt != 0b1111U);",
                 "assert (Rn != 0b1111U);",
                 "if (t == 13U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2180,10 +2180,10 @@
                 "assert ((P != 0b1U) || (U != 0b1U) || (W != 0b0U));",
                 "assert ((Rn != 0b1101U) || (P != 0x0U) || (U != 0x1U) || (W != 0x1U) || (imm8 != 0b00000100U) );",
                 "if ((P == 0x0U) && (W == 0x0U) ) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || (t == 15U && (W == 1U)) || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2235,7 +2235,7 @@
                 "assert(Rn!=0b1111U);",
                 "assert(Rt!=0b1111U);",
                 "if (t == 13U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2292,10 +2292,10 @@
                 "assert (Rt != 0b1111U || P != 1U || U != 0U || W != 0U);",
                 "assert (P != 0b1U || U != 0b1U || W != 0b0U);",
                 "if (P == 0b0U && W == 0b0U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || (t == 15U && W == 1U) || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2391,7 +2391,7 @@
                 "assert (Rt != 0b1111U);",
                 "assert (Rn != 0b1111U);",
                 "if (t == 13U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2448,10 +2448,10 @@
                 "assert (Rt != 0b1111U || P != 1U || U != 0U || W != 0U);",
                 "assert (P != 0b1U || U != 0b1U || W != 0b0U);",
                 "if (P == 0b0U && W == 0b0U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || (t == 15U && W == 1U) || (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2478,10 +2478,10 @@
             },
             "post_block": [
                 "if (Bm32::BitCount(registers) < 1U) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ((Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) && ( TItOps::InITBlock(cpua)) && (! TItOps::LastInITBlock(cpua))) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2512,10 +2512,10 @@
             },
             "post_block": [
                 "if ((Bm32::BitCount(registers) < 2U) || ((P == 1U) && M == 1U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ((Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) && ( TItOps::InITBlock(cpua)) && (! TItOps::LastInITBlock(cpua))) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2545,7 +2545,7 @@
             },
             "post_block": [
                 "if (t == 13U || (t == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua))) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2682,7 +2682,7 @@
             },
             "post_block": [
                 "if (t == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2742,10 +2742,10 @@
                 "  return PopT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua);",
                 "}",
                 "if ((P == 0x0U) && (W == 0x0U) ) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if ((flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t) || t == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}"
             ]
         },
@@ -2796,7 +2796,7 @@
             },
             "post_block": [
                 "if (t == 13U || t == 15U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}"
             ]
         },
@@ -2859,10 +2859,10 @@
                 "assert((P!=0U) || (W!=0));",
                 "assert(Rn!=0b1111U);",
                 "if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ((n == t) || (n == t2)) ) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (t == 13U || t == 15 || (t2 == 13U) || (t2 == 15)|| (t == t2)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2890,11 +2890,11 @@
             "post_block": [
                 "assert(mask != 0x0U);",
                 "if (firstcond == 0xFU || (firstcond == 0b1110U && Bm8::BitCount(mask) != 1U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "",
                 "if ( TItOps::InITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2926,7 +2926,7 @@
             },
             "post_block": [
                 "if ( TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2947,7 +2947,7 @@
             },
             "post_block": [
                 "if (TItOps::InITBlock(cpua) && (!TItOps::LastInITBlock(cpua))) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2968,10 +2968,10 @@
             },
             "post_block": [
                 "if (m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ( TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -2981,7 +2981,7 @@
             "flags": [],
             "pre_block": [
                 "if ( TItOps::InITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ],
             "def": {
@@ -3018,7 +3018,7 @@
             },
             "post_block": [
                 "if ( TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3054,7 +3054,7 @@
             },
             "post_block": [
                 "if ( TItOps::InITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3086,7 +3086,7 @@
             },
             "post_block": [
                 "if ( TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3156,7 +3156,7 @@
             "post_block": [
                 "assert( (d!=0b1111U) || (S!=1U) );",
                 "if (d == 15U && (S == 0x0U)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3196,7 +3196,7 @@
             },
             "post_block": [
                 "if (d == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3311,7 +3311,7 @@
                 "  return SubSpMinusImmediateT2Decoder<TCpuAccessor, TItOps>(rinstr, cpua);",
                 "}",
                 "if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3361,7 +3361,7 @@
                 "    return SubSpMinusImmediateT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua); ",
                 "}",
                 "if (d == 13U || d == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3410,7 +3410,7 @@
                 "assert(!((d == 0xFU) && (S == 1U)) );",
                 "assert(n!=0xDU );",
                 "if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3507,7 +3507,7 @@
             "post_block": [
                 "assert((Rd != 0b1111U) || (S != 1));",
                 "if (d == 15U && S == 0x0U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3547,7 +3547,7 @@
             },
             "post_block": [
                 "if (d == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3660,7 +3660,7 @@
                 "    return AddSpPlusImmediateT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua); ",
                 "}",
                 "if (d == 13U || (d == 15U && S == 0x0U) || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3710,7 +3710,7 @@
                 "    return AddSpPlusImmediateT4Decoder<TCpuAccessor, TItOps>(rinstr, cpua); ",
                 "}",
                 "if (d == 13U || d == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3757,7 +3757,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3793,7 +3793,7 @@
             },
             "post_block": [
                 "if (n == 13U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3829,7 +3829,7 @@
             },
             "post_block": [
                 "if (n == 13U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3896,7 +3896,7 @@
             },
             "post_block": [
                 "if (n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3943,7 +3943,7 @@
             },
             "post_block": [
                 "if ( d == 13U || (d == 15U && S == 0U) || n == 13U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -3991,7 +3991,7 @@
             "post_block": [
                 "assert(Rn!=0b1111U);",
                 "if ( d == 13U || d == 15U || n == 13U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4038,7 +4038,7 @@
             },
             "post_block": [
                 "if ( d == 13U || (d == 15U && (S == 0U)) || n == 13U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4126,7 +4126,7 @@
                 "assert((Rd != 0b1111U) || (S!=1U));",
                 "assert(Rn != 0b1101U);",
                 "if (d == 13U || (d == 15U && S == 0U) || n == 15U || m == 13U ||m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4176,7 +4176,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4223,10 +4223,10 @@
             },
             "post_block": [
                 "if (dLo == 13U || dLo == 15U || dHi == 13U || dHi == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (dHi == dLo) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4273,10 +4273,10 @@
             },
             "post_block": [
                 "if (dLo == 13U || dLo == 15U || dHi == 13U || dHi == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (dHi == dLo) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4323,7 +4323,7 @@
             },
             "post_block": [
                 "if (dHi == dLo) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4365,7 +4365,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4402,7 +4402,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4439,7 +4439,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4481,7 +4481,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U || (a == 13U) || (a == 15U)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4529,7 +4529,7 @@
             "post_block": [
                 "assert(Ra!=0b1111U);",
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U || (a == 13U) || (a == 15U)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4609,10 +4609,10 @@
                 "assert(d != 0b1101U);",
                 "assert(n != 0b1101U);",
                 "if (d == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (d == 15U && m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4664,7 +4664,7 @@
                 "assert((d != 0b1111U) || (S!=1U));",
                 "assert(m != 0b1101U);",
                 "if (d == 13U || (d == 15U && S == 0U) || n == 15U || m == 13U ||m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4753,7 +4753,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4794,7 +4794,7 @@
             "post_block": [
                 "assert( (W != 0x1U) || (Rn != 0b1101U) );",
                 "if (n == 15 || (Bm32::BitCount(registers) < 2U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 " // if wback && registers<n> == '1' then UNPREDICTABLE;"
             ]
@@ -4822,7 +4822,7 @@
             },
             "post_block": [
                 "if (Bm32::BitCount(registers) < 1U) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4853,7 +4853,7 @@
             },
             "post_block": [
                 "if (Bm32::BitCount(registers) < 2U) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4883,7 +4883,7 @@
             },
             "post_block": [
                 "if (t==13U || t==15U) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4918,7 +4918,7 @@
             },
             "post_block": [
                 "if (Bm32::BitCount(registers) < 1U) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -4958,13 +4958,13 @@
             "post_block": [
                 "assert((W!=1) || (Rn!=0b1101U));",
                 "if (n == 15 || (Bm32::BitCount(registers) < 2U) || ((P == 1U) && M == 1U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ((Bm32::ExtractBits1R<15U, 15U>(registers) == 0x1U) && ( TItOps::InITBlock(cpua)) && (! TItOps::LastInITBlock(cpua))) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (flags & static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ( (registers &(1<<n)) != 0U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5036,10 +5036,10 @@
             },
             "post_block": [
                 "if (n == 15 || (Bm32::BitCount(registers) < 2U)){",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (flags&static_cast<InstrFlagsSet>(InstrFlags::kWBack) && ( (registers &(1<<n)) != 0U)) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5104,7 +5104,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5169,7 +5169,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5234,7 +5234,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5299,7 +5299,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5343,7 +5343,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5387,7 +5387,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5477,7 +5477,7 @@
             "post_block": [
                 "assert((Rd!=0b1111U) || (S!=1));",
                 "if (d == 13U || (d == 15U && (S == 0)) || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5527,7 +5527,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U ||n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5617,7 +5617,7 @@
             "post_block": [
                 "assert(Rn!=0b1111U);",
                 "if (d == 13U || d == 15U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5707,7 +5707,7 @@
             "post_block": [
                 "assert((Rd!=0b1111U) || (S!=0b1U));",
                 "if (d == 13U || (d == 15U && (S == 0U)) || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5753,7 +5753,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U|| n == 15U){",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5842,7 +5842,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || n == 13U || n == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5919,7 +5919,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15 || n == 13U || n == 15 || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -5996,7 +5996,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15 || n == 13U || n == 15 || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6076,7 +6076,7 @@
             "post_block": [
                 "assert(shift_res.type == SRType::SRType_LSR);",
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6121,7 +6121,7 @@
             },
             "post_block": [
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6167,7 +6167,7 @@
             "post_block": [
                 "assert(shift_res.type == SRType::SRType_ASR);",
                 "if (d == 13U || d == 15U || m == 13U || m == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6272,7 +6272,7 @@
             },
             "post_block": [
                 "if (t == 15U || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6378,10 +6378,10 @@
             },
             "post_block": [
                 "if (Rn == 0b1111U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || t == 15U || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6438,10 +6438,10 @@
             },
             "post_block": [
                 "if (Rn == 0b1111U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || t == 15U || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6597,10 +6597,10 @@
             },
             "post_block": [
                 "if (m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (t == 15U &&  TItOps::InITBlock(cpua) && ! TItOps::LastInITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6659,7 +6659,7 @@
                 "assert(Rn!=0b1111U);",
                 "assert(Rt!=0b1111U);",
                 "if (t == 13U || m == 13U || m == 15) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6721,10 +6721,10 @@
             "post_block": [
                 "assert((P!=0U) || (W!=0U));",
                 "if (flags&static_cast<InstrFlagsSet>(InstrFlags::kWBack) && (n == t || n == t2)) { ",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if (n == 15U ||t == 13U || t == 15U || t2 == 13U || t2 == 15U) { ",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6818,7 +6818,7 @@
             },
             "post_block": [
                 "if (t == 13U || t == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6873,10 +6873,10 @@
             "post_block": [
                 "assert (P!=0b1U || U!=0b1U || W!=0b0U);",
                 "if ((Rn == 0b1111U) || (P == 0b0 && W == 0b0U) ) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if ((t == 13U || t == 15U) && (flags&static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -6970,10 +6970,10 @@
             },
             "post_block": [
                 "if (Rn == 0b1111U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || t == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7028,10 +7028,10 @@
             "post_block": [
                 "assert((P!=1U) ||(U!=1) || (W!=0U)) ;",
                 "if (n == 15U || ((P == 0U) && (W == 0U))) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 13U || t == 15U || (flags&static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7168,10 +7168,10 @@
             },
             "post_block": [
                 "if (n == 0b1111U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 15U) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7229,10 +7229,10 @@
                 "  return PushT3Decoder<TCpuAccessor, TItOps>(rinstr, cpua);",
                 "}",
                 "if (n == 15U || ((P == 0U) && (W == 0U))) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUndefined);",
+                "  return Err<Instr>(StatusCode::kDecoderUndefined);",
                 "}",
                 "if (t == 15U || (flags&static_cast<InstrFlagsSet>(InstrFlags::kWBack) && n == t)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7288,7 +7288,7 @@
             },
             "post_block": [
                 "if (d == n || d == t) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7328,7 +7328,7 @@
             },
             "post_block": [
                 "if ( TItOps::InITBlock(cpua)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7399,10 +7399,10 @@
             },
             "post_block": [
                 "if (mask == 0b00U || (mask != 0b10U && !(SYSm == 0U || SYSm==1U || SYSm==2U || SYSm==3U))) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}",
                 "if ((n==13U) || (n==15U) || !(SYSm == 0U || SYSm==1U || SYSm==2U || SYSm==3U || SYSm==5U || SYSm==6U || SYSm==7U || SYSm==8U || SYSm==9U || SYSm==16U || SYSm==17U || SYSm==18U || SYSm==19U || SYSm==20U)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         },
@@ -7435,7 +7435,7 @@
             },
             "post_block": [
                 "if ((d==13U) || (d==15U) || !(SYSm == 0U || SYSm==1U || SYSm==2U || SYSm==3U || SYSm==5U || SYSm==6U || SYSm==7U || SYSm==8U || SYSm==9U || SYSm==16U || SYSm==17U || SYSm==18U || SYSm==19U || SYSm==20U)) {",
-                "  return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "  return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "}"
             ]
         }
@@ -7692,7 +7692,7 @@
                 "  } else if (op == 0b0100U && Rd == 0b1111U && S==1) {",
                 "    return TeqRegisterT1Decoder<TCpuAccessor, TItOps>(rinstr, cpua);",
                 "  } else if (op == 0b0100U && Rd == 0b1111U && S==0) {",
-                "    return Err<Instr>(StatusCode::kScDecoderUnpredictable);",
+                "    return Err<Instr>(StatusCode::kDecoderUnpredictable);",
                 "  } else if (op == 0b1101U && Rd != 0b1111U) {",
                 "   return SubRegisterT2Decoder<TCpuAccessor, TItOps>(rinstr, cpua);",
                 "  } else if (op == 0b1010U) {",

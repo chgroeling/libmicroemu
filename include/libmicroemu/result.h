@@ -7,111 +7,111 @@
 namespace libmicroemu {
 enum class StatusCode : u32 {
   // clang-format off
-  kScSuccess = 0x0U, // Operation succedded successfully 
+  kSuccess = 0x0U, // Operation succedded successfully 
   
   // Unspecified errors
-  kScError = 0x1U,      // An unspecified error occured
-  kScUnexpected = 0x1002U,
-  kScUnsuporrted = 0x1003U,
-  kScNotImplemented = 0x1004U,
+  kError = 0x1U,      // An unspecified error occured
+  kUnexpected = 0x1002U,
+  kUnsuporrted = 0x1003U,
+  kNotImplemented = 0x1004U,
 
   // Generic errors
-  kScOutOfRange = 0x2001U,
-  kScIteratorExhausted = 0x2002U,
-  kScBufferTooSmall = 0x2003U,
-  kScOpenFileFailed = 0x2004U,
+  kOutOfRange = 0x2001U,
+  kIteratorExhausted = 0x2002U,
+  kBufferTooSmall = 0x2003U,
+  kOpenFileFailed = 0x2004U,
   
   // Memory related errors
-  kScMemInaccesible = 0x3001U, 
-  kScMemWriteNotAllowed = 0x3002U,
+  kMemInaccesible = 0x3001U, 
+  kMemWriteNotAllowed = 0x3002U,
 
   // Decoder related errors
-  kScDecoderUnknownOpCode = 0x4001U,
-  kScDecoderUnpredictable = 0x4002U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
-  kScDecoderUndefined = 0x4003U,
+  kDecoderUnknownOpCode = 0x4001U,
+  kDecoderUnpredictable = 0x4002U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
+  kDecoderUndefined = 0x4003U,
 
   // Executor related errors
-  kScExecutorUnpredictable = 0x5001U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
-  kScExecutorUndefined = 0x5002U,
-  kScExecutorExitWithError = 0x5003U,
+  kExecutorUnpredictable = 0x5001U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
+  kExecutorUndefined = 0x5002U,
+  kExecutorExitWithError = 0x5003U,
   
   // Elf reader related errors
-  kScElfNotValid = 0x6001U,
-  kScElfWrongHeader = 0x6002U,
+  kElfNotValid = 0x6001U,
+  kElfWrongHeader = 0x6002U,
 
   // Arm related errors
-  kScUsageFault = 0x7001U,
+  kUsageFault = 0x7001U,
 
   // Execution result
-  kScMaxInstructionsReached = 0x8001U,
+  kMaxInstructionsReached = 0x8001U,
 
   // clang-format on
 };
 
 static constexpr const char *StatusCodeToString(const StatusCode status_code) noexcept {
   switch (status_code) {
-  case StatusCode::kScSuccess: {
+  case StatusCode::kSuccess: {
     return "Success";
   }
-  case StatusCode::kScError: {
+  case StatusCode::kError: {
     return "Error";
   }
-  case StatusCode::kScOutOfRange: {
+  case StatusCode::kOutOfRange: {
     return "OutOfRange";
   }
-  case StatusCode::kScMemInaccesible: {
+  case StatusCode::kMemInaccesible: {
     return "MemInaccesible";
   }
-  case StatusCode::kScIteratorExhausted: {
+  case StatusCode::kIteratorExhausted: {
     return "IteratorExhausted";
   }
-  case StatusCode::kScDecoderUnknownOpCode: {
+  case StatusCode::kDecoderUnknownOpCode: {
     return "DecoderUnknownOpCode";
   }
-  case StatusCode::kScDecoderUnpredictable: {
+  case StatusCode::kDecoderUnpredictable: {
     return "DecoderUnpredictable";
   }
-  case StatusCode::kScDecoderUndefined: {
+  case StatusCode::kDecoderUndefined: {
     return "DecoderUndefined";
   }
-  case StatusCode::kScExecutorUnpredictable: {
+  case StatusCode::kExecutorUnpredictable: {
     return "ExecutorUnpredictable";
   }
-  case StatusCode::kScMemWriteNotAllowed: {
+  case StatusCode::kMemWriteNotAllowed: {
     return "MemWriteNotAllowed";
   }
-  case StatusCode::kScBufferTooSmall: {
+  case StatusCode::kBufferTooSmall: {
     return "BufferTooSmall";
   }
-  case StatusCode::kScElfWrongHeader: {
+  case StatusCode::kElfWrongHeader: {
     return "ElfWrongHeader";
   }
-  case StatusCode::kScElfNotValid: {
+  case StatusCode::kElfNotValid: {
     return "ElfNotValid";
   }
-  case StatusCode::kScOpenFileFailed: {
+  case StatusCode::kOpenFileFailed: {
     return "OpenFileFailed";
   }
-  case StatusCode::kScNotImplemented: {
+  case StatusCode::kNotImplemented: {
     return "NotImplemented";
   }
-  case StatusCode::kScUnexpected: {
+  case StatusCode::kUnexpected: {
     return "Unexpected";
   }
-  case StatusCode::kScExecutorExitWithError: {
+  case StatusCode::kExecutorExitWithError: {
     return "ExecutorExitWithError";
   }
-  case StatusCode::kScExecutorUndefined: {
+  case StatusCode::kExecutorUndefined: {
     return "ExecutorUndefined";
   }
-  case StatusCode::kScUsageFault: {
+  case StatusCode::kUsageFault: {
     return "UsageFault";
   }
-  case StatusCode::kScUnsuporrted: {
+  case StatusCode::kUnsuporrted: {
     return "Unsuporrted";
   }
 
-  case StatusCode::kScMaxInstructionsReached: {
+  case StatusCode::kMaxInstructionsReached: {
     return "MaxInstructionsReached";
   }
 
@@ -129,8 +129,8 @@ template <typename T, typename TStatusCode = StatusCode> struct Result {
   const StatusCode status_code;
   const Content content;
 
-  constexpr bool IsOk() const noexcept { return status_code == StatusCode::kScSuccess; }
-  constexpr bool IsErr() const noexcept { return status_code != StatusCode::kScSuccess; }
+  constexpr bool IsOk() const noexcept { return status_code == StatusCode::kSuccess; }
+  constexpr bool IsErr() const noexcept { return status_code != StatusCode::kSuccess; }
 
   constexpr bool operator==(Result<T> const &rhs) const noexcept {
     return (rhs.status_code == this->status_code) && (rhs.content == this->content);
@@ -166,8 +166,8 @@ template <> struct Result<void> {
 
   const StatusCode status_code;
 
-  constexpr bool IsOk() const noexcept { return status_code == StatusCode::kScSuccess; }
-  constexpr bool IsErr() const noexcept { return status_code != StatusCode::kScSuccess; }
+  constexpr bool IsOk() const noexcept { return status_code == StatusCode::kSuccess; }
+  constexpr bool IsErr() const noexcept { return status_code != StatusCode::kSuccess; }
 
   constexpr bool operator==(Result<void> const &rhs) const noexcept {
     return (rhs.status_code == this->status_code);
@@ -198,9 +198,9 @@ template <> struct Result<void> {
 
 // convience function
 template <typename T> static constexpr Result<T> Ok(const T &content) noexcept {
-  return Result<T>(StatusCode::kScSuccess, content);
+  return Result<T>(StatusCode::kSuccess, content);
 }
-static constexpr Result<void> Ok() noexcept { return Result<void>(StatusCode::kScSuccess); }
+static constexpr Result<void> Ok() noexcept { return Result<void>(StatusCode::kSuccess); }
 
 // convience function
 template <typename T> static constexpr Result<T> Err(const StatusCode &sc) noexcept {

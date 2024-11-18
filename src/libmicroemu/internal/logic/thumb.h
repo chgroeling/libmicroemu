@@ -35,21 +35,21 @@ public:
       }
       case 0x1U: {
         if ((in & 0xFFU) == 0x0U) {
-          return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
+          return Err<ThumbImmediateResult>(StatusCode::kExecutorUnpredictable);
         }
         imm32 = ((in & 0xFFU) << 16U) | (in & 0xFFU);
         break;
       }
       case 0x2U: {
         if ((in & 0xFFU) == 0x0U) {
-          return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
+          return Err<ThumbImmediateResult>(StatusCode::kExecutorUnpredictable);
         }
         imm32 = ((in & 0xFFU) << 24U) | ((in & 0xFFU) << 8U);
         break;
       }
       case 0x3U: {
         if ((in & 0xFFU) == 0x0U) {
-          return Err<ThumbImmediateResult>(StatusCode::kScExecutorUnpredictable);
+          return Err<ThumbImmediateResult>(StatusCode::kExecutorUnpredictable);
         }
         imm32 = ((in & 0xFFU) << 24U) | ((in & 0xFFU) << 16U) | ((in & 0xFFU) << 8U) |
                 ((in & 0xFFU) << 0U);

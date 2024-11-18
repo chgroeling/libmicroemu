@@ -251,7 +251,7 @@ public:
 
       ictx.cpua.WriteRegister(arg_d.Get(), rd_result);
     } else {
-      return Err<InstrExecResult>(StatusCode::kScExecutorUnpredictable);
+      return Err<InstrExecResult>(StatusCode::kExecutorUnpredictable);
     }
 
     It::ITAdvance(ictx.cpua);
@@ -289,7 +289,7 @@ public:
       const auto result = (rn & msk) >> lsbit;
       ictx.cpua.WriteRegister(arg_d.Get(), result);
     } else {
-      return Err<InstrExecResult>(StatusCode::kScExecutorUnpredictable);
+      return Err<InstrExecResult>(StatusCode::kExecutorUnpredictable);
     }
 
     It::ITAdvance(ictx.cpua);

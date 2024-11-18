@@ -499,7 +499,7 @@ public:
     } else {
       // if !IsOnes(EXC_RETURN<27:4>) then UNPREDICTABLE;
       if ((exc_return & 0x0FFFFFF0U) != 0x0FFFFFF0U) {
-        return Err(StatusCode::kScExecutorUnpredictable);
+        return Err(StatusCode::kExecutorUnpredictable);
       }
     }
 
@@ -584,7 +584,7 @@ public:
         // LR = '1111':EXC_RETURN;
         // ExceptionTaken(UsageFault); // illegal EXC_RETURN
         // return;
-        return Err(StatusCode::kScNotImplemented);
+        return Err(StatusCode::kNotImplemented);
         break;
       }
 
@@ -605,7 +605,7 @@ public:
         // ExceptionTaken(UsageFault); // return IPSR is inconsistent
         // return;
         LOG_ERROR(TLogger, "Returning to Handler mode with IPSR inconsistent");
-        return Err(StatusCode::kScUsageFault);
+        return Err(StatusCode::kUsageFault);
       }
 
       const auto is_thread_mode = Predicates::IsThreadMode(cpua);
@@ -616,7 +616,7 @@ public:
         // ExceptionTaken(UsageFault); // return IPSR is inconsistent
         // return;
         LOG_ERROR(TLogger, "Returning to Thread mode with IPSR inconsistent");
-        return Err(StatusCode::kScUsageFault);
+        return Err(StatusCode::kUsageFault);
       }
 
       // ClearExclusiveLocal(ProcessorID());
@@ -761,7 +761,7 @@ public:
       break;
     }
     default: {
-      return Err(StatusCode::kScUnexpected);
+      return Err(StatusCode::kUnexpected);
     }
     }
 

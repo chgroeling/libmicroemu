@@ -25,7 +25,7 @@ template<typename TCpuAccessor, typename TItOps>
 static Result<Instr> InvalidInstrDecoder(const RawInstr& rinstr,  TCpuAccessor& cpua) {
   static_cast<void>(rinstr);
   static_cast<void>(cpua); // prevents warning when cpua is not used
-  return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+  return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 
 {{""}}
@@ -88,7 +88,7 @@ static Result<Instr> Splitter{{k}}(const RawInstr& rinstr,TCpuAccessor& cpua) {
     {%- for line in i['splitters'] %}
     {{line}}
     {%- endfor %}
-    return Err<Instr>(StatusCode::kScDecoderUnknownOpCode);
+    return Err<Instr>(StatusCode::kDecoderUnknownOpCode);
 }
 {%- endfor %}
 

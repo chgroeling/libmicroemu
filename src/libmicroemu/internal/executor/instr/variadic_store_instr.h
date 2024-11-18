@@ -43,7 +43,7 @@ public:
       u32 bm = 0x1U << reg;
       if ((registers & bm) != 0U) {
         if ((reg == static_cast<u32>(arg_n.Get())) && (is_wback) && (lowest_bit_set == reg)) {
-          return Err<InstrExecResult>(StatusCode::kScExecutorUndefined);
+          return Err<InstrExecResult>(StatusCode::kExecutorUndefined);
         } else {
           const auto r = ictx.cpua.ReadRegister(static_cast<RegisterId>(reg));
           TRY(InstrExecResult,
