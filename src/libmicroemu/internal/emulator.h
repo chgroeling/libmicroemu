@@ -121,7 +121,6 @@ public:
   }
 
   Result<void> Reset() {
-
     auto bus = BuildBus();
     auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
 
