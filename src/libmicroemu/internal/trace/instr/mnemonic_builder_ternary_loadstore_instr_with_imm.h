@@ -19,7 +19,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &n, const TArg1 &t, const TArg2 &d,
+                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &t, const TArg2 &n,
                     const u32 &imm32) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
