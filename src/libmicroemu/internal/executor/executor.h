@@ -81,7 +81,7 @@ public:
       using TOp = LoadMemI8<TInstrCtx>;
       using TInstr = BinaryLoadInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32, RArg(iargs.t)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -90,7 +90,7 @@ public:
       using TOp = LoadMemU8<TInstrCtx>;
       using TInstr = BinaryLoadInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32, RArg(iargs.t)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -99,7 +99,7 @@ public:
       using TOp = LoadMemU32<TInstrCtx>;
       using TInstr = BinaryLoadInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32, RArg(iargs.t)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -109,7 +109,7 @@ public:
       using TOp = LoadMemExU32<TInstrCtx>;
       using TInstr = BinaryLoadInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32, RArg(iargs.t)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -170,7 +170,7 @@ public:
       using TOp = LoadMemU16<TInstrCtx>;
       using TInstr = BinaryLoadInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32, RArg(iargs.t)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -180,7 +180,7 @@ public:
       using TOp = LoadMemI16<TInstrCtx>;
       using TInstr = BinaryLoadInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32, RArg(iargs.t)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -190,7 +190,7 @@ public:
       using TOp = Asr1ShiftOp<TInstrCtx>;
       using TInstr = BinaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.shift_res));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.shift_res));
       flags |= out_flags.flags;
       break;
     }
@@ -200,7 +200,7 @@ public:
       using TOp = Lsl1ShiftOp<TInstrCtx>;
       using TInstr = BinaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.shift_res));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.shift_res));
       flags |= out_flags.flags;
       break;
     }
@@ -209,7 +209,7 @@ public:
       using TOp = Lsr2Op<TInstrCtx>;
       using TInstr = BinaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -218,7 +218,7 @@ public:
       using TOp = Asr2Op<TInstrCtx>;
       using TInstr = BinaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -228,7 +228,7 @@ public:
       using TOp = Lsl2Op<TInstrCtx>;
       using TInstr = BinaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -315,7 +315,7 @@ public:
       using TOp = Uxtb1Rotation<TInstrCtx>;
       using TInstr = BinaryInstrWithRotation<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.rotation));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.rotation));
       flags |= out_flags.flags;
       break;
     }
@@ -324,7 +324,7 @@ public:
       using TOp = Sxtb1Rotation<TInstrCtx>;
       using TInstr = BinaryInstrWithRotation<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.rotation));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.rotation));
       flags |= out_flags.flags;
       break;
     }
@@ -334,7 +334,7 @@ public:
       using TOp = Sxth1Rotation<TInstrCtx>;
       using TInstr = BinaryInstrWithRotation<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.rotation));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.rotation));
       flags |= out_flags.flags;
       break;
     }
@@ -344,7 +344,7 @@ public:
       using TOp = Uxth1Rotation<TInstrCtx>;
       using TInstr = BinaryInstrWithRotation<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.rotation));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.rotation));
       flags |= out_flags.flags;
       break;
     }
@@ -415,7 +415,7 @@ public:
       using TOp = Sub1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -425,7 +425,7 @@ public:
       using TOp = Sbc1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -435,7 +435,7 @@ public:
       using TOp = Rsb1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -445,7 +445,7 @@ public:
       using TOp = Sub1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArgConst<RegisterId::kSp>(), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArgConst<RegisterId::kSp>(),
                               iargs.imm32));
       flags |= out_flags.flags;
       break;
@@ -455,7 +455,7 @@ public:
       using TOp = Add1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -464,7 +464,7 @@ public:
       using TOp = Adc1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -484,7 +484,7 @@ public:
       using TOp = Add1ImmOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArgConst<RegisterId::kSp>(), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArgConst<RegisterId::kSp>(),
                               iargs.imm32));
       flags |= out_flags.flags;
       break;
@@ -530,7 +530,7 @@ public:
       using TOp = Eor1ImmCarryOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImmCarry<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32_carry));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32_carry));
       flags |= out_flags.flags;
       break;
     }
@@ -539,7 +539,7 @@ public:
       using TOp = Orr1ImmCarryOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImmCarry<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32_carry));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32_carry));
       flags |= out_flags.flags;
       break;
     }
@@ -549,7 +549,7 @@ public:
       using TOp = And1ImmCarryOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImmCarry<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32_carry));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32_carry));
       flags |= out_flags.flags;
       break;
     }
@@ -575,7 +575,7 @@ public:
       using TOp = UDiv2Op<TInstrCtx>;
       using TInstr = BinaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -584,7 +584,7 @@ public:
       using TOp = SDiv2Op<TInstrCtx>;
       using TInstr = BinaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -594,7 +594,7 @@ public:
       using TOp = Mul2Op<TInstrCtx>;
       using TInstr = BinaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -603,7 +603,7 @@ public:
       using TOp = Mls3Op<TInstrCtx>;
       using TInstr = TernaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               RArg(iargs.a)));
       flags |= out_flags.flags;
       break;
@@ -614,7 +614,7 @@ public:
       using TOp = Mla3Op<TInstrCtx>;
       using TInstr = TernaryInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               RArg(iargs.a)));
       flags |= out_flags.flags;
       break;
@@ -624,7 +624,7 @@ public:
       using TOp = Sub2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -634,7 +634,7 @@ public:
       using TOp = Rsb2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -644,7 +644,7 @@ public:
       using TOp = Adc2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -654,7 +654,7 @@ public:
       using TOp = Add2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -716,7 +716,7 @@ public:
       using TOp = Orr2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -727,7 +727,7 @@ public:
       using TOp = Sbc2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -738,7 +738,7 @@ public:
       using TOp = Eor2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -749,7 +749,7 @@ public:
       using TOp = And2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -760,7 +760,7 @@ public:
       using TOp = Bic2ShiftOp<TInstrCtx>;
       using TInstr = TernaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -770,7 +770,7 @@ public:
       using TOp = Bic1ImmCarryOp<TInstrCtx>;
       using TInstr = BinaryInstrWithImmCarry<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.d), iargs.imm32_carry));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.n), iargs.imm32_carry));
       flags |= out_flags.flags;
       break;
     }
@@ -779,7 +779,7 @@ public:
       using TOp = Mvn1ShiftOp<TInstrCtx>;
       using TInstr = BinaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.shift_res));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.shift_res));
       flags |= out_flags.flags;
       break;
     }
@@ -789,7 +789,7 @@ public:
       using TOp = Lsr1ShiftOp<TInstrCtx>;
       using TInstr = BinaryInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.d), iargs.shift_res));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.m), iargs.shift_res));
       flags |= out_flags.flags;
       break;
     }
@@ -808,7 +808,7 @@ public:
       using TOp = StoreMemU32<TInstrCtx>;
       using TInstr = TernaryStoreInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -819,7 +819,7 @@ public:
       using TOp = StoreMemU8<TInstrCtx>;
       using TInstr = TernaryStoreInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -830,7 +830,7 @@ public:
       using TOp = StoreMemU16<TInstrCtx>;
       using TInstr = TernaryStoreInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -840,7 +840,7 @@ public:
       using TOp = LoadMemU16<TInstrCtx>;
       using TInstr = TernaryLoadInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -850,7 +850,7 @@ public:
       using TOp = LoadMemU8<TInstrCtx>;
       using TInstr = TernaryLoadInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -861,7 +861,7 @@ public:
       using TOp = LoadMemU32<TInstrCtx>;
       using TInstr = TernaryLoadInstrWithShift<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
                               iargs.shift_res));
       flags |= out_flags.flags;
       break;
@@ -872,7 +872,7 @@ public:
       using TOp = StoreMemU32<TInstrCtx>;
       using TInstr = BinaryStoreInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -883,7 +883,7 @@ public:
       using TOp = StoreMemExU32<TInstrCtx>;
       using TInstr = TernaryStoreInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.t), RArg(iargs.d),
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.d), RArg(iargs.t), RArg(iargs.n),
                               iargs.imm32));
       flags |= out_flags.flags;
       break;
@@ -894,7 +894,7 @@ public:
       using TOp = StoreMemU16<TInstrCtx>;
       using TInstr = BinaryStoreInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }
@@ -904,7 +904,7 @@ public:
       using TOp = StoreMemU8<TInstrCtx>;
       using TInstr = BinaryStoreInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
       break;
     }

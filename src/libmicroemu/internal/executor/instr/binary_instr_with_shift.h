@@ -90,7 +90,7 @@ public:
 
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_m, const TArg1 &arg_d,
+                                      const TArg0 &arg_d, const TArg1 &arg_m,
                                       const ImmShiftResults &shift_res) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
