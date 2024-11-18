@@ -176,7 +176,7 @@ public:
 
   template <typename TResult>
   static void ErrorHandler(TCpuAccessor &cpua, const TResult &res, const TBus &bus) {
-    printf("ERROR: Emulator panic - StatusCode: %s(%i)\n", res.ToString(),
+    printf("ERROR: Emulator panic - StatusCode: %s(%i)\n", res.ToString().data(),
            static_cast<u32>(res.status_code));
 
     // error return
