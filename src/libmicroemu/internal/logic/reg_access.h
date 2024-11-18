@@ -1,3 +1,4 @@
+#pragma once
 #include "libmicroemu/emu_context.h"
 #include <string_view>
 

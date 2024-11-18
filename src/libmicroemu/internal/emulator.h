@@ -16,6 +16,7 @@
 #include "libmicroemu/internal/logic/if_then_ops.h"
 #include "libmicroemu/internal/logic/pc_ops.h"
 #include "libmicroemu/internal/logic/reg_ops.h"
+#include "libmicroemu/internal/logic/reset_logic.h"
 #include "libmicroemu/internal/logic/spec_reg_ops.h"
 #include "libmicroemu/internal/peripherals/sys_ctrl_block.h"
 #include "libmicroemu/internal/peripherals/sys_tick.h"
@@ -85,7 +86,8 @@ public:
   using Decoder = Decoder<CpuAccessor, ItOps>;
   using Executor = Executor<CpuAccessor, Bus, CpuOps, StaticLogger>;
 
-  // aliases for processor
+  // Processor specific classes
+  using ResetLogic = ResetLogic<CpuAccessor, Bus, CpuOps, StaticLogger>;
   using Processor = Processor<CpuAccessor, Bus, CpuOps, Fetcher, Decoder, Executor, StaticLogger>;
 
   Emulator(TCpuStates &cpu_states) : cpu_states_(cpu_states) {}
@@ -123,7 +125,7 @@ public:
     auto bus = BuildBus();
     auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
 
-    auto res = Processor::TakeReset(cpua, bus);
+    auto res = ResetLogic::TakeReset(cpua, bus);
     TRY(void, res);
     return Ok();
   }
