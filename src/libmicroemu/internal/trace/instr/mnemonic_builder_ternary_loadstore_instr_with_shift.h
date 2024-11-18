@@ -17,7 +17,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &n, const TArg1 &m, const TArg2 &t,
+                    const InstrFlagsSet &iflags, const TArg0 &t, const TArg1 &n, const TArg2 &m,
                     const ImmShiftResults &shift_res) {
 
     static_cast<void>(iflags);

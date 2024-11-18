@@ -51,37 +51,37 @@ public:
     case InstrId::kLdrsbImmediate: {
       const auto &iargs = instr.ldrsb_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "LDRSB", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "LDRSB", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kLdrbImmediate: {
       const auto &iargs = instr.ldrb_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "LDRB", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "LDRB", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kLdrshImmediate: {
       const auto &iargs = instr.ldrsh_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "LDRSH", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "LDRSH", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kLdrhImmediate: {
       const auto &iargs = instr.ldrh_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "LDRH", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "LDRH", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kLdrImmediate: {
       const auto &iargs = instr.ldr_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "LDR", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "LDR", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kLdrex: {
       const auto &iargs = instr.ldr_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "LDREX", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "LDREX", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kMsr: {
@@ -120,7 +120,7 @@ public:
     case InstrId::kLdrdImmediate: {
       const auto &iargs = instr.ldrd_immediate;
       MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildLdrdStrd(
-          "LDRD", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), RArg(iargs.t2),
+          "LDRD", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.t2), RArg(iargs.n),
           iargs.imm32);
       break;
     }
@@ -488,7 +488,7 @@ public:
     case InstrId::kStrdImmediate: {
       const auto &iargs = instr.strd_immediate;
       MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildLdrdStrd(
-          "STRD", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), RArg(iargs.t2),
+          "STRD", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.t2), RArg(iargs.n),
           iargs.imm32);
       break;
     }
@@ -546,7 +546,7 @@ public:
     case InstrId::kStrhImmediate: {
       const auto &iargs = instr.strh_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "STRH", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "STRH", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kTbbH: {
@@ -558,61 +558,61 @@ public:
     case InstrId::kStrbImmediate: {
       const auto &iargs = instr.strb_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "STRB", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "STRB", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kStrImmediate: {
       const auto &iargs = instr.str_immediate;
       MnemonicBuilderBinaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "STR", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), iargs.imm32);
+          "STR", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), iargs.imm32);
       break;
     }
     case InstrId::kStrex: {
       const auto &iargs = instr.strex;
       MnemonicBuilderTernaryLoadStoreInstrWithImm<TMnemonicBuilderContext>::Build(
-          "STREX", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.t), RArg(iargs.d),
+          "STREX", mctx, bflags, iargs.flags, RArg(iargs.d), RArg(iargs.t), RArg(iargs.n),
           iargs.imm32);
       break;
     }
     case InstrId::kLdrhRegister: {
       const auto &iargs = instr.ldrh_register;
       MnemonicBuilderTernaryLoadStoreInstrWithShift<TMnemonicBuilderContext>::Build(
-          "LDRH", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+          "LDRH", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
           iargs.shift_res);
       break;
     }
     case InstrId::kLdrbRegister: {
       const auto &iargs = instr.ldrb_register;
       MnemonicBuilderTernaryLoadStoreInstrWithShift<TMnemonicBuilderContext>::Build(
-          "LDRB", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+          "LDRB", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
           iargs.shift_res);
       break;
     }
     case InstrId::kLdrRegister: {
       const auto &iargs = instr.ldr_register;
       MnemonicBuilderTernaryLoadStoreInstrWithShift<TMnemonicBuilderContext>::Build(
-          "LDR", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+          "LDR", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
           iargs.shift_res);
       break;
     }
     case InstrId::kStrRegister: {
       const auto &iargs = instr.str_register;
       MnemonicBuilderTernaryLoadStoreInstrWithShift<TMnemonicBuilderContext>::Build(
-          "STR", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+          "STR", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
           iargs.shift_res);
       break;
     }
     case InstrId::kStrbRegister: {
       const auto &iargs = instr.strb_register;
       MnemonicBuilderTernaryLoadStoreInstrWithShift<TMnemonicBuilderContext>::Build(
-          "STRB", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+          "STRB", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
           iargs.shift_res);
       break;
     }
     case InstrId::kStrhRegister: {
       const auto &iargs = instr.strh_register;
       MnemonicBuilderTernaryLoadStoreInstrWithShift<TMnemonicBuilderContext>::Build(
-          "STRH", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m), RArg(iargs.t),
+          "STRH", mctx, bflags, iargs.flags, RArg(iargs.t), RArg(iargs.n), RArg(iargs.m),
           iargs.shift_res);
       break;
     }
