@@ -1,6 +1,6 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/instr/op_result.h"
+
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
@@ -8,8 +8,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu ::internal {
 
 /**
  * @brief Branch
@@ -21,11 +20,13 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  static inline BranchOpResult Call(const TInstrContext &ictx, const me_adr_t &pc,
-                                    const me_adr_t &imm32) {
-    static_cast<void>(ictx);
-
-    return BranchOpResult{pc + imm32};
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const u32 &imm32) {
+    static_cast<void>(iflags);
+    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
+    auto branch_res = pc + imm32;
+    PostExecBranch::Call(ictx, branch_res);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -39,12 +40,14 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  static inline BranchOpResult Call(const TInstrContext &ictx, const me_adr_t &pc,
-                                    const me_adr_t &imm32) {
-    static_cast<void>(ictx);
-
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const u32 &imm32) {
+    static_cast<void>(iflags);
+    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
     ictx.cpua.template WriteRegister<RegisterId::kLr>(static_cast<uint32_t>((pc & ~0x1U) | 0x1U));
-    return BranchOpResult{pc + imm32};
+    auto branch_res = pc + imm32;
+    PostExecBranch::Call(ictx, branch_res);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -55,24 +58,13 @@ public:
 
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const u32 &imm32) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
-    auto result = TOp::Call(ictx, pc, imm32);
-
-    Pc::BranchWritePC(ictx.cpua, result.new_pc);
-    It::ITAdvance(ictx.cpua);
-
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, imm32));
     return Ok(InstrExecResult{eflags});
   }
 
@@ -91,7 +83,7 @@ private:
    * @brief Copy constructor for UnaryBranchInstrImm.
    * @param r_src the object to be copied
    */
-  UnaryBranchInstrImm(const UnaryBranchInstrImm &r_src) = default;
+  UnaryBranchInstrImm(const UnaryBranchInstrImm &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for UnaryBranchInstrImm.
@@ -112,5 +104,4 @@ private:
   UnaryBranchInstrImm &operator=(UnaryBranchInstrImm &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

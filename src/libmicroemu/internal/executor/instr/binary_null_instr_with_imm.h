@@ -1,6 +1,6 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/instr/op_result.h"
+#include "libmicroemu/internal/executor/instr/post_exec.h"
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
@@ -8,8 +8,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Cmp
@@ -18,13 +17,18 @@ namespace internal {
  */
 template <typename TInstrContext> class Cmp1ImmOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
-    static_cast<void>(ictx);
+  template <typename TArg0>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_n, const u32 &imm) {
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
 
-    const u32 n_imm32 = ~imm32;
+    const u32 n_imm32 = ~imm;
     const auto result = Alu32::AddWithCarry(rn, n_imm32, true);
 
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecSetFlags::Call(ictx, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -35,12 +39,16 @@ public:
  */
 template <typename TInstrContext> class Cmn1ImmOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &imm32) {
-    static_cast<void>(ictx);
+  template <typename TArg0>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_n, const u32 &imm) {
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto result = Alu32::AddWithCarry(rn, imm, false);
 
-    const auto result = Alu32::AddWithCarry(rn, imm32, false);
-
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecSetFlags::Call(ictx, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -52,34 +60,13 @@ public:
   template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_n, const u32 &imm) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    auto result = TOp::Call(ictx, rn, imm);
-
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    // Clear N, Z, C, V flags
-    apsr &=
-        ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
-
-    apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
-    apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-    apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
-    apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
-    ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
-
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_n, imm));
     return Ok(InstrExecResult{eflags});
   }
 
@@ -98,7 +85,7 @@ private:
    * @brief Copy constructor for BinaryNullInstrWithImm.
    * @param r_src the object to be copied
    */
-  BinaryNullInstrWithImm(const BinaryNullInstrWithImm &r_src) = default;
+  BinaryNullInstrWithImm(const BinaryNullInstrWithImm &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for BinaryNullInstrWithImm.
@@ -119,5 +106,4 @@ private:
   BinaryNullInstrWithImm &operator=(BinaryNullInstrWithImm &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

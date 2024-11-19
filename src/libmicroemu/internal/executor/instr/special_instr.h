@@ -11,8 +11,7 @@
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Load from register adress to register
@@ -32,15 +31,12 @@ public:
   static Result<InstrExecResult> ItInstr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                          const u32 &firstcond, const u32 &mask) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     auto istate = ictx.cpua.template ReadRegister<SpecialRegisterId::kIstate>();
-
     istate = firstcond << 4U | mask;
 
     ictx.cpua.template WriteRegister<SpecialRegisterId::kIstate>(istate);
     Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -51,17 +47,12 @@ public:
   template <typename TDelegates>
   static Result<InstrExecResult> Svc(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                      const u32 &imm32, TDelegates &delegates) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
-
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
+    InstrExecFlagsSet eflags{kNoInstrExecFlags};
     if (delegates.IsSvcSet()) {
       TRY_ASSIGN(svc_flags, InstrExecResult, delegates.Svc(imm32));
 
@@ -77,9 +68,7 @@ public:
     } else {
       ExcTrig::SetPending(ictx.cpua, ExceptionType::kSVCall);
     }
-
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(InstrExecResult{eflags});
   }
 
@@ -91,17 +80,12 @@ public:
   template <typename TDelegates>
   static Result<InstrExecResult> Bkpt(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const u32 &imm32, TDelegates &delegates) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
-
+    InstrExecFlagsSet eflags{kNoInstrExecFlags};
     if (delegates.IsBkptSet()) {
       TRY_ASSIGN(bkpt_flags, InstrExecResult, delegates.Bkpt(imm32));
 
@@ -116,8 +100,7 @@ public:
     } else {
       ExcTrig::SetPending(ictx.cpua, ExceptionType::kHardFault);
     }
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(InstrExecResult{eflags});
   }
 
@@ -128,19 +111,14 @@ public:
    */
   static Result<InstrExecResult> BCond(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                        const u32 &imm32, const u8 &cond) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     const auto condition_passed = It::ConditionPassed(ictx.cpua, cond);
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
-
     const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
     Pc::BranchWritePC(ictx.cpua, pc + imm32);
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -151,22 +129,16 @@ public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Tbhh(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_m, TArg1 arg_n) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
-
     const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    me_adr_t halfwords = 0U;
+    me_adr_t halfwords{0U};
     if (is_tbh) {
       me_adr_t adr = (rn + Alu32::LSL(rm, 1));
       TRY_ASSIGN(out, InstrExecResult,
@@ -183,8 +155,7 @@ public:
 
     const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
     Pc::BranchWritePC(ictx.cpua, pc + (halfwords << 1U));
-
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -195,26 +166,20 @@ public:
   template <typename TArg0>
   static Result<InstrExecResult> CbNZ(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_n, const u32 &imm32) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
-
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
-
-    InstrExecFlagsSet eflags{0x0U};
-
     const u32 new_pc = pc + imm32;
+
     if ((rn == 0U) && (is_non_zero == false)) {
       Pc::BranchWritePC(ictx.cpua, new_pc);
     } else if ((rn != 0U) && (is_non_zero == true)) {
       Pc::BranchWritePC(ictx.cpua, new_pc);
     } else {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
     };
 
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -226,18 +191,11 @@ public:
   static Result<InstrExecResult> Bfi(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                      const TArg0 &arg_d, const TArg1 &arg_n, const u8 &lsbit,
                                      const u8 &msbit) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
-
     if (msbit >= lsbit) {
       const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
       const auto rd = ictx.cpua.ReadRegister(arg_d.Get());
@@ -254,9 +212,8 @@ public:
       return Err<InstrExecResult>(StatusCode::kExecutorUnpredictable);
     }
 
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -268,33 +225,24 @@ public:
   static Result<InstrExecResult> Ubfx(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_d, const TArg1 &arg_n, const u8 &lsbit,
                                       const u8 &widthminus1) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const u8 msbit = lsbit + widthminus1;
-
-    if (msbit <= 31U) {
-      u32 msk = ((static_cast<u32>(1U) << (msbit - lsbit + 1U)) - static_cast<u32>(1U)) << lsbit;
-
-      const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-      const auto result = (rn & msk) >> lsbit;
-      ictx.cpua.WriteRegister(arg_d.Get(), result);
-    } else {
+    if (msbit > 31U) {
       return Err<InstrExecResult>(StatusCode::kExecutorUnpredictable);
     }
 
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    u32 msk = ((static_cast<u32>(1U) << (msbit - lsbit + 1U)) - static_cast<u32>(1U)) << lsbit;
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto result = (rn & msk) >> lsbit;
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, result);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -306,22 +254,17 @@ public:
   static Result<InstrExecResult> Ldrd(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_t, const TArg1 &arg_t2, const TArg2 &arg_n,
                                       const u32 &imm32) {
-
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-
     const me_adr_t offset_addr = is_add == true ? rn + imm32 : rn - imm32;
     const me_adr_t address = is_index == true ? offset_addr : rn;
 
@@ -332,16 +275,14 @@ public:
     TRY_ASSIGN(data2, InstrExecResult,
                ictx.bus.template ReadOrRaise<u32>(ictx.cpua, address + 0x4U,
                                                   BusExceptionType::kRaisePreciseDataBusError));
-    if (is_wback == true) {
-      ictx.cpua.WriteRegister(arg_n.Get(), offset_addr);
+    if (is_wback) {
+      PostExecWriteRegPcExcluded::Call(ictx, arg_n, offset_addr);
     }
+    PostExecWriteRegPcExcluded::Call(ictx, arg_t, data);
+    PostExecWriteRegPcExcluded::Call(ictx, arg_t2, data2);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
 
-    ictx.cpua.WriteRegister(arg_t.Get(), data);
-    ictx.cpua.WriteRegister(arg_t2.Get(), data2);
-
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -353,16 +294,10 @@ public:
   static Result<InstrExecResult> Umull(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                        const TArg0 &arg_d_lo, const TArg0 &arg_d_hi,
                                        const TArg1 &arg_n, const TArg2 &arg_m) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
@@ -371,11 +306,13 @@ public:
     const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm));
     const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
     const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
-    ictx.cpua.WriteRegister(arg_d_lo.Get(), result_lo);
-    ictx.cpua.WriteRegister(arg_d_hi.Get(), result_hi);
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
+
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
   /**
    * @brief Umlal
@@ -386,16 +323,10 @@ public:
   static Result<InstrExecResult> Umlal(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                        const TArg0 &arg_d_lo, const TArg0 &arg_d_hi,
                                        const TArg1 &arg_n, const TArg2 &arg_m) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const u32 rdhi = ictx.cpua.ReadRegister(arg_d_hi.Get());
@@ -408,11 +339,12 @@ public:
     const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm)) + rd;
     const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
     const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
-    ictx.cpua.WriteRegister(arg_d_lo.Get(), result_lo);
-    ictx.cpua.WriteRegister(arg_d_hi.Get(), result_hi);
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -423,17 +355,12 @@ public:
   template <typename TArg0>
   static Result<InstrExecResult> Msr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                      const TArg0 &arg_n, const uint8_t mask, const uint8_t SYSm) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
+
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     const auto SYSm_7_3 = Bm32::ExtractBits1R<7U, 3U>(SYSm);
     switch (SYSm_7_3) {
@@ -522,9 +449,8 @@ public:
       break;
     }
 
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -535,15 +461,10 @@ public:
   template <typename TArg0>
   static Result<InstrExecResult> Mrs(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                      const TArg0 &arg_d, const uint8_t mask, const uint8_t SYSm) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const auto SYSm_7_3 = Bm32::ExtractBits1R<7U, 3U>(SYSm);
@@ -628,11 +549,10 @@ public:
       assert(false && "undefined");
       break;
     }
-    ictx.cpua.WriteRegister(arg_d.Get(), rd_val);
 
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, rd_val);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -644,16 +564,10 @@ public:
   static Result<InstrExecResult> Smull(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                        const TArg0 &arg_d_lo, const TArg0 &arg_d_hi,
                                        const TArg1 &arg_n, const TArg2 &arg_m) {
-
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const auto rn = static_cast<i32>(ictx.cpua.ReadRegister(arg_n.Get()));
@@ -661,11 +575,11 @@ public:
     const u64 result = static_cast<u64>(static_cast<i64>(rn) * static_cast<i64>(rm));
     const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
     const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
-    ictx.cpua.WriteRegister(arg_d_lo.Get(), result_lo);
-    ictx.cpua.WriteRegister(arg_d_hi.Get(), result_hi);
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
   /**
@@ -678,23 +592,19 @@ public:
                                       const TArg0 &arg_t, const TArg1 &arg_t2, const TArg2 &arg_n,
                                       const u32 &imm32) {
 
-    InstrExecFlagsSet eflags{0x0U};
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
 
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
 
-    const u32 off_adr = is_add == true ? rn + imm32 : rn - imm32;
-    const u32 address = is_index == true ? off_adr : rn;
+    const u32 offset_addr = is_add == true ? rn + imm32 : rn - imm32;
+    const u32 address = is_index == true ? offset_addr : rn;
 
     const auto rt = ictx.cpua.ReadRegister(arg_t.Get());
     TRY(InstrExecResult, ictx.bus.template WriteOrRaise<u32>(
@@ -706,14 +616,11 @@ public:
         ictx.bus.template WriteOrRaise<u32>(ictx.cpua, address + 0x4, rt2,
                                             BusExceptionType::kRaisePreciseDataBusError));
 
-    if (is_wback == true) {
-      ictx.cpua.WriteRegister(arg_n.Get(), off_adr);
+    if (is_wback) {
+      PostExecWriteRegPcExcluded::Call(ictx, arg_n, offset_addr);
     }
-    //---
-
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-    return Ok(InstrExecResult{eflags});
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
 public:
@@ -732,7 +639,7 @@ private:
    * @brief Copy constructor for SpecialInstr.
    * @param r_src the object to be copied
    */
-  SpecialInstr(const SpecialInstr &r_src) = default;
+  SpecialInstr(const SpecialInstr &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for SpecialInstr.
@@ -753,5 +660,4 @@ private:
   SpecialInstr &operator=(SpecialInstr &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

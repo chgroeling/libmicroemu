@@ -7,8 +7,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /*
  * @brief Store Multiple Decrement Before
@@ -22,17 +21,12 @@ public:
   template <typename TArg>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg &arg_n, const u32 &registers) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
-
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     auto reg_count = Bm32::BitCount(registers);
     u32 address = rn - 4U * reg_count;
@@ -58,12 +52,11 @@ public:
       const auto wback_val = rn - 4U * reg_count;
 
       // Update n register
-      ictx.cpua.WriteRegister(arg_n.Get(), wback_val);
+      PostExecWriteRegPcExcluded::Call(ictx, arg_n, wback_val);
     }
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
 
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
 private:
@@ -81,7 +74,7 @@ private:
    * @brief Copy constructor for VariadicStoreInstrDb.
    * @param r_src the object to be copied
    */
-  VariadicStoreInstrDb(const VariadicStoreInstrDb &r_src) = default;
+  VariadicStoreInstrDb(const VariadicStoreInstrDb &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for VariadicStoreInstrDb.
@@ -102,5 +95,4 @@ private:
   VariadicStoreInstrDb &operator=(VariadicStoreInstrDb &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

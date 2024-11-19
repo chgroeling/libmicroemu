@@ -38,7 +38,7 @@ public:
     } else {
       auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
 
-      if ((address & 0x1) == 0U) {
+      if ((address & 0x1U) == 0U) {
         LOG_ERROR(TLogger, "BXWritePC: Set wrong execution state");
       }
 
@@ -69,7 +69,6 @@ public:
   }
 
   static inline Result<void> LoadWritePC(TCpuAccessor &cpua, TBus &bus, const me_adr_t &address) {
-
     // see Armv7-M Architecture Reference Manual Issue E.e p.31
     return BXWritePC(cpua, bus, address);
   }

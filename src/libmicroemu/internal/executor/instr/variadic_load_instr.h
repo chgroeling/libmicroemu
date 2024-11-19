@@ -7,8 +7,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Load multiple
@@ -26,16 +25,13 @@ public:
   template <typename TArg>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg &arg_n, const u32 &registers) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags = 0x0U;
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
+
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
     auto address = static_cast<me_adr_t>(rn);
 
@@ -54,13 +50,11 @@ public:
       TRY_ASSIGN(rdat, InstrExecResult,
                  ictx.bus.template ReadOrRaise<u32>(ictx.cpua, address,
                                                     BusExceptionType::kRaisePreciseDataBusError));
-      It::ITAdvance(ictx.cpua);
-      TRY(InstrExecResult, Pc::LoadWritePC(ictx.cpua, ictx.bus, rdat));
+      TRY(InstrExecResult, PostExecLoadWritePc::Call(ictx, rdat));
 
       //  do not advance pc
     } else {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
     }
 
     // For debugging purposes
@@ -79,7 +73,7 @@ public:
       ictx.cpua.WriteRegister(arg_n.Get(), wback_val);
     }
 
-    return Ok(InstrExecResult{eflags});
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
 private:
@@ -97,7 +91,7 @@ private:
    * @brief Copy constructor for VariadicLoadInstr.
    * @param r_src the object to be copied
    */
-  VariadicLoadInstr(const VariadicLoadInstr &r_src) = default;
+  VariadicLoadInstr(const VariadicLoadInstr &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for VariadicLoadInstr.
@@ -118,5 +112,4 @@ private:
   VariadicLoadInstr &operator=(VariadicLoadInstr &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal
