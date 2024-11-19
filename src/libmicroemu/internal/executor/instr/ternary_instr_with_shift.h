@@ -1,6 +1,6 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/instr/op_result.h"
+#include "libmicroemu/internal/executor/instr/post_exec.h"
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
@@ -8,8 +8,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Exclusive Or operation
@@ -18,16 +17,25 @@ namespace internal {
  */
 template <typename TInstrContext> class Eor2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(rm, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
 
     const u32 result = Alu32::EOR(rn, shifted);
-    return OpResult{result, shift_val.carry_out,
-                    (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    const auto op_res =
+        OpResult{result, shift_val.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -38,16 +46,24 @@ public:
  */
 template <typename TInstrContext> class Orr2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(rm, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
 
     const u32 result = Alu32::OR(rn, shifted);
-    return OpResult{result, shift_val.carry_out,
-                    (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    const auto op_res =
+        OpResult{result, shift_val.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -58,16 +74,24 @@ public:
  */
 template <typename TInstrContext> class And2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(rm, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
 
     const u32 result = Alu32::AND(rn, shifted);
-    return OpResult{result, shift_val.carry_out,
-                    (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    const auto op_res =
+        OpResult{result, shift_val.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -78,16 +102,24 @@ public:
  */
 template <typename TInstrContext> class Bic2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(rm, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
 
     const u32 result = Alu32::AND(rn, ~shifted);
-    return OpResult{result, shift_val.carry_out,
-                    (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    const auto op_res =
+        OpResult{result, shift_val.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -98,15 +130,23 @@ public:
  */
 template <typename TInstrContext> class Sbc2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(rm, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result =
         Alu32::AddWithCarry(rn, ~shifted, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -117,13 +157,21 @@ public:
  */
 template <typename TInstrContext> class Sub2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(rm, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result = Alu32::AddWithCarry(rn, ~shifted, true);
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -134,13 +182,21 @@ public:
  */
 template <typename TInstrContext> class Rsb2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(rm, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result = Alu32::AddWithCarry(~rn, shifted, true);
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 /**
@@ -150,13 +206,21 @@ public:
  */
 template <typename TInstrContext> class Add2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(rm, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result = Alu32::AddWithCarry(rn, shifted, false);
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 /**
@@ -166,14 +230,22 @@ public:
  */
 template <typename TInstrContext> class Adc2ShiftOp {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const ImmShiftResults &shift_res) {
+  template <typename TArg0, typename TArg1, typename TArg2>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const ImmShiftResults &shift_res) {
+    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(rm, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result =
         Alu32::AddWithCarry(rn, shifted, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
-    return OpResult{result.value, result.carry_out, result.overflow};
+    const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -186,38 +258,13 @@ public:
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
                                       const ImmShiftResults &shift_res) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    auto result = TOp::Call(ictx, rn, rm, shift_res);
-
-    ictx.cpua.WriteRegister(arg_d.Get(), result.value);
-
-    if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
-      auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-
-      // Clear N, Z, C, V flags
-      apsr &=
-          ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
-
-      apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
-      apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-      apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
-      apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
-      ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
-    }
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_n, arg_m, shift_res));
 
     return Ok(InstrExecResult{eflags});
   }
@@ -237,7 +284,7 @@ private:
    * @brief Copy constructor for MemorTernaryInstrWithShiftyRouter.
    * @param r_src the object to be copied
    */
-  TernaryInstrWithShift(const TernaryInstrWithShift &r_src) = default;
+  TernaryInstrWithShift(const TernaryInstrWithShift &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for TernaryInstrWithShift.
@@ -258,5 +305,4 @@ private:
   TernaryInstrWithShift &operator=(TernaryInstrWithShift &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

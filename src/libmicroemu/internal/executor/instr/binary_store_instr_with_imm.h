@@ -4,17 +4,15 @@
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
-
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Load from immediate adr to register
  */
-template <typename TOp, typename TInstrContext> class BinaryStoreInstrWithImm {
+template <typename TStoreOp, typename TInstrContext> class BinaryStoreInstrWithImm {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
@@ -22,17 +20,13 @@ public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_t, const TArg1 &arg_n, const u32 &imm32) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
     const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
@@ -40,16 +34,14 @@ public:
     const me_adr_t address = is_index == true ? offset_addr : rn;
 
     const auto rt = ictx.cpua.ReadRegister(arg_t.Get());
-    TRY(InstrExecResult, TOp::Write(ictx, address, rt));
+    TRY(InstrExecResult, TStoreOp::Write(ictx, address, rt));
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
-    if (is_wback == true) {
-      ictx.cpua.WriteRegister(arg_n.Get(), offset_addr);
+    if (is_wback) {
+      PostExecWriteRegPcExcluded::Call(ictx, arg_n, offset_addr);
     }
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-
-    return Ok(InstrExecResult{eflags});
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 
 private:
@@ -67,7 +59,7 @@ private:
    * @brief Copy constructor for MemoBinaryStoreInstrWithImmryRouter.
    * @param r_src the object to be copied
    */
-  BinaryStoreInstrWithImm(const BinaryStoreInstrWithImm &r_src) = default;
+  BinaryStoreInstrWithImm(const BinaryStoreInstrWithImm &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for BinaryStoreInstrWithImm.
@@ -88,5 +80,4 @@ private:
   BinaryStoreInstrWithImm &operator=(BinaryStoreInstrWithImm &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

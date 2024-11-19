@@ -1,6 +1,6 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/instr/op_result.h"
+#include "libmicroemu/internal/executor/instr/post_exec.h"
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
@@ -18,7 +18,10 @@ namespace internal {
  */
 template <typename TInstrContext> class Nop0Op {
 public:
-  static inline void Call(const TInstrContext &ictx) { static_cast<void>(ictx); }
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags) {
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
+  }
 };
 
 /**
@@ -31,7 +34,10 @@ public:
  */
 template <typename TInstrContext> class Dmb0Op {
 public:
-  static inline void Call(const TInstrContext &ictx) { static_cast<void>(ictx); }
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags) {
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
+  }
 };
 
 template <typename TOp, typename TInstrContext> class NullaryInstr {
@@ -40,21 +46,14 @@ public:
   using Pc = typename TInstrContext::Pc;
 
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-    InstrExecFlagsSet eflags{0x0U};
-
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TOp::Call(ictx);
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags));
     return Ok(InstrExecResult{eflags});
   }
 
@@ -73,7 +72,7 @@ private:
    * @brief Copy constructor for NullaryInstr.
    * @param r_src the object to be copied
    */
-  NullaryInstr(const NullaryInstr &r_src) = default;
+  NullaryInstr(const NullaryInstr &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for NullaryInstr.

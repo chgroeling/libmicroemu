@@ -1,6 +1,6 @@
 #pragma once
 #include "libmicroemu/internal/decoder/decoder.h"
-#include "libmicroemu/internal/executor/instr/op_result.h"
+#include "libmicroemu/internal/executor/instr/post_exec.h"
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
@@ -8,8 +8,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Uxtb
@@ -18,11 +17,19 @@ namespace internal {
  */
 template <typename TInstrContext> class Uxtb1Rotation {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
-    static_cast<void>(ictx);
+  template <typename TArg0, typename TArg1>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_m,
+                                        const u8 &rotation) {
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     const u32 rotated = Alu32::ROR(rm, rotation);
-    const u32 data = Bm8::ZeroExtend<u32>(static_cast<uint8_t>(rotated & 0xFF));
-    return OpResult{data, false, false};
+    const u32 data = Bm8::ZeroExtend<u32>(static_cast<uint8_t>(rotated & 0xFFU));
+    const auto op_res = OpResult{data, false, false};
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -33,11 +40,19 @@ public:
  */
 template <typename TInstrContext> class Sxtb1Rotation {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
-    static_cast<void>(ictx);
+  template <typename TArg0, typename TArg1>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_m,
+                                        const u8 &rotation) {
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     const u32 rotated = Alu32::ROR(rm, rotation);
-    const u32 data = Bm8::SignExtend<u32, 7U>(static_cast<uint8_t>(rotated & 0xFF));
-    return OpResult{data, false, false};
+    const u32 data = Bm8::SignExtend<u32, 7U>(static_cast<uint8_t>(rotated & 0xFFU));
+    const auto op_res = OpResult{data, false, false};
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -48,11 +63,19 @@ public:
  */
 template <typename TInstrContext> class Uxth1Rotation {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
-    static_cast<void>(ictx);
+  template <typename TArg0, typename TArg1>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_m,
+                                        const u8 &rotation) {
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     const u32 rotated = Alu32::ROR(rm, rotation);
     const u32 data = Bm16::ZeroExtend<u32>(static_cast<uint16_t>(rotated & 0xFFFFU));
-    return OpResult{data, false, false};
+    const auto op_res = OpResult{data, false, false};
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -63,12 +86,19 @@ public:
  */
 template <typename TInstrContext> class Sxth1Rotation {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rm, const u8 &rotation) {
-    static_cast<void>(ictx);
+  template <typename TArg0, typename TArg1>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_m,
+                                        const u8 &rotation) {
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
     const u32 rotated = Alu32::ROR(rm, rotation);
     const u32 val = Bm16::SignExtend<u32, 15>(static_cast<uint16_t>(rotated & 0xFFFFU));
+    const auto op_res = OpResult{val, false, false};
 
-    return OpResult{val, false, false};
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -80,37 +110,13 @@ public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_d, const TArg1 &arg_m, const u8 &rotation) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    auto result = TOp::Call(ictx, rm, rotation);
-    ictx.cpua.WriteRegister(arg_d.Get(), result.value);
-
-    if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
-      auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-      // Clear N, Z, C, V flags
-      apsr &=
-          ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
-
-      apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
-      apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-      apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
-
-      apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos; // V
-      ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
-    }
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_m, rotation));
     return Ok(InstrExecResult{eflags});
   }
 
@@ -129,7 +135,7 @@ private:
    * @brief Copy constructor for BinaryInstrWithRotation.
    * @param r_src the object to be copied
    */
-  BinaryInstrWithRotation(const BinaryInstrWithRotation &r_src) = default;
+  BinaryInstrWithRotation(const BinaryInstrWithRotation &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for MeBinaryInstrWithRotationmoryRouter.
@@ -150,5 +156,4 @@ private:
   BinaryInstrWithRotation &operator=(BinaryInstrWithRotation &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

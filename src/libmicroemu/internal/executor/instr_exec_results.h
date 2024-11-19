@@ -20,6 +20,7 @@ static constexpr InstrExecFlagsSet kExitFlagsMask =
     static_cast<InstrExecFlagsSet>(InstrExecFlags::kBkptReqErrorExit) |
     static_cast<InstrExecFlagsSet>(InstrExecFlags::kSvcReqErrorExit);
 
+static constexpr InstrExecFlagsSet kNoInstrExecFlags = 0U;
 struct InstrExecResult {
   InstrExecFlagsSet flags;
 };

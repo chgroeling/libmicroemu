@@ -7,8 +7,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Mls
@@ -17,13 +16,23 @@ namespace internal {
  */
 template <typename TInstrContext> class Mls3Op {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const u32 &ra) {
-    static_cast<void>(ictx);
+  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const TArg3 &arg_a) {
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto ra = ictx.cpua.ReadRegister(arg_a.Get());
+
     const auto result =
         static_cast<u32>(static_cast<i32>(ra) - static_cast<i32>(rn) * static_cast<i32>(rm));
 
-    return OpResult{result, false, false};
+    const auto op_result = OpResult{result, false, false};
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_result.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_result);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -34,14 +43,26 @@ public:
  */
 template <typename TInstrContext> class Mla3Op {
 public:
-  static inline OpResult Call(const TInstrContext &ictx, const u32 &rn, const u32 &rm,
-                              const u32 &ra) {
+  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
+  static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
+                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
+                                        const TArg3 &arg_a) {
+    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto ra = ictx.cpua.ReadRegister(arg_a.Get());
+
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+
     const auto result =
         static_cast<u32>(static_cast<i32>(rn) * static_cast<i32>(rm) + static_cast<i32>(ra));
 
-    return OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
-                    (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+    const auto op_result = OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
+                                    (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
+
+    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_result.value);
+    PostExecOptionalSetFlags::Call(ictx, iflags, op_result);
+    PostExecAdvancePcAndIt::Call(ictx, iflags);
+    return Ok(kNoInstrExecFlags);
   }
 };
 
@@ -54,40 +75,13 @@ public:
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
                                       const TArg3 &arg_a) {
-    const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-
-    InstrExecFlagsSet eflags{0x0U};
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-
     if (!condition_passed) {
-      It::ITAdvance(ictx.cpua);
-      Pc::AdvanceInstr(ictx.cpua, is_32bit);
-      return Ok(InstrExecResult{eflags});
+      PostExecAdvancePcAndIt::Call(ictx, iflags);
+      return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto ra = ictx.cpua.ReadRegister(arg_a.Get());
-
-    auto result = TOp::Call(ictx, rn, rm, ra);
-
-    ictx.cpua.WriteRegister(arg_d.Get(), result.value);
-
-    if ((iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U) {
-      auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-      // Clear N, Z, C, V flags
-      apsr &=
-          ~(ApsrRegister::kNMsk | ApsrRegister::kZMsk | ApsrRegister::kCMsk | ApsrRegister::kVMsk);
-
-      apsr |= ((result.value >> 31U) & 0x1U) << ApsrRegister::kNPos;       // N
-      apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;        // Z
-      apsr |= (result.carry_out == true ? 1U : 0U) << ApsrRegister::kCPos; // C
-      apsr |= (result.overflow == true ? 1U : 0U) << ApsrRegister::kVPos;  // V
-      ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
-    }
-    It::ITAdvance(ictx.cpua);
-    Pc::AdvanceInstr(ictx.cpua, is_32bit);
-
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_n, arg_m, arg_a));
     return Ok(InstrExecResult{eflags});
   }
 
@@ -106,7 +100,7 @@ private:
    * @brief Copy constructor for TernaryInstr.
    * @param r_src the object to be copied
    */
-  TernaryInstr(const TernaryInstr &r_src) = default;
+  TernaryInstr(const TernaryInstr &r_src) = delete;
 
   /**
    * @brief Copy assignment operator for TernaryInstr.
@@ -127,5 +121,4 @@ private:
   TernaryInstr &operator=(TernaryInstr &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal
