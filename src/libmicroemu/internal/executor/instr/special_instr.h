@@ -13,9 +13,6 @@
 
 namespace libmicroemu::internal {
 
-/**
- * @brief Load from register adress to register
- */
 template <typename TInstrContext, typename TLogger = NullLogger> class SpecialInstr {
 public:
   using TCpuAccessor = decltype(TInstrContext::cpua);
@@ -286,68 +283,6 @@ public:
   }
 
   /**
-   * @brief Umull
-   *
-   * see Armv7-M Architecture Reference Manual Issue E.e p. 257
-   */
-  template <typename TArg0, typename TArg1, typename TArg2>
-  static Result<InstrExecResult> Umull(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                       const TArg0 &arg_d_lo, const TArg0 &arg_d_hi,
-                                       const TArg1 &arg_n, const TArg2 &arg_m) {
-    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-    if (!condition_passed) {
-      PostExecAdvancePcAndIt::Call(ictx, iflags);
-      return Ok(InstrExecResult{kNoInstrExecFlags});
-    }
-
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-
-    const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm));
-    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
-    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
-
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
-
-    PostExecAdvancePcAndIt::Call(ictx, iflags);
-
-    return Ok(InstrExecResult{kNoInstrExecFlags});
-  }
-  /**
-   * @brief Umlal
-   *
-   * see Armv7-M Architecture Reference Manual Issue E.e p. 434
-   */
-  template <typename TArg0, typename TArg1, typename TArg2>
-  static Result<InstrExecResult> Umlal(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                       const TArg0 &arg_d_lo, const TArg0 &arg_d_hi,
-                                       const TArg1 &arg_n, const TArg2 &arg_m) {
-    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-    if (!condition_passed) {
-      PostExecAdvancePcAndIt::Call(ictx, iflags);
-      return Ok(InstrExecResult{kNoInstrExecFlags});
-    }
-
-    const u32 rdhi = ictx.cpua.ReadRegister(arg_d_hi.Get());
-    const u32 rdlo = ictx.cpua.ReadRegister(arg_d_lo.Get());
-    const u32 rd = static_cast<u64>(rdhi) << 32U | static_cast<u64>(rdlo);
-
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-
-    const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm)) + rd;
-    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
-    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
-
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
-    PostExecAdvancePcAndIt::Call(ictx, iflags);
-
-    return Ok(InstrExecResult{kNoInstrExecFlags});
-  }
-
-  /**
    * @brief Msr
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 677
@@ -551,33 +486,6 @@ public:
     }
 
     PostExecWriteRegPcExcluded::Call(ictx, arg_d, rd_val);
-    PostExecAdvancePcAndIt::Call(ictx, iflags);
-    return Ok(InstrExecResult{kNoInstrExecFlags});
-  }
-
-  /**
-   * @brief Smull
-   *
-   * see Armv7-M Architecture Reference Manual Issue E.e p. 372
-   */
-  template <typename TArg0, typename TArg1, typename TArg2>
-  static Result<InstrExecResult> Smull(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                       const TArg0 &arg_d_lo, const TArg0 &arg_d_hi,
-                                       const TArg1 &arg_n, const TArg2 &arg_m) {
-    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-    if (!condition_passed) {
-      PostExecAdvancePcAndIt::Call(ictx, iflags);
-      return Ok(InstrExecResult{kNoInstrExecFlags});
-    }
-
-    const auto rn = static_cast<i32>(ictx.cpua.ReadRegister(arg_n.Get()));
-    const auto rm = static_cast<i32>(ictx.cpua.ReadRegister(arg_m.Get()));
-    const u64 result = static_cast<u64>(static_cast<i64>(rn) * static_cast<i64>(rm));
-    const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
-    const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
-
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(InstrExecResult{kNoInstrExecFlags});
   }

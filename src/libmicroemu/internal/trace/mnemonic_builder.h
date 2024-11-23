@@ -1,5 +1,6 @@
 #pragma once
 
+#include "libmicroemu/internal/trace/instr/mnemonic_builder_binary64bit_instr.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_instr.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_instr_with_imm.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_instr_with_imm_carry.h"
@@ -98,21 +99,21 @@ public:
     }
     case InstrId::kUmlal: {
       const auto &iargs = instr.umlal;
-      MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildUmull(
+      MnemonicBuilderBinary64bitInstr<TMnemonicBuilderContext>::Build(
           "UMLAL", mctx, bflags, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi), RArg(iargs.n),
           RArg(iargs.m));
       break;
     }
     case InstrId::kUmull: {
       const auto &iargs = instr.umull;
-      MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildUmull(
+      MnemonicBuilderBinary64bitInstr<TMnemonicBuilderContext>::Build(
           "UMULL", mctx, bflags, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi), RArg(iargs.n),
           RArg(iargs.m));
       break;
     }
     case InstrId::kSmull: {
       const auto &iargs = instr.umull;
-      MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildUmull(
+      MnemonicBuilderBinary64bitInstr<TMnemonicBuilderContext>::Build(
           "SMULL", mctx, bflags, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi), RArg(iargs.n),
           RArg(iargs.m));
       break;
