@@ -1,6 +1,7 @@
 #pragma once
 
 #include "libmicroemu/internal/decoder/decoder.h"
+#include "libmicroemu/internal/executor/instr/binary64bit_instr.h"
 #include "libmicroemu/internal/executor/instr/binary_instr.h"
 #include "libmicroemu/internal/executor/instr/binary_instr_with_imm.h"
 #include "libmicroemu/internal/executor/instr/binary_instr_with_imm_carry.h"
@@ -115,9 +116,11 @@ public:
     }
     case InstrId::kUmull: {
       const auto &iargs = instr.umull;
+      using TOp = Umull2Op<TInstrCtx>;
+      using TInstr = Binary64bitInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 SpecialInstr<TInstrCtx>::Umull(ictx, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi),
-                                                RArg(iargs.n), RArg(iargs.m)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi), RArg(iargs.n),
+                              RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }
@@ -132,7 +135,6 @@ public:
 
     case InstrId::kMrs: {
       const auto &iargs = instr.mrs;
-
       TRY_ASSIGN(out_flags, InstrExecResult,
                  (SpecialInstr<TInstrCtx, TLogger>::Mrs(ictx, iargs.flags, RArg(iargs.d),
                                                         iargs.mask, iargs.SYSm)));
@@ -141,17 +143,22 @@ public:
     }
     case InstrId::kUmlal: {
       const auto &iargs = instr.umlal;
+      using TOp = Umlal2Op<TInstrCtx>;
+      using TInstr = Binary64bitInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 SpecialInstr<TInstrCtx>::Umlal(ictx, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi),
-                                                RArg(iargs.n), RArg(iargs.m)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi), RArg(iargs.n),
+                              RArg(iargs.m)));
       flags |= out_flags.flags;
+
       break;
     }
     case InstrId::kSmull: {
       const auto &iargs = instr.smull;
+      using TOp = Smull2Op<TInstrCtx>;
+      using TInstr = Binary64bitInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 SpecialInstr<TInstrCtx>::Smull(ictx, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi),
-                                                RArg(iargs.n), RArg(iargs.m)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.dLo), RArg(iargs.dHi), RArg(iargs.n),
+                              RArg(iargs.m)));
       flags |= out_flags.flags;
       break;
     }

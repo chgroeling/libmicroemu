@@ -200,44 +200,6 @@ public:
     mctx.builder.AddString(", ").AddString(Reg::GetRegisterName(n.Get())).Terminate();
   }
 
-  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
-  static void BuildUmull(const char *instr_spec, TContext &mctx,
-                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                         const TArg0 &d_lo, const TArg1 &d_hi, const TArg2 &n, const TArg3 &m) {
-    static_cast<void>(iflags);
-    static_cast<void>(bflags);
-    mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.cpua))
-        .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d_lo.Get()))
-        .AddString(", ")
-        .AddString(Reg::GetRegisterName(d_hi.Get()))
-        .AddString(", ")
-        .AddString(Reg::GetRegisterName(n.Get()))
-        .AddString(", ")
-        .AddString(Reg::GetRegisterName(m.Get()))
-        .Terminate();
-  }
-
-  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
-  static void BuildSmull(const char *instr_spec, TContext &mctx,
-                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                         const TArg0 &d_lo, const TArg1 &d_hi, const TArg2 &n, const TArg3 &m) {
-    static_cast<void>(iflags);
-    static_cast<void>(bflags);
-    mctx.builder.AddString(instr_spec)
-        .AddString(It::GetConditionAsStr(mctx.cpua))
-        .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d_lo.Get()))
-        .AddString(", ")
-        .AddString(Reg::GetRegisterName(d_hi.Get()))
-        .AddString(", ")
-        .AddString(Reg::GetRegisterName(n.Get()))
-        .AddString(", ")
-        .AddString(Reg::GetRegisterName(m.Get()))
-        .Terminate();
-  }
-
   template <typename TArg0, typename TArg1, typename TArg2>
   static void BuildLdrdStrd(const char *instr_spec, TContext &mctx,
                             const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
