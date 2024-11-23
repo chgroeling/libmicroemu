@@ -53,6 +53,19 @@ public:
 
   // Inequality operator
   template <typename R> bool operator!=(const R &other) const { return !(Get() == other.Get()); }
+
+private:
+  // Deleting the addition operator
+  RArgConst operator+(const RArgConst &) = delete;
+
+  // Deleting the subtraction operator
+  RArgConst operator-(const RArgConst &) = delete;
+
+  // Deleting the multiplication operator
+  RArgConst operator*(const RArgConst &) = delete;
+
+  // Deleting the division operator
+  RArgConst operator/(const RArgConst &) = delete;
 };
 
 /** @brief Register argument class
@@ -110,4 +123,16 @@ public:
 
 private:
   T val_;
+
+  // Deleting the addition operator
+  RArg operator+(const RArg &) = delete;
+
+  // Deleting the subtraction operator
+  RArg operator-(const RArg &) = delete;
+
+  // Deleting the multiplication operator
+  RArg operator*(const RArg &) = delete;
+
+  // Deleting the division operator
+  RArg operator/(const RArg &) = delete;
 };

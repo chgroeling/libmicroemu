@@ -17,7 +17,7 @@ public:
 
   template <typename TArg0>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &m,
+                    const InstrFlagsSet &iflags, const TArg0 &rm,
                     const ThumbImmediateResult &imm_carry) {
     static_cast<void>(bflags);
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
@@ -25,7 +25,7 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(m.Get()))
+        .AddString(Reg::GetRegisterName(rm.Get()))
         .AddString(", #")
         .AddUInt(imm_carry.out)
         .Terminate();

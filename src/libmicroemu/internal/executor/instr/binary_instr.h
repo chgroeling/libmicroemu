@@ -20,20 +20,19 @@ template <typename TInstrContext> class Lsr2Op {
 public:
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
-                                        const TArg2 &arg_m) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto shift_n = rm & 0xFFU;
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto shift_n = m & 0xFFU;
 
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_LSR, shift_n,
+    auto r_shift_c = Alu32::Shift_C(n, SRType::SRType_LSR, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
     const auto op_res = OpResult{r_shift_c.result, r_shift_c.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
 
@@ -50,20 +49,19 @@ template <typename TInstrContext> class Asr2Op {
 public:
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
-                                        const TArg2 &arg_m) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto shift_n = rm & 0xFFU;
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto shift_n = m & 0xFFU;
 
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_ASR, shift_n,
+    auto r_shift_c = Alu32::Shift_C(n, SRType::SRType_ASR, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
     const auto op_res = OpResult{r_shift_c.result, r_shift_c.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
 
@@ -80,21 +78,20 @@ template <typename TInstrContext> class Lsl2Op {
 public:
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
-                                        const TArg2 &arg_m) {
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto shift_n = rm & 0xFFU;
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto shift_n = m & 0xFFU;
 
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    auto r_shift_c = Alu32::Shift_C(rn, SRType::SRType_LSL, shift_n,
+    auto r_shift_c = Alu32::Shift_C(n, SRType::SRType_LSL, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
     const auto op_res = OpResult{r_shift_c.result, r_shift_c.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -110,17 +107,16 @@ template <typename TInstrContext> class Mul2Op {
 public:
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
-                                        const TArg2 &arg_m) {
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto result = static_cast<u32>(static_cast<i32>(rn) * static_cast<i32>(rm));
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto result = static_cast<u32>(static_cast<i32>(n) * static_cast<i32>(m));
 
     const auto op_res = OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -149,14 +145,13 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
-                                        const TArg2 &arg_m) {
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     u32 result = 0U;
-    if (rm == 0U) {
+    if (m == 0U) {
 
       if (IntegerZeroDivideTrappingEnabled(ictx)) {
         GenerateIntegerZeroDivide(ictx);
@@ -164,12 +159,12 @@ public:
         result = 0U;
       }
     } else {
-      result = rn / rm;
+      result = n / m;
     }
 
     const auto op_res = OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -199,26 +194,25 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
-                                        const TArg2 &arg_m) {
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     u32 result = 0U;
-    if (rm == 0U) {
+    if (m == 0U) {
       if (IntegerZeroDivideTrappingEnabled(ictx)) {
         GenerateIntegerZeroDivide(ictx);
       } else {
         result = 0U;
       }
     } else {
-      result = static_cast<u32>(static_cast<i32>(rn) / static_cast<i32>(rm));
+      result = static_cast<u32>(static_cast<i32>(n) / static_cast<i32>(m));
     }
 
     const auto op_res = OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
 
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
@@ -232,14 +226,14 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m) {
+                                      const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_n, arg_m));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd, rn, rm));
     return Ok(InstrExecResult{eflags});
   }
 

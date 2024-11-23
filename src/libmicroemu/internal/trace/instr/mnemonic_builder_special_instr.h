@@ -20,7 +20,7 @@ public:
   template <typename TArg0, typename TArg1>
   static void BuildTbbH(const char *instr_spec, TContext &mctx,
                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                        const TArg0 &n, const TArg1 &m) {
+                        const TArg0 &rn, const TArg1 &rm) {
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
     const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
@@ -29,18 +29,18 @@ public:
       mctx.builder.AddString("TBH")
           .AddString(It::GetConditionAsStr(mctx.cpua))
           .AddString(" [")
-          .AddString(Reg::GetRegisterName(n.Get()))
+          .AddString(Reg::GetRegisterName(rn.Get()))
           .AddString(", ")
-          .AddString(Reg::GetRegisterName(m.Get()))
+          .AddString(Reg::GetRegisterName(rm.Get()))
           .AddString(", LSL #1")
           .AddChar(']');
     } else {
       mctx.builder.AddString("TBB")
           .AddString(It::GetConditionAsStr(mctx.cpua))
           .AddString(" [")
-          .AddString(Reg::GetRegisterName(n.Get()))
+          .AddString(Reg::GetRegisterName(rn.Get()))
           .AddString(", ")
-          .AddString(Reg::GetRegisterName(m.Get()))
+          .AddString(Reg::GetRegisterName(rm.Get()))
           .AddChar(']');
     }
 
@@ -50,7 +50,7 @@ public:
   template <typename TArg0>
   static void BuildCbNZ(const char *instr_spec, TContext &mctx,
                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                        const TArg0 &n, const u32 &imm) {
+                        const TArg0 &rn, const u32 &imm) {
     static_cast<void>(instr_spec);
     static_cast<void>(bflags);
     const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
@@ -60,7 +60,7 @@ public:
       mctx.builder.AddChar('N');
     }
     mctx.builder.AddString("Z ")
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", #")
         .AddInt(imm)
         .Terminate();
@@ -69,14 +69,14 @@ public:
   template <typename TArg0, typename TArg1>
   static void BuildUbfx(const char *instr_spec, TContext &mctx,
                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                        const TArg0 &d, const TArg1 &n, const u8 &lsbit, const u8 &widthminus1) {
+                        const TArg0 &rd, const TArg1 &rn, const u8 &lsbit, const u8 &widthminus1) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d.Get()))
+        .AddString(Reg::GetRegisterName(rd.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", #")
         .AddUInt(lsbit)
         .AddString(", #")
@@ -88,16 +88,16 @@ public:
   template <typename TArg0, typename TArg1>
   static void BuildBfi(const char *instr_spec, TContext &mctx,
                        const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                       const TArg0 &d, const TArg1 &n, const u8 &lsbit, const u8 &msbit) {
+                       const TArg0 &rd, const TArg1 &rn, const u8 &lsbit, const u8 &msbit) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
 
     auto width = msbit - lsbit + 1;
     mctx.builder.AddString(instr_spec)
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d.Get()))
+        .AddString(Reg::GetRegisterName(rd.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", #")
         .AddUInt(lsbit)
         .AddString(", #")
@@ -109,13 +109,13 @@ public:
   template <typename TArg0>
   static void BuildLdrLiteral(const char *instr_spec, TContext &mctx,
                               const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                              const TArg0 &t, const u32 imm32) {
+                              const TArg0 &rt, const u32 imm32) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t.Get()))
+        .AddString(Reg::GetRegisterName(rt.Get()))
         .AddString(", [PC, #")
         .AddInt(imm32)
         .AddChar(']')
@@ -180,11 +180,11 @@ public:
   template <typename TArg0>
   static void BuildMrs(const char *instr_spec, TContext &mctx,
                        const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                       const TArg0 &d, const u8 &mask, const u8 &SYSm) {
+                       const TArg0 &rd, const u8 &mask, const u8 &SYSm) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.cpua)).AddChar(' ');
-    mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
+    mctx.builder.AddString(Reg::GetRegisterName(rd.Get())).AddString(", ");
     BuildMsrMrs(mctx, mask, SYSm);
     mctx.builder.Terminate();
   }
@@ -192,18 +192,18 @@ public:
   template <typename TArg0>
   static void BuildMsr(const char *instr_spec, TContext &mctx,
                        const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                       const TArg0 &n, const u8 &mask, const u8 &SYSm) {
+                       const TArg0 &rn, const u8 &mask, const u8 &SYSm) {
     static_cast<void>(iflags);
     static_cast<void>(bflags);
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.cpua)).AddChar(' ');
     BuildMsrMrs(mctx, mask, SYSm);
-    mctx.builder.AddString(", ").AddString(Reg::GetRegisterName(n.Get())).Terminate();
+    mctx.builder.AddString(", ").AddString(Reg::GetRegisterName(rn.Get())).Terminate();
   }
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static void BuildLdrdStrd(const char *instr_spec, TContext &mctx,
                             const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                            const TArg0 &t, const TArg1 &t2, const TArg2 &n, const u32 imm32) {
+                            const TArg0 &rt, const TArg1 &t2, const TArg2 &rn, const u32 imm32) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
@@ -211,13 +211,13 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t.Get()))
+        .AddString(Reg::GetRegisterName(rt.Get()))
         .AddString(", ")
         .AddString(Reg::GetRegisterName(t2.Get()))
         .AddString(", ");
 
     RelativeAdrBuilder::Build<decltype(mctx.builder), Reg>(mctx.builder, is_add, is_index, is_wback,
-                                                           n, imm32);
+                                                           rn, imm32);
     mctx.builder.Terminate();
   }
 

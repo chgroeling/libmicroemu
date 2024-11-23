@@ -17,14 +17,14 @@ public:
 
   template <typename TArg0>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &m, const u32 &imm32) {
+                    const InstrFlagsSet &iflags, const TArg0 &rm, const u32 &imm32) {
     static_cast<void>(bflags);
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(m.Get()))
+        .AddString(Reg::GetRegisterName(rm.Get()))
         .AddString(", #")
         .AddUInt(imm32)
         .Terminate();

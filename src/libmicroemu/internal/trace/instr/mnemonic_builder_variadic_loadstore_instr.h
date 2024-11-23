@@ -14,14 +14,14 @@ public:
 
   template <typename TArg0>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &n, const u32 &registers,
+                    const InstrFlagsSet &iflags, const TArg0 &rn, const u32 &registers,
                     bool suppress_dest_register) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     mctx.builder.AddString(instr_spec).AddString(It::GetConditionAsStr(mctx.cpua)).AddChar(' ');
 
     if (!suppress_dest_register) {
-      mctx.builder.AddString(Reg::GetRegisterName(n.Get()));
+      mctx.builder.AddString(Reg::GetRegisterName(rn.Get()));
     }
     if (is_wback) {
       mctx.builder.AddChar('!');

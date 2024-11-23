@@ -17,7 +17,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &t, const TArg1 &n, const TArg2 &m,
+                    const InstrFlagsSet &iflags, const TArg0 &rt, const TArg1 &rn, const TArg2 &rm,
                     const ImmShiftResults &shift_res) {
 
     static_cast<void>(iflags);
@@ -25,11 +25,11 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(t.Get()))
+        .AddString(Reg::GetRegisterName(rt.Get()))
         .AddString(", [")
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m.Get()));
+        .AddString(Reg::GetRegisterName(rm.Get()));
 
     if (shift_res.value != 0U) {
       mctx.builder.AddString(", LSL #").AddUInt(shift_res.value);

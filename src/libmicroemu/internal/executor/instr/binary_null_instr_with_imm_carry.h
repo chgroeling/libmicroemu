@@ -19,10 +19,10 @@ template <typename TInstrContext> class Tst1ImmCarryOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_n, const ThumbImmediateResult &imm_carry) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+                                        const TArg0 &rn, const ThumbImmediateResult &imm_carry) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto result = Alu32::AND(rn, imm_carry.out);
+    const auto result = Alu32::AND(n, imm_carry.out);
 
     const auto op_res =
         OpResult{result, imm_carry.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -42,10 +42,10 @@ template <typename TInstrContext> class Teq1ImmCarryOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_n, const ThumbImmediateResult &imm_carry) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+                                        const TArg0 &rn, const ThumbImmediateResult &imm_carry) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto result = Alu32::EOR(rn, imm_carry.out);
+    const auto result = Alu32::EOR(n, imm_carry.out);
 
     const auto op_res =
         OpResult{result, imm_carry.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -63,14 +63,14 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_n, const ThumbImmediateResult &imm_carry) {
+                                      const TArg0 &rn, const ThumbImmediateResult &imm_carry) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_n, imm_carry));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rn, imm_carry));
     return Ok(InstrExecResult{eflags});
   }
 

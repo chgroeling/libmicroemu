@@ -19,7 +19,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &t, const TArg2 &n,
+                    const InstrFlagsSet &iflags, const TArg0 &rd, const TArg1 &rt, const TArg2 &rn,
                     const u32 &imm32) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
@@ -29,13 +29,13 @@ public:
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d.Get()))
+        .AddString(Reg::GetRegisterName(rd.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(t.Get()))
+        .AddString(Reg::GetRegisterName(rt.Get()))
         .AddString(", ");
 
     RelativeAdrBuilder::Build<decltype(mctx.builder), Reg>(mctx.builder, is_add, is_index, is_wback,
-                                                           n, imm32);
+                                                           rn, imm32);
     mctx.builder.Terminate();
   }
 

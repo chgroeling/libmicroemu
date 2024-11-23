@@ -19,12 +19,12 @@ template <typename TInstrContext> class MovImmCarryOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const ThumbImmediateResult &imm_carry) {
+                                        const TArg0 &rd, const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto op_res = OpResult{imm_carry.out, imm_carry.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
 
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
@@ -41,12 +41,12 @@ template <typename TInstrContext> class MvnImmCarryOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const ThumbImmediateResult &imm_carry) {
+                                        const TArg0 &rd, const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto op_res = OpResult{~imm_carry.out, imm_carry.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -60,14 +60,14 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_d, const ThumbImmediateResult &imm_carry) {
+                                      const TArg0 &rd, const ThumbImmediateResult &imm_carry) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, imm_carry));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd, imm_carry));
     return Ok(InstrExecResult{eflags});
   }
 

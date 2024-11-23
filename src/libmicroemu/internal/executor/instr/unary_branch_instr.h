@@ -22,10 +22,10 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_m) {
+                                        const TArg0 &rm) {
     static_cast<void>(iflags);
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto bres = static_cast<me_adr_t>(rm);
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto bres = static_cast<me_adr_t>(m);
 
     TRY(InstrExecFlagsSet, PostExecBxWritePc::Call(ictx, bres));
     return Ok(kNoInstrExecFlags);
@@ -44,16 +44,16 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_m) {
+                                        const TArg0 &rm) {
     static_cast<void>(iflags);
     const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
     const me_adr_t next_instr_address = static_cast<me_adr_t>(pc - 2U);
 
     const auto lr_val = static_cast<uint32_t>((next_instr_address & ~0x1) | 0x1U);
     ictx.cpua.template WriteRegister<RegisterId::kLr>(lr_val);
 
-    const auto bres = static_cast<me_adr_t>(rm);
+    const auto bres = static_cast<me_adr_t>(m);
     TRY(InstrExecFlagsSet, PostExecBxWritePc::Call(ictx, bres));
     return Ok(kNoInstrExecFlags);
   }
@@ -68,14 +68,14 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_m) {
+                                      const TArg0 &rm) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_m));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rm));
     return Ok(InstrExecResult{eflags});
   }
 

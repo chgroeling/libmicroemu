@@ -21,7 +21,7 @@ public:
 
   template <typename TArg>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const u32 &imm32, const TArg &arg_t) {
+                                      const u32 &imm32, const TArg &rt) {
 
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
@@ -38,7 +38,7 @@ public:
     TRY_ASSIGN(data, InstrExecResult, TLoadOp::Read(ictx, address));
 
     const bool is_aligned = (address & 0x3U) == 0U;
-    TRY(InstrExecResult, PostExecWriteRegPcIncluded::Call(ictx, iflags, arg_t, data, is_aligned));
+    TRY(InstrExecResult, PostExecWriteRegPcIncluded::Call(ictx, iflags, rt, data, is_aligned));
     return Ok(InstrExecResult{kNoInstrExecFlags});
   }
 

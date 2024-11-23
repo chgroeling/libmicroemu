@@ -19,17 +19,17 @@ template <typename TInstrContext> class Umull2Op {
 public:
   template <typename TDestLo, typename TDestHi, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TDestLo &arg_d_lo, const TDestHi &arg_d_hi,
-                                        const TArg0 &arg_n, const TArg1 &arg_m) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+                                        const TDestLo &rd_lo, const TDestHi &rd_hi, const TArg0 &rn,
+                                        const TArg1 &rm) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
 
-    const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm));
+    const u64 result = (static_cast<u64>(n) * static_cast<u64>(m));
     const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
     const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
+    PostExecWriteRegPcExcluded::Call(ictx, rd_lo, result_lo);
+    PostExecWriteRegPcExcluded::Call(ictx, rd_hi, result_hi);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
 
     return Ok(kNoInstrExecFlags);
@@ -45,16 +45,16 @@ template <typename TInstrContext> class Smull2Op {
 public:
   template <typename TDestLo, typename TDestHi, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TDestLo &arg_d_lo, const TDestHi &arg_d_hi,
-                                        const TArg0 &arg_n, const TArg1 &arg_m) {
-    const auto rn = static_cast<i32>(ictx.cpua.ReadRegister(arg_n.Get()));
-    const auto rm = static_cast<i32>(ictx.cpua.ReadRegister(arg_m.Get()));
-    const u64 result = static_cast<u64>(static_cast<i64>(rn) * static_cast<i64>(rm));
+                                        const TDestLo &rd_lo, const TDestHi &rd_hi, const TArg0 &rn,
+                                        const TArg1 &rm) {
+    const auto n = static_cast<i32>(ictx.cpua.ReadRegister(rn.Get()));
+    const auto m = static_cast<i32>(ictx.cpua.ReadRegister(rm.Get()));
+    const u64 result = static_cast<u64>(static_cast<i64>(n) * static_cast<i64>(m));
     const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
     const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
+    PostExecWriteRegPcExcluded::Call(ictx, rd_lo, result_lo);
+    PostExecWriteRegPcExcluded::Call(ictx, rd_hi, result_hi);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
 
     return Ok(kNoInstrExecFlags);
@@ -70,22 +70,22 @@ template <typename TInstrContext> class Umlal2Op {
 public:
   template <typename TDestLo, typename TDestHi, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TDestLo &arg_d_lo, const TDestHi &arg_d_hi,
-                                        const TArg0 &arg_n, const TArg1 &arg_m) {
+                                        const TDestLo &rd_lo, const TDestHi &rd_hi, const TArg0 &rn,
+                                        const TArg1 &rm) {
 
-    const u32 rdhi = ictx.cpua.ReadRegister(arg_d_hi.Get());
-    const u32 rdlo = ictx.cpua.ReadRegister(arg_d_lo.Get());
+    const u32 rdhi = ictx.cpua.ReadRegister(rd_hi.Get());
+    const u32 rdlo = ictx.cpua.ReadRegister(rd_lo.Get());
     const u32 rd = static_cast<u64>(rdhi) << 32U | static_cast<u64>(rdlo);
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
 
-    const u64 result = (static_cast<u64>(rn) * static_cast<u64>(rm)) + rd;
+    const u64 result = (static_cast<u64>(n) * static_cast<u64>(m)) + rd;
     const u32 result_lo = static_cast<u32>(result & 0xFFFFFFFFU);
     const u32 result_hi = static_cast<u32>((result >> 32U) & 0xFFFFFFFFU);
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_lo, result_lo);
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d_hi, result_hi);
+    PostExecWriteRegPcExcluded::Call(ictx, rd_lo, result_lo);
+    PostExecWriteRegPcExcluded::Call(ictx, rd_hi, result_hi);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
 
     return Ok(kNoInstrExecFlags);
@@ -99,15 +99,15 @@ public:
 
   template <typename TDestLo, typename TDestHi, typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TDestLo &arg_d_lo, const TDestHi &arg_d_hi,
-                                      const TArg0 &arg_n, const TArg1 &arg_m) {
+                                      const TDestLo &rd_lo, const TDestHi &rd_hi, const TArg0 &rn,
+                                      const TArg1 &rm) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d_lo, arg_d_hi, arg_n, arg_m));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd_lo, rd_hi, rn, rm));
     return Ok(InstrExecResult{eflags});
   }
 

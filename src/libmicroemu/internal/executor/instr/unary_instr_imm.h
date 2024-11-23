@@ -20,13 +20,13 @@ template <typename TInstrContext> class AddToPcImmOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const u32 &imm32) {
+                                        const TArg0 &rd, const u32 &imm32) {
     const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
     const auto apc = Bm32::AlignDown<4>(pc);
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
     const auto result = is_add != false ? apc + imm32 : apc - imm32;
     const auto op_res = OpResult{result, false, false};
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -40,14 +40,14 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_d, const u32 &imm32) {
+                                      const TArg0 &rd, const u32 &imm32) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, imm32));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd, imm32));
     return Ok(InstrExecResult{eflags});
   }
 

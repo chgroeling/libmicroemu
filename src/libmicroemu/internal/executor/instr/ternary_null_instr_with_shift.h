@@ -20,16 +20,16 @@ template <typename TInstrContext> class Cmp2ShiftOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_m, const TArg1 &arg_n,
+                                        const TArg0 &rm, const TArg1 &rn,
                                         const ImmShiftResults &shift_res) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
 
-    const auto shifted = Alu32::Shift(rm, static_cast<SRType>(shift_res.type), shift_res.value,
+    const auto shifted = Alu32::Shift(m, static_cast<SRType>(shift_res.type), shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
-    const auto result = Alu32::AddWithCarry(rn, ~shifted, true);
+    const auto result = Alu32::AddWithCarry(n, ~shifted, true);
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
     PostExecSetFlags::Call(ictx, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
@@ -46,15 +46,15 @@ template <typename TInstrContext> class Tst2ShiftOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_m, const TArg1 &arg_n,
+                                        const TArg0 &rm, const TArg1 &rn,
                                         const ImmShiftResults &shift_res) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
 
-    const auto r_shift_c = Alu32::Shift_C(rm, shift_res.type, shift_res.value,
+    const auto r_shift_c = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
-    const auto result = Alu32::AND(rn, r_shift_c.result);
+    const auto result = Alu32::AND(n, r_shift_c.result);
 
     const auto op_res =
         OpResult{result, r_shift_c.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -74,15 +74,15 @@ template <typename TInstrContext> class Teq2ShiftOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_m, const TArg1 &arg_n,
+                                        const TArg0 &rm, const TArg1 &rn,
                                         const ImmShiftResults &shift_res) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
 
-    const auto r_shift_c = Alu32::Shift_C(rm, shift_res.type, shift_res.value,
+    const auto r_shift_c = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
-    const auto result = Alu32::EOR(rn, r_shift_c.result);
+    const auto result = Alu32::EOR(n, r_shift_c.result);
     const auto op_res =
         OpResult{result, r_shift_c.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
@@ -99,7 +99,7 @@ public:
 
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_m, const TArg1 &arg_n,
+                                      const TArg0 &rm, const TArg1 &rn,
                                       const ImmShiftResults &shift_res) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
@@ -107,7 +107,7 @@ public:
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_m, arg_n, shift_res));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rm, rn, shift_res));
     return Ok(InstrExecResult{eflags});
   }
 
