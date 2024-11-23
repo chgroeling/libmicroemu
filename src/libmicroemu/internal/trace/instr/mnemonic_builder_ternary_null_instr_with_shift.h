@@ -17,7 +17,7 @@ public:
 
   template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &n, const TArg1 &m,
+                    const InstrFlagsSet &iflags, const TArg0 &rn, const TArg1 &rm,
                     const ImmShiftResults &shift_res, bool supress_type) {
 
     static_cast<void>(bflags);
@@ -26,9 +26,9 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m.Get()));
+        .AddString(Reg::GetRegisterName(rm.Get()));
 
     if (shift_res.value != 0) {
       mctx.builder.AddString(", ");

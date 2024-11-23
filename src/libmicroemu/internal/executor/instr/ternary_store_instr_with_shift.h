@@ -20,7 +20,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_t, const TArg1 &arg_n, const TArg2 &arg_m,
+                                      const TArg0 &rt, const TArg1 &rn, const TArg2 &rm,
                                       const ImmShiftResults &shift_res) {
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
@@ -32,24 +32,24 @@ public:
     }
 
     InstrExecFlagsSet eflags{kNoInstrExecFlags};
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
 
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
 
-    auto offset = Alu32::Shift(rm, shift_res.type, shift_res.value,
+    auto offset = Alu32::Shift(m, shift_res.type, shift_res.value,
                                (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
     assert(is_add == true); // other mode is currently not supported
-    const u32 offset_addr = is_add == true ? rn + offset : rn - offset;
-    const u32 address = is_index == true ? offset_addr : rn;
+    const u32 offset_addr = is_add == true ? n + offset : n - offset;
+    const u32 address = is_index == true ? offset_addr : n;
 
-    const auto rt = ictx.cpua.ReadRegister(arg_t.Get());
-    TRY(InstrExecResult, TStoreOp::Write(ictx, address, rt));
+    const auto t = ictx.cpua.ReadRegister(rt.Get());
+    TRY(InstrExecResult, TStoreOp::Write(ictx, address, t));
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     if (is_wback) {
-      PostExecWriteRegPcExcluded::Call(ictx, arg_n, offset_addr);
+      PostExecWriteRegPcExcluded::Call(ictx, rn, offset_addr);
     }
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(InstrExecResult{eflags});

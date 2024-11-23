@@ -17,13 +17,13 @@ public:
 
   template <typename TArg0>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &n) {
+                    const InstrFlagsSet &iflags, const TArg0 &rn) {
     static_cast<void>(bflags);
     static_cast<void>(iflags);
     mctx.builder.AddString(instr_spec)
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .Terminate();
   }
 

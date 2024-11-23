@@ -20,16 +20,16 @@ public:
 
   template <typename TArg>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg &arg_n, const u32 &registers) {
+                                      const TArg &rn, const u32 &registers) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
     auto reg_count = Bm32::BitCount(registers);
-    u32 address = rn - 4U * reg_count;
+    u32 address = n - 4U * reg_count;
 
     for (u32 reg = 0U; reg <= 14U; ++reg) {
       u32 bm = 0x1U << reg;
@@ -49,10 +49,10 @@ public:
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
 
     if (is_wback) {
-      const auto wback_val = rn - 4U * reg_count;
+      const auto wback_val = n - 4U * reg_count;
 
       // Update n register
-      PostExecWriteRegPcExcluded::Call(ictx, arg_n, wback_val);
+      PostExecWriteRegPcExcluded::Call(ictx, rn, wback_val);
     }
     PostExecAdvancePcAndIt::Call(ictx, iflags);
 

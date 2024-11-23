@@ -19,11 +19,11 @@ template <typename TInstrContext> class Cmp1ImmOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_n, const u32 &imm) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+                                        const TArg0 &rn, const u32 &imm) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
 
     const u32 n_imm32 = ~imm;
-    const auto result = Alu32::AddWithCarry(rn, n_imm32, true);
+    const auto result = Alu32::AddWithCarry(n, n_imm32, true);
 
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
     PostExecSetFlags::Call(ictx, op_res);
@@ -41,9 +41,9 @@ template <typename TInstrContext> class Cmn1ImmOp {
 public:
   template <typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_n, const u32 &imm) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto result = Alu32::AddWithCarry(rn, imm, false);
+                                        const TArg0 &rn, const u32 &imm) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto result = Alu32::AddWithCarry(n, imm, false);
 
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
     PostExecSetFlags::Call(ictx, op_res);
@@ -59,14 +59,14 @@ public:
 
   template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_n, const u32 &imm) {
+                                      const TArg0 &rn, const u32 &imm) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_n, imm));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rn, imm));
     return Ok(InstrExecResult{eflags});
   }
 

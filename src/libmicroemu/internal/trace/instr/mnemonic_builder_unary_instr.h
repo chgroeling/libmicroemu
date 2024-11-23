@@ -16,16 +16,16 @@ public:
   using SReg = typename TContext::SReg;
   template <typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n) {
+                    const InstrFlagsSet &iflags, const TArg0 &rd, const TArg1 &rn) {
     static_cast<void>(bflags);
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
     mctx.builder.AddString(instr_spec)
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ')
-        .AddString(Reg::GetRegisterName(d.Get()))
+        .AddString(Reg::GetRegisterName(rd.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .Terminate();
   }
 

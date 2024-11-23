@@ -19,16 +19,16 @@ template <typename TInstrContext> class Orr1ImmCarryOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(const TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
+                                        const TArg0 &rd, const TArg1 &rn,
                                         const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
 
-    const auto result = Alu32::OR(rn, imm_carry.out);
+    const auto result = Alu32::OR(n, imm_carry.out);
     const auto op_res =
         OpResult{result, imm_carry.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -44,14 +44,14 @@ template <typename TInstrContext> class Eor1ImmCarryOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(const TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
+                                        const TArg0 &rd, const TArg1 &rn,
                                         const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto result = Alu32::EOR(rn, imm_carry.out);
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto result = Alu32::EOR(n, imm_carry.out);
     const auto op_res =
         OpResult{result, imm_carry.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -67,14 +67,14 @@ template <typename TInstrContext> class And1ImmCarryOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(const TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
+                                        const TArg0 &rd, const TArg1 &rn,
                                         const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto result = Alu32::AND(rn, imm_carry.out);
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto result = Alu32::AND(n, imm_carry.out);
     const auto op_res =
         OpResult{result, imm_carry.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -90,14 +90,14 @@ template <typename TInstrContext> class Bic1ImmCarryOp {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(const TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n,
+                                        const TArg0 &rd, const TArg1 &rn,
                                         const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto result = Alu32::AND(rn, ~imm_carry.out);
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto result = Alu32::AND(n, ~imm_carry.out);
     const auto op_res =
         OpResult{result, imm_carry.carry_out, (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -111,7 +111,7 @@ public:
 
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_d, const TArg1 &arg_n,
+                                      const TArg0 &rd, const TArg1 &rn,
                                       const ThumbImmediateResult &imm_carry) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
@@ -119,7 +119,7 @@ public:
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_n, imm_carry));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd, rn, imm_carry));
     return Ok(InstrExecResult{eflags});
   }
 

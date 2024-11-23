@@ -20,7 +20,7 @@ public:
   template <typename TDestLo, typename TDestHi, typename TArg0, typename TArg1>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
                     const InstrFlagsSet &iflags, const TDestLo &d_lo, const TDestHi &d_hi,
-                    const TArg0 &n, const TArg1 &m) {
+                    const TArg0 &rn, const TArg1 &rm) {
     static_cast<void>(bflags);
     static_cast<void>(iflags);
 
@@ -31,9 +31,9 @@ public:
         .AddString(", ")
         .AddString(Reg::GetRegisterName(d_hi.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(n.Get()))
+        .AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m.Get()))
+        .AddString(Reg::GetRegisterName(rm.Get()))
         .Terminate();
   }
 

@@ -19,14 +19,13 @@ template <typename TInstrContext> class Uxtb1Rotation {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_m,
-                                        const u8 &rotation) {
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const u32 rotated = Alu32::ROR(rm, rotation);
+                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const u32 rotated = Alu32::ROR(m, rotation);
     const u32 data = Bm8::ZeroExtend<u32>(static_cast<uint8_t>(rotated & 0xFFU));
     const auto op_res = OpResult{data, false, false};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -42,14 +41,13 @@ template <typename TInstrContext> class Sxtb1Rotation {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_m,
-                                        const u8 &rotation) {
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const u32 rotated = Alu32::ROR(rm, rotation);
+                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const u32 rotated = Alu32::ROR(m, rotation);
     const u32 data = Bm8::SignExtend<u32, 7U>(static_cast<uint8_t>(rotated & 0xFFU));
     const auto op_res = OpResult{data, false, false};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -65,14 +63,13 @@ template <typename TInstrContext> class Uxth1Rotation {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_m,
-                                        const u8 &rotation) {
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const u32 rotated = Alu32::ROR(rm, rotation);
+                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const u32 rotated = Alu32::ROR(m, rotation);
     const u32 data = Bm16::ZeroExtend<u32>(static_cast<uint16_t>(rotated & 0xFFFFU));
     const auto op_res = OpResult{data, false, false};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -88,14 +85,13 @@ template <typename TInstrContext> class Sxth1Rotation {
 public:
   template <typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_m,
-                                        const u8 &rotation) {
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const u32 rotated = Alu32::ROR(rm, rotation);
+                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const u32 rotated = Alu32::ROR(m, rotation);
     const u32 val = Bm16::SignExtend<u32, 15>(static_cast<uint16_t>(rotated & 0xFFFFU));
     const auto op_res = OpResult{val, false, false};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_res.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_res.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_res);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -109,14 +105,14 @@ public:
 
   template <typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_d, const TArg1 &arg_m, const u8 &rotation) {
+                                      const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_m, rotation));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd, rm, rotation));
     return Ok(InstrExecResult{eflags});
   }
 

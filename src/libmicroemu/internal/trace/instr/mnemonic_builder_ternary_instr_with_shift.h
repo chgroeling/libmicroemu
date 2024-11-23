@@ -17,7 +17,7 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &d, const TArg1 &n, const TArg2 &m,
+                    const InstrFlagsSet &iflags, const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
                     const ImmShiftResults &shift_res) {
 
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;
@@ -30,13 +30,13 @@ public:
         .AddString(is_setflags == true ? "S" : "")
         .AddString(It::GetConditionAsStr(mctx.cpua))
         .AddChar(' ');
-    if ((d != n) || (!is_reduced_rd)) {
-      mctx.builder.AddString(Reg::GetRegisterName(d.Get())).AddString(", ");
+    if ((rd != rn) || (!is_reduced_rd)) {
+      mctx.builder.AddString(Reg::GetRegisterName(rd.Get())).AddString(", ");
     }
 
-    mctx.builder.AddString(Reg::GetRegisterName(n.Get()))
+    mctx.builder.AddString(Reg::GetRegisterName(rn.Get()))
         .AddString(", ")
-        .AddString(Reg::GetRegisterName(m.Get()));
+        .AddString(Reg::GetRegisterName(rm.Get()));
 
     if (shift_res.value != 0) {
       mctx.builder.AddString(", ");

@@ -18,18 +18,18 @@ template <typename TInstrContext> class Mls3Op {
 public:
   template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
-                                        const TArg3 &arg_a) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto ra = ictx.cpua.ReadRegister(arg_a.Get());
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TArg3 &ra) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto a = ictx.cpua.ReadRegister(ra.Get());
 
     const auto result =
-        static_cast<u32>(static_cast<i32>(ra) - static_cast<i32>(rn) * static_cast<i32>(rm));
+        static_cast<u32>(static_cast<i32>(a) - static_cast<i32>(n) * static_cast<i32>(m));
 
     const auto op_result = OpResult{result, false, false};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_result.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_result.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_result);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -45,21 +45,21 @@ template <typename TInstrContext> class Mla3Op {
 public:
   template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
-                                        const TArg3 &arg_a) {
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    const auto rm = ictx.cpua.ReadRegister(arg_m.Get());
-    const auto ra = ictx.cpua.ReadRegister(arg_a.Get());
+                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TArg3 &ra) {
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    const auto m = ictx.cpua.ReadRegister(rm.Get());
+    const auto a = ictx.cpua.ReadRegister(ra.Get());
 
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
 
     const auto result =
-        static_cast<u32>(static_cast<i32>(rn) * static_cast<i32>(rm) + static_cast<i32>(ra));
+        static_cast<u32>(static_cast<i32>(n) * static_cast<i32>(m) + static_cast<i32>(a));
 
     const auto op_result = OpResult{result, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
                                     (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
-    PostExecWriteRegPcExcluded::Call(ictx, arg_d, op_result.value);
+    PostExecWriteRegPcExcluded::Call(ictx, rd, op_result.value);
     PostExecOptionalSetFlags::Call(ictx, iflags, op_result);
     PostExecAdvancePcAndIt::Call(ictx, iflags);
     return Ok(kNoInstrExecFlags);
@@ -73,15 +73,15 @@ public:
 
   template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &arg_d, const TArg1 &arg_n, const TArg2 &arg_m,
-                                      const TArg3 &arg_a) {
+                                      const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                      const TArg3 &ra) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, arg_d, arg_n, arg_m, arg_a));
+    TRY_ASSIGN(eflags, InstrExecResult, TOp::Call(ictx, iflags, rd, rn, rm, ra));
     return Ok(InstrExecResult{eflags});
   }
 

@@ -24,7 +24,7 @@ public:
 
   template <typename TArg>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg &arg_n, const u32 &registers) {
+                                      const TArg &rn, const u32 &registers) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {
@@ -32,8 +32,8 @@ public:
       return Ok(InstrExecResult{kNoInstrExecFlags});
     }
 
-    const auto rn = ictx.cpua.ReadRegister(arg_n.Get());
-    auto address = static_cast<me_adr_t>(rn);
+    const auto n = ictx.cpua.ReadRegister(rn.Get());
+    auto address = static_cast<me_adr_t>(n);
 
     for (u32 rid = 0U; rid <= 14U; ++rid) {
       const u32 bm = 0x1U << rid;
@@ -62,15 +62,15 @@ public:
     // mem_view.Print(0x80000 - 0x32, 0x64);
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
-    const auto n_mask = 1U << static_cast<u32>(arg_n.Get());
+    const auto n_mask = 1U << static_cast<u32>(rn.Get());
     const bool is_rn_in_set = (registers & n_mask) != 0;
 
     if ((is_wback) && (!is_rn_in_set)) {
       auto regcount = Bm32::BitCount(registers);
-      const auto wback_val = rn + 4U * regcount;
+      const auto wback_val = n + 4U * regcount;
 
       // Update n register
-      ictx.cpua.WriteRegister(arg_n.Get(), wback_val);
+      ictx.cpua.WriteRegister(rn.Get(), wback_val);
     }
 
     return Ok(InstrExecResult{kNoInstrExecFlags});
