@@ -22,9 +22,9 @@ public:
 
   using ExcTrig = typename TInstrContext::ExcTrig;
 
-  template <typename TArg>
+  template <typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg &rn, const u32 &registers) {
+                                      const TArg0 &rn, const u32 &registers) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
 
     if (!condition_passed) {

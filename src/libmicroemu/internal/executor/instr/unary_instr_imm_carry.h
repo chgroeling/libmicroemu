@@ -17,9 +17,9 @@ namespace libmicroemu::internal {
  */
 template <typename TInstrContext> class MovImmCarryOp {
 public:
-  template <typename TArg0>
+  template <typename TDest>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const ThumbImmediateResult &imm_carry) {
+                                        const TDest &rd, const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto op_res = OpResult{imm_carry.out, imm_carry.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -39,9 +39,9 @@ public:
  */
 template <typename TInstrContext> class MvnImmCarryOp {
 public:
-  template <typename TArg0>
+  template <typename TDest>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const ThumbImmediateResult &imm_carry) {
+                                        const TDest &rd, const ThumbImmediateResult &imm_carry) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto op_res = OpResult{~imm_carry.out, imm_carry.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -58,9 +58,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0>
+  template <typename TDest>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const ThumbImmediateResult &imm_carry) {
+                                      const TDest &rd, const ThumbImmediateResult &imm_carry) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);

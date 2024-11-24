@@ -17,9 +17,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1>
+  template <typename TTgt, typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rt, const TArg1 &rn, const u32 &imm32) {
+                                      const TTgt &rt, const TArg0 &rn, const u32 &imm32) {
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
 

@@ -184,9 +184,9 @@ public:
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 208
    */
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecResult> Bfi(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                     const TArg0 &rd, const TArg1 &rn, const u8 &lsbit,
+                                     const TDest &rd, const TArg0 &rn, const u8 &lsbit,
                                      const u8 &msbit) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
@@ -218,9 +218,9 @@ public:
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 424
    */
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecResult> Ubfx(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rn, const u8 &lsbit,
+                                      const TDest &rd, const TArg0 &rn, const u8 &lsbit,
                                       const u8 &widthminus1) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
@@ -247,9 +247,9 @@ public:
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 257
    */
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TTgt0, typename TTgt1, typename TArg0>
   static Result<InstrExecResult> Ldrd(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rt, const TArg1 &rt2, const TArg2 &rn,
+                                      const TTgt0 &rt, const TTgt1 &rt2, const TArg0 &rn,
                                       const u32 &imm32) {
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
@@ -393,9 +393,9 @@ public:
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 675
    */
-  template <typename TArg0>
+  template <typename TDest>
   static Result<InstrExecResult> Mrs(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                     const TArg0 &rd, const uint8_t mask, const uint8_t SYSm) {
+                                     const TDest &rd, const uint8_t mask, const uint8_t SYSm) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);
@@ -495,9 +495,9 @@ public:
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 393
    */
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TTgt, typename TArg0, typename TArg1>
   static Result<InstrExecResult> Strd(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rt, const TArg1 &rt2, const TArg2 &rn,
+                                      const TTgt &rt, const TArg0 &rt2, const TArg1 &rn,
                                       const u32 &imm32) {
 
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;

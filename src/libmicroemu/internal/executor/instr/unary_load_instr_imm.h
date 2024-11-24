@@ -19,9 +19,9 @@ public:
   using Pc = typename TInstrContext::Pc;
   using ExcTrig = typename TInstrContext::ExcTrig;
 
-  template <typename TArg>
+  template <typename TTgt>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const u32 &imm32, const TArg &rt) {
+                                      const u32 &imm32, const TTgt &rt) {
 
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {

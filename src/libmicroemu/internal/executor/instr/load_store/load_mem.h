@@ -3,8 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Loads u8 from memory and extends the result to u32
@@ -12,7 +11,6 @@ namespace internal {
  * see Armv7-M Architecture Reference Manual Issue E.e p.252, p.255
  *
  */
-
 template <typename TInstrContext> class LoadMemU8 {
 public:
   static inline Result<u32> Read(const TInstrContext &ictx, const me_adr_t &address) {
@@ -102,5 +100,4 @@ public:
     return Ok(r_data);
   }
 };
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

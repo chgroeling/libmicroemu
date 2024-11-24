@@ -17,9 +17,9 @@ public:
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TTgt, typename TArg0>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &rd, const TArg1 &rt, const TArg2 &rn,
+                    const InstrFlagsSet &iflags, const TDest &rd, const TTgt &rt, const TArg0 &rn,
                     const u32 &imm32) {
     static_cast<void>(bflags);
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;

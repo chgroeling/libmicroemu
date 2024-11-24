@@ -15,9 +15,9 @@ public:
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
 
-  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
+  template <typename TDest, typename TArg0, typename TArg1, typename TArg3>
   static void Build(const char *instr_spec, TContext &mctx, const MnemonicBuilderFlagsSet &bflags,
-                    const InstrFlagsSet &iflags, const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                    const InstrFlagsSet &iflags, const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                     const TArg3 &a) {
 
     const bool is_setflags = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kSetFlags)) != 0U;

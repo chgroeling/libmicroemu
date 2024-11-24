@@ -17,9 +17,9 @@ namespace libmicroemu::internal {
  */
 template <typename TInstrContext> class Uxtb1Rotation {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+                                        const TDest &rd, const TArg0 &rm, const u8 &rotation) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const u32 rotated = Alu32::ROR(m, rotation);
     const u32 data = Bm8::ZeroExtend<u32>(static_cast<uint8_t>(rotated & 0xFFU));
@@ -39,9 +39,9 @@ public:
  */
 template <typename TInstrContext> class Sxtb1Rotation {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+                                        const TDest &rd, const TArg0 &rm, const u8 &rotation) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const u32 rotated = Alu32::ROR(m, rotation);
     const u32 data = Bm8::SignExtend<u32, 7U>(static_cast<uint8_t>(rotated & 0xFFU));
@@ -61,9 +61,9 @@ public:
  */
 template <typename TInstrContext> class Uxth1Rotation {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+                                        const TDest &rd, const TArg0 &rm, const u8 &rotation) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const u32 rotated = Alu32::ROR(m, rotation);
     const u32 data = Bm16::ZeroExtend<u32>(static_cast<uint16_t>(rotated & 0xFFFFU));
@@ -83,9 +83,9 @@ public:
  */
 template <typename TInstrContext> class Sxth1Rotation {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+                                        const TDest &rd, const TArg0 &rm, const u8 &rotation) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const u32 rotated = Alu32::ROR(m, rotation);
     const u32 val = Bm16::SignExtend<u32, 15>(static_cast<uint16_t>(rotated & 0xFFFFU));
@@ -103,9 +103,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rm, const u8 &rotation) {
+                                      const TDest &rd, const TArg0 &rm, const u8 &rotation) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);

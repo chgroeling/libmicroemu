@@ -16,9 +16,9 @@ namespace libmicroemu::internal {
  */
 template <typename TInstrContext> class Add1ImmOp {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const u32 &imm) {
+                                        const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto result = Alu32::AddWithCarry(n, imm, false);
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
@@ -36,9 +36,9 @@ public:
  */
 template <typename TInstrContext> class Adc1ImmOp {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const u32 &imm) {
+                                        const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result =
@@ -59,9 +59,9 @@ public:
  */
 template <typename TInstrContext> class Sub1ImmOp {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const u32 &imm) {
+                                        const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto result = Alu32::AddWithCarry(n, ~imm, true);
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
@@ -80,9 +80,9 @@ public:
  */
 template <typename TInstrContext> class Sbc1ImmOp {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const u32 &imm) {
+                                        const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto result =
@@ -103,9 +103,9 @@ public:
  */
 template <typename TInstrContext> class Rsb1ImmOp {
 public:
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const u32 &imm) {
+                                        const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto result = Alu32::AddWithCarry(~n, imm, true);
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
@@ -122,9 +122,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1>
+  template <typename TDest, typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rn, const u32 &imm) {
+                                      const TDest &rd, const TArg0 &rn, const u32 &imm) {
 
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
