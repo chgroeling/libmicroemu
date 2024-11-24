@@ -18,9 +18,9 @@ namespace libmicroemu::internal {
  */
 template <typename TInstrContext> class Lsr2Op {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                        const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto shift_n = m & 0xFFU;
@@ -47,9 +47,9 @@ public:
  */
 template <typename TInstrContext> class Asr2Op {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                        const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto shift_n = m & 0xFFU;
@@ -76,9 +76,9 @@ public:
  */
 template <typename TInstrContext> class Lsl2Op {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                        const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
 
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -105,9 +105,9 @@ public:
  */
 template <typename TInstrContext> class Mul2Op {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                        const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
     auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -143,9 +143,9 @@ public:
     ictx.cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
   }
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                        const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
 
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -192,9 +192,9 @@ public:
     ictx.cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
   }
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                        const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
 
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -224,9 +224,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg2>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rn, const TArg2 &rm) {
+                                      const TDest &rd, const TArg0 &rn, const TArg2 &rm) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);

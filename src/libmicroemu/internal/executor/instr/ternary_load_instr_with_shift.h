@@ -20,9 +20,9 @@ public:
 
   using ExcTrig = typename TInstrContext::ExcTrig;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TTgt, typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rt, const TArg1 &rn, const TArg2 &rm,
+                                      const TTgt &rt, const TArg0 &rn, const TArg1 &rm,
                                       const ImmShiftResults &shift_res) {
     const bool is_wback = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kWBack)) != 0U;
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;

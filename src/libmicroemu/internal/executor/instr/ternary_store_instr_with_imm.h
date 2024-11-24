@@ -4,21 +4,19 @@
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
-
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TStoreOp, typename TInstrContext> class TernaryStoreInstrWithImm {
 public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TTgt, typename TArg0>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rt, const TArg2 &rn,
+                                      const TDest &rd, const TTgt &rt, const TArg0 &rn,
                                       const u32 &imm32) {
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
@@ -87,5 +85,4 @@ private:
   TernaryStoreInstrWithImm &operator=(TernaryStoreInstrWithImm &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

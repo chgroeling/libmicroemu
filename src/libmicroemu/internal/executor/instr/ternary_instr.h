@@ -16,10 +16,10 @@ namespace libmicroemu::internal {
  */
 template <typename TInstrContext> class Mls3Op {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
+  template <typename TDest, typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
-                                        const TArg3 &ra) {
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
+                                        const TArg2 &ra) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto a = ictx.cpua.ReadRegister(ra.Get());
@@ -43,10 +43,10 @@ public:
  */
 template <typename TInstrContext> class Mla3Op {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
+  template <typename TDest, typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
-                                        const TArg3 &ra) {
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
+                                        const TArg2 &ra) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto a = ictx.cpua.ReadRegister(ra.Get());
@@ -71,10 +71,10 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1, typename TArg2, typename TArg3>
+  template <typename TDest, typename TArg0, typename TArg1, typename TArg2>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
-                                      const TArg3 &ra) {
+                                      const TDest &rd, const TArg0 &rn, const TArg1 &rm,
+                                      const TArg2 &ra) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {
       PostExecAdvancePcAndIt::Call(ictx, iflags);

@@ -17,9 +17,9 @@ namespace libmicroemu::internal {
  */
 template <typename TInstrContext> class Eor2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -46,9 +46,9 @@ public:
  */
 template <typename TInstrContext> class Orr2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -74,9 +74,9 @@ public:
  */
 template <typename TInstrContext> class And2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -102,9 +102,9 @@ public:
  */
 template <typename TInstrContext> class Bic2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -130,9 +130,9 @@ public:
  */
 template <typename TInstrContext> class Sbc2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -157,9 +157,9 @@ public:
  */
 template <typename TInstrContext> class Sub2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -182,9 +182,9 @@ public:
  */
 template <typename TInstrContext> class Rsb2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -206,9 +206,9 @@ public:
  */
 template <typename TInstrContext> class Add2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -230,9 +230,9 @@ public:
  */
 template <typename TInstrContext> class Adc2ShiftOp {
 public:
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                        const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                        const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
@@ -254,9 +254,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rd, const TArg1 &rn, const TArg2 &rm,
+                                      const TDest &rd, const TArg0 &rn, const TArg1 &rm,
                                       const ImmShiftResults &shift_res) {
     TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
     if (!condition_passed) {

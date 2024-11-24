@@ -7,8 +7,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Load from register adress to register
@@ -18,9 +17,9 @@ public:
   using It = typename TInstrContext::It;
   using Pc = typename TInstrContext::Pc;
 
-  template <typename TArg0, typename TArg1, typename TArg2>
+  template <typename TTgt, typename TArg0, typename TArg1>
   static Result<InstrExecResult> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rt, const TArg1 &rn, const TArg2 &rm,
+                                      const TTgt &rt, const TArg0 &rn, const TArg1 &rm,
                                       const ImmShiftResults &shift_res) {
     const bool is_index = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kIndex)) != 0U;
     const bool is_add = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kAdd)) != 0U;
@@ -91,5 +90,4 @@ private:
   TernaryStoreInstrWithShift &operator=(TernaryStoreInstrWithShift &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal
