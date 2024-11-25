@@ -6,8 +6,7 @@
 
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 static constexpr uint32_t kFlagsOpCodeLast = 15U;
 static constexpr uint32_t kFlagsOpCodeFirst = 11U;
@@ -44,5 +43,4 @@ static const RawInstrFlagsSet kRawInstrFlagsTable[] = {
     /* 11101 */ static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit),
     /* 11110 */ static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit),
     /* 11111 */ static_cast<RawInstrFlagsSet>(RawInstrFlagsMsk::k32Bit)};
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

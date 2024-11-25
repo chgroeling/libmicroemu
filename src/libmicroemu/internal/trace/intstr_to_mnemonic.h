@@ -4,8 +4,7 @@
 #include "libmicroemu/types.h"
 #include <cstddef>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuAccessor, typename TItOps> class InstrToMnemonic : public IInstrToMnemonic {
 public:
@@ -27,5 +26,4 @@ private:
   const Instr &instr_;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

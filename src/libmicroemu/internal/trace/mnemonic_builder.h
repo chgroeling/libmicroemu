@@ -28,8 +28,7 @@
 #include "libmicroemu/types.h"
 #include <cstddef>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 class MnemonicBuilder {
 public:
@@ -687,5 +686,4 @@ private:
   MnemonicBuilder &operator=(MnemonicBuilder &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

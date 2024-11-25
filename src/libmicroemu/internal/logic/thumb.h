@@ -8,8 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 class Thumb {
 public:
@@ -107,5 +106,4 @@ private:
   Thumb &operator=(Thumb &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

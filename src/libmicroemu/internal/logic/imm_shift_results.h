@@ -1,8 +1,7 @@
 #pragma once
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 enum class SRType : uint8_t {
   SRType_None = 0U,
@@ -44,5 +43,5 @@ struct ImmShiftResults {
     return "invalid";
   }
 };
-} // namespace internal
-} // namespace libmicroemu
+
+} // namespace libmicroemu::internal

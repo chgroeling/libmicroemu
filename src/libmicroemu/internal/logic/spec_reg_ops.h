@@ -11,8 +11,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 //----
 
@@ -209,5 +208,4 @@ private:
   SpecRegOps(const SpecRegOps &r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

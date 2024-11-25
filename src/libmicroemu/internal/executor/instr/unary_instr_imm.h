@@ -8,8 +8,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Add to pc
@@ -87,5 +86,4 @@ private:
   UnaryInstrImm &operator=(UnaryInstrImm &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

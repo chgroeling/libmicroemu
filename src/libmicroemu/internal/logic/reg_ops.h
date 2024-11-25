@@ -10,8 +10,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuStates, typename TSpecRegOps, typename TLogger = NullLogger> class RegOps {
 public:
@@ -180,5 +179,4 @@ private:
   RegOps(const RegOps &r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

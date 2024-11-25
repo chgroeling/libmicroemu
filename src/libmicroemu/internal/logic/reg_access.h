@@ -3,8 +3,7 @@
 #include <string_view>
 
 // Write implementation of IRegAccessor
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 /**
  * @class RegAccessor
  * @brief Provides access to processor registers.
@@ -69,5 +68,5 @@ public:
 private:
   CpuAccessor &cpua_; /**< The processor states used by the RegAccessor object. */
 };
-} // namespace internal
-} // namespace libmicroemu
+
+} // namespace libmicroemu::internal

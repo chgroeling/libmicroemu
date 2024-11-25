@@ -18,8 +18,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Reset logic for the processor.
@@ -166,5 +165,4 @@ private:
   ResetLogic &operator=(ResetLogic &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

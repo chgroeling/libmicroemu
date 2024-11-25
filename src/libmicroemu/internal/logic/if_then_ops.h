@@ -8,8 +8,7 @@
 #include <cstdint>
 #include <string_view>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 enum class Condition : u32 {
   kCondEq = 0b0000U, // Equal
@@ -257,5 +256,4 @@ public:
   }
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

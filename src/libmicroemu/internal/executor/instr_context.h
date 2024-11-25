@@ -3,8 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuAccessor, typename TBus, typename TCpuOps> struct InstrContext {
   using Pc = typename TCpuOps::Pc;
@@ -15,5 +14,4 @@ template <typename TCpuAccessor, typename TBus, typename TCpuOps> struct InstrCo
   TBus &bus;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

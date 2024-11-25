@@ -5,8 +5,7 @@
 #include "libmicroemu/internal/logic/thumb_immediate_result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 enum class InstrId : u8 {
   kNop,
@@ -922,5 +921,4 @@ union Instr {
   Instr(const InstrMrs &arg) : mrs(arg) {}
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

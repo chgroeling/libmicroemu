@@ -3,8 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TContext> class MnemonicBuilderVariadicLoadStoreInstr {
 public:
@@ -86,5 +85,4 @@ private:
   operator=(MnemonicBuilderVariadicLoadStoreInstr &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

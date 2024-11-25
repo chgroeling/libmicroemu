@@ -2,8 +2,7 @@
 
 #pragma once
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 using InstrFlagsSet = u8;
 
@@ -29,5 +28,4 @@ enum class InstrFlags : InstrFlagsSet {
   kNonZero = 1U << static_cast<InstrFlagsSet>(InstrFlagsShift::kNonZeroShift)
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

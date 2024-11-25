@@ -12,8 +12,7 @@
 #include <cstdint>
 #include <string_view>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Provides predicates for certain cpu states
@@ -89,5 +88,5 @@ private:
   Predicates(Predicates &&r_src) = delete;
   Predicates &operator=(Predicates &&r_src) = delete;
 };
-} // namespace internal
-} // namespace libmicroemu
+
+} // namespace libmicroemu::internal

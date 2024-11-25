@@ -6,8 +6,7 @@
 #include "libmicroemu/machine.h"
 #include "libmicroemu/result.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 class Delegates {
 public:
   using PreExecDelegate = FPreExecStepCallback;
@@ -45,5 +44,5 @@ private:
   BkptDelegate bkpt_delegate_{nullptr};
   SvcDelegate svc_delegate_{nullptr};
 };
-} // namespace internal
-} // namespace libmicroemu
+
+} // namespace libmicroemu::internal

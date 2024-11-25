@@ -13,8 +13,7 @@
 
 #undef _DISABLE_EXT_EXIT
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 enum {
   // File operations
@@ -381,5 +380,4 @@ private:
   u32 semihost_features_position_{0U};
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

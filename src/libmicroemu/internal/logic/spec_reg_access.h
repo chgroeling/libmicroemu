@@ -2,8 +2,7 @@
 
 #include "libmicroemu/emu_context.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @class SpecialRegAccessor
@@ -70,5 +69,4 @@ private:
   CpuAccessor &cpua_; /**< The cpu accessor used by the SpecialRegAccessor object. */
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal
