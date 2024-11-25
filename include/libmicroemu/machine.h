@@ -46,9 +46,9 @@ public:
    * @param elf_file
    * @return
    */
-  Result<void> Load(const char *elf_file, bool set_entry_point = true) noexcept;
+  StatusCode Load(const char *elf_file, bool set_entry_point = true) noexcept;
 
-  Result<void> Reset() noexcept;
+  StatusCode Reset() noexcept;
 
   /**
    * @brief Executes the loaded program
