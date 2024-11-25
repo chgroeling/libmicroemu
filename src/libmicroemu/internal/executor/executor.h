@@ -43,8 +43,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuAccessor, typename TBus, typename TCpuOps, typename TLogger = NullLogger>
 class Executor {
@@ -985,5 +984,4 @@ private:
   Executor &operator=(Executor &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

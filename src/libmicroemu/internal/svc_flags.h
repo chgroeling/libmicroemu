@@ -3,8 +3,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 enum class SvcFlags : u8 {
   kRequestExit = 0x1U << 0U,      // Application exits via exit keyword
@@ -14,5 +13,4 @@ enum class SvcFlags : u8 {
 
 using SvcFlagsSet = uint8_t;
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

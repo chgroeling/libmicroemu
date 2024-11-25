@@ -8,8 +8,7 @@
 #include <cstdint>
 #include <limits>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 // Alias zur einfacheren Verwendung
 template <typename T> using next_bigger_type_t = typename next_bigger_type<T>::type;
@@ -296,5 +295,4 @@ using Alu8 = Alu<u8>;
 using Alu16 = Alu<u16>;
 using Alu32 = Alu<u32>;
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

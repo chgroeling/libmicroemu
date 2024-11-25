@@ -7,8 +7,7 @@
 #include <tuple>
 #include <type_traits>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 class MemoryHelpers {
 
@@ -133,5 +132,4 @@ private:
   MemoryHelpers &operator=(MemoryHelpers &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

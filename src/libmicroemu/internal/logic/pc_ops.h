@@ -6,8 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuAccessor, typename TBus, typename TExceptionReturn,
           typename TLogger = NullLogger>
@@ -127,5 +126,4 @@ private:
   PcOps &operator=(PcOps &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

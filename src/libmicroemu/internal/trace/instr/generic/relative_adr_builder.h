@@ -4,8 +4,7 @@
 
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 class RelativeAdrBuilder {
 public:
@@ -79,5 +78,4 @@ private:
   RelativeAdrBuilder &operator=(RelativeAdrBuilder &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

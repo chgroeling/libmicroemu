@@ -7,8 +7,7 @@
 #include <iostream>
 #include <iterator>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 class NullBuffer : public std::streambuf {
 public:
@@ -173,5 +172,4 @@ private:
   u32 entry_point_;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

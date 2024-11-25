@@ -11,8 +11,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuStates, typename RegOps, typename TSpecRegOps, typename TLogger = NullLogger>
 class CpuAccessor : public TCpuStates {
@@ -52,5 +51,4 @@ public:
   }
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

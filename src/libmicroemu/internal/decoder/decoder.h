@@ -8,8 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuStates, typename TItOps> class Decoder {
 public:
@@ -48,5 +47,4 @@ private:
   Decoder &operator=(Decoder &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

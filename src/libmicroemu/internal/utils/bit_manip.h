@@ -6,8 +6,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename T> class BitManip {
   // clang-format off
@@ -341,5 +340,4 @@ using Bm8 = BitManip<u8>;
 using Bm16 = BitManip<u16>;
 using Bm32 = BitManip<u32>;
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

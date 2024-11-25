@@ -5,8 +5,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Load from immediate adr to register
@@ -75,5 +74,4 @@ private:
   MnemonicBuilderBinaryInstr &operator=(MnemonicBuilderBinaryInstr &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

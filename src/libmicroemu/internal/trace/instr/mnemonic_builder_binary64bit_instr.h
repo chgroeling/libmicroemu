@@ -5,8 +5,7 @@
 #include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 /**
  * @brief Binary instruction with 64-bit result
@@ -73,5 +72,4 @@ private:
   MnemonicBuilderBinary64bitInstr &operator=(MnemonicBuilderBinary64bitInstr &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

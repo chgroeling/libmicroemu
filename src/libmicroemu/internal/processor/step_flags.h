@@ -1,8 +1,7 @@
 #pragma once
 #include "libmicroemu/types.h"
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 using StepFlagsSet = u8;
 
 // TODAY: Ok is the absmce of any error
@@ -11,5 +10,4 @@ enum class StepFlags : StepFlagsSet {
   kStepTerminationRequest = 1U << 1U,
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

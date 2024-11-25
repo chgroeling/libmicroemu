@@ -14,8 +14,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 template <typename TCpuAccessor, typename TBus, typename TProcessorOps, typename TFetcher,
           typename TDecoder, typename TExecutor, typename TLogger = NullLogger>
@@ -198,5 +197,4 @@ private:
   Processor &operator=(Processor &&r_src) = delete;
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal

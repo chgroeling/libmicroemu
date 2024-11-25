@@ -13,8 +13,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace libmicroemu {
-namespace internal {
+namespace libmicroemu::internal {
 
 struct ExceptionContext {
   u32 return_adr; // return address of the exception
@@ -994,5 +993,4 @@ public:
   };
 };
 
-} // namespace internal
-} // namespace libmicroemu
+} // namespace libmicroemu::internal
