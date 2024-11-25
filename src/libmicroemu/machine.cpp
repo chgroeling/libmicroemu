@@ -24,7 +24,7 @@ Emulator<CpuStates> Machine::BuildEmulator() {
 Machine::Machine() noexcept {};
 Machine::~Machine() noexcept {};
 
-Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept {
+StatusCode Machine::Load(const char *elf_file, bool set_entry_point) noexcept {
 
   std::fill(ram1_, ram1_ + ram1_size_, 0xFFU);
   std::fill(ram2_, ram2_ + ram2_size_, 0xFFU);
@@ -34,11 +34,11 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
     auto file = std::ifstream(elf_file, std::ios::binary);
     if (!file.is_open()) {
       // Failed to open file
-      return Err(StatusCode::kOpenFileFailed);
+      return StatusCode::kOpenFileFailed;
     }
     auto res_reader = ElfReader::ReadElf(file);
     if (res_reader.IsErr()) {
-      return Err<ElfReader, void>(res_reader);
+      return res_reader.status_code;
     };
     auto reader = res_reader.content;
 
@@ -52,11 +52,11 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
         if ((phdr.p_vaddr < flash_vadr_) ||
             (phdr.p_vaddr + phdr.p_filesz >= flash_vadr_ + flash_size_)) {
           // size of buffer is not big enough
-          return Err(StatusCode::kBufferTooSmall);
+          return StatusCode::kBufferTooSmall;
         }
         auto res = reader.GetSegmentData(phdr, flash_, phdr.p_filesz, 0x0, 0x0);
         if (res.IsErr()) {
-          return Err<void, void>(res);
+          return res.status_code;
         }
       }
 
@@ -65,13 +65,13 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
         if ((phdr.p_vaddr < ram1_vadr_) ||
             (phdr.p_vaddr + phdr.p_filesz >= ram1_vadr_ + ram1_size_)) {
           // size of buffer is not big enough
-          return Err(StatusCode::kBufferTooSmall);
+          return StatusCode::kBufferTooSmall;
         }
         auto data_seg_vadr = static_cast<me_adr_t>(phdr.p_vaddr);
 
         auto res = reader.GetSegmentData(phdr, ram1_, phdr.p_filesz, ram1_vadr_, data_seg_vadr);
         if (res.IsErr()) {
-          return Err<void, void>(res);
+          return res.status_code;
         }
       }
     }
@@ -80,13 +80,16 @@ Result<void> Machine::Load(const char *elf_file, bool set_entry_point) noexcept 
     entry_point = reader.GetEntryPoint();
   }
 
-  TRY(void, Reset());
+  auto sc_reset = Reset();
+  if (sc_reset != StatusCode::kSuccess) {
+    return sc_reset;
+  }
 
   if (set_entry_point) {
     auto emu = BuildEmulator();
     emu.SetEntryPoint(entry_point);
   }
-  return Ok();
+  return StatusCode::kSuccess;
 }
 
 void Machine::SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept {
@@ -107,10 +110,14 @@ void Machine::SetRam2Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr)
   ram2_vadr_ = seg_vadr;
 }
 
-Result<void> Machine::Reset() noexcept {
+StatusCode Machine::Reset() noexcept {
   auto emu = BuildEmulator();
-  TRY(void, emu.Reset());
-  return Ok();
+  const auto res_reset = emu.Reset();
+
+  if (res_reset.IsErr()) {
+    return res_reset.status_code;
+  }
+  return StatusCode::kSuccess;
 }
 
 ExecResult Machine::Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,

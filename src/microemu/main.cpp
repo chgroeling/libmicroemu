@@ -330,10 +330,11 @@ int main(int argc, const char *argv[]) {
       };
 
   // Load the ELF file
-  auto res = machine.Load(elf_file.c_str(), is_elf_entry_point);
-  if (res.IsErr()) {
-    fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", res.ToString(),
-               static_cast<uint32_t>(res.status_code));
+  const auto sc = machine.Load(elf_file.c_str(), is_elf_entry_point);
+  if (sc != libmicroemu::StatusCode::kSuccess) {
+    const auto sc_str = libmicroemu::StatusCodeToString(sc);
+    fmt::print(stderr, "ERROR: Emulator returned error: {}({})\n", sc_str,
+               static_cast<uint32_t>(sc));
     return EXIT_FAILURE;
   }
 

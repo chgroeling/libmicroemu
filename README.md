@@ -114,8 +114,7 @@ int main()
     machine.SetRam1Segment(ram1_seg.data(), ram1_seg.size(), kRam1SegVadr);
 
     // Load the ELF file and set the entry point to the one given in the ELF file
-    auto res = machine.Load(kElfPath, true);
-    if (res.IsErr())
+    if (machine.Load(kElfPath, true) != libmicroemu::StatusCode::kSuccess)
     {
         std::cerr << "Failed to load ELF file." << std::endl;
         return EXIT_FAILURE;
