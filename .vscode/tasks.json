@@ -21,7 +21,7 @@
         {
             "label": "run",
             "type": "shell",
-            "command": "${workspaceFolder}/build/Debug/src/microemu/microemu",
+            "command": "${workspaceFolder}/build/Debug/bin/microemu",
             "args": [
                 "-m",
                 "MINIMAL",
@@ -31,7 +31,7 @@
                 "--log-level",
                 "TRACE",
                 "--log-file",
-                "${workspaceFolder}/build/Debug/src/microemu/microemu.log",
+                "${workspaceFolder}/build/Debug/bin/microemu.log",
                 "./tests/system_tests/testbench/prebuilt/bin/testbench.elf",
                 //">",
                 //"testbench.trace"
