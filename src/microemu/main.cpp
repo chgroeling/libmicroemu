@@ -254,25 +254,25 @@ int main(int argc, const char *argv[]) {
 
   // Memory configuration
   if (memory_config == "STDLIB") {
-    flash_seg_size = 0x10000U;
     flash_seg_vadr = 0x0;
+    flash_seg_size = 0x10000U;
 
-    ram1_seg_size = 0x20000U;
     ram1_seg_vadr = 0x10000U;
+    ram1_seg_size = 0x20000U;
 
-    ram2_seg_size = 0x10000U;
     ram2_seg_vadr = 0x70000U;
+    ram2_seg_size = 0x10000U;
 
   } else if (memory_config == "MINIMAL") {
-    flash_seg_size = 0x20000U;
     flash_seg_vadr = 0x0;
+    flash_seg_size = 0x20000U;
 
-    ram1_seg_size = 0x40000U;
     ram1_seg_vadr = 0x20000000U;
+    ram1_seg_size = 0x40000U;
 
     // No RAM2 segment
-    ram2_seg_size = 0x0U;
     ram2_seg_vadr = 0x0U;
+    ram2_seg_size = 0x0U;
   } else {
     // default or NONE
     // Do nothing
