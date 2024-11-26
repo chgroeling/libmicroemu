@@ -62,6 +62,14 @@ target_compile_options(${LIB_NAME}
 target_compile_options(${LIB_NAME} PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_COMPILE_OPTIONS}>")
 target_compile_options(${LIB_NAME} PUBLIC "$<$<CONFIG:RELEASE>:${RELEASE_COMPILE_OPTIONS}>")
 
+
+# Move the output to the lib directory
+set_target_properties(${APP_NAME} PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+)
+
+
 # Add the include directories and make them known to other targets (PUBLIC)
 target_include_directories(
     ${LIB_NAME} 

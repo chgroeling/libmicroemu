@@ -4,7 +4,7 @@
       "name": "microemu_mac",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/Debug/src/microemu/microemu",
+      "program": "${workspaceFolder}/build/Debug/bin/microemu",
       "args": [
         "-m",
         "MINIMAL",
@@ -14,7 +14,7 @@
         "--log-level",
         "TRACE",
         "--log-file",
-        "${workspaceFolder}/build/Debug/src/microemu/microemu.log",
+        "${workspaceFolder}/build/Debug/bin/microemu.log",
         "./tests/system_tests/testbench/prebuilt/bin/testbench.elf",
       //  ">",
       //  "testbench.trace"
@@ -28,7 +28,7 @@
       "name": "microemu_win",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/Debug/src/microemu/microemu",
+      "program": "${workspaceFolder}/build/Debug/bin/microemu",
       "args": [
         "-m",
         "MINIMAL",

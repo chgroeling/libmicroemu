@@ -18,10 +18,14 @@ SET (
 )
 
 add_executable(${APP_NAME} ${APP_SOURCES})
-# TOOD: Move the executable to bin
+
 target_compile_options(${APP_NAME} PUBLIC "$<$<CONFIG:DEBUG>:${DEBUG_COMPILE_OPTIONS}>")
 target_compile_options(${APP_NAME} PUBLIC "$<$<CONFIG:RELEASE>:${RELEASE_COMPILE_OPTIONS}>")
 
+# Move the output to the bin directory
+set_target_properties(${APP_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
 
 # Link local libraries
 target_link_libraries(${APP_NAME} PRIVATE libmicroemu)
