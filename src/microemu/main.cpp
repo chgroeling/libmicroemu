@@ -254,7 +254,7 @@ int main(int argc, const char *argv[]) {
 
   // Memory configuration
   if (memory_config == "STDLIB") {
-    flash_seg_vadr = 0x0;
+    flash_seg_vadr = 0x0U;
     flash_seg_size = 0x10000U;
 
     ram1_seg_vadr = 0x10000U;
@@ -264,7 +264,7 @@ int main(int argc, const char *argv[]) {
     ram2_seg_size = 0x10000U;
 
   } else if (memory_config == "MINIMAL") {
-    flash_seg_vadr = 0x0;
+    flash_seg_vadr = 0x0U;
     flash_seg_size = 0x20000U;
 
     ram1_seg_vadr = 0x20000000U;
