@@ -1,5 +1,6 @@
 #pragma once
 
+#include "libmicroemu/internal/logic/predicates.h"
 #include "libmicroemu/internal/logic/reg_access.h"
 #include "libmicroemu/internal/logic/spec_reg_access.h"
 #include "libmicroemu/internal/processor/step_flags.h"
@@ -27,8 +28,7 @@ public:
 
   // Check if execution mode is thumb .. if not, raise usage fault and return true
   static bool IsThumbModeOrRaise(TCpuAccessor &cpua) {
-    const auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
-    const bool is_thumb = (epsr & static_cast<u32>(EpsrRegister::kTMsk)) != 0U;
+    const bool is_thumb = Predicates::IsThumbMode(cpua);
 
     // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken
     if (!is_thumb) {

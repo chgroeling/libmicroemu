@@ -80,6 +80,18 @@ public:
     return (is_handler_mode || is_privileged);
   }
 
+  /**
+   * @brief Check if the cpu is in thumb mode
+   * @param cpua a reference to a cpu accessor
+   * @return true if the cpu is in thumb mode, false otherwise
+   */
+  template <typename TCpuAccessor> static bool IsThumbMode(TCpuAccessor &cpua) {
+    const auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
+    const bool is_thumb = (epsr & static_cast<u32>(EpsrRegister::kTMsk)) != 0U;
+
+    return is_thumb;
+  }
+
 private:
   Predicates() = delete;
   ~Predicates() = delete;
