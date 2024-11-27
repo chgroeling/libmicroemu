@@ -64,7 +64,7 @@ public:
     epsr &= ~EpsrRegister::kTMsk;
     epsr |= (address & 0x1U) << EpsrRegister::kTPos;
     cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
-    cpua.BranchTo(address & (~0x1U));
+    BranchTo(cpua, address & (~0x1U));
   }
 
   static inline Result<void> LoadWritePC(TCpuAccessor &cpua, TBus &bus, const me_adr_t &address) {

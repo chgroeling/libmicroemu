@@ -54,7 +54,7 @@ public:
     ictx.cpua.template WriteRegister<RegisterId::kLr>(lr_val);
 
     const auto bres = static_cast<me_adr_t>(m);
-    TRY(InstrExecFlagsSet, PostExecBxWritePc::Call(ictx, bres));
+    PostExecBlxWritePc::Call(ictx, bres);
     return Ok(kNoInstrExecFlags);
   }
 };

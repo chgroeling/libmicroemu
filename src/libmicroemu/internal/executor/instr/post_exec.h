@@ -95,6 +95,18 @@ public:
   }
 };
 
+class PostExecBlxWritePc {
+public:
+  template <typename TInstrContext>
+  static inline void Call(const TInstrContext &ictx, const me_adr_t &new_pc) {
+    using It = typename TInstrContext::It;
+    using Pc = typename TInstrContext::Pc;
+
+    Pc::BLXWritePC(ictx.cpua, new_pc);
+    It::ITAdvance(ictx.cpua);
+  }
+};
+
 class PostExecWriteRegPcExcluded {
 public:
   template <typename TInstrContext, typename TArg>
