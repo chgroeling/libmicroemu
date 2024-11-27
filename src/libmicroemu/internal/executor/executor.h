@@ -2,6 +2,7 @@
 
 #include "libmicroemu/internal/decoder/decoder.h"
 #include "libmicroemu/internal/executor/instr/binary64bit_instr.h"
+#include "libmicroemu/internal/executor/instr/binary_branch_instr.h"
 #include "libmicroemu/internal/executor/instr/binary_branch_instr_with_imm.h"
 #include "libmicroemu/internal/executor/instr/binary_instr.h"
 #include "libmicroemu/internal/executor/instr/binary_instr_with_imm.h"
@@ -367,9 +368,12 @@ public:
     case InstrId::kTbbH: {
       // see Armv7-M Architecture Reference Manual Issue E.e p.416
       const auto &iargs = instr.tbb_h;
+      using TOp = TbbH2Op<TInstrCtx>;
+      using TInstr = BinaryBranchInstr<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 SpecialInstr<TInstrCtx>::Tbhh(ictx, iargs.flags, RArg(iargs.m), RArg(iargs.n)));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), RArg(iargs.m)));
       flags |= out_flags.flags;
+
       break;
     }
     case InstrId::kB: {

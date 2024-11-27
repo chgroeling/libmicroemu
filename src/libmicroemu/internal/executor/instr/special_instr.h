@@ -119,43 +119,6 @@ public:
   }
 
   /**
-   * @brief Table branch
-   *
-   * see Armv7-M Architecture Reference Manual Issue E.e p. 416
-   */
-  template <typename TArg0, typename TArg1>
-  static Result<InstrExecResult> Tbhh(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rm, TArg1 rn) {
-    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-    if (!condition_passed) {
-      PostExecAdvancePcAndIt::Call(ictx, iflags);
-      return Ok(InstrExecResult{kNoInstrExecFlags});
-    }
-
-    const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
-    const auto m = ictx.cpua.ReadRegister(rm.Get());
-    const auto n = ictx.cpua.ReadRegister(rn.Get());
-    me_adr_t halfwords{0U};
-    if (is_tbh) {
-      me_adr_t adr = (n + Alu32::LSL(m, 1));
-      TRY_ASSIGN(out, InstrExecResult,
-                 ictx.bus.template ReadOrRaise<u16>(ictx.cpua, adr,
-                                                    BusExceptionType::kRaisePreciseDataBusError));
-      halfwords = out;
-    } else {
-      me_adr_t adr = n + m;
-      TRY_ASSIGN(out, InstrExecResult,
-                 ictx.bus.template ReadOrRaise<u8>(ictx.cpua, adr,
-                                                   BusExceptionType::kRaisePreciseDataBusError));
-      halfwords = out;
-    }
-
-    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
-    Pc::BranchWritePC(ictx.cpua, pc + (halfwords << 1U));
-    return Ok(InstrExecResult{kNoInstrExecFlags});
-  }
-
-  /**
    * @brief Bfi
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 208

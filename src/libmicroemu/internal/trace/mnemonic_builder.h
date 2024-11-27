@@ -7,6 +7,7 @@
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_instr_with_rotation.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_instr_with_shift.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_loadstore_instr_with_imm.h"
+#include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_null_instr.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_null_instr_with_imm.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_binary_null_instr_with_imm_carry.h"
 #include "libmicroemu/internal/trace/instr/mnemonic_builder_nullary_instr.h"
@@ -551,8 +552,15 @@ public:
     }
     case InstrId::kTbbH: {
       const auto &iargs = instr.tbb_h;
-      MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildTbbH(
-          "TBH", mctx, bflags, iargs.flags, RArg(iargs.n), RArg(iargs.m));
+      const auto &iflags = iargs.flags;
+      const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
+      if (is_tbh == true) {
+        MnemonicBuilderBinaryNullInstr<TMnemonicBuilderContext>::Build(
+            "TBH", mctx, bflags, iargs.flags, RArg(iargs.m), RArg(iargs.n), "");
+      } else {
+        MnemonicBuilderBinaryNullInstr<TMnemonicBuilderContext>::Build(
+            "TBB", mctx, bflags, iargs.flags, RArg(iargs.m), RArg(iargs.n), ", LSL #1");
+      }
       break;
     }
     case InstrId::kStrbImmediate: {
