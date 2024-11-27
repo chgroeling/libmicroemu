@@ -46,25 +46,6 @@ public:
     mctx.builder.Terminate();
   }
 
-  template <typename TArg0>
-  static void BuildCbNZ(const char *instr_spec, TContext &mctx,
-                        const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                        const TArg0 &rn, const u32 &imm) {
-    static_cast<void>(instr_spec);
-    static_cast<void>(bflags);
-    const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
-
-    mctx.builder.AddString("CB");
-    if (is_non_zero == true) {
-      mctx.builder.AddChar('N');
-    }
-    mctx.builder.AddString("Z ")
-        .AddString(Reg::GetRegisterName(rn.Get()))
-        .AddString(", #")
-        .AddInt(imm)
-        .Terminate();
-  }
-
   template <typename TDest, typename TArg0>
   static void BuildUbfx(const char *instr_spec, TContext &mctx,
                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,

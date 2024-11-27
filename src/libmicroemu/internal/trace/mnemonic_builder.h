@@ -618,8 +618,19 @@ public:
     }
     case InstrId::kCbNZ: {
       const auto &iargs = instr.cb_n_z;
-      MnemonicBuilderSpecialInstr<TMnemonicBuilderContext>::BuildCbNZ(
-          "CBNZ", mctx, bflags, iargs.flags, RArg(iargs.n), iargs.imm32);
+      const auto &iflags = iargs.flags;
+      const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
+
+      if (is_non_zero == true) {
+        MnemonicBuilderBinaryNullInstrWithImm<TMnemonicBuilderContext>::Build(
+            "CBNZ", mctx, bflags, iargs.flags, RArg(iargs.n), iargs.imm32);
+      } else {
+
+        MnemonicBuilderBinaryNullInstrWithImm<TMnemonicBuilderContext>::Build(
+            "CBZ", mctx, bflags, iargs.flags, RArg(iargs.n), iargs.imm32);
+        break;
+      }
+
       break;
     }
     case InstrId::kSvc: {
