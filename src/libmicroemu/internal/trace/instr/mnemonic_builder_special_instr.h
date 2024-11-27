@@ -16,36 +16,6 @@ public:
   using Reg = typename TContext::Reg;
   using SReg = typename TContext::SReg;
 
-  template <typename TArg0, typename TArg1>
-  static void BuildTbbH(const char *instr_spec, TContext &mctx,
-                        const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
-                        const TArg0 &rn, const TArg1 &rm) {
-    static_cast<void>(instr_spec);
-    static_cast<void>(bflags);
-    const bool is_tbh = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kTbh)) != 0U;
-
-    if (is_tbh) {
-      mctx.builder.AddString("TBH")
-          .AddString(It::GetConditionAsStr(mctx.cpua))
-          .AddString(" [")
-          .AddString(Reg::GetRegisterName(rn.Get()))
-          .AddString(", ")
-          .AddString(Reg::GetRegisterName(rm.Get()))
-          .AddString(", LSL #1")
-          .AddChar(']');
-    } else {
-      mctx.builder.AddString("TBB")
-          .AddString(It::GetConditionAsStr(mctx.cpua))
-          .AddString(" [")
-          .AddString(Reg::GetRegisterName(rn.Get()))
-          .AddString(", ")
-          .AddString(Reg::GetRegisterName(rm.Get()))
-          .AddChar(']');
-    }
-
-    mctx.builder.Terminate();
-  }
-
   template <typename TDest, typename TArg0>
   static void BuildUbfx(const char *instr_spec, TContext &mctx,
                         const MnemonicBuilderFlagsSet &bflags, const InstrFlagsSet &iflags,
