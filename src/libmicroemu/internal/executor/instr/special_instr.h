@@ -77,11 +77,6 @@ public:
   template <typename TDelegates>
   static Result<InstrExecResult> Bkpt(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                       const u32 &imm32, TDelegates &delegates) {
-    TRY_ASSIGN(condition_passed, InstrExecResult, It::ConditionPassed(ictx.cpua));
-    if (!condition_passed) {
-      PostExecAdvancePcAndIt::Call(ictx, iflags);
-      return Ok(InstrExecResult{kNoInstrExecFlags});
-    }
     InstrExecFlagsSet eflags{kNoInstrExecFlags};
     if (delegates.IsBkptSet()) {
       TRY_ASSIGN(bkpt_flags, InstrExecResult, delegates.Bkpt(imm32));
