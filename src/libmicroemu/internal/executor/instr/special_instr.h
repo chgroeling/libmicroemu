@@ -156,30 +156,6 @@ public:
   }
 
   /**
-   * @brief Compare branch
-   *
-   * see Armv7-M Architecture Reference Manual Issue E.e p. 216
-   */
-  template <typename TArg0>
-  static Result<InstrExecResult> CbNZ(TInstrContext &ictx, const InstrFlagsSet &iflags,
-                                      const TArg0 &rn, const u32 &imm32) {
-    const bool is_non_zero = (iflags & static_cast<InstrFlagsSet>(InstrFlags::kNonZero)) != 0U;
-    const auto n = ictx.cpua.ReadRegister(rn.Get());
-    const me_adr_t pc = static_cast<me_adr_t>(ictx.cpua.template ReadRegister<RegisterId::kPc>());
-    const u32 new_pc = pc + imm32;
-
-    if ((n == 0U) && (is_non_zero == false)) {
-      Pc::BranchWritePC(ictx.cpua, new_pc);
-    } else if ((n != 0U) && (is_non_zero == true)) {
-      Pc::BranchWritePC(ictx.cpua, new_pc);
-    } else {
-      PostExecAdvancePcAndIt::Call(ictx, iflags);
-    };
-
-    return Ok(InstrExecResult{kNoInstrExecFlags});
-  }
-
-  /**
    * @brief Bfi
    *
    * see Armv7-M Architecture Reference Manual Issue E.e p. 208

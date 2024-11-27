@@ -2,6 +2,7 @@
 
 #include "libmicroemu/internal/decoder/decoder.h"
 #include "libmicroemu/internal/executor/instr/binary64bit_instr.h"
+#include "libmicroemu/internal/executor/instr/binary_branch_instr_with_imm.h"
 #include "libmicroemu/internal/executor/instr/binary_instr.h"
 #include "libmicroemu/internal/executor/instr/binary_instr_with_imm.h"
 #include "libmicroemu/internal/executor/instr/binary_instr_with_imm_carry.h"
@@ -392,9 +393,13 @@ public:
     case InstrId::kCbNZ: {
       // see Armv7-M Architecture Reference Manual Issue E.e p.216
       const auto &iargs = instr.cb_n_z;
+      using TOp = CbNZ1ImmOp<TInstrCtx>;
+      using TInstr = BinaryBranchInstrWithImm<TOp, TInstrCtx>;
       TRY_ASSIGN(out_flags, InstrExecResult,
-                 SpecialInstr<TInstrCtx>::CbNZ(ictx, iargs.flags, RArg(iargs.n), iargs.imm32));
+                 TInstr::Call(ictx, iargs.flags, RArg(iargs.n), iargs.imm32));
       flags |= out_flags.flags;
+      break;
+
       break;
     }
     case InstrId::kBx: {
