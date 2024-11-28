@@ -137,15 +137,15 @@ public:
     PcOps::BranchTo(cpua, aligned_entry_point);
   }
 
-  ExecResult Exec(i32 instr_limit, FPreExecStepCallback cb_pre_exec,
+  ExecResult Exec(i64 instr_limit, FPreExecStepCallback cb_pre_exec,
                   FPostExecStepCallback cb_post_exec) {
     auto bus = BuildBus();
     auto &cpua = static_cast<CpuAccessor &>(cpu_states_);
     auto semihosting = Semihosting(cpua, bus);
 
-    u32 instr_count{0U};
+    u64 instr_count{0U};
     bool is_instr_limit = instr_limit > 0;
-    u32 u_instr_limit = static_cast<u32>(instr_limit);
+    u64 u_instr_limit = static_cast<u64>(instr_limit);
 
     Delegates delegates(
         cb_pre_exec, cb_post_exec,

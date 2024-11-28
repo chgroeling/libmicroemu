@@ -99,7 +99,7 @@ int main(int argc, const char *argv[]) {
     ("trace-changed-regs", "Enable output of registers that have changed during the trace.")
     ("e,elf_ep", "Load and set entry point from ELF file.")
     ("i,instr_limit", "Set the maximum number of instructions to execute.", 
-        cxxopts::value<int>()) 
+        cxxopts::value<int64_t>()) 
     ("m,memory-config", kMemoryConfigOption, 
         cxxopts::value<std::string>()->default_value("NONE"))
     ("elf_file", "Path to the executable to load.",
@@ -217,7 +217,7 @@ int main(int argc, const char *argv[]) {
   uint32_t ram2_seg_size{0x0U};
   uint32_t ram2_seg_vadr{0x0U};
 
-  int32_t instr_limit = -1; // <0 means infinite
+  int64_t instr_limit = -1; // <0 means infinite
 
   if (result.count("instr_limit")) {
     auto instr_limit = result["instr_limit"].as<int>();
