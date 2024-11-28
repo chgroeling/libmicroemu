@@ -292,7 +292,7 @@ public:
           auto control = ictx.cpua.template ReadRegister<SpecialRegisterId::kControl>();
           //    CONTROL.nPRIV = R[n]<0>;
           control &= ~ControlRegister::kNPrivMsk;
-          control |= ((n & 0x1) >> 0U) << ControlRegister::kNPrivPos;
+          control |= ((n & 0x1U) >> 0U) << ControlRegister::kNPrivPos;
           if (Predicates::IsThreadMode(ictx.cpua)) {
             // CONTROL.SPSEL = R[n]<1>;
             control &= ~ControlRegister::kSpselMsk;
