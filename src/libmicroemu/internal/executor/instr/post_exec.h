@@ -121,9 +121,9 @@ public:
   template <typename TInstrContext, typename TArg>
   static Result<void> Call(const TInstrContext &ictx, const InstrFlagsSet &iflags, const TArg &arg,
                            const u32 &value, const bool is_aligned) {
+    // This instruction is a branch instruction
+    // It fails if the address from which is was loaded is not aligned
     if (arg.Get() == RegisterId::kPc) {
-      // This instruction is a branch instruction
-      // It fails if the address from which is was loaded is not aligned
       if (is_aligned) {
         TRY(void, PostExecLoadWritePc::Call(ictx, value));
       } else {
