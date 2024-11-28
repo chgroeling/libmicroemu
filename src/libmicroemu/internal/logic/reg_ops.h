@@ -64,13 +64,20 @@ public:
     auto spsel = sys_ctrl & SysCtrlRegister::kControlSpSelMsk;
 
     // if CONTROL.SPSEL == '1' then
-    if (spsel == 1) {
+    if (spsel == 1U) {
+      const auto exec_mode = sys_ctrl & SysCtrlRegister::kExecModeMsk;
 
-      //    if CurrentMode==Mode_Thread then
-      //        sp = RNameSP_process;
-      return SpecialRegisterId::kSpProcess;
-      //    else
-      //        UNPREDICTABLE;
+      // if CurrentMode==Mode_Thread then
+      if (exec_mode == SysCtrlRegister::kExecModeThread) {
+        // sp = RNameSP_process;
+        return SpecialRegisterId::kSpProcess;
+      } else {
+        // UNPREDICTABLE;
+        // I see no clean way to handle this without loosing performance
+        // in release mode, so we'll just return the main stack pointer
+        assert(false && "LookUpSp UNPREDICTABLE");
+        return SpecialRegisterId::kSpMain;
+      }
     }
 
     return SpecialRegisterId::kSpMain;
