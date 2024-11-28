@@ -57,7 +57,7 @@ public:
    * @param cb_post_exec Callback function to be called after each instruction is executed
    * @return Result of the execution
    */
-  ExecResult Exec(i32 max_instructions = -1, FPreExecStepCallback cb_pre_exec = nullptr,
+  ExecResult Exec(i64 max_instructions = -1, FPreExecStepCallback cb_pre_exec = nullptr,
                   FPostExecStepCallback cb_post_exec = nullptr) noexcept;
 
   /**
