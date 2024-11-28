@@ -425,9 +425,8 @@ public:
 
     // tmp = MemA[VectorTable+4*ExceptionNumber,4];
     TRY_ASSIGN(tmp, void,
-               bus.template ReadOrRaise<u32>(cpua,
-                                             vector_table + 4U * static_cast<u32>(exception_type),
-                                             BusExceptionType::kRaisePreciseDataBusError));
+               bus.template Read<u32>(cpua, vector_table + 4U * static_cast<u32>(exception_type)));
+
     // BranchTo(tmp AND 0xFFFFFFFE<31:0>);
     const auto exception_address = tmp & 0xFFFFFFFEU;
     LOG_TRACE(TLogger, "Branching to exception address = 0x%08X", exception_address);
@@ -523,7 +522,7 @@ public:
     } else {
 
       switch (exc_return & 0xFU) {
-      case 0b0001: { // return to Handler
+      case 0b0001U: { // return to Handler
         frameptr = cpua.template ReadRegister<SId::kSpMain>();
         SetProcessorMode(cpua, ProcessorMode::kHandler);
 
@@ -536,7 +535,7 @@ public:
         break;
       }
 
-      case 0b1001: // returning to Thread using Main stack
+      case 0b1001U: // returning to Thread using Main stack
         // if NestedActivation != 1 && CCR.NONBASETHRDENA == '0' then
         if (false) {
           // DeActivate(ReturningExceptionNumber);
@@ -556,7 +555,7 @@ public:
           cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         }
         break;
-      case 0b1101: // returning to Thread using Process stack
+      case 0b1101U: // returning to Thread using Process stack
         // if NestedActivation != 1 && CCR.NONBASETHRDENA == '0' then
         if (false) {
           // DeActivate(ReturningExceptionNumber);
