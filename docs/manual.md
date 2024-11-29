@@ -1,32 +1,39 @@
 # Programmer's Manual for `libmicroemu` {#manual}
+
 \tableofcontents
+
 
 ## Introduction 
 
 Welcome to the Programmer's Manual for the `libmicroemu` Library!  
-This documentation is currently a work in progress.
+This documentation provides an overview of the library and its key functionalities. It is a work in progress and will be updated regularly.
 
-### Overview
-- The library is structured into two namespaces:
-  - **Public namespace**: `::libmicroemu`
-  - **Private namespace**: `::libmicroemu::internal`
-    - The private namespace is not exposed to users.
+
+## Overview of the Library
+
+### Namespaces
+- **Public Namespace**:  
+  All user-accessible features are within `::libmicroemu`.
+  
+- **Private Namespace**:  
+  Internals of the library reside in `::libmicroemu::internal`. These are not accessible to library users.
 
 ### Key Classes
+- **libmicroemu::Machine**:  
+  The primary class for controlling the emulator. It allows configuration, ELF loading, and execution.
 
-- `libmicroemu::Machine`:  
-  The main emulator class.
+- **libmicroemu::ExecResult**:  
+  Represents the result of an emulation run, detailing why execution stopped.
+
+- **libmicroemu::CpuStates**:  
+  Encapsulates the emulator's state, including CPU registers and exception states.
 
 
-- `libmicroemu::ExecResult`:  
-  This class is returned by `libmicroemu::Exec`. It contains the reason why the emulator stopped execution.
+## Typical Usage
 
-- `libmicroemu::CpuStates`:  
-  Represents all states used by the emulator, such as CPU registers and exception states.
+Here’s an example demonstrating a typical use case for the emulator:
 
-## A typical use case explained
-
-A typical use case for `libmicroemu`:
+### Example Code
 
 ```cpp
 #include "libmicroemu/machine.h"
@@ -70,26 +77,32 @@ int main()
 }
 ```
 
-The `libmicroemu::Machine` class is the core of the emulator. Its usage involves the following steps:
+### Step 1: Memory Setup
+- Use `libmicroemu::Machine::SetFlashSegment` to define the FLASH memory.
+- Use `libmicroemu::Machine::SetRam1Segment` (and optionally `SetRam2Segment`) to set up RAM memory.
 
-1. **Memory Setup**:  
-   Before running the emulator, the memory layout must be configured:
-   - Use `libmicroemu::Machine::SetFlashSegment` to define the FLASH memory segment.
-   - Use `libmicroemu::Machine::SetRam1Segment` and optionally `libmicroemu::Machine::SetRam2Segment` for RAM memory segments.
+### Step 2: Load ELF Files
+- Load an ELF file using `libmicroemu::Machine::Load`.
+  - Ensure that the allocated FLASH memory can hold the ELF file contents.
+  - The entry point can be set automatically from the ELF file or manually.
 
-2. **Loading ELF Files**:
-   - ELF files are loaded into the FLASH segment using `libmicroemu::Machine::Load`.
-   - **Important**: Ensure that the memory allocated for the FLASH segment is sufficient to hold the binary contents of the ELF file.
-   - The `libmicroemu::Machine::Load` method can optionally set the entry point from the ELF file. If this option is not used, the entry point defaults to the reset interrupt vector.
+### Step 3: Start Emulation
+- Start emulation using `libmicroemu::Machine::Exec`.
+  - Execution will stop under specific conditions:
+    - Reaching a maximum instruction count (useful for coroutine-like workflows).
+    - Program exit via:
+      - A **SVC call**.
+      - **Semihosting** (e.g., `exit()` in the emulated program). Semihosting automatically handles program termination.
 
-3. **Emulation**:
-   - Start emulation using `libmicroemu::Machine::Exec`.
-   - Execution continues indefinitely unless interrupted by:
-     - Specifying a maximum number of instructions to execute, which allows using the emulator as a coroutine within a host program.
-     - The emulated program itself, through:
-       - A specific **SVC call**.
-       - **Semihosting**, which can be triggered by calls like `exit()` in the emulated program. Semihosting handles the exit process automatically.
 
 ## Logging
-- `libmicroemu::StaticLogger` and `libmicroemu::NullLogger`:  
-  These classes handle logging for the emulator. The emulator uses them to log relevant information when needed.
+
+The library provides customizable logging to capture emulator activity.
+
+### Available Loggers
+- **libmicroemu::StaticLogger**:  
+  Outputs logs to static locations or files.
+
+- **libmicroemu::NullLogger**:  
+  Disables logging entirely, useful for performance-critical scenarios.
+
