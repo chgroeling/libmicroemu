@@ -6,7 +6,7 @@ set(DOXYGEN_CONFIG_FILE "${CMAKE_BINARY_DIR}/doxygen.conf")
 
 # Generate version.h in the build directory
 configure_file(
-    "${PROJECT_SOURCE_DIR}/cmake/doxygen.conf.in"    
+    "${PROJECT_SOURCE_DIR}/docs/doxygen_conf.in"    
     "${DOXYGEN_CONFIG_FILE}"
     @ONLY
 )
