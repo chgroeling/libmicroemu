@@ -29,6 +29,13 @@ using FPreExecStepCallback = std::function<void(EmuContext &)>;
 using FPostExecStepCallback = std::function<void(EmuContext &)>;
 using FStateCallback = std::function<void(IRegAccessor &, ISpecialRegAccessor &)>;
 
+/**
+ * @brief Represents the main emulation machine for handling microcontroller emulation.
+ *
+ * The `Machine` class is responsible for loading ELF files, setting up memory segments,
+ * executing programs, and evaluating the processor state. It provides various utilities
+ * to configure and control the emulation process.
+ */
 class Machine {
 public:
   /**
