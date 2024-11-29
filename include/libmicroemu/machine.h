@@ -25,9 +25,19 @@ namespace internal {
 template <typename TCpuStates> class Emulator;
 }; // namespace internal
 
-using FPreExecStepCallback = std::function<void(EmuContext &)>;
-using FPostExecStepCallback = std::function<void(EmuContext &)>;
-using FStateCallback = std::function<void(IRegAccessor &, ISpecialRegAccessor &)>;
+/// @brief Callback function to be called before each instruction is executed
+/// @param ctx The context of the emulator
+using FPreExecStepCallback = std::function<void(EmuContext &ctx)>;
+
+/// @brief Callback function to be called after each instruction is executed
+/// @param ctx The context of the emulator
+using FPostExecStepCallback = std::function<void(EmuContext &ctx)>;
+
+/// @brief Callback function to evaluate the state of the processor
+/// @param reg_access The register accessor
+/// @param spec_reg_access The special register accessor
+using FStateCallback =
+    std::function<void(IRegAccessor &reg_access, ISpecialRegAccessor &spec_reg_access)>;
 
 /**
  * @brief Represents the main emulation machine for handling microcontroller emulation.

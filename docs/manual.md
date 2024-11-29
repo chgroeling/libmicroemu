@@ -3,13 +3,26 @@
 
 ## Introduction 
 
-Welcome to the Programmer's Manual for the `libmicroemu` Library! This
-documentation is currently work in progress.
+Welcome to the Programmer's Manual for the `libmicroemu` Library!  
+This documentation is currently a work in progress.
 
-- The library is organized into two namespaces:
+### Overview
+- The library is structured into two namespaces:
   - **Public namespace**: `::libmicroemu`
   - **Private namespace**: `::libmicroemu::internal`
-    - The private namespace is not exposed to the user.
+    - The private namespace is not exposed to users.
+
+### Key Classes
+
+- `libmicroemu::Machine`:  
+  The main emulator class.
+
+
+- `libmicroemu::ExecResult`:  
+  This class is returned by `libmicroemu::Exec`. It contains the reason why the emulator stopped execution.
+
+- `libmicroemu::CpuStates`:  
+  Represents all states used by the emulator, such as CPU registers and exception states.
 
 ## A typical use case explained
 
@@ -76,3 +89,7 @@ The `libmicroemu::Machine` class is the core of the emulator. Its usage involves
      - The emulated program itself, through:
        - A specific **SVC call**.
        - **Semihosting**, which can be triggered by calls like `exit()` in the emulated program. Semihosting handles the exit process automatically.
+
+## Logging
+- `libmicroemu::StaticLogger` and `libmicroemu::NullLogger`:  
+  These classes handle logging for the emulator. The emulator uses them to log relevant information when needed.
