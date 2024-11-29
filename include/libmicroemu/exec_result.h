@@ -12,8 +12,8 @@
 namespace libmicroemu {
 
 /**
- * @brief Returned by the Executor::Exec method. Contains the status code of the execution and the
- * program exit code.
+ * @brief Returned by the libmicroemu::Machine::Exec method. Contains the status code of the
+ * execution and the program exit code.
  */
 class ExecResult {
 public:
