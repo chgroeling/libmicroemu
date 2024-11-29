@@ -3,9 +3,9 @@
 #include "libmicroemu/exception_states.h"
 #include "libmicroemu/exception_type.h"
 #include "libmicroemu/register_id.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
+
 #include <array>
 #include <assert.h>
 #include <cstddef>

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "libmicroemu/result.h"
+#include "libmicroemu/status_code.h"
 #include "libmicroemu/types.h"
 #include <string_view>
 
