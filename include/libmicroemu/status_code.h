@@ -125,11 +125,9 @@ static std::string_view StatusCodeToString(const StatusCode status_code) noexcep
   case StatusCode::kUnsuporrted: {
     return "Unsuporrted";
   }
-
   case StatusCode::kMaxInstructionsReached: {
     return "MaxInstructionsReached";
   }
-
   default: {
     return "UnknownStatusCode";
   }

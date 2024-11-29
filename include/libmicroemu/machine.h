@@ -4,7 +4,7 @@
 #include "libmicroemu/emu_context.h"
 #include "libmicroemu/exec_result.h"
 #include "libmicroemu/logger.h"
-#include "libmicroemu/result.h"
+#include "libmicroemu/status_code.h"
 #include "libmicroemu/types.h"
 
 #include <array>
