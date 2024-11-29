@@ -42,11 +42,19 @@ public:
   ~Machine() noexcept;
 
   /**
-   * @brief Loads an elf file into memory
-   * @param elf_file
-   * @return
+   * @brief Loads an ELF file into memory and optionally sets the entry point.
+   *
+   * Initializes memory, reads the ELF file, and loads its segments into
+   * appropriate memory regions. Optionally sets the entry point for execution.
+   *
+   * @param elf_file Path to the ELF file.
+   * @param set_entry_point Whether to set the entry point in the emulator.
+   * @return StatusCode indicating success or error (e.g., file open failure,
+   *         buffer too small, or ELF parsing errors).
+   *
+   * @note Ensures segments fit within memory bounds and resets the emulator state.
    */
-  StatusCode Load(const char *elf_file, bool set_entry_point = true) noexcept;
+  StatusCode Load(const char *elf_file, bool set_entry_point = false) noexcept;
 
   StatusCode Reset() noexcept;
 
