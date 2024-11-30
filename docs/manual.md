@@ -37,22 +37,26 @@ Here’s an example demonstrating a typical use case for the emulator:
 @include ./examples/simple/main.cpp
 
 ### Step 1: Memory Setup
-- Use `libmicroemu::Machine::SetFlashSegment` to define the FLASH memory.
-- Use `libmicroemu::Machine::SetRam1Segment` (and optionally `SetRam2Segment`) to set up RAM memory.
+- Before the emulator can start operating, it must know the memory segments where the binary content will be stored.
+- These segments are typically specified in the implementation documentation of the ARMv7-M architecture.
+- Commonly used memory segment addresses:
+  - Flash: Starts at `0x00000000`
+  - SRAM: Starts at `0x20000000`
+- Define FLASH memory using `libmicroemu::Machine::SetFlashSegment`.
+- Set up RAM memory using `libmicroemu::Machine::SetRam1Segment` (optionally `SetRam2Segment` for additional RAM).
 
 ### Step 2: Load ELF Files
 - Load an ELF file using `libmicroemu::Machine::Load`.
-  - Ensure that the allocated FLASH memory can hold the ELF file contents.
-  - The entry point can be set automatically from the ELF file or manually.
+- Ensure allocated FLASH memory accommodates the ELF file contents.
+- Set the entry point either automatically (from the ELF file) or manually.
 
 ### Step 3: Start Emulation
-- Start emulation using `libmicroemu::Machine::Exec`.
-  - Execution will stop under specific conditions:
-    - Reaching a maximum instruction count (useful for coroutine-like workflows).
-    - Program exit via:
-      - A **SVC call**.
-      - **Semihosting** (e.g., `exit()` in the emulated program). Semihosting automatically handles program termination.
-
+- Start emulation with `libmicroemu::Machine::Exec`.
+- Emulation stops under specific conditions:
+  - Reaching a maximum instruction count (useful for coroutine-like workflows).
+  - Program exit via:
+    - **SVC call**.
+    - **Semihosting**, e.g., `exit()` in the emulated program (handles termination automatically).
 
 ## Logging
 
