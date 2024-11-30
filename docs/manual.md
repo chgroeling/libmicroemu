@@ -47,8 +47,9 @@ Here’s an example demonstrating a typical use case for the emulator:
 
 ### Step 2: Load ELF Files
 - Load an ELF file using `libmicroemu::Machine::Load`.
-- Ensure allocated FLASH memory accommodates the ELF file contents.
+- Ensure the allocated FLASH memory can accommodate the ELF file contents.
 - Set the entry point either automatically (from the ELF file) or manually.
+- If the entry point is not set from the ELF file, the reset vector specifies the entry point.
 
 ### Step 3: Start Emulation
 - Start emulation with `libmicroemu::Machine::Exec`.
