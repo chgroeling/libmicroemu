@@ -88,13 +88,13 @@ Here’s an example demonstrating a typical use case for the emulator:
    - Expected function signature.
 
 2. **Log Levels**  
-   - Build-dependent levels:
-     - Debug: `TRACE` and above.
-     - Release: `INFO` and above.
+   - Build-dependent levels are given in `libmicroemu::LogLevel`:
+     - Debug: `libmicroemu::LogLevel::kTrace` and above.
+     - Release: `libmicroemu::LogLevel::kInfo` and above.
 
 ### Built-In Loggers
-1. **`libmicroemu::StaticLogger`**  
+1. `libmicroemu::StaticLogger` 
    - Outputs logs to static files or predefined locations.
 
-2. **`libmicroemu::NullLogger`**  
+2. `libmicroemu::NullLogger`  
    - Disables logging entirely for performance-critical applications.
