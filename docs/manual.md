@@ -6,7 +6,8 @@
 ## Introduction 
 
 Welcome to the Programmer's Manual for the `libmicroemu` Library!  
-This documentation provides an overview of the library and its key functionalities. It is a work in progress and will be updated regularly.
+
+It is a work in progress and will be updated regularly.
 
 ## Overview of the Library
 
@@ -26,6 +27,21 @@ This documentation provides an overview of the library and its key functionaliti
 
 - **libmicroemu::CpuStates**:  
   Encapsulates the emulator's state, including CPU registers and exception states.
+
+### Error Management
+- The error management system in libmicroemu ensures consistent and predictable handling of errors across all APIs.
+- Focused on performance and simplicity, it avoids exceptions in favor of lightweight mechanisms.
+- `libmicroemu::StatusCode` Enum:
+  - Defines all possible error codes returned by the API.
+  - Each error code corresponds to a specific failure or state condition.
+- `libmicroemu::StatusCodeToString`:
+  - Converts a StatusCode into a human-readable string for debugging and logging purposes.
+- `libmicroemu::internal::Result` Class:
+  - Used within the library to encapsulate either a result or a StatusCode in case of failure.
+  - Provides a flexible mechanism for handling functions that may return complex results.
+- Macros for Error Propagation
+  - `TRY`: Forwards results to the caller if a function returns an error.
+  - `TRY_ASSIGN`: Combines result assignment and error propagation in a single step.
 
 
 ## Typical Usage
@@ -59,14 +75,26 @@ Here’s an example demonstrating a typical use case for the emulator:
     - **SVC call**.
     - **Semihosting**, e.g., `exit()` in the emulated program (handles termination automatically).
 
+
 ## Logging
 
-The library provides customizable logging to capture emulator activity.
+### Overview
+- Purpose of logging in `libmicroemu` (e.g., tracking emulator activity, debugging, performance monitoring).
 
-### Available Loggers
-- **libmicroemu::StaticLogger**:  
-  Outputs logs to static locations or files.
+### Logging Configuration
+1. **Registering a Callback**  
+   - Use `libmicroemu::Machine::RegisterLoggerCallback`.
+   - Callback nature (static for performance reasons).
+   - Expected function signature.
 
-- **libmicroemu::NullLogger**:  
-  Disables logging entirely, useful for performance-critical scenarios.
+2. **Log Levels**  
+   - Build-dependent levels:
+     - Debug: `TRACE` and above.
+     - Release: `INFO` and above.
 
+### Built-In Loggers
+1. **`libmicroemu::StaticLogger`**  
+   - Outputs logs to static files or predefined locations.
+
+2. **`libmicroemu::NullLogger`**  
+   - Disables logging entirely for performance-critical applications.

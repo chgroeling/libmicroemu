@@ -63,7 +63,7 @@ enum class StatusCode : u32 {
  * @param status_code the status code to convert
  * @return a string representation of the status code
  */
-static std::string_view StatusCodeToString(const StatusCode status_code) noexcept {
+static std::string_view StatusCodeToString(const StatusCode &status_code) noexcept {
   switch (status_code) {
   case StatusCode::kSuccess: {
     return "Success";

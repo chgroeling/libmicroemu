@@ -5,7 +5,7 @@
 #include "libmicroemu/types.h"
 #include <type_traits>
 
-using libmicroemu::Result;
+using libmicroemu::internal::Result;
 namespace libmicroemu ::internal {
 
 // Read only memory access
