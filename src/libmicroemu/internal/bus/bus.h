@@ -1,9 +1,9 @@
 #pragma once
 #include "libmicroemu/exception_type.h"
 #include "libmicroemu/internal/bus/mem_access_results.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_details.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 #include <type_traits>

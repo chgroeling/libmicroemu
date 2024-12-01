@@ -5,7 +5,7 @@
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
 
-#include "libmicroemu/result.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/types.h"
 
 namespace libmicroemu::internal {

@@ -35,12 +35,12 @@
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/logic/alu.h"
 #include "libmicroemu/internal/logic/reg_ops.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/semihosting/semihosting.h"
 #include "libmicroemu/internal/trace/memory_viewer.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/logger.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 #include <cstddef>
 #include <cstdint>

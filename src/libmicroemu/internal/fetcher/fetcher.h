@@ -2,8 +2,8 @@
 
 #include "libmicroemu/internal/fetcher/raw_instr.h"
 #include "libmicroemu/internal/fetcher/raw_instr_flags_table.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 #include <cstddef>
 #include <cstdint>

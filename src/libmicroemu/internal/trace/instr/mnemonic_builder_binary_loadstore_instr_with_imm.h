@@ -2,7 +2,7 @@
 
 #include "libmicroemu/internal/trace/instr/generic/relative_adr_builder.h"
 
-#include "libmicroemu/result.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/types.h"
 
 namespace libmicroemu::internal {

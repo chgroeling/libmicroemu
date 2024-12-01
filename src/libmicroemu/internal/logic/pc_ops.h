@@ -1,7 +1,7 @@
 #pragma once
 
 #include "libmicroemu/internal/logic/predicates.h"
-#include "libmicroemu/result.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/types.h"
 #include <cstddef>
 #include <cstdint>

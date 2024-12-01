@@ -2,9 +2,9 @@
 
 #include "libmicroemu/internal/bus/mem/mem_traits.h"
 #include "libmicroemu/internal/bus/mem_access_results.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
 #include "libmicroemu/logger.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 #include <tuple>
 
