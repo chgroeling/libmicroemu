@@ -1,7 +1,7 @@
 #pragma once
 
 #include "libmicroemu/internal/fetcher/raw_instr_flags.h"
-#include "libmicroemu/result.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/types.h"
 
 #include <cstdint>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "libmicroemu/internal/bus/mem_access_results.h"
-#include "libmicroemu/result.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/types.h"
 #include <type_traits>
 

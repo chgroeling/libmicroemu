@@ -1,7 +1,7 @@
 #pragma once
 
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/register_details.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 #include <cstddef>

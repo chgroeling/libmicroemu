@@ -4,10 +4,10 @@
 #include "libmicroemu/internal/executor/instr_exec_results.h"
 #include "libmicroemu/internal/i_breakpoint.h"
 #include "libmicroemu/internal/logic/predicates.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_details.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 

@@ -22,9 +22,9 @@
 #include "libmicroemu/internal/peripherals/sys_tick.h"
 #include "libmicroemu/internal/processor/processor.h"
 #include "libmicroemu/internal/processor/step_flags.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/semihosting/semihosting.h"
 #include "libmicroemu/logger.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
 namespace libmicroemu::internal {

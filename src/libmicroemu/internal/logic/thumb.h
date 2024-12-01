@@ -1,8 +1,8 @@
 #pragma once
 #include "libmicroemu/internal/logic/alu.h"
 #include "libmicroemu/internal/logic/thumb_immediate_result.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 #include <assert.h>
 #include <cstddef>

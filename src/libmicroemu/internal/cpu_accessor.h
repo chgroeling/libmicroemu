@@ -1,9 +1,9 @@
 #pragma once
 
 #include "libmicroemu/internal/logic/predicates.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_id.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include <array>
 #include <cstddef>

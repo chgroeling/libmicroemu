@@ -3,11 +3,11 @@
 #include "libmicroemu/exception_states.h"
 #include "libmicroemu/exception_type.h"
 #include "libmicroemu/internal/logic/predicates.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/register_details.h"
 #include "libmicroemu/register_id.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include <assert.h>
 #include <cstddef>

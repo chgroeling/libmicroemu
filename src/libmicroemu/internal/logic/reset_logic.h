@@ -7,11 +7,11 @@
 #include "libmicroemu/internal/logic/reg_access.h"
 #include "libmicroemu/internal/logic/spec_reg_access.h"
 #include "libmicroemu/internal/processor/step_flags.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/trace/intstr_to_mnemonic.h"
 #include "libmicroemu/logger.h"
 #include "libmicroemu/machine.h"
 #include "libmicroemu/register_details.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/special_register_id.h"
 #include "libmicroemu/types.h"
 #include <assert.h>

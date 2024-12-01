@@ -2,9 +2,9 @@
 
 #include "libmicroemu/internal/bkpt_flags.h"
 #include "libmicroemu/internal/i_breakpoint.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/svc_flags.h"
 #include "libmicroemu/machine.h"
-#include "libmicroemu/result.h"
 
 namespace libmicroemu::internal {
 class Delegates {

@@ -1,6 +1,6 @@
 #pragma once
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/const_string_builder.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
 namespace libmicroemu::internal {

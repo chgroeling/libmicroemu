@@ -2,9 +2,9 @@
 #include "libmicroemu/internal/decoder/decoder.h"
 #include "libmicroemu/internal/executor/instr_context.h"
 #include "libmicroemu/internal/executor/instr_exec_results.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/rarg.h"
 #include "libmicroemu/register_details.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
 namespace libmicroemu::internal {

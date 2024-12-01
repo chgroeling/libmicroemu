@@ -1,10 +1,10 @@
 #pragma once
 
 #include "libmicroemu/internal/i_breakpoint.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/const_string_builder.h"
 #include "libmicroemu/internal/utils/memory_helpers.h"
 #include "libmicroemu/logger.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 
 #include <string.h>

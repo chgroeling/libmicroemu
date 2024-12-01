@@ -3,9 +3,9 @@
 #include "libmicroemu/internal/decoder/instr.h"
 #include "libmicroemu/internal/fetcher/raw_instr.h"
 #include "libmicroemu/internal/logic/thumb.h"
+#include "libmicroemu/internal/result.h"
 #include "libmicroemu/internal/utils/bit_manip.h"
 #include "libmicroemu/register_details.h"
-#include "libmicroemu/result.h"
 #include "libmicroemu/types.h"
 #include <assert.h>
 #include <cstdint>
