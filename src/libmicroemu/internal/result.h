@@ -5,7 +5,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace libmicroemu {
+namespace libmicroemu::internal {
 
 template <typename T, typename TStatusCode = StatusCode> struct Result {
   using Content = T;
