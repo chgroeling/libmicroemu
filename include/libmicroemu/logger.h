@@ -6,8 +6,22 @@
 
 namespace libmicroemu {
 
-enum class LogLevel { kTrace, kDebug, kInfo, kWarn, kError, kCritical };
+/**
+ * @brief Enum class for log levels
+ * Used to indicate the log level of a message
+ */
+enum class LogLevel {
+  kTrace,   ///< Trace log level
+  kDebug,   ///< Debug log level
+  kInfo,    ///< Info log level
+  kWarn,    ///< Warn log level
+  kError,   ///< Error log level
+  kCritical ///< Critical log level
+};
 
+/**
+ * @brief Static logger class
+ */
 class StaticLogger {
 
 public:
@@ -50,6 +64,11 @@ public:
 private:
   static void (*callback_)(libmicroemu::LogLevel level, const char *, ...) noexcept;
 };
+
+/**
+ * @brief Null logger class
+ * Used to disable logging
+ */
 class NullLogger {
 public:
   template <typename... Args> static void Info(const char *format, Args &&...args) noexcept {
