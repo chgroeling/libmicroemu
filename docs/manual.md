@@ -2,7 +2,6 @@
 
 \tableofcontents
 
-
 ## Introduction 
 
 Welcome to the Programmer's Manual for the `libmicroemu` Library!  
@@ -21,6 +20,9 @@ It is a work in progress and will be updated regularly.
 ### Key Classes
 - **libmicroemu::Machine**:  
   The primary class for controlling the emulator. It allows configuration, ELF loading, and execution.
+
+- **libmicroemu::StatusCode**:
+  Enum class defining operation outcomes, including success (libmicroemu::StatusCode::kSuccess) and various error categories such as memory issues (libmicroemu::StatusCode::kMemInaccesible), decoding failures (libmicroemu::StatusCode::kDecoderUnknownOpCode), and ELF-related errors (libmicroemu::StatusCode::kElfNotValid).
 
 - **libmicroemu::ExecResult**:  
   Represents the result of an emulation run, detailing why execution stopped.
@@ -42,7 +44,7 @@ It is a work in progress and will be updated regularly.
 - Macros for Error Propagation
   - `TRY`: Forwards results to the caller if a function returns an error.
   - `TRY_ASSIGN`: Combines result assignment and error propagation in a single step.
-
+  - TODO: Add example how to use
 
 ## Typical Usage
 
@@ -98,3 +100,6 @@ Here’s an example demonstrating a typical use case for the emulator:
 
 2. `libmicroemu::NullLogger`  
    - Disables logging entirely for performance-critical applications.
+
+## Extensibility
+TBD
