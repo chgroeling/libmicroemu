@@ -42,8 +42,8 @@ It is a work in progress and will be updated regularly.
   - Used within the library to encapsulate either a result or a StatusCode in case of failure.
   - Provides a flexible mechanism for handling functions that may return complex results.
 - Macros for Error Propagation
-  - `TRY`: Forwards results to the caller if a function returns an error.
-  - `TRY_ASSIGN`: Combines result assignment and error propagation in a single step.
+  - \ref TRY : Forwards results to the caller if a function returns an error.
+  - \ref TRY_ASSIGN : Combines result assignment and error propagation in a single step.
   - TODO: Add example how to use
 
 ## Typical Usage
