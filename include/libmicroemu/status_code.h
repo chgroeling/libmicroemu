@@ -12,50 +12,92 @@
 namespace libmicroemu {
 
 /**
- * @brief Enum class for status codes
- * Used to indicate the status of an operation
+ * @brief Enum representing various status codes used throughout the system.
  */
 enum class StatusCode : u32 {
-  // clang-format off
-  kSuccess = 0x0U, // Operation succedded successfully 
-  
+
+  /** @brief Operation succeeded successfully. */
+  kSuccess = 0x0U,
+
   // Unspecified errors
-  kError = 0x1U,      // An unspecified error occured
+
+  /** @brief An unspecified error occurred. */
+  kError = 0x1U,
+
+  /** @brief An unexpected error occurred. */
   kUnexpected = 0x1002U,
+
+  /** @brief Operation or feature is unsupported. */
   kUnsuporrted = 0x1003U,
+
+  /** @brief Operation or feature is not implemented. */
   kNotImplemented = 0x1004U,
 
   // Generic errors
+
+  /** @brief Value is out of the allowed range. */
   kOutOfRange = 0x2001U,
+
+  /** @brief Iterator has been exhausted. */
   kIteratorExhausted = 0x2002U,
+
+  /** @brief Provided buffer is too small. */
   kBufferTooSmall = 0x2003U,
+
+  /** @brief Failed to open the file. */
   kOpenFileFailed = 0x2004U,
-  
+
   // Memory related errors
-  kMemInaccesible = 0x3001U, 
+
+  /** @brief Memory is inaccessible. */
+  kMemInaccesible = 0x3001U,
+
+  /** @brief Memory write operation is not allowed. */
   kMemWriteNotAllowed = 0x3002U,
 
   // Decoder related errors
+
+  /** @brief Decoder encountered an unknown opcode. */
   kDecoderUnknownOpCode = 0x4001U,
-  kDecoderUnpredictable = 0x4002U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
+
+  /**
+   * @brief Decoder encountered an unpredictable operation.
+   */
+  kDecoderUnpredictable = 0x4002U,
+
+  /** @brief Decoder encountered an undefined operation. */
   kDecoderUndefined = 0x4003U,
 
   // Executor related errors
-  kExecutorUnpredictable = 0x5001U, // see Armv7-M Architecture Reference Manual Issue E.e p.818
+
+  /**
+   * @brief Executor encountered an unpredictable operation.
+   */
+  kExecutorUnpredictable = 0x5001U,
+
+  /** @brief Executor encountered an undefined operation. */
   kExecutorUndefined = 0x5002U,
+
+  /** @brief Executor exited with an error. */
   kExecutorExitWithError = 0x5003U,
-  
-  // Elf reader related errors
+
+  // ELF reader related errors
+
+  /** @brief ELF file is not valid. */
   kElfNotValid = 0x6001U,
+
+  /** @brief ELF file has a wrong header. */
   kElfWrongHeader = 0x6002U,
 
-  // Arm related errors
+  // ARM related errors
+
+  /** @brief Usage fault occurred. */
   kUsageFault = 0x7001U,
 
   // Execution result
-  kMaxInstructionsReached = 0x8001U,
 
-  // clang-format on
+  /** @brief Maximum instruction count reached. */
+  kMaxInstructionsReached = 0x8001U,
 };
 
 /**
