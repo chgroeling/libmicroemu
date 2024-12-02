@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Contains the Result class which is used to return the result of a function
+ */
+
 #pragma once
 #include "libmicroemu/status_code.h"
 #include "libmicroemu/types.h"
@@ -106,6 +111,15 @@ Err(const Result<TIn> &res) noexcept {
   return Result<TRet>(res.status_code);
 }
 
+} // namespace libmicroemu::internal
+
+/**
+ * @def TRY_ASSIGN
+ * @brief Try to assign a value to a variable and return an error if the assignment fails
+ * @param NAME The name of the variable to assign
+ * @param OUT_TYPE The type of the output
+ * @param CALL The call to make to get the value
+ */
 #define TRY_ASSIGN(NAME, OUT_TYPE, CALL)                                                           \
   auto r_##NAME = CALL;                                                                            \
   if (r_##NAME.IsErr()) {                                                                          \
@@ -115,6 +129,12 @@ Err(const Result<TIn> &res) noexcept {
   };                                                                                               \
   const auto &NAME = r_##NAME.content;
 
+/**
+ * @def TRY
+ * @brief Try to call a function and return an error if the call fails
+ * @param OUT_TYPE The type of the output
+ * @param CALL The call to make
+ */
 #define TRY(OUT_TYPE, CALL)                                                                        \
   {                                                                                                \
     auto r_tmp = CALL;                                                                             \
@@ -124,5 +144,3 @@ Err(const Result<TIn> &res) noexcept {
       return Err<t_ret, OUT_TYPE>(r_tmp);                                                          \
     };                                                                                             \
   }
-
-} // namespace libmicroemu
