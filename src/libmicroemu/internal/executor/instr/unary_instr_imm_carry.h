@@ -20,7 +20,7 @@ public:
   template <typename TDest>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TDest &rd, const ThumbImmediateResult &imm_carry) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto op_res = OpResult{imm_carry.out, imm_carry.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 
@@ -42,7 +42,7 @@ public:
   template <typename TDest>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TDest &rd, const ThumbImmediateResult &imm_carry) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto op_res = OpResult{~imm_carry.out, imm_carry.carry_out,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
 

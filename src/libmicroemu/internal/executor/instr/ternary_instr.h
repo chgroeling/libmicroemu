@@ -51,7 +51,7 @@ public:
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto a = ictx.cpua.ReadRegister(ra.Get());
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
 
     const auto result =
         static_cast<u32>(static_cast<i32>(n) * static_cast<i32>(m) + static_cast<i32>(a));

@@ -35,7 +35,7 @@ public:
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto offset = Alu32::Shift(m, shift_res.type, shift_res.value,
                                (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 

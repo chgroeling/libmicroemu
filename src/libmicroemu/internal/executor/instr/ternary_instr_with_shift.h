@@ -23,7 +23,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
@@ -52,7 +52,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
@@ -80,7 +80,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
@@ -108,7 +108,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shift_val = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                           (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto &shifted = shift_val.result;
@@ -136,7 +136,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(m, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result =
@@ -163,7 +163,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(m, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result = Alu32::AddWithCarry(n, ~shifted, true);
@@ -188,7 +188,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(m, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result = Alu32::AddWithCarry(~n, shifted, true);
@@ -212,7 +212,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(m, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result = Alu32::AddWithCarry(n, shifted, false);
@@ -236,7 +236,7 @@ public:
                                         const ImmShiftResults &shift_res) {
     auto n = ictx.cpua.ReadRegister(rn.Get());
     auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto shifted = Alu32::Shift(m, shift_res.type, shift_res.value,
                                       (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto result =

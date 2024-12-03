@@ -57,12 +57,12 @@ public:
 
   /// @copydoc ISpecialRegAccessor::ReadRegister
   u32 ReadRegister(const SpecialRegisterId &reg_id) const override {
-    return cpua_.ReadRegister(reg_id);
+    return cpua_.ReadSpecialRegister(reg_id);
   }
 
   /// @copydoc ISpecialRegAccessor::WriteRegister
   void WriteRegister(const SpecialRegisterId &reg_id, u32 value) override {
-    return cpua_.WriteRegister(reg_id, value);
+    return cpua_.WriteSpecialRegister(reg_id, value);
   }
 
 private:

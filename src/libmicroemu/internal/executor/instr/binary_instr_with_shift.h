@@ -22,7 +22,7 @@ public:
                                         const TDest &rd, const TArg0 &rm,
                                         const ImmShiftResults &shift_res) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(m, SRType::SRType_ASR, shift_res.value,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -48,7 +48,7 @@ public:
                                         const TDest &rd, const TArg0 &rm,
                                         const ImmShiftResults &shift_res) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(m, SRType::SRType_LSL, shift_res.value,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -74,7 +74,7 @@ public:
                                         const TDest &rd, const TArg0 &rm,
                                         const ImmShiftResults &shift_res) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(m, SRType::SRType_LSR, shift_res.value,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -100,7 +100,7 @@ public:
                                         const TDest &rd, const TArg0 &rm,
                                         const ImmShiftResults &shift_res) {
     const auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(m, shift_res.type, shift_res.value,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 

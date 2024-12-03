@@ -32,9 +32,9 @@ public:
 
     // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken
     if (!is_thumb) {
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrUsageFault::kInvStateMsk;
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
       ExcTrig::SetPending(cpua, ExceptionType::kUsageFault);
       return false;
     }

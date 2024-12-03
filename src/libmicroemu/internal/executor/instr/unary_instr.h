@@ -54,7 +54,7 @@ public:
     using It = typename TInstrContext::It;
     using Pc = typename TInstrContext::Pc;
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto op_res = OpResult{m, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk,
                                  (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk};
@@ -85,7 +85,7 @@ public:
     using It = typename TInstrContext::It;
     using Pc = typename TInstrContext::Pc;
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     auto r_rrx = Alu32::Shift_C(m, SRType::SRType_RRX, 1U,
                                 (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);

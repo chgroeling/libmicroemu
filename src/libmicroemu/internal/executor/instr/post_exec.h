@@ -19,7 +19,7 @@ class PostExecSetFlags {
 public:
   template <typename TInstrContext, typename OpResult>
   static inline void Call(const TInstrContext &ictx, const OpResult &result) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
 
     // Clear N, Z, C, V flags
     apsr &=
@@ -29,7 +29,7 @@ public:
     apsr |= Bm32::IsZeroBit(result.value) << ApsrRegister::kZPos;            // Z
     apsr |= (result.carry_out == true ? 0x1U : 0x0U) << ApsrRegister::kCPos; // C
     apsr |= (result.overflow == true ? 0x1U : 0x0U) << ApsrRegister::kVPos;  // V
-    ictx.cpua.template WriteRegister<SpecialRegisterId::kApsr>(apsr);
+    ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kApsr>(apsr);
   }
 };
 
