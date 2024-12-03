@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -111,7 +111,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_result.html">Result&lt;InstrExecFlagsSet&gt;</a> Call(TInstrContext &amp;ictx, <span class="keyword">const</span> InstrFlagsSet &amp;iflags,</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                                        <span class="keyword">const</span> TArg0 &amp;rn, <span class="keyword">const</span> <a class="code hl_struct" href="structlibmicroemu_1_1_thumb_immediate_result.html">ThumbImmediateResult</a> &amp;imm_carry) {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n = ictx.cpua.ReadRegister(rn.Get());</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <span class="keyword">auto</span> result = Alu32::AND(n, imm_carry.out);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> <span class="keyword">auto</span> op_res =</div>
@@ -131,7 +131,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_result.html">Result&lt;InstrExecFlagsSet&gt;</a> Call(TInstrContext &amp;ictx, <span class="keyword">const</span> InstrFlagsSet &amp;iflags,</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                                        <span class="keyword">const</span> TArg0 &amp;rn, <span class="keyword">const</span> <a class="code hl_struct" href="structlibmicroemu_1_1_thumb_immediate_result.html">ThumbImmediateResult</a> &amp;imm_carry) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n = ictx.cpua.ReadRegister(rn.Get());</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> <span class="keyword">auto</span> result = Alu32::EOR(n, imm_carry.out);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <span class="keyword">auto</span> op_res =</div>

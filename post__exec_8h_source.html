@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -116,7 +116,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TInstrContext, <span class="keyword">typename</span> OpResult&gt;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> Call(<span class="keyword">const</span> TInstrContext &amp;ictx, <span class="keyword">const</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a> &amp;result) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// Clear N, Z, C, V flags</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    apsr &amp;=</div>
@@ -126,7 +126,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    apsr |= <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">Bm32::IsZeroBit</a>(result.value) &lt;&lt; ApsrRegister::kZPos;            <span class="comment">// Z</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    apsr |= (result.carry_out == <span class="keyword">true</span> ? 0x1U : 0x0U) &lt;&lt; ApsrRegister::kCPos; <span class="comment">// C</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    apsr |= (result.overflow == <span class="keyword">true</span> ? 0x1U : 0x0U) &lt;&lt; ApsrRegister::kVPos;  <span class="comment">// V</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    ictx.cpua.template WriteRegister&lt;SpecialRegisterId::kApsr&gt;(apsr);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    ictx.cpua.template WriteSpecialRegister&lt;SpecialRegisterId::kApsr&gt;(apsr);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  }</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
 </div>

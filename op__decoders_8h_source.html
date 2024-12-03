@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -468,7 +468,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>      TItOps::InITBlock(cpua) == <span class="keyword">false</span> ? <span class="keyword">static_cast&lt;</span>InstrFlagsSet<span class="keyword">&gt;</span>(InstrFlags::kSetFlags) : 0U;</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>  <span class="keyword">const</span> u16 Rd = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;10U, 8U&gt;</a>(rinstr.low);</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>  <span class="keyword">const</span> u8 d = <span class="keyword">static_cast&lt;</span>u8<span class="keyword">&gt;</span>(Rd);</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>  <span class="keyword">const</span> u16 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.low);</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>  <span class="keyword">const</span> <span class="keyword">auto</span> imm32_carry =</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>      ThumbImmediateResult{imm8, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk};</div>
@@ -495,7 +495,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
@@ -554,7 +554,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span> </div>
@@ -1973,7 +1973,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l01879" name="l01879"></a><span class="lineno"> 1879</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l01880" name="l01880"></a><span class="lineno"> 1880</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l01881" name="l01881"></a><span class="lineno"> 1881</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l01882" name="l01882"></a><span class="lineno"> 1882</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l01882" name="l01882"></a><span class="lineno"> 1882</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l01883" name="l01883"></a><span class="lineno"> 1883</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l01884" name="l01884"></a><span class="lineno"> 1884</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l01885" name="l01885"></a><span class="lineno"> 1885</span> </div>
@@ -2002,7 +2002,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l01908" name="l01908"></a><span class="lineno"> 1908</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l01909" name="l01909"></a><span class="lineno"> 1909</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l01910" name="l01910"></a><span class="lineno"> 1910</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l01911" name="l01911"></a><span class="lineno"> 1911</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l01911" name="l01911"></a><span class="lineno"> 1911</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l01912" name="l01912"></a><span class="lineno"> 1912</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l01913" name="l01913"></a><span class="lineno"> 1913</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l01914" name="l01914"></a><span class="lineno"> 1914</span> </div>
@@ -2079,7 +2079,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l01985" name="l01985"></a><span class="lineno"> 1985</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l01986" name="l01986"></a><span class="lineno"> 1986</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l01987" name="l01987"></a><span class="lineno"> 1987</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l01988" name="l01988"></a><span class="lineno"> 1988</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l01988" name="l01988"></a><span class="lineno"> 1988</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l01989" name="l01989"></a><span class="lineno"> 1989</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l01990" name="l01990"></a><span class="lineno"> 1990</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l01991" name="l01991"></a><span class="lineno"> 1991</span> </div>
@@ -2111,7 +2111,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l02017" name="l02017"></a><span class="lineno"> 2017</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l02018" name="l02018"></a><span class="lineno"> 2018</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l02019" name="l02019"></a><span class="lineno"> 2019</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l02020" name="l02020"></a><span class="lineno"> 2020</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l02020" name="l02020"></a><span class="lineno"> 2020</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l02021" name="l02021"></a><span class="lineno"> 2021</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l02022" name="l02022"></a><span class="lineno"> 2022</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l02023" name="l02023"></a><span class="lineno"> 2023</span> </div>
@@ -2144,7 +2144,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l02050" name="l02050"></a><span class="lineno"> 2050</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l02051" name="l02051"></a><span class="lineno"> 2051</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l02052" name="l02052"></a><span class="lineno"> 2052</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l02053" name="l02053"></a><span class="lineno"> 2053</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l02053" name="l02053"></a><span class="lineno"> 2053</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l02054" name="l02054"></a><span class="lineno"> 2054</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l02055" name="l02055"></a><span class="lineno"> 2055</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l02056" name="l02056"></a><span class="lineno"> 2056</span> </div>
@@ -3217,7 +3217,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l03123" name="l03123"></a><span class="lineno"> 3123</span>  <span class="keyword">const</span> u32 imm3 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;14U, 12U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l03124" name="l03124"></a><span class="lineno"> 3124</span>  <span class="keyword">const</span> u32 imm8 = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">Bm16::ExtractBits1R&lt;7U, 0U&gt;</a>(rinstr.high);</div>
 <div class="line"><a id="l03125" name="l03125"></a><span class="lineno"> 3125</span>  <span class="keyword">const</span> u32 imm12 = (i &lt;&lt; 11U) | (imm3 &lt;&lt; 8U) | imm8;</div>
-<div class="line"><a id="l03126" name="l03126"></a><span class="lineno"> 3126</span>  <span class="keyword">auto</span> apsr = cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l03126" name="l03126"></a><span class="lineno"> 3126</span>  <span class="keyword">auto</span> apsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l03127" name="l03127"></a><span class="lineno"> 3127</span>  <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(imm32_carry, Instr,</div>
 <div class="line"><a id="l03128" name="l03128"></a><span class="lineno"> 3128</span>             Thumb::ThumbExpandImm_C(imm12, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk));</div>
 <div class="line"><a id="l03129" name="l03129"></a><span class="lineno"> 3129</span> </div>

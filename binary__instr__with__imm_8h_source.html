@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -127,7 +127,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_result.html">Result&lt;InstrExecFlagsSet&gt;</a> Call(TInstrContext &amp;ictx, <span class="keyword">const</span> InstrFlagsSet &amp;iflags,</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                                        <span class="keyword">const</span> TDest &amp;rd, <span class="keyword">const</span> TArg0 &amp;rn, <span class="keyword">const</span> u32 &amp;imm) {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n = ictx.cpua.ReadRegister(rn.Get());</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> <span class="keyword">auto</span> result =</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        Alu32::AddWithCarry(n, imm, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <span class="keyword">auto</span> op_res = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a>{result.value, result.carry_out, result.overflow};</div>
@@ -165,7 +165,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_result.html">Result&lt;InstrExecFlagsSet&gt;</a> Call(TInstrContext &amp;ictx, <span class="keyword">const</span> InstrFlagsSet &amp;iflags,</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                                        <span class="keyword">const</span> TDest &amp;rd, <span class="keyword">const</span> TArg0 &amp;rn, <span class="keyword">const</span> u32 &amp;imm) {</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n = ictx.cpua.ReadRegister(rn.Get());</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">const</span> <span class="keyword">auto</span> result =</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        Alu32::AddWithCarry(n, ~imm, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> <span class="keyword">auto</span> op_res = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a>{result.value, result.carry_out, result.overflow};</div>

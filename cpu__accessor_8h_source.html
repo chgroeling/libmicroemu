@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -129,19 +129,19 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keyword">inline</span> <span class="keywordtype">void</span> WriteRegister(<a class="code hl_enumeration" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> <span class="keywordtype">id</span>, u32 value) { RegOps::WriteRegister(*<span class="keyword">this</span>, <span class="keywordtype">id</span>, value); }</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="comment">// ---- Special registers ----</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">template</span> &lt;SpecialRegisterId SId&gt; <span class="keyword">inline</span> u32 ReadRegister()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">template</span> &lt;SpecialRegisterId SId&gt; <span class="keyword">inline</span> u32 ReadSpecialRegister()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> SReg::template ReadRegister&lt;SId&gt;(*<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  }</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keyword">inline</span> u32 ReadRegister(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a> &amp;reg_id)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keyword">inline</span> u32 ReadSpecialRegister(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a> &amp;reg_id)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> SReg::ReadRegister(*<span class="keyword">this</span>, reg_id);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">template</span> &lt;SpecialRegisterId SId&gt; <span class="keyword">inline</span> <span class="keywordtype">void</span> WriteRegister(u32 value) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">template</span> &lt;SpecialRegisterId SId&gt; <span class="keyword">inline</span> <span class="keywordtype">void</span> WriteSpecialRegister(u32 value) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    SReg::template WriteRegister&lt;SId&gt;(*<span class="keyword">this</span>, value);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keyword">inline</span> <span class="keywordtype">void</span> WriteRegister(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a> &amp;reg_id, u32 value) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keyword">inline</span> <span class="keywordtype">void</span> WriteSpecialRegister(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a> &amp;reg_id, u32 value) {</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    SReg::WriteRegister(*<span class="keyword">this</span>, reg_id, value);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  }</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -130,7 +130,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="comment">//     ExceptionReturn(address&lt;27:0&gt;);</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      <span class="keywordflow">return</span> ExcRet::Return(cpua, bus, address &amp; 0x0FFFFFFFU);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      <span class="keyword">auto</span> epsr = cpua.template ReadRegister&lt;SpecialRegisterId::kEpsr&gt;();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      <span class="keyword">auto</span> epsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kEpsr&gt;();</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      <span class="keywordflow">if</span> ((address &amp; 0x1U) == 0U) {</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        LOG_ERROR(TLogger, <span class="stringliteral">&quot;BXWritePC: Set wrong execution state&quot;</span>);</div>
@@ -140,7 +140,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>      <span class="comment">// if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>      epsr &amp;= <a class="code hl_struct" href="structlibmicroemu_1_1_epsr_register.html">~EpsrRegister</a>::kTMsk;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>      epsr |= (address &amp; 0x1U) &lt;&lt; EpsrRegister::kTPos;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      cpua.template WriteRegister&lt;SpecialRegisterId::kEpsr&gt;(epsr);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      cpua.template WriteSpecialRegister&lt;SpecialRegisterId::kEpsr&gt;(epsr);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      BranchTo(cpua, address &amp; (~0x1));</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      <span class="keywordflow">return</span> Ok();</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
@@ -155,10 +155,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// EPSR.T = address&lt;0&gt;;</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">auto</span> epsr = cpua.template ReadRegister&lt;SpecialRegisterId::kEpsr&gt;();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">auto</span> epsr = cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kEpsr&gt;();</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    epsr &amp;= <a class="code hl_struct" href="structlibmicroemu_1_1_epsr_register.html">~EpsrRegister</a>::kTMsk;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    epsr |= (address &amp; 0x1U) &lt;&lt; EpsrRegister::kTPos;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    cpua.template WriteRegister&lt;SpecialRegisterId::kEpsr&gt;(epsr);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    cpua.template WriteSpecialRegister&lt;SpecialRegisterId::kEpsr&gt;(epsr);</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    BranchTo(cpua, address &amp; (~0x1U));</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>

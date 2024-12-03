@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.3.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -141,7 +141,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">using </span>It = <span class="keyword">typename</span> TInstrContext::It;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">using </span>Pc = <span class="keyword">typename</span> TInstrContext::Pc;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> <span class="keyword">auto</span> m = ictx.cpua.ReadRegister(rm.Get());</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> <span class="keyword">auto</span> op_res = <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a>{m, (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk,</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                                 (apsr &amp; ApsrRegister::kVMsk) == ApsrRegister::kVMsk};</div>
@@ -169,7 +169,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">using </span>It = <span class="keyword">typename</span> TInstrContext::It;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">using </span>Pc = <span class="keyword">typename</span> TInstrContext::Pc;</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">auto</span> apsr = ictx.cpua.template ReadSpecialRegister&lt;SpecialRegisterId::kApsr&gt;();</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> <span class="keyword">auto</span> m = ictx.cpua.ReadRegister(rm.Get());</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">auto</span> r_rrx = Alu32::Shift_C(m, SRType::SRType_RRX, 1U,</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                                (apsr &amp; ApsrRegister::kCMsk) == ApsrRegister::kCMsk);</div>
