@@ -1,7 +1,7 @@
 [settings]
 compiler = clang
 compiler.version = 18
-compiler.cppstd = gnu17
+compiler.cppstd = 17
 compiler.libcxx = libc++
 os = Windows
 arch = x86_64

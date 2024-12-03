@@ -1,7 +1,7 @@
 [settings]
 compiler = clang
 compiler.version = 14
-compiler.cppstd = gnu17
+compiler.cppstd = 17
 compiler.libcxx = libc++
 os = Linux
 arch = x86_64

@@ -1,7 +1,7 @@
 [settings]
 compiler = apple-clang
 compiler.version = 15
-compiler.cppstd = gnu17
+compiler.cppstd = 17
 compiler.libcxx = libc++
 os = Macos
 arch = armv8

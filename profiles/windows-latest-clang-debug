@@ -1,7 +1,7 @@
 [settings]
 compiler = clang
 compiler.version = 17
-compiler.cppstd = gnu17
+compiler.cppstd = 17
 compiler.libcxx = libc++
 os = Windows
 arch = x86_64
@@ -9,7 +9,7 @@ build_type = Debug
 
 [conf]
 tools.cmake.cmaketoolchain:generator = Unix Makefiles
-tools.cmake.cmaketoolchain:user_toolchain = {{[os.path.join(profile_dir,  "toolchains", "clang-generic")]}}
+tools.cmake.cmaketoolchain:user_toolchain = {{[os.path.join(profile_dir,  "toolchains", "clang-generic.cmake")]}}
 
 [tool_requires]
 cmake/3.23.5
