@@ -28,10 +28,10 @@ public:
   static Result<InstrExecResult> ItInstr(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                          const u32 &firstcond, const u32 &mask) {
     const auto is_32bit = (iflags & static_cast<InstrFlagsSet>(InstrFlags::k32Bit)) != 0U;
-    auto istate = ictx.cpua.template ReadRegister<SpecialRegisterId::kIstate>();
+    auto istate = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kIstate>();
     istate = firstcond << 4U | mask;
 
-    ictx.cpua.template WriteRegister<SpecialRegisterId::kIstate>(istate);
+    ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kIstate>(istate);
     Pc::AdvanceInstr(ictx.cpua, is_32bit);
     return Ok(InstrExecResult{kNoInstrExecFlags});
   }
@@ -248,13 +248,13 @@ public:
       switch (SYSm_2_0) {
       case 0b000U: {
         // MSP - Main Stack Pointer
-        ictx.cpua.template WriteRegister<SpecialRegisterId::kSpMain>(n);
+        ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kSpMain>(n);
         LOG_TRACE(TLogger, "MSR Call - Write main stack pointer: 0x%08X", rn);
         break;
       }
       case 0b001U: {
         // PSP - Process Stack Pointer
-        ictx.cpua.template WriteRegister<SpecialRegisterId::kSpProcess>(n);
+        ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kSpProcess>(n);
         LOG_TRACE(TLogger, "MSR Call - Write process stack pointer: 0x%08X", rn);
         break;
       }
@@ -289,7 +289,7 @@ public:
         const auto is_privileged = Predicates::IsCurrentModePrivileged<TCpuAccessor>(ictx.cpua);
 
         if (is_privileged) {
-          auto control = ictx.cpua.template ReadRegister<SpecialRegisterId::kControl>();
+          auto control = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kControl>();
           //    CONTROL.nPRIV = R[n]<0>;
           control &= ~ControlRegister::kNPrivMsk;
           control |= ((n & 0x1U) >> 0U) << ControlRegister::kNPrivPos;
@@ -300,7 +300,7 @@ public:
           }
           LOG_TRACE(TLogger, "MSR Call - Write CONTROL: 0x%08X", control);
 
-          ictx.cpua.template WriteRegister<SpecialRegisterId::kControl>(control);
+          ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kControl>(control);
         }
 
         // if HaveFPExt() then CONTROL.FPCA = R[n]<2>;
@@ -354,13 +354,13 @@ public:
       switch (SYSm_2_0) {
       case 0b000U: {
         // MSP - Main Stack Pointer
-        rd_val = ictx.cpua.template ReadRegister<SpecialRegisterId::kSpMain>();
+        rd_val = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kSpMain>();
         LOG_TRACE(TLogger, "MRS Call - Read MSP: 0x%08X", rd_val);
         break;
       }
       case 0b001U: {
         // PSP - Process Stack Pointer
-        rd_val = ictx.cpua.template ReadRegister<SpecialRegisterId::kSpProcess>();
+        rd_val = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kSpProcess>();
         LOG_TRACE(TLogger, "MRS Call - Read PSP: 0x%08X", rd_val);
         break;
       }
@@ -393,7 +393,7 @@ public:
       case 0b100U: {
         // CONTROL- Control
 
-        const auto control = ictx.cpua.template ReadRegister<SpecialRegisterId::kControl>();
+        const auto control = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kControl>();
         // if HaveFPExt() then
         if (false) {
           // R[d]<2:0> = CONTROL<2:0>;

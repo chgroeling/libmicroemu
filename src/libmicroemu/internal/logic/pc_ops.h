@@ -35,7 +35,7 @@ public:
       //     ExceptionReturn(address<27:0>);
       return ExcRet::Return(cpua, bus, address & 0x0FFFFFFFU);
     } else {
-      auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
+      auto epsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kEpsr>();
 
       if ((address & 0x1U) == 0U) {
         LOG_ERROR(TLogger, "BXWritePC: Set wrong execution state");
@@ -45,7 +45,7 @@ public:
       // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction
       epsr &= ~EpsrRegister::kTMsk;
       epsr |= (address & 0x1U) << EpsrRegister::kTPos;
-      cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kEpsr>(epsr);
       BranchTo(cpua, address & (~0x1));
       return Ok();
     }
@@ -60,10 +60,10 @@ public:
     }
     // EPSR.T = address<0>;
     // if EPSR.T == 0, a UsageFault(‘Invalid State’) is taken on the next instruction
-    auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
+    auto epsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kEpsr>();
     epsr &= ~EpsrRegister::kTMsk;
     epsr |= (address & 0x1U) << EpsrRegister::kTPos;
-    cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kEpsr>(epsr);
     BranchTo(cpua, address & (~0x1U));
   }
 

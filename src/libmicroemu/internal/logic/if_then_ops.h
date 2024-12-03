@@ -74,17 +74,17 @@ public:
   IfThenOps &operator=(IfThenOps &&r_src) = delete;
 
   static inline bool InITBlock(const TCpuAccessor &cpua) {
-    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
+    auto istate = cpua.template ReadSpecialRegister<SpecialRegisterId::kIstate>();
     return ((istate & IstateRegister::kItBit3to0Msk) != 0b0000U);
   }
 
   static inline bool LastInITBlock(TCpuAccessor &cpua) {
-    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
+    auto istate = cpua.template ReadSpecialRegister<SpecialRegisterId::kIstate>();
     return ((istate & IstateRegister::kItBit3to0Msk) == 0b1000U);
   }
 
   static inline void ITAdvance(TCpuAccessor &cpua) {
-    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
+    auto istate = cpua.template ReadSpecialRegister<SpecialRegisterId::kIstate>();
     const auto istate_2_0 = istate & IstateRegister::kItBit2to0Msk;
 
     if (istate_2_0 == 0x0U) {
@@ -95,7 +95,7 @@ public:
       istate = (istate & ~IstateRegister::kItBit4to0Msk) | next_istate_4_0;
     }
 
-    cpua.template WriteRegister<SpecialRegisterId::kIstate>(istate);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kIstate>(istate);
   }
 
   static inline Result<u32> CurrentCond(const TCpuAccessor &cpua) {
@@ -104,7 +104,7 @@ public:
     // --> This is handled by the encoder by Using ConiditionPassed(cond)
 
     // • For all other Thumb instructions:
-    auto istate = cpua.template ReadRegister<SpecialRegisterId::kIstate>();
+    auto istate = cpua.template ReadSpecialRegister<SpecialRegisterId::kIstate>();
 
     const auto it_3_0 = istate & IstateRegister::kItBit3to0Msk;
 
@@ -182,40 +182,40 @@ public:
     auto cond_3_1 = (cond & IstateRegister::kItBit3to1Msk) >> IstateRegister::kItBit1Pos;
     switch (cond_3_1) {
     case 0b000U: { // EQ - Equal or NE - Not equal
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kZMsk) == ApsrRegister::kZMsk;
       break;
     }
     case 0b001U: { // CS - Carry set  or CC - Carry clear
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk;
       break;
     }
     case 0b010U: { // MI - Minus, negative  or PL - Plus, positive or zero
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kNMsk) == ApsrRegister::kNMsk;
       break;
     }
     case 0b011U: { // VS - Overflow or VC - No overflow
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = (apsr & ApsrRegister::kVMsk) == ApsrRegister::kVMsk;
       break;
     }
     case 0b100U: { // HI - Unsigned higher or LS - Unsigned lower or same
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = ((apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk) &&
                ((apsr & ApsrRegister::kZMsk) != ApsrRegister::kZMsk);
       break;
     }
     case 0b101U: { // GE - Signed greater than or equal or LT - Signed less than
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = ((apsr & ApsrRegister::kNMsk) >> ApsrRegister::kNPos) ==
                ((apsr & ApsrRegister::kVMsk) >> ApsrRegister::kVPos);
       break;
     }
     case 0b110U: { // GT - Signed greater than  or LE - Signed less than or
                    // equal
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
       result = (((apsr & ApsrRegister::kNMsk) >> ApsrRegister::kNPos) ==
                 ((apsr & ApsrRegister::kVMsk) >> ApsrRegister::kVPos)) &&
                ((apsr & ApsrRegister::kZMsk) != ApsrRegister::kZMsk);

@@ -66,12 +66,12 @@ public:
   ExceptionsOps(const ExceptionsOps &r_src) = delete;
 
   static void SetProcessorMode(TCpuAccessor &cpua, const ProcessorMode &mode) {
-    auto sys_ctrl = cpua.template ReadRegister<SId::kSysCtrl>();
+    auto sys_ctrl = cpua.template ReadSpecialRegister<SId::kSysCtrl>();
 
     sys_ctrl &= ~SysCtrlRegister::kExecModeMsk;
     sys_ctrl |= mode == ProcessorMode::kHandler ? SysCtrlRegister::kExecModeHandler
                                                 : SysCtrlRegister::kExecModeThread;
-    cpua.template WriteRegister<SId::kSysCtrl>(sys_ctrl);
+    cpua.template WriteSpecialRegister<SId::kSysCtrl>(sys_ctrl);
   }
 
   static void LogImportantRegisters(TCpuAccessor &cpua, const char *preamble,
@@ -83,10 +83,10 @@ public:
     auto &exception_states = cpua.GetExceptionStates();
     auto &selected_exception = exception_states.exception[static_cast<u32>(exception_type) - 1U];
 
-    auto apsr = cpua.template ReadRegister<SId::kApsr>();
-    auto ipsr = cpua.template ReadRegister<SId::kIpsr>();
-    auto epsr = cpua.template ReadRegister<SId::kEpsr>();
-    auto xpsr = cpua.template ReadRegister<SId::kXpsr>();
+    auto apsr = cpua.template ReadSpecialRegister<SId::kApsr>();
+    auto ipsr = cpua.template ReadSpecialRegister<SId::kIpsr>();
+    auto epsr = cpua.template ReadSpecialRegister<SId::kEpsr>();
+    auto xpsr = cpua.template ReadSpecialRegister<SId::kXpsr>();
     auto sp = cpua.template ReadRegister<RegisterId::kSp>();
     auto stack_type = Predicates::IsMainStack(cpua) ? "Main" : "Process";
     LOG_TRACE(TLogger,
@@ -178,7 +178,7 @@ public:
       // forcealign = '1';
     } else {
       framesize = 0x20U;
-      auto ccr = cpua.template ReadRegister<SId::kCcr>();
+      auto ccr = cpua.template ReadSpecialRegister<SId::kCcr>();
       forcealign = (ccr & CcrRegister::kStkAlignMsk) >> CcrRegister::kStkAlignPos;
     }
 
@@ -192,13 +192,13 @@ public:
 
     // if CONTROL.SPSEL == '1' && CurrentMode == Mode_Thread then
     if (is_process_stack && is_thread_mode) {
-      auto sp_process = cpua.template ReadRegister<SId::kSpProcess>();
+      auto sp_process = cpua.template ReadSpecialRegister<SId::kSpProcess>();
 
       frameptralign = ((sp_process & 0x4U) >> 2U) & forcealign;
 
       sp_process = (sp_process - framesize) & spmask;
       LOG_TRACE(TLogger, "Setting processes stack pointer to = 0x%08X", sp_process);
-      cpua.template WriteRegister<SId::kSpProcess>(sp_process);
+      cpua.template WriteSpecialRegister<SId::kSpProcess>(sp_process);
 
       // frameptralign = SP_process<2> AND forcealign;
       // SP_process = (SP_process - framesize) AND spmask;
@@ -206,13 +206,13 @@ public:
 
       frameptr = sp_process;
     } else {
-      auto sp_main = cpua.template ReadRegister<SId::kSpMain>();
+      auto sp_main = cpua.template ReadSpecialRegister<SId::kSpMain>();
 
       frameptralign = ((sp_main & 0x4U) >> 2U) & forcealign;
 
       sp_main = (sp_main - framesize) & spmask;
       LOG_TRACE(TLogger, "Setting main stack pointer to = 0x%08X", sp_main);
-      cpua.template WriteRegister<SId::kSpMain>(sp_main);
+      cpua.template WriteSpecialRegister<SId::kSpMain>(sp_main);
 
       frameptr = sp_main;
     }
@@ -256,7 +256,7 @@ public:
 
     // MemA[frameptr+0x1C,4] = (XPSR<31:10>:frameptralign:XPSR<8:0>);
     //                         //see ReturnAddress() in-line note for information on XPSR.IT bits
-    const auto xpsr = cpua.template ReadRegister<SId::kXpsr>();
+    const auto xpsr = cpua.template ReadSpecialRegister<SId::kXpsr>();
     const auto xpsr_adapt = (xpsr & Bm32::GenerateBitMask<8U, 0U>()) | (frameptralign << 9U) |
                             (xpsr & Bm32::GenerateBitMask<31U, 10U>());
 
@@ -302,7 +302,7 @@ public:
         cpua.template WriteRegister<RegisterId::kLr>(lr);
       } else { // Thread mode
         // LR = Ones(29):CONTROL.SPSEL:'01';
-        const auto sctrl = cpua.template ReadRegister<SId::kSysCtrl>();
+        const auto sctrl = cpua.template ReadSpecialRegister<SId::kSysCtrl>();
         const auto spsel =
             (sctrl & SysCtrlRegister::kControlSpSelMsk) >> SysCtrlRegister::kControlSpSelPos;
         const auto lr = Bm32::GenerateBitMask<31U, 3U>() | (spsel << 2U) | 0b01U;
@@ -421,7 +421,7 @@ public:
     // R[12] = bits(32) UNKNOWN;
 
     // bits(32) VectorTable = VTOR<31:7>:'0000000';
-    const auto vector_table = cpua.template ReadRegister<SId::kVtor>() << 7U;
+    const auto vector_table = cpua.template ReadSpecialRegister<SId::kVtor>() << 7U;
 
     // tmp = MemA[VectorTable+4*ExceptionNumber,4];
     TRY_ASSIGN(tmp, void,
@@ -438,32 +438,32 @@ public:
 
     // APSR = bits(32) UNKNOWN; // Flags UNPREDICTABLE due to other activations
 
-    auto ipsr = cpua.template ReadRegister<SId::kIpsr>();
+    auto ipsr = cpua.template ReadSpecialRegister<SId::kIpsr>();
 
     // IPSR SECTION
     // ------------
     const auto exception_number = static_cast<u32>(exception_type);
     ipsr &= ~static_cast<u32>(IpsrRegister::kExceptionNumberMsk);
     ipsr |= exception_number; // ExceptionNumber set in IPSR
-    cpua.template WriteRegister<SId::kIpsr>(ipsr);
+    cpua.template WriteSpecialRegister<SId::kIpsr>(ipsr);
 
     // EPSR SECTION
     // ------------
-    auto epsr = cpua.template ReadRegister<SId::kEpsr>();
+    auto epsr = cpua.template ReadSpecialRegister<SId::kEpsr>();
     epsr &= ~static_cast<u32>(EpsrRegister::kTMsk);  // clear t bit
     epsr |= tbit << EpsrRegister::kTPos;             // T-bit set from vector
     epsr &= ~static_cast<u32>(EpsrRegister::kItMsk); // IT/ICI bits cleared
-    cpua.template WriteRegister<SId::kEpsr>(epsr);
+    cpua.template WriteSpecialRegister<SId::kEpsr>(epsr);
 
-    auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
+    auto sys_ctrl = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysCtrl>();
     /* PRIMASK, FAULTMASK, BASEPRI unchanged on exception entry */
-    sys_ctrl = cpua.template ReadRegister<SId::kSysCtrl>();
+    sys_ctrl = cpua.template ReadSpecialRegister<SId::kSysCtrl>();
 
     // CONTROL.FPCA = '0'; // Mark Floating-point inactive
 
     // current Stack is Main, CONTROL.nPRIV unchanged
     sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
-    cpua.template WriteRegister<SId::kSysCtrl>(sys_ctrl);
+    cpua.template WriteSpecialRegister<SId::kSysCtrl>(sys_ctrl);
 
     /* CONTROL.nPRIV unchanged */
 
@@ -503,7 +503,7 @@ public:
 
     // integer ReturningExceptionNumber = UInt(IPSR<8:0>);
     auto ret_exception_n =
-        cpua.template ReadRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
+        cpua.template ReadSpecialRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
 
     // integer NestedActivation;
     // used for Handler => Thread check when value == 1
@@ -523,15 +523,15 @@ public:
 
       switch (exc_return & 0xFU) {
       case 0b0001U: { // return to Handler
-        frameptr = cpua.template ReadRegister<SId::kSpMain>();
+        frameptr = cpua.template ReadSpecialRegister<SId::kSpMain>();
         SetProcessorMode(cpua, ProcessorMode::kHandler);
 
-        auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
+        auto sys_ctrl = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysCtrl>();
 
         // CONTROL.SPSEL = '0';
         sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
 
-        cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
+        cpua.template WriteSpecialRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         break;
       }
 
@@ -544,15 +544,15 @@ public:
           // ExceptionTaken(UsageFault); // return to Thread exception mismatch
           // return;
         } else {
-          frameptr = cpua.template ReadRegister<SId::kSpMain>();
+          frameptr = cpua.template ReadSpecialRegister<SId::kSpMain>();
           SetProcessorMode(cpua, ProcessorMode::kThread);
 
-          auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
+          auto sys_ctrl = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysCtrl>();
 
           // CONTROL.SPSEL = '0';
           sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
 
-          cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
+          cpua.template WriteSpecialRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         }
         break;
       case 0b1101U: // returning to Thread using Process stack
@@ -564,15 +564,15 @@ public:
           // ExceptionTaken(UsageFault); // return to Thread exception mismatch
           // return;
         } else {
-          frameptr = cpua.template ReadRegister<SId::kSpProcess>();
+          frameptr = cpua.template ReadSpecialRegister<SId::kSpProcess>();
           SetProcessorMode(cpua, ProcessorMode::kThread);
 
-          auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
+          auto sys_ctrl = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysCtrl>();
 
           // CONTROL.SPSEL = '1';
           sys_ctrl |= static_cast<u32>(SysCtrlRegister::kControlSpSelMsk);
 
-          cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
+          cpua.template WriteSpecialRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
         }
         break;
       default:
@@ -592,7 +592,7 @@ public:
       TRY(void, PopStack(cpua, bus, frameptr, exc_return));
 
       const auto ipsr_8_0 =
-          cpua.template ReadRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
+          cpua.template ReadSpecialRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
 
       const auto is_handler_mode = Predicates::IsHandlerMode(cpua);
 
@@ -654,7 +654,7 @@ public:
     } else {
       framesize = 0x20U;
 
-      auto ccr = cpua.template ReadRegister<SId::kCcr>();
+      auto ccr = cpua.template ReadSpecialRegister<SId::kCcr>();
       forcealign = (ccr & CcrRegister::kStkAlignMsk) >> CcrRegister::kStkAlignPos;
     }
 
@@ -738,24 +738,24 @@ public:
     switch (exc_return & 0xFU) {
     case 0b0001: { // returning to Handler  using Main stack
       // SP_main = (SP_main + framesize) OR spmask;
-      auto sp_main = (cpua.template ReadRegister<SId::kSpMain>() + framesize) | spmask;
+      auto sp_main = (cpua.template ReadSpecialRegister<SId::kSpMain>() + framesize) | spmask;
       LOG_TRACE(TLogger, "Returning to handler mode using main stack: SP_main = 0x%08X", sp_main);
-      cpua.template WriteRegister<SId::kSpMain>(sp_main);
+      cpua.template WriteSpecialRegister<SId::kSpMain>(sp_main);
       break;
     }
     case 0b1001: { // returning to Thread using Main stack
       // SP_main = (SP_main + framesize) OR spmask;
-      auto sp_main = (cpua.template ReadRegister<SId::kSpMain>() + framesize) | spmask;
+      auto sp_main = (cpua.template ReadSpecialRegister<SId::kSpMain>() + framesize) | spmask;
       LOG_TRACE(TLogger, "Returning to thread mode using main stack: SP_main = 0x%08X", sp_main);
-      cpua.template WriteRegister<SId::kSpMain>(sp_main);
+      cpua.template WriteSpecialRegister<SId::kSpMain>(sp_main);
       break;
     }
 
     case 0b1101: { // returning to Thread using Process stack
-      auto sp_process = (cpua.template ReadRegister<SId::kSpProcess>() + framesize) | spmask;
+      auto sp_process = (cpua.template ReadSpecialRegister<SId::kSpProcess>() + framesize) | spmask;
       LOG_TRACE(TLogger, "Returning to thread mode using process stack: SP_process = 0x%08X",
                 sp_process);
-      cpua.template WriteRegister<SId::kSpProcess>(sp_process);
+      cpua.template WriteSpecialRegister<SId::kSpProcess>(sp_process);
       break;
     }
     default: {
@@ -765,7 +765,7 @@ public:
 
     // APSR<31:27> = psr<31:27>; // valid APSR bits loaded from memory
     auto psr_31_27 = Bm32::ExtractBits1R<ApsrRegister::kNPos, ApsrRegister::kQPos>(psr);
-    cpua.template WriteRegister<SId::kApsr>(psr_31_27 << ApsrRegister::kQPos);
+    cpua.template WriteSpecialRegister<SId::kApsr>(psr_31_27 << ApsrRegister::kQPos);
 
     // if HaveDSPExt() then
     if (false) {
@@ -775,7 +775,7 @@ public:
     // IPSR<8:0> = psr<8:0>; // valid IPSR bits loaded from memory
     auto ipsr_8_0 = psr & IpsrRegister::kExceptionNumberMsk;
 
-    cpua.template WriteRegister<SId::kIpsr>(ipsr_8_0);
+    cpua.template WriteSpecialRegister<SId::kIpsr>(ipsr_8_0);
 
     // EPSR<26:24,15:10> = psr<26:24,15:10>; // valid EPSR bits loaded from memory
     auto epsr_new = (Bm32::ExtractBits1R<EpsrRegister::kItBit1Pos, EpsrRegister::kTPos>(psr)
@@ -783,7 +783,7 @@ public:
                     (Bm32::ExtractBits1R<EpsrRegister::kItBit7Pos, EpsrRegister::kItBit2Pos>(psr)
                      << EpsrRegister::kItBit2Pos);
 
-    cpua.template WriteRegister<SId::kEpsr>(epsr_new);
+    cpua.template WriteSpecialRegister<SId::kEpsr>(epsr_new);
 
     return Ok();
   }
@@ -931,7 +931,7 @@ public:
     }
 
     auto executing_exc_type =
-        cpua.template ReadRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
+        cpua.template ReadSpecialRegister<SId::kIpsr>() & IpsrRegister::kExceptionNumberMsk;
 
     i16 executing_exc_priority =
         kLowestExceptionPriority + 1U; // one lower than the lowest priority

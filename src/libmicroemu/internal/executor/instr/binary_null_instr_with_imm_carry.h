@@ -21,7 +21,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TArg0 &rn, const ThumbImmediateResult &imm_carry) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto result = Alu32::AND(n, imm_carry.out);
 
     const auto op_res =
@@ -44,7 +44,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TArg0 &rn, const ThumbImmediateResult &imm_carry) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto result = Alu32::EOR(n, imm_carry.out);
 
     const auto op_res =

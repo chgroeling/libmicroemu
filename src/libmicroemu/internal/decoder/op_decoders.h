@@ -374,7 +374,7 @@ static Result<Instr> MovImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
       TItOps::InITBlock(cpua) == false ? static_cast<InstrFlagsSet>(InstrFlags::kSetFlags) : 0U;
   const u16 Rd = Bm16::ExtractBits1R<10U, 8U>(rinstr.low);
   const u8 d = static_cast<u8>(Rd);
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   const u16 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.low);
   const auto imm32_carry =
       ThumbImmediateResult{imm8, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk};
@@ -401,7 +401,7 @@ static Result<Instr> MovImmediateT2Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -460,7 +460,7 @@ static Result<Instr> MvnImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -1879,7 +1879,7 @@ static Result<Instr> TstImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -1908,7 +1908,7 @@ static Result<Instr> TeqImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -1985,7 +1985,7 @@ static Result<Instr> AndImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -2017,7 +2017,7 @@ static Result<Instr> OrrImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -2050,7 +2050,7 @@ static Result<Instr> EorImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 
@@ -3123,7 +3123,7 @@ static Result<Instr> BicImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);
   const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);
   const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;
-  auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+  auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
   TRY_ASSIGN(imm32_carry, Instr,
              Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));
 

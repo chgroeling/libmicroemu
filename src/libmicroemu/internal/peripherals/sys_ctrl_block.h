@@ -42,14 +42,14 @@ public:
     static constexpr bool kReadOnly = false;          // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kCcr>();
+      auto read_val = cpua.template ReadSpecialRegister<SpecialRegisterId::kCcr>();
       LOG_TRACE(TLogger, "READ CCR: 0x%X", read_val);
       return read_val;
     }
 
     static void WriteRegister(TCpuAccessor &cpua, u32 value) {
       LOG_TRACE(TLogger, "WRITE CCR: 0x%X", value);
-      cpua.template WriteRegister<SpecialRegisterId::kCcr>(value);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCcr>(value);
     }
   };
 
@@ -60,16 +60,16 @@ public:
     static constexpr bool kReadOnly = false;           // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto read_val = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       LOG_TRACE(TLogger, "READ CFSR: 0x%X", read_val);
       return read_val;
     }
 
     static void WriteRegister(TCpuAccessor &cpua, u32 value) {
-      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto read_val = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       value = read_val & (~value);
       LOG_TRACE(TLogger, "WRITE CFSR: 0x%X", value);
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(value);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(value);
     }
   };
 
@@ -80,14 +80,14 @@ public:
     static constexpr bool kReadOnly = false;          // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto read_val = cpua.template ReadRegister<SpecialRegisterId::kBfar>();
+      auto read_val = cpua.template ReadSpecialRegister<SpecialRegisterId::kBfar>();
       LOG_TRACE(TLogger, "READ BFAR: 0x%X", read_val);
       return read_val;
     }
 
     static void WriteRegister(TCpuAccessor &cpua, u32 value) {
       LOG_TRACE(TLogger, "WRITE BFAR: 0x%X", value);
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(value);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(value);
     }
   };
 

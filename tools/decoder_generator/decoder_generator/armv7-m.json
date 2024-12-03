@@ -1459,7 +1459,7 @@
                 },
                 "imm32_carry": {
                     "decoder": [
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "const u16 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.low);",
                         "const auto imm32_carry = ThumbImmediateResult{imm8, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk};"
                     ]
@@ -1498,7 +1498,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -1579,7 +1579,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -3786,7 +3786,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -3822,7 +3822,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -3936,7 +3936,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -3983,7 +3983,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -4031,7 +4031,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }
@@ -5746,7 +5746,7 @@
                         "const u32 imm3 = Bm16::ExtractBits1R<14U, 12U>(rinstr.high);",
                         "const u32 imm8 = Bm16::ExtractBits1R<7U, 0U>(rinstr.high);",
                         "const u32 imm12 = (i << 11U) | (imm3 << 8U) | imm8;",
-                        "auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();",
+                        "auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();",
                         "TRY_ASSIGN(imm32_carry, Instr,Thumb::ThumbExpandImm_C(imm12, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk));"
                     ]
                 }

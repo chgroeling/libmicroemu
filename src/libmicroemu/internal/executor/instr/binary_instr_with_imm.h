@@ -40,7 +40,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto result =
         Alu32::AddWithCarry(n, imm, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};
@@ -84,7 +84,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TDest &rd, const TArg0 &rn, const u32 &imm) {
     const auto n = ictx.cpua.ReadRegister(rn.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto result =
         Alu32::AddWithCarry(n, ~imm, (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
     const auto op_res = OpResult{result.value, result.carry_out, result.overflow};

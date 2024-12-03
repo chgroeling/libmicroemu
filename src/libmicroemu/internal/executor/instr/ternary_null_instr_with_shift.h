@@ -21,7 +21,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TArg0 &rm, const TArg1 &rn,
                                         const ImmShiftResults &shift_res) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto n = ictx.cpua.ReadRegister(rn.Get());
 
@@ -47,7 +47,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TArg0 &rm, const TArg1 &rn,
                                         const ImmShiftResults &shift_res) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto n = ictx.cpua.ReadRegister(rn.Get());
 
@@ -75,7 +75,7 @@ public:
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TArg0 &rm, const TArg1 &rn,
                                         const ImmShiftResults &shift_res) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto n = ictx.cpua.ReadRegister(rn.Get());
 

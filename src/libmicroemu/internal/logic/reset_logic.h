@@ -44,7 +44,7 @@ public:
     // see Armv7-M Architecture Reference Manual Issue E.e p.531
     LOG_INFO(TLogger, "Resetting processor");
 
-    auto sys_ctrl = cpua.template ReadRegister<SpecialRegisterId::kSysCtrl>();
+    auto sys_ctrl = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysCtrl>();
 
     // CurrentMode = Mode_Thread;
     sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kExecModeMsk);
@@ -76,7 +76,7 @@ public:
       sys_ctrl &= ~static_cast<u32>(SysCtrlRegister::kControlNPrivMsk);
     }
 
-    cpua.template WriteRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kSysCtrl>(sys_ctrl);
 
     // for i = 0 to 511 /* all exceptions Inactive */
     //   ExceptionActive[i] = '0';
@@ -91,19 +91,19 @@ public:
     //   R[i] = bits(32) UNKNOWN;
 
     // bits(32) vectortable = VTOR<31:7>:'0000000';
-    const auto vtor = cpua.template ReadRegister<SpecialRegisterId::kVtor>();
+    const auto vtor = cpua.template ReadSpecialRegister<SpecialRegisterId::kVtor>();
     me_adr_t vectortable = vtor << 7 | 0x0U;
 
     // SP_main = MemA_with_priv[vectortable, 4, AccType_VECTABLE] AND 0xFFFFFFFC<31:0>;
     TRY_ASSIGN(sp_main, void,
                bus.template ReadOrRaise<u32>(cpua, vectortable,
                                              BusExceptionType::kRaisePreciseDataBusError));
-    cpua.template WriteRegister<SpecialRegisterId::kSpMain>(sp_main);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kSpMain>(sp_main);
 
     // SP_process = ((bits(30) UNKNOWN):'00');
-    auto sp_process = cpua.template ReadRegister<SpecialRegisterId::kSpProcess>();
+    auto sp_process = cpua.template ReadSpecialRegister<SpecialRegisterId::kSpProcess>();
     sp_process &= ~0x3U; // clear the two least significant bits
-    cpua.template WriteRegister<SpecialRegisterId::kSpProcess>(sp_process);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kSpProcess>(sp_process);
 
     // LR = 0xFFFFFFFF<31:0>; /* preset to an illegal exception return value */
     cpua.template WriteRegister<RegisterId::kLr>(0xFFFFFFFFU);
@@ -119,17 +119,17 @@ public:
     // APSR = bits(32) UNKNOWN; /* flags UNPREDICTABLE from reset */
 
     // IPSR<8:0> = Zeros(9); /* Exception Number cleared */
-    auto ipsr = cpua.template ReadRegister<SpecialRegisterId::kIpsr>();
+    auto ipsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kIpsr>();
     ipsr &= ~static_cast<u32>(IpsrRegister::kExceptionNumberMsk);
-    cpua.template WriteRegister<SpecialRegisterId::kIpsr>(ipsr);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kIpsr>(ipsr);
 
     // EPSR.T = tbit; /* T bit set from vector */
     // EPSR.IT<7:0> = Zeros(8); /* IT/ICI bits cleared */
-    auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
+    auto epsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kEpsr>();
     epsr &= ~static_cast<u32>(EpsrRegister::kItMsk) & // clear it bits
             ~static_cast<u32>(EpsrRegister::kTMsk);   // clear t bit
     epsr |= tbit << EpsrRegister::kTPos;
-    cpua.template WriteRegister<SpecialRegisterId::kEpsr>(epsr);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kEpsr>(epsr);
 
     // BranchTo(tmp AND 0xFFFFFFFE<31:0>); /* address of reset service routine */
     auto entry_point = tmp & 0xFFFFFFFEU;
@@ -138,17 +138,17 @@ public:
 
     // CSR.STKALIGN = '1'; <-- added as default
     /* stack alignment is 8-byte aligned per default*/
-    auto ccr = cpua.template ReadRegister<SpecialRegisterId::kCcr>();
+    auto ccr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCcr>();
     ccr |= static_cast<u32>(CcrRegister::kStkAlignMsk);
-    cpua.template WriteRegister<SpecialRegisterId::kCcr>(ccr);
+    cpua.template WriteSpecialRegister<SpecialRegisterId::kCcr>(ccr);
     LOG_TRACE(TLogger, "CSR: 0x%08X", ccr);
 
 #if IS_LOGLEVEL_TRACE_ENABLED == true // LOG TRACE apsr, ipsr, epsr, xpsr
     {
-      auto apsr = cpua.template ReadRegister<SpecialRegisterId::kApsr>();
-      auto ipsr = cpua.template ReadRegister<SpecialRegisterId::kIpsr>();
-      auto epsr = cpua.template ReadRegister<SpecialRegisterId::kEpsr>();
-      auto xpsr = cpua.template ReadRegister<SpecialRegisterId::kXpsr>();
+      auto apsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
+      auto ipsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kIpsr>();
+      auto epsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kEpsr>();
+      auto xpsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kXpsr>();
       LOG_DEBUG(TLogger, "APSR: 0x%08X, IPSR: 0x%08X, EPSR: 0x%08X, XPSR: 0x%08X", apsr, ipsr, epsr,
                 xpsr);
     }

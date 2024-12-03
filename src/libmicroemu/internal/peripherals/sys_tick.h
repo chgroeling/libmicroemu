@@ -32,23 +32,23 @@ public:
     static constexpr bool kReadOnly = false;           // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto ret = cpua.template ReadRegister<SpecialRegisterId::kSysTickCsr>();
+      auto ret = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickCsr>();
       LOG_TRACE(TLogger, "READ SYST_CSR: 0x%X", ret);
       // clear the count flag on each read
       auto csr_wb = ret & (~SysTickRegister::kCsrCountFlagMsk);
-      cpua.template WriteRegister<SpecialRegisterId::kSysTickCsr>(csr_wb);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCsr>(csr_wb);
 
       return ret;
     }
 
     static void WriteRegister(TCpuAccessor &cpua, u32 value) {
-      auto csr_old = cpua.template ReadRegister<SpecialRegisterId::kSysTickCsr>();
+      auto csr_old = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickCsr>();
       LOG_TRACE(TLogger, "WRITE SYST_CSR: 0x%X", value);
       if (((csr_old & SysTickRegister::kCsrEnableMsk) == 0U) &&
           ((value & SysTickRegister::kCsrEnableMsk) != 0U)) {
 
-        auto rvr = cpua.template ReadRegister<SpecialRegisterId::kSysTickRvr>();
-        cpua.template WriteRegister<SpecialRegisterId::kSysTickCvr>(rvr);
+        auto rvr = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickRvr>();
+        cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCvr>(rvr);
         LOG_DEBUG(TLogger, "Enable SysTick");
       } else if (((csr_old & SysTickRegister::kCsrEnableMsk) != 0U) &&
                  ((value & SysTickRegister::kCsrEnableMsk) == 0U)) {
@@ -56,7 +56,7 @@ public:
       }
       // each write to the register clears the count flag
       value = value & (~SysTickRegister::kCsrCountFlagMsk);
-      cpua.template WriteRegister<SpecialRegisterId::kSysTickCsr>(value);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCsr>(value);
     }
   };
 
@@ -67,14 +67,14 @@ public:
     static constexpr bool kReadOnly = false;          // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto ret = cpua.template ReadRegister<SpecialRegisterId::kSysTickRvr>();
+      auto ret = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickRvr>();
       LOG_TRACE(TLogger, "READ SYST_RVR: 0x%X", ret);
       return ret;
     }
 
     static void WriteRegister(TCpuAccessor &cpua, u32 value) {
       LOG_TRACE(TLogger, "WRITE SYST_RVR: 0x%X", value);
-      cpua.template WriteRegister<SpecialRegisterId::kSysTickRvr>(value);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickRvr>(value);
     }
   };
 
@@ -85,7 +85,7 @@ public:
     static constexpr bool kReadOnly = false;           // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto ret = cpua.template ReadRegister<SpecialRegisterId::kSysTickCvr>();
+      auto ret = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickCvr>();
       LOG_TRACE(TLogger, "READ SYST_CVR: 0x%X", ret);
       return ret;
     }
@@ -93,7 +93,7 @@ public:
     static void WriteRegister(TCpuAccessor &cpua, u32 value) {
       value = 0x0; // write to this register clears the count
       LOG_TRACE(TLogger, "WRITE SYST_CVR: 0x%X", value);
-      cpua.template WriteRegister<SpecialRegisterId::kSysTickCvr>(value);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCvr>(value);
     }
   };
 
@@ -104,7 +104,7 @@ public:
     static constexpr bool kReadOnly = true;            // Disable write operation
 
     static u32 ReadRegister(TCpuAccessor &cpua) {
-      auto ret = cpua.template ReadRegister<SpecialRegisterId::kSysTickCalib>();
+      auto ret = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickCalib>();
       LOG_TRACE(TLogger, "READ SYST_CALIB: 0x%X", ret);
       return ret;
     }
@@ -121,24 +121,24 @@ public:
   // clang-format on
 
   static Result<void> Step(TCpuAccessor &cpua) {
-    auto csr = cpua.template ReadRegister<SpecialRegisterId::kSysTickCsr>();
+    auto csr = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickCsr>();
 
     if ((csr & SysTickRegister::kCsrEnableMsk) == SysTickRegister::kCsrEnableMsk) {
-      auto cvr = cpua.template ReadRegister<SpecialRegisterId::kSysTickCvr>();
+      auto cvr = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickCvr>();
 
       if (cvr <= 1U) {
         LOG_DEBUG(TLogger, "SysTick counted to zero");
-        auto rvr = cpua.template ReadRegister<SpecialRegisterId::kSysTickRvr>();
-        cpua.template WriteRegister<SpecialRegisterId::kSysTickCvr>(rvr);
+        auto rvr = cpua.template ReadSpecialRegister<SpecialRegisterId::kSysTickRvr>();
+        cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCvr>(rvr);
 
         if ((csr & SysTickRegister::kCsrTickIntMsk) == SysTickRegister::kCsrTickIntMsk) {
           ExcTrig::SetPending(cpua, ExceptionType::kSysTick);
         }
         // Set the count flag ... indication that the counter has reached 0
         csr |= SysTickRegister::kCsrCountFlagMsk;
-        cpua.template WriteRegister<SpecialRegisterId::kSysTickCsr>(csr);
+        cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCsr>(csr);
       } else {
-        cpua.template WriteRegister<SpecialRegisterId::kSysTickCvr>(cvr - 1U);
+        cpua.template WriteSpecialRegister<SpecialRegisterId::kSysTickCvr>(cvr - 1U);
       }
     }
 

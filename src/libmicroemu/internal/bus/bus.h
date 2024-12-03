@@ -87,58 +87,58 @@ public:
     }
     case BusExceptionType::kRaiseStkerr: {
       // Bfar will not be updated according to the ARMv7-M Architecture Reference Manual
-      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      // cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kStkerrMsk;
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaiseUnstkerr: {
       // Bfar will not be updated according to the ARMv7-M Architecture Reference Manual
-      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      // cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kUnstkerrMsk;
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaiseImpreciseDataBusError: {
-      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      // cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kImpreciseErrMsk;
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaisePreciseDataBusError: {
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kPreciseErrMsk;
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
     }
     case BusExceptionType::kRaiseInstructionBusError: {
-      // cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      // cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       // cfsr |= SReg::kCfsrBusFaultBfarValidMsk;
       cfsr |= CfsrBusFault::kIbuErrMsk;
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok(read_res.content);
@@ -179,58 +179,58 @@ public:
       return Ok(); // No exception to be triggered
     }
     case BusExceptionType::kRaiseStkerr: {
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kStkerrMsk;
 
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
       return Ok();
     }
     case BusExceptionType::kRaiseUnstkerr: {
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kUnstkerrMsk;
 
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     case BusExceptionType::kRaiseImpreciseDataBusError: {
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kImpreciseErrMsk;
 
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     case BusExceptionType::kRaisePreciseDataBusError: {
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kPreciseErrMsk;
 
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     case BusExceptionType::kRaiseInstructionBusError: {
-      cpua.template WriteRegister<SpecialRegisterId::kBfar>(vadr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kBfar>(vadr);
 
       ExcTrig::SetPending(cpua, ExceptionType::kBusFault);
-      auto cfsr = cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+      auto cfsr = cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
       cfsr |= CfsrBusFault::kBfarValidMsk;
       cfsr |= CfsrBusFault::kIbuErrMsk;
 
-      cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+      cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
       return Ok();
     }
     }

@@ -25,7 +25,7 @@ public:
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto shift_n = m & 0xFFU;
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(n, SRType::SRType_LSR, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -54,7 +54,7 @@ public:
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto shift_n = m & 0xFFU;
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(n, SRType::SRType_ASR, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -84,7 +84,7 @@ public:
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto shift_n = m & 0xFFU;
 
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     auto r_shift_c = Alu32::Shift_C(n, SRType::SRType_LSL, shift_n,
                                     (apsr & ApsrRegister::kCMsk) == ApsrRegister::kCMsk);
 
@@ -108,7 +108,7 @@ public:
   template <typename TDest, typename TArg0, typename TArg1>
   static Result<InstrExecFlagsSet> Call(TInstrContext &ictx, const InstrFlagsSet &iflags,
                                         const TDest &rd, const TArg0 &rn, const TArg1 &rm) {
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
     const auto result = static_cast<u32>(static_cast<i32>(n) * static_cast<i32>(m));
@@ -132,15 +132,15 @@ template <typename TInstrContext> class UDiv2Op {
 public:
   using ExcTrig = typename TInstrContext::ExcTrig;
   static inline bool IntegerZeroDivideTrappingEnabled(const TInstrContext &ictx) {
-    const auto ccr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCcr>();
+    const auto ccr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kCcr>();
     return (ccr & CcrRegister::kDivByZeroTrapEnableMsk) != 0U;
   }
 
   static inline void GenerateIntegerZeroDivide(const TInstrContext &ictx) {
     ExcTrig::SetPending(ictx.cpua, ExceptionType::kUsageFault);
-    auto cfsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+    auto cfsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
     cfsr |= CfsrUsageFault::kDivByZeroMsk;
-    ictx.cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+    ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
   }
 
   template <typename TDest, typename TArg0, typename TArg1>
@@ -149,7 +149,7 @@ public:
 
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     u32 result = 0U;
     if (m == 0U) {
 
@@ -181,15 +181,15 @@ public:
   using ExcTrig = typename TInstrContext::ExcTrig;
 
   static inline bool IntegerZeroDivideTrappingEnabled(const TInstrContext &ictx) {
-    const auto ccr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCcr>();
+    const auto ccr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kCcr>();
     return (ccr & CcrRegister::kDivByZeroTrapEnableMsk) != 0U;
   }
 
   static inline void GenerateIntegerZeroDivide(const TInstrContext &ictx) {
     ExcTrig::SetPending(ictx.cpua, ExceptionType::kUsageFault);
-    auto cfsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kCfsr>();
+    auto cfsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kCfsr>();
     cfsr |= CfsrUsageFault::kDivByZeroMsk;
-    ictx.cpua.template WriteRegister<SpecialRegisterId::kCfsr>(cfsr);
+    ictx.cpua.template WriteSpecialRegister<SpecialRegisterId::kCfsr>(cfsr);
   }
 
   template <typename TDest, typename TArg0, typename TArg1>
@@ -198,7 +198,7 @@ public:
 
     const auto n = ictx.cpua.ReadRegister(rn.Get());
     const auto m = ictx.cpua.ReadRegister(rm.Get());
-    auto apsr = ictx.cpua.template ReadRegister<SpecialRegisterId::kApsr>();
+    auto apsr = ictx.cpua.template ReadSpecialRegister<SpecialRegisterId::kApsr>();
     u32 result = 0U;
     if (m == 0U) {
       if (IntegerZeroDivideTrappingEnabled(ictx)) {

@@ -34,19 +34,19 @@ public:
   inline void WriteRegister(RegisterId id, u32 value) { RegOps::WriteRegister(*this, id, value); }
 
   // ---- Special registers ----
-  template <SpecialRegisterId SId> inline u32 ReadRegister() const {
+  template <SpecialRegisterId SId> inline u32 ReadSpecialRegister() const {
     return SReg::template ReadRegister<SId>(*this);
   }
 
-  inline u32 ReadRegister(const SpecialRegisterId &reg_id) const {
+  inline u32 ReadSpecialRegister(const SpecialRegisterId &reg_id) const {
     return SReg::ReadRegister(*this, reg_id);
   }
 
-  template <SpecialRegisterId SId> inline void WriteRegister(u32 value) {
+  template <SpecialRegisterId SId> inline void WriteSpecialRegister(u32 value) {
     SReg::template WriteRegister<SId>(*this, value);
   }
 
-  inline void WriteRegister(const SpecialRegisterId &reg_id, u32 value) {
+  inline void WriteSpecialRegister(const SpecialRegisterId &reg_id, u32 value) {
     SReg::WriteRegister(*this, reg_id, value);
   }
 };
