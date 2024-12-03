@@ -53,7 +53,7 @@ _libmicroemu_ is currently under active development and can already execute a si
     _libmicroemu_ uses Conan 2 for dependency management, with profiles for different machines stored in the ./profiles directory. While Conan is primarily needed for the _microemu_ CLI, it also installs toolchains and GTest, making its use advisable. Run the following command to install dependencies and set options for building standalone components:
 
     ```bash
-    conan install . -pr ./profiles/<your_build_profile> -o build_tests=True -o build_microemu=True --build=missing
+    conan install . -pr ./profiles/<your_build_profile> --build=missing
     ```
 
     Replace <your_build_profile> with the appropriate profile names for your setup.  This version uses the conan -o option for enabling _build_tests_ and _build_microemu_ when installing dependencies.
