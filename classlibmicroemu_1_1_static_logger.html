@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -95,6 +95,11 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">libmicroemu::StaticLogger Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Static logger class.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="logger_8h_source.html">logger.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -123,10 +128,12 @@ template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:a538f657ffebd5b7fa7a91b1f43bec65d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Critical</b> (const char *format, Args &amp;&amp;...args) noexcept</td></tr>
 <tr class="separator:a538f657ffebd5b7fa7a91b1f43bec65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa17b61ed2c8f917129743757a03def59" id="r_aa17b61ed2c8f917129743757a03def59"><td class="memItemLeft" align="right" valign="top"><a id="aa17b61ed2c8f917129743757a03def59" name="aa17b61ed2c8f917129743757a03def59"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLoggerCallback</b> (void(*callback)(libmicroemu::LogLevel level, const char *,...) noexcept) noexcept</td></tr>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLoggerCallback</b> (void(*callback)(<a class="el" href="namespacelibmicroemu.html#a16d382f14aaf41fc487a0137c23248c2">libmicroemu::LogLevel</a> level, const char *,...) noexcept) noexcept</td></tr>
 <tr class="separator:aa17b61ed2c8f917129743757a03def59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Static logger class. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/libmicroemu/<a class="el" href="logger_8h_source.html">logger.h</a></li>
 <li>src/libmicroemu/<b>logger.cpp</b></li>
 </ul>

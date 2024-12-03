@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,26 +96,27 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">libmicroemu::Machine Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents the main emulation machine for handling microcontroller emulation.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="machine_8h_source.html">machine.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab37539355382c146a78a76720dc6e042" id="r_ab37539355382c146a78a76720dc6e042"><td class="memItemLeft" align="right" valign="top"><a id="ab37539355382c146a78a76720dc6e042" name="ab37539355382c146a78a76720dc6e042"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Machine</b> () noexcept</td></tr>
-<tr class="memdesc:ab37539355382c146a78a76720dc6e042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="memitem:ab37539355382c146a78a76720dc6e042" id="r_ab37539355382c146a78a76720dc6e042"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab37539355382c146a78a76720dc6e042">Machine</a> () noexcept</td></tr>
 <tr class="separator:ab37539355382c146a78a76720dc6e042"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a550577e6f2537014f4e268f284f3afdb" id="r_a550577e6f2537014f4e268f284f3afdb"><td class="memItemLeft" align="right" valign="top"><a id="a550577e6f2537014f4e268f284f3afdb" name="a550577e6f2537014f4e268f284f3afdb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>~Machine</b> () noexcept</td></tr>
-<tr class="memdesc:a550577e6f2537014f4e268f284f3afdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deconstructor. <br /></td></tr>
+<tr class="memitem:a550577e6f2537014f4e268f284f3afdb" id="r_a550577e6f2537014f4e268f284f3afdb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a550577e6f2537014f4e268f284f3afdb">~Machine</a> () noexcept</td></tr>
 <tr class="separator:a550577e6f2537014f4e268f284f3afdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad50d119d83a629a0588765117bd904bd" id="r_ad50d119d83a629a0588765117bd904bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad50d119d83a629a0588765117bd904bd">Load</a> (const char *elf_file, bool set_entry_point=true) noexcept</td></tr>
-<tr class="memdesc:ad50d119d83a629a0588765117bd904bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads an elf file into memory.  <br /></td></tr>
-<tr class="separator:ad50d119d83a629a0588765117bd904bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab15dc31ff8078495512bc9f732d0aa0" id="r_aab15dc31ff8078495512bc9f732d0aa0"><td class="memItemLeft" align="right" valign="top"><a id="aab15dc31ff8078495512bc9f732d0aa0" name="aab15dc31ff8078495512bc9f732d0aa0"></a>
-<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> () noexcept</td></tr>
-<tr class="separator:aab15dc31ff8078495512bc9f732d0aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3106a65ee173063b3f9a591891345eab" id="r_a3106a65ee173063b3f9a591891345eab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1_emu_result.html">EmuResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3106a65ee173063b3f9a591891345eab">Exec</a> (i32 max_instructions=-1, FPreExecStepCallback cb_pre_exec=nullptr, FPostExecStepCallback cb_post_exec=nullptr) noexcept</td></tr>
-<tr class="memdesc:a3106a65ee173063b3f9a591891345eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the loaded program.  <br /></td></tr>
-<tr class="separator:a3106a65ee173063b3f9a591891345eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2b65fd6dcefc96f69974afb3b4ee66e" id="r_af2b65fd6dcefc96f69974afb3b4ee66e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0">StatusCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2b65fd6dcefc96f69974afb3b4ee66e">Load</a> (const char *elf_file, bool set_entry_point=false) noexcept</td></tr>
+<tr class="memdesc:af2b65fd6dcefc96f69974afb3b4ee66e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads an ELF file into memory and optionally sets the entry point.  <br /></td></tr>
+<tr class="separator:af2b65fd6dcefc96f69974afb3b4ee66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae5aa11b31dd564d937d14c7df97d2f5" id="r_aae5aa11b31dd564d937d14c7df97d2f5"><td class="memItemLeft" align="right" valign="top"><a id="aae5aa11b31dd564d937d14c7df97d2f5" name="aae5aa11b31dd564d937d14c7df97d2f5"></a>
+<a class="el" href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0">StatusCode</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> () noexcept</td></tr>
+<tr class="separator:aae5aa11b31dd564d937d14c7df97d2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f302218280c95778710a790296b9514" id="r_a7f302218280c95778710a790296b9514"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1_exec_result.html">ExecResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f302218280c95778710a790296b9514">Exec</a> (i64 max_instructions=-1, <a class="el" href="namespacelibmicroemu.html#a9665187b406afc6969442d406ede52fe">FPreExecStepCallback</a> cb_pre_exec=nullptr, <a class="el" href="namespacelibmicroemu.html#aa8da8afecd38ff5558b61b78fadf3eb9">FPostExecStepCallback</a> cb_post_exec=nullptr) noexcept</td></tr>
+<tr class="memdesc:a7f302218280c95778710a790296b9514"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the loaded program.  <br /></td></tr>
+<tr class="separator:a7f302218280c95778710a790296b9514"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae157cfa801f766a3641e02ad801e6aeb" id="r_ae157cfa801f766a3641e02ad801e6aeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae157cfa801f766a3641e02ad801e6aeb">SetFlashSegment</a> (u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept</td></tr>
 <tr class="memdesc:ae157cfa801f766a3641e02ad801e6aeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Flash segment The flash segment is where a microcontroller stores its program code. A flash segment is read-only.  <br /></td></tr>
 <tr class="separator:ae157cfa801f766a3641e02ad801e6aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,7 +126,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a01bce89e588292a37929de79ff072b03" id="r_a01bce89e588292a37929de79ff072b03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01bce89e588292a37929de79ff072b03">SetRam2Segment</a> (u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept</td></tr>
 <tr class="memdesc:a01bce89e588292a37929de79ff072b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the RAM2 segment The RAM2 segment is were a microcontroller stores its data. A RAM2 segment is read-write.  <br /></td></tr>
 <tr class="separator:a01bce89e588292a37929de79ff072b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0d65ffa178a42f9a119bba280284446" id="r_af0d65ffa178a42f9a119bba280284446"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0d65ffa178a42f9a119bba280284446">EvaluateState</a> (FStateCallback cb) noexcept</td></tr>
+<tr class="memitem:af0d65ffa178a42f9a119bba280284446" id="r_af0d65ffa178a42f9a119bba280284446"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0d65ffa178a42f9a119bba280284446">EvaluateState</a> (<a class="el" href="namespacelibmicroemu.html#a64ce484f6828c4d852200ad37697628c">FStateCallback</a> cb) noexcept</td></tr>
 <tr class="memdesc:af0d65ffa178a42f9a119bba280284446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the state of the processor This function evaluates the state of the processor by calling a function which gives access to the registers and special registers.  <br /></td></tr>
 <tr class="separator:af0d65ffa178a42f9a119bba280284446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41d9ccc5599dde9f3f214135a66aae9b" id="r_a41d9ccc5599dde9f3f214135a66aae9b"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41d9ccc5599dde9f3f214135a66aae9b">GetVersion</a> () noexcept</td></tr>
@@ -135,9 +136,65 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a272449188a060c600199defc4a9f96ea" id="r_a272449188a060c600199defc4a9f96ea"><td class="memItemLeft" align="right" valign="top"><a id="a272449188a060c600199defc4a9f96ea" name="a272449188a060c600199defc4a9f96ea"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLoggerCallback</b> (void(*callback)(libmicroemu::LogLevel level, const char *,...) noexcept) noexcept</td></tr>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLoggerCallback</b> (void(*callback)(<a class="el" href="namespacelibmicroemu.html#a16d382f14aaf41fc487a0137c23248c2">libmicroemu::LogLevel</a> level, const char *,...) noexcept) noexcept</td></tr>
 <tr class="separator:a272449188a060c600199defc4a9f96ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents the main emulation machine for handling microcontroller emulation. </p>
+<p>The <code><a class="el" href="classlibmicroemu_1_1_machine.html" title="Represents the main emulation machine for handling microcontroller emulation.">Machine</a></code> class is responsible for loading ELF files, setting up memory segments, executing programs, and evaluating the processor state. It provides various utilities to configure and control the emulation process. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab37539355382c146a78a76720dc6e042" name="ab37539355382c146a78a76720dc6e042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab37539355382c146a78a76720dc6e042">&#9670;&#160;</a></span>Machine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">libmicroemu::Machine::Machine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor </p>
+
+</div>
+</div>
+<a id="a550577e6f2537014f4e268f284f3afdb" name="a550577e6f2537014f4e268f284f3afdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a550577e6f2537014f4e268f284f3afdb">&#9670;&#160;</a></span>~Machine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">libmicroemu::Machine::~Machine </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Deconstructor </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="af0d65ffa178a42f9a119bba280284446" name="af0d65ffa178a42f9a119bba280284446"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0d65ffa178a42f9a119bba280284446">&#9670;&#160;</a></span>EvaluateState()</h2>
@@ -151,7 +208,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
         <tr>
           <td class="memname">void libmicroemu::Machine::EvaluateState </td>
           <td>(</td>
-          <td class="paramtype">FStateCallback</td>          <td class="paramname"><span class="paramname"><em>cb</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespacelibmicroemu.html#a64ce484f6828c4d852200ad37697628c">FStateCallback</a></td>          <td class="paramname"><span class="paramname"><em>cb</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -173,8 +230,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
 
 </div>
 </div>
-<a id="a3106a65ee173063b3f9a591891345eab" name="a3106a65ee173063b3f9a591891345eab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3106a65ee173063b3f9a591891345eab">&#9670;&#160;</a></span>Exec()</h2>
+<a id="a7f302218280c95778710a790296b9514" name="a7f302218280c95778710a790296b9514"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f302218280c95778710a790296b9514">&#9670;&#160;</a></span>Exec()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,19 +240,19 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1_emu_result.html">EmuResult</a> &gt; libmicroemu::Machine::Exec </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1_exec_result.html">ExecResult</a> libmicroemu::Machine::Exec </td>
           <td>(</td>
-          <td class="paramtype">i32</td>          <td class="paramname"><span class="paramname"><em>max_instructions</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1</span>, </td>
+          <td class="paramtype">i64</td>          <td class="paramname"><span class="paramname"><em>max_instructions</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-1</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">FPreExecStepCallback</td>          <td class="paramname"><span class="paramname"><em>cb_pre_exec</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+          <td class="paramtype"><a class="el" href="namespacelibmicroemu.html#a9665187b406afc6969442d406ede52fe">FPreExecStepCallback</a></td>          <td class="paramname"><span class="paramname"><em>cb_pre_exec</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">FPostExecStepCallback</td>          <td class="paramname"><span class="paramname"><em>cb_post_exec</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="namespacelibmicroemu.html#aa8da8afecd38ff5558b61b78fadf3eb9">FPostExecStepCallback</a></td>          <td class="paramname"><span class="paramname"><em>cb_post_exec</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -214,7 +271,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structlibmicroemu_1_1_result.html">Result</a> of the execution </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Result of the execution </dd></dl>
 
 </div>
 </div>
@@ -246,8 +303,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
 
 </div>
 </div>
-<a id="ad50d119d83a629a0588765117bd904bd" name="ad50d119d83a629a0588765117bd904bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad50d119d83a629a0588765117bd904bd">&#9670;&#160;</a></span>Load()</h2>
+<a id="af2b65fd6dcefc96f69974afb3b4ee66e" name="af2b65fd6dcefc96f69974afb3b4ee66e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b65fd6dcefc96f69974afb3b4ee66e">&#9670;&#160;</a></span>Load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,14 +313,14 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt; libmicroemu::Machine::Load </td>
+          <td class="memname"><a class="el" href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0">StatusCode</a> libmicroemu::Machine::Load </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>elf_file</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>set_entry_point</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>set_entry_point</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -273,14 +330,17 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterLogger
 </table>
 </div><div class="memdoc">
 
-<p>Loads an elf file into memory. </p>
+<p>Loads an ELF file into memory and optionally sets the entry point. </p>
+<p>Initializes memory, reads the ELF file, and loads its segments into appropriate memory regions. Optionally sets the entry point for execution.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">elf_file</td><td></td></tr>
+    <tr><td class="paramname">elf_file</td><td>Path to the ELF file. </td></tr>
+    <tr><td class="paramname">set_entry_point</td><td>Whether to set the entry point in the emulator. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>StatusCode indicating success or error (e.g., file open failure, buffer too small, or ELF parsing errors).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Ensures segments fit within memory bounds and resets the emulator state. </dd></dl>
 
 </div>
 </div>

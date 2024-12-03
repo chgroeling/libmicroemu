@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registerid_0',['RegisterId',['../namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e',1,'libmicroemu']]]
+  ['loglevel_0',['LogLevel',['../namespacelibmicroemu.html#a16d382f14aaf41fc487a0137c23248c2',1,'libmicroemu']]]
 ];

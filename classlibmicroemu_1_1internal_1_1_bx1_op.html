@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -97,6 +97,9 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Branch X.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="unary__branch__instr_8h_source.html">unary_branch_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -107,22 +110,18 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TI
 <tr class="memitem:a74404503f5e4853589259a8acfb7ff8e" id="r_a74404503f5e4853589259a8acfb7ff8e"><td class="memItemLeft" align="right" valign="top"><a id="a74404503f5e4853589259a8acfb7ff8e" name="a74404503f5e4853589259a8acfb7ff8e"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
 <tr class="separator:a74404503f5e4853589259a8acfb7ff8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa61fb9de233cfac2b9c89b7bf25bc006" id="r_aa61fb9de233cfac2b9c89b7bf25bc006"><td class="memItemLeft" align="right" valign="top"><a id="aa61fb9de233cfac2b9c89b7bf25bc006" name="aa61fb9de233cfac2b9c89b7bf25bc006"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:aa61fb9de233cfac2b9c89b7bf25bc006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab099f69472c5ecc62e6afb938064817e" id="r_ab099f69472c5ecc62e6afb938064817e"><td class="memItemLeft" align="right" valign="top"><a id="ab099f69472c5ecc62e6afb938064817e" name="ab099f69472c5ecc62e6afb938064817e"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:ab099f69472c5ecc62e6afb938064817e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a678e3b7962cc9387d1dcc5f4eb2cdaab" id="r_a678e3b7962cc9387d1dcc5f4eb2cdaab"><td class="memItemLeft" align="right" valign="top"><a id="a678e3b7962cc9387d1dcc5f4eb2cdaab" name="a678e3b7962cc9387d1dcc5f4eb2cdaab"></a>
-static <a class="el" href="structlibmicroemu_1_1internal_1_1_branch_op_result.html">BranchOpResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (const TInstrContext &amp;ictx, const me_adr_t &amp;pc, const u32 &amp;rm)</td></tr>
-<tr class="separator:a678e3b7962cc9387d1dcc5f4eb2cdaab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8732b988a1cf5c1e4b45c118cd3aa8" id="r_a5b8732b988a1cf5c1e4b45c118cd3aa8"><td class="memTemplParams" colspan="2"><a id="a5b8732b988a1cf5c1e4b45c118cd3aa8" name="a5b8732b988a1cf5c1e4b45c118cd3aa8"></a>
+template&lt;typename TArg0 &gt; </td></tr>
+<tr class="memitem:a5b8732b988a1cf5c1e4b45c118cd3aa8"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; InstrExecFlagsSet &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg0 &amp;rm)</td></tr>
+<tr class="separator:a5b8732b988a1cf5c1e4b45c118cd3aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::Bx1Op&lt; TInstrContext &gt;</div><p>Branch X see Armv7-M Architecture Reference Manual Issue E.e p.205 </p>
+class libmicroemu::internal::Bx1Op&lt; TInstrContext &gt;</div><p>Branch X. </p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.205 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="unary__branch__instr_8h_source.html">unary_branch_instr.h</a></li>
 </ul>

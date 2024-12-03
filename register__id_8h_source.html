@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -127,9 +127,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html#aad142d2e1b62ca3ccb79a6e4c3399ef2">   39</a></span><span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_variable" href="namespacelibmicroemu.html#aad142d2e1b62ca3ccb79a6e4c3399ef2">kLastRegister</a> = RegisterId::kR15;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountRegisters() noexcept { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(<a class="code hl_variable" href="namespacelibmicroemu.html#aad142d2e1b62ca3ccb79a6e4c3399ef2">kLastRegister</a>) + 1U; };</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html#a150c6241e782e7ac40b32723abbe8a0d">   45</a></span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 <a class="code hl_function" href="namespacelibmicroemu.html#a150c6241e782e7ac40b32723abbe8a0d">CountRegisters</a>() noexcept { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(<a class="code hl_variable" href="namespacelibmicroemu.html#aad142d2e1b62ca3ccb79a6e4c3399ef2">kLastRegister</a>) + 1U; };</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace libmicroemu</span></div>
 <div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_a150c6241e782e7ac40b32723abbe8a0d"><div class="ttname"><a href="namespacelibmicroemu.html#a150c6241e782e7ac40b32723abbe8a0d">libmicroemu::CountRegisters</a></div><div class="ttdeci">static constexpr u32 CountRegisters() noexcept</div><div class="ttdoc">Returns the number of general-purpose registers.</div><div class="ttdef"><b>Definition</b> register_id.h:45</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_aad142d2e1b62ca3ccb79a6e4c3399ef2"><div class="ttname"><a href="namespacelibmicroemu.html#aad142d2e1b62ca3ccb79a6e4c3399ef2">libmicroemu::kLastRegister</a></div><div class="ttdeci">constexpr auto kLastRegister</div><div class="ttdoc">The last register ID.</div><div class="ttdef"><b>Definition</b> register_id.h:39</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_aae4aa07185daf886d479bcaefc5fb94e"><div class="ttname"><a href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a></div><div class="ttdeci">RegisterId</div><div class="ttdoc">Enumeration of register IDs.</div><div class="ttdef"><b>Definition</b> register_id.h:13</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_aae4aa07185daf886d479bcaefc5fb94ead09268d27d02eda7ccc3de1c20fde6c0"><div class="ttname"><a href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94ead09268d27d02eda7ccc3de1c20fde6c0">libmicroemu::RegisterId::kPc</a></div><div class="ttdeci">@ kPc</div><div class="ttdoc">Program-counter register.</div></div>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -89,107 +89,119 @@ $(function(){ initResizable(false); });
 
 <h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
 <li>AddString()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_const_string_builder.html#af7ce19b51c14253a5484e537d2241ed9">libmicroemu::internal::ConstStringBuilder</a></li>
-<li>AdvanceInstr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_pc_ops.html#a8cad08df59410bf86e76bfdd2138f7c7">libmicroemu::internal::PcOps&lt; TProcessorStates, TBus, TRegOps, TSpecRegOps, TExceptionReturn, TLogger &gt;</a></li>
+<li>AdvanceInstr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_pc_ops.html#aa1b1f6a6cafb04f0ff8538b648156446">libmicroemu::internal::PcOps&lt; TCpuAccessor, TBus, TExceptionReturn, TLogger &gt;</a></li>
 <li>AlignDown()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 <li>AlignUp()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_b" name="index_b"></a>- b -</h3><ul>
-<li>BCond()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#ab53a1c7101bdfba6749546567e53f4c7">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Bfi()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a9958985774feb55c4d6f391542fb3cf6">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>BCond()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#ab726eec3394a059df8dce54e19d46f15">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>Bfi()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#ab288938e948e766a5a13292c02f3145c">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
 <li>BitCount()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
-<li>Bkpt()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#ae48b9a718d37243b34817bcd52d640d0">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Build()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a0d2b763e45643ceb9ab4983b47821f64">libmicroemu::internal::RelativeAdrBuilder</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_str_builder_binary_instr_with_imm_carry.html#ae3f86c66ec22394513d7b05509a623b0">libmicroemu::internal::StrBuilderBinaryInstrWithImmCarry&lt; TContext &gt;</a></li>
+<li>Bkpt()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a7fb1309d9ee880938e44022dd55d95f5">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>Build()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a8a60a02cfc1b945d2ca5c34601378bd9">libmicroemu::internal::RelativeAdrBuilder</a></li>
 <li>BuildMnemonic()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_emu_context.html#a11a0fba3705192b4fcb7ae12a9cc97eb">libmicroemu::EmuContext</a></li>
-<li>Bus()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html#aa16dac9bed0c6d0d9eb0887fa125deca">libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;</a></li>
+<li>Bus()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html#a6996418ec9dd8f56c792863cc11c252a">libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
-<li>CbNZ()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#aa5ea7d3d74a541ce27766b1fb8a12390">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
 <li>ClearActive()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#adf5f28ee96d9b5318c33da7abb5c9d60">libmicroemu::SingleExceptionState</a></li>
 <li>ClearFlags()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#a804bc3c3e7b6d4a78b544be041c408fa">libmicroemu::SingleExceptionState</a></li>
 <li>ClearPending()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#a9f28d897ff103422d4b370bba0d4e874">libmicroemu::SingleExceptionState</a></li>
 <li>Convert()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_big_to_little_endian_converter.html#ab826319c2892cbebb4f567eb69705920">libmicroemu::internal::BigToLittleEndianConverter</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html#ae54d44de2ca3e156b35ca7ed024e5d7d">libmicroemu::internal::LittleToLittleEndianConverter</a></li>
+<li>CpuStates()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_cpu_states.html#a6082891e3316322b6ddc10c8f38e99c3">libmicroemu::CpuStates</a></li>
 </ul>
 
 
 <h3><a id="index_e" name="index_e"></a>- e -</h3><ul>
 <li>EvaluateState()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#af0d65ffa178a42f9a119bba280284446">libmicroemu::Machine</a></li>
-<li>Exec()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#a3106a65ee173063b3f9a591891345eab">libmicroemu::Machine</a></li>
+<li>Exec()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#a7f302218280c95778710a790296b9514">libmicroemu::Machine</a></li>
+<li>ExecResult()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#ae2f80c6049631355adc31d0143e20709">libmicroemu::ExecResult</a></li>
+<li>ExtractBits1R()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
+<li>ExtractBits2R()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a2c72c88ad7c411b5bdaa257b6ecdbf49">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 <li>ExtractType()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
 <li>GenerateBitMask()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
-<li>GetExceptionStates()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_processor_states.html#aa743f83734845a028cc5e701637de66d">libmicroemu::ProcessorStates</a></li>
+<li>GetExceptionStates()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_cpu_states.html#a1f1c2d8644ebd4f75bc5e784d4d439ec">libmicroemu::CpuStates</a></li>
 <li>GetNumber()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#a42eb6372d280d5afa7cadc1c25eb8caf">libmicroemu::SingleExceptionState</a></li>
 <li>GetOpCode()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_emu_context.html#a973d6391fd221b4f865ca9f74df57693">libmicroemu::EmuContext</a></li>
 <li>GetPc()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_emu_context.html#af25e92ae1f7aa83f6a11e674e0daa058">libmicroemu::EmuContext</a></li>
 <li>GetPriority()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#a1adc3cb6768475ff509a131eefbf1a62">libmicroemu::SingleExceptionState</a></li>
+<li>GetProgramExitCode()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#a05a527041380a06bc1f8522d8bd66daa">libmicroemu::ExecResult</a></li>
 <li>GetRegisterAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_emu_context.html#a2a4b3fb801d071e380478673e46c64af">libmicroemu::EmuContext</a></li>
-<li>GetRegisterName()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#afb36ceebc601e8eac1cf4b0b7321f503">libmicroemu::internal::RegAccessor&lt; TProcessorStates, TRegOps, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a08cf5b6d5a53ede0065a570b5a74ebd3">libmicroemu::internal::SpecialRegAccessor&lt; TProcessorStates, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html#a5dec9da5bb58e9de5d6aeeecd92d83b0">libmicroemu::IRegAccessor</a>, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html#aa3fe363a39f2b232db846d09df79c650">libmicroemu::ISpecialRegAccessor</a></li>
-<li>GetRegisters()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_processor_states.html#a48fafae464695f900dc9b59df5121bae">libmicroemu::ProcessorStates</a></li>
+<li>GetRegisterName()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#afdebaab34d4ce652fbba4843ff39e079">libmicroemu::internal::RegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a97d916fb88763e3174110de6c286c438">libmicroemu::internal::SpecialRegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html#a5dec9da5bb58e9de5d6aeeecd92d83b0">libmicroemu::IRegAccessor</a>, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html#aa3fe363a39f2b232db846d09df79c650">libmicroemu::ISpecialRegAccessor</a></li>
+<li>GetRegisters()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_cpu_states.html#a67867c7dbef03f791f7fe721362e4008">libmicroemu::CpuStates</a></li>
 <li>GetSpecialRegisterAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_emu_context.html#a44beac1dd32c780c0e491d24e5d3dd4f">libmicroemu::EmuContext</a></li>
-<li>GetSpecialRegisters()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_processor_states.html#a8e74b9056697c516c14f03d3695cc004">libmicroemu::ProcessorStates</a></li>
+<li>GetSpecialRegisters()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_cpu_states.html#a89e3f4b39231d3c3d21a0ff15d471ac4">libmicroemu::CpuStates</a></li>
+<li>GetStatusCode()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#aba94d8cbea175ecc37f57ca47e421637">libmicroemu::ExecResult</a></li>
 <li>GetVersion()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#a41d9ccc5599dde9f3f214135a66aae9b">libmicroemu::Machine</a></li>
 </ul>
 
 
 <h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
-<li>IfThenOps()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html#ac3f204361744401efca29606bb837d1a">libmicroemu::internal::IfThenOps&lt; TProcessorStates, TSpecRegOps &gt;</a></li>
+<li>IfThenOps()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html#a65fe95a7d7794673380d8cabf97b2475">libmicroemu::internal::IfThenOps&lt; TCpuAccessor &gt;</a></li>
 <li>InsertType()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 <li>IsActive()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#a86d2206c5ec22dafc27ae6373fbad7f0">libmicroemu::SingleExceptionState</a></li>
 <li>IsBitSet()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
+<li>IsCurrentModePrivileged()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_predicates.html#a42270242fbe8835234f7a6f870ad9222">libmicroemu::internal::Predicates</a></li>
+<li>IsErr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#a0ffaa94ec9c6b9c6a9ed6d12a3b4be77">libmicroemu::ExecResult</a></li>
+<li>IsHandlerMode()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_predicates.html#a8dd60c71d2bf292d427d7f13fbaf1e6c">libmicroemu::internal::Predicates</a></li>
+<li>IsMainStack()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_predicates.html#a9e7c56087384c3de2e1b7013a0202dba">libmicroemu::internal::Predicates</a></li>
+<li>IsMaxInstructionsReached()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#a031c995c1227f9d94b9be24701cf6d5f">libmicroemu::ExecResult</a></li>
+<li>IsOk()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#ae25c4c78e1be5e8b608da9c693a5fb50">libmicroemu::ExecResult</a></li>
 <li>IsolateBit()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 <li>IsPending()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#acd5bd13eae809e15e435612b71ce6c16">libmicroemu::SingleExceptionState</a></li>
+<li>IsProcessStack()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_predicates.html#a611c1546637a2ee871860abf575385ae">libmicroemu::internal::Predicates</a></li>
+<li>IsThreadMode()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_predicates.html#ad89438e99505eeae15beb0297841fdd6">libmicroemu::internal::Predicates</a></li>
+<li>IsThumbMode()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_predicates.html#a9f1bf44330bdc731ecb17bd5e9d3b2e3">libmicroemu::internal::Predicates</a></li>
 <li>IsZeroBit()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
-<li>ItInstr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#afdf624f04f2c753759b3e4a286c366f5">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>ItInstr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a31821761de98ca7bd3ae9f4371759713">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
-<li>Ldrd()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#aed92528035cc271cdbefda1cb9a20282">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Load()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#ad50d119d83a629a0588765117bd904bd">libmicroemu::Machine</a></li>
+<li>Ldrd()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#af54fd90a785728a7f40f233fa9710932">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>Load()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#af2b65fd6dcefc96f69974afb3b4ee66e">libmicroemu::Machine</a></li>
 <li>LowestBitSet()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
 <li>Machine()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#ab37539355382c146a78a76720dc6e042">libmicroemu::Machine</a></li>
-<li>MemMapRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_map_rw.html#a6cef31a042639ca94508e558936f20f8">libmicroemu::internal::MemMapRw&lt; Id, VadrOffset, VadrRange, TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TPeripherals &gt;</a></li>
-<li>MemoryViewer()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_memory_viewer.html#a48925815d641eb0d8bfb70d4a3a5e724">libmicroemu::internal::MemoryViewer&lt; TProcessorStates, TBus &gt;</a></li>
-<li>MemRo()&#160;:&#160;<a class="el" href="classlibmicroemu_01_1_1internal_1_1_mem_ro.html#a821f5e610c9146a8130b336d5c0c1ca3">libmicroemu ::internal::MemRo&lt; Id, TProcessorStates, TEndianessC &gt;</a></li>
-<li>MemRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html#a5689fa6b6fffbb7b689dde38bc638294">libmicroemu::internal::MemRw&lt; Id, TProcessorStates, TEndianessC &gt;</a></li>
-<li>MemRwOptional()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#a5824795823561142d6492506d9566faa">libmicroemu::internal::MemRwOptional&lt; Id, TProcessorStates, TEndianessC &gt;</a></li>
-<li>Mrs()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a76cace464bff09c4048e8b23f4bbf1e9">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Msr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a0a2aed2363c10cb03dfcb00f80d0d75d">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>MemMapRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_map_rw.html#afc835a34125edb73682972d32194caee">libmicroemu::internal::MemMapRw&lt; Id, VadrOffset, VadrRange, TCpuAccessor, TExceptionTrigger, TLogger, TPeripherals &gt;</a></li>
+<li>MemRo()&#160;:&#160;<a class="el" href="classlibmicroemu_01_1_1internal_1_1_mem_ro.html#a9b169b53861c599386a5f5cacb3f8d7d">libmicroemu ::internal::MemRo&lt; Id, TCpuAccessor, TEndianessC &gt;</a></li>
+<li>MemRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html#adc1ad112d71daa3e2c484c1da31ae054">libmicroemu::internal::MemRw&lt; Id, TCpuAccessor, TEndianessC &gt;</a></li>
+<li>MemRwOptional()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#af1fdbea293f716f2a4b6211e17119e1f">libmicroemu::internal::MemRwOptional&lt; Id, TCpuAccessor, TEndianessC &gt;</a></li>
+<li>Mrs()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#adb7341634f662e44503468b76521bf3b">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>Msr()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a4742eb8ced2cf0831b603917ad774e54">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_o" name="index_o"></a>- o -</h3><ul>
-<li>operator=()&#160;:&#160;<a class="el" href="classlibmicroemu_01_1_1internal_1_1_mem_ro.html#a7a6373a682775a52f98cc1a1cc4e0a6b">libmicroemu ::internal::MemRo&lt; Id, TProcessorStates, TEndianessC &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html#aeda303584c9b23ee0b0a813743a38a8d">libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html#aeae4adee38718dd459ca6a6c644cede4">libmicroemu::internal::IfThenOps&lt; TProcessorStates, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_map_rw.html#a4f4bbb5351cf24fdfebbfe0b219dcbf0">libmicroemu::internal::MemMapRw&lt; Id, VadrOffset, VadrRange, TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TPeripherals &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_memory_viewer.html#a4bc5fc44e0c0b282e4c2c18ca108e417">libmicroemu::internal::MemoryViewer&lt; TProcessorStates, TBus &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html#aa1574522f564895690de5f26de7519c6">libmicroemu::internal::MemRw&lt; Id, TProcessorStates, TEndianessC &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#aeece161bca47fc931cd86781004f7427">libmicroemu::internal::MemRwOptional&lt; Id, TProcessorStates, TEndianessC &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#a14066715ec3fceeddf8beaf01cae3659">libmicroemu::internal::RegAccessor&lt; TProcessorStates, TRegOps, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a1603e5e4565c0d1896f10e2eccb81457">libmicroemu::internal::SpecialRegAccessor&lt; TProcessorStates, TSpecRegOps &gt;</a>, <a class="el" href="class_r_arg.html#a480aa17625bd50691622a113fd248f6c">RArg&lt; T &gt;</a>, <a class="el" href="class_r_arg_const.html#a03ac649c43bfe7e0121396b34d91660e">RArgConst&lt; Rid &gt;</a></li>
+<li>operator=()&#160;:&#160;<a class="el" href="classlibmicroemu_01_1_1internal_1_1_mem_ro.html#a75bf17ea9545710dea97ab292b0a1fe4">libmicroemu ::internal::MemRo&lt; Id, TCpuAccessor, TEndianessC &gt;</a>, <a class="el" href="classlibmicroemu_1_1_exec_result.html#aefb090f0cddda4dc8b8f44ca51c5e5c7">libmicroemu::ExecResult</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html#a096ef43a2cc77a9dd70c9b79ba1353ad">libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html#aa550f362c46296c2c8c4f7b863c0978a">libmicroemu::internal::IfThenOps&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_map_rw.html#a1305082fe047ad6277d9c2f5cd4f7159">libmicroemu::internal::MemMapRw&lt; Id, VadrOffset, VadrRange, TCpuAccessor, TExceptionTrigger, TLogger, TPeripherals &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html#ab6928b65fb596772a23528ebb02f3240">libmicroemu::internal::MemRw&lt; Id, TCpuAccessor, TEndianessC &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#a736061a4451fac7dd168ddeaf02befb3">libmicroemu::internal::MemRwOptional&lt; Id, TCpuAccessor, TEndianessC &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#afa0335fec5304104ae90e2b11964ce25">libmicroemu::internal::RegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a77b97f5819566a84f9d43f747ff49164">libmicroemu::internal::SpecialRegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="class_r_arg.html#a480aa17625bd50691622a113fd248f6c">RArg&lt; T &gt;</a>, <a class="el" href="class_r_arg_const.html#a03ac649c43bfe7e0121396b34d91660e">RArgConst&lt; Rid &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_p" name="index_p"></a>- p -</h3><ul>
-<li>print()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_memory_viewer.html#a5089575967a8cbe3edfc733024335861">libmicroemu::internal::MemoryViewer&lt; TProcessorStates, TBus &gt;</a></li>
-<li>ProcessorStates()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_processor_states.html#a454f92b1f33e2c0712676a4331859935">libmicroemu::ProcessorStates</a></li>
+<li>Print()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_memory_viewer.html#a1ad0361a02123b3c42c0bc2f7501933f">libmicroemu::internal::MemoryViewer&lt; TCpuAccessor, TBus &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
 <li>RArg()&#160;:&#160;<a class="el" href="class_r_arg.html#a3a0cc5a2b09fce93626c3ca65271ebe5">RArg&lt; T &gt;</a></li>
 <li>RArgConst()&#160;:&#160;<a class="el" href="class_r_arg_const.html#a8fbe94fd6e77c519786281e211477c3d">RArgConst&lt; Rid &gt;</a></li>
-<li>ReadRegister()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#a2dce973a0601e2308375847911cfc552">libmicroemu::internal::RegAccessor&lt; TProcessorStates, TRegOps, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a8c47c060680dbf4276edbc63d9e43671">libmicroemu::internal::SpecialRegAccessor&lt; TProcessorStates, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html#a3aa5deb7e66507881090bf54c705fb45">libmicroemu::IRegAccessor</a>, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html#a0caa4eaa81e2a6eeffc82e78911d0006">libmicroemu::ISpecialRegAccessor</a></li>
-<li>RegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#ac2f1b8b44f8161f008e9da5c6cd2dc14">libmicroemu::internal::RegAccessor&lt; TProcessorStates, TRegOps, TSpecRegOps &gt;</a></li>
+<li>ReadRegister()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#aa50d9b2fc7c4c0761fb14aec5df9413b">libmicroemu::internal::RegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a0786c3f37b3b6e48730f47d0d1d54e4a">libmicroemu::internal::SpecialRegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html#a3aa5deb7e66507881090bf54c705fb45">libmicroemu::IRegAccessor</a>, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html#a0caa4eaa81e2a6eeffc82e78911d0006">libmicroemu::ISpecialRegAccessor</a></li>
+<li>RegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#aacee41f036060cd9b765e90821fdf591">libmicroemu::internal::RegAccessor&lt; TCpuAccessor &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
-<li>Semihosting()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_semihosting.html#a9230f51cf3c4a78200fc827b4bdd1c3a">libmicroemu::internal::Semihosting&lt; TProcessorStates, TBus, TRegOps, TSpecRegOps, TLogger &gt;</a></li>
+<li>Semihosting()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_semihosting.html#a4a79468cf5eab052c128001c8ed1d772">libmicroemu::internal::Semihosting&lt; TCpuAccessor, TBus, TLogger &gt;</a></li>
 <li>SetActive()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#a602754610264189a5fd0b73646f7d464">libmicroemu::SingleExceptionState</a></li>
 <li>SetFlashSegment()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#ae157cfa801f766a3641e02ad801e6aeb">libmicroemu::Machine</a></li>
 <li>SetPending()&#160;:&#160;<a class="el" href="structlibmicroemu_1_1_single_exception_state.html#ac36d65ecf0110ac194f69513df87a389">libmicroemu::SingleExceptionState</a></li>
@@ -197,29 +209,25 @@ $(function(){ initResizable(false); });
 <li>SetRam1Segment()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#ad21e56744fbf8b9e17f84fc8c176341a">libmicroemu::Machine</a></li>
 <li>SetRam2Segment()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#a01bce89e588292a37929de79ff072b03">libmicroemu::Machine</a></li>
 <li>SignExtend()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
-<li>Slice1R()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
-<li>Slice2R()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ab4d50cdefef2e31532940ffc5097671a">libmicroemu::internal::BitManip&lt; T &gt;</a></li>
-<li>Smull()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a9d4f67be33cc98cd6ee42d2e88e58ace">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>SpecialRegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#ad83a50aa6385aeb80fe313204c48f0a8">libmicroemu::internal::SpecialRegAccessor&lt; TProcessorStates, TSpecRegOps &gt;</a></li>
-<li>Strd()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a7a59ad2399022e08d7d29025a76cfd2a">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Svc()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a8ea2e43cf85e3eb3d90a3959ee29f583">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>SpecialRegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a5de46057ab8c5b6c1da0356239df1ac7">libmicroemu::internal::SpecialRegAccessor&lt; TCpuAccessor &gt;</a></li>
+<li>Strd()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a8eea7a5a3d9bb5439d8afd56589e51a1">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>Svc()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#acbec68a91853d4a5cf56df327ca4bd1d">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
-<li>Tbhh()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a856d25fbc7eca9fe0de101a22f70a9d0">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>TakeReset()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reset_logic.html#afbe0de5d750032abcb21606b58da1534">libmicroemu::internal::ResetLogic&lt; TCpuAccessor, TBus, TProcessorOps, TLogger &gt;</a></li>
+<li>ToString()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_exec_result.html#a4fced3c29193422b8d26f91232d88121">libmicroemu::ExecResult</a></li>
 </ul>
 
 
 <h3><a id="index_u" name="index_u"></a>- u -</h3><ul>
-<li>Ubfx()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a2dfc7314591884cd732e7856c57d4d92">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Umlal()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#aa301cdc500bfb5d3f9c34fb1be43beba">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
-<li>Umull()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a1a643c21bfc619db45f846ff25b744e2">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
+<li>Ubfx()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_instr.html#a114816aaa54e21fcc82c60c4c2bd5556">libmicroemu::internal::SpecialInstr&lt; TInstrContext, TLogger &gt;</a></li>
 </ul>
 
 
 <h3><a id="index_w" name="index_w"></a>- w -</h3><ul>
-<li>WriteRegister()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#a610d76ab23d19b44876157ae78da38c8">libmicroemu::internal::RegAccessor&lt; TProcessorStates, TRegOps, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a0345d8ee2bd189014516cb1e41f52bf7">libmicroemu::internal::SpecialRegAccessor&lt; TProcessorStates, TSpecRegOps &gt;</a>, <a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html#ab73a66498e4863f3019d2b5286a0d6a3">libmicroemu::IRegAccessor</a>, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html#a6c9f7471b443ae97be80b076b55b2181">libmicroemu::ISpecialRegAccessor</a></li>
+<li>WriteRegister()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#a9dc8dd77085bb2596f9631a65c724fc3">libmicroemu::internal::RegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a6a991fd0b7ca301df83ddbd27cb07bdd">libmicroemu::internal::SpecialRegAccessor&lt; TCpuAccessor &gt;</a>, <a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html#ab73a66498e4863f3019d2b5286a0d6a3">libmicroemu::IRegAccessor</a>, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html#a6c9f7471b443ae97be80b076b55b2181">libmicroemu::ISpecialRegAccessor</a></li>
 </ul>
 
 
@@ -229,18 +237,18 @@ $(function(){ initResizable(false); });
 
 
 <h3><a id="index__7E" name="index__7E"></a>- ~ -</h3><ul>
-<li>~Bus()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html#a73168dcee54d3bacf06ac51ec984bd6a">libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;</a></li>
-<li>~IfThenOps()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html#afcaa0048fcefb7acdf3c643ee4806214">libmicroemu::internal::IfThenOps&lt; TProcessorStates, TSpecRegOps &gt;</a></li>
+<li>~Bus()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html#a0c80cfa499b40896d1dc5d856e856f20">libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;</a></li>
+<li>~CpuStates()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_cpu_states.html#a4472b7f47f217ddda73999257c10c993">libmicroemu::CpuStates</a></li>
+<li>~IfThenOps()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html#a057d9c79979f4823f696d56ea695b43e">libmicroemu::internal::IfThenOps&lt; TCpuAccessor &gt;</a></li>
 <li>~Machine()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_machine.html#a550577e6f2537014f4e268f284f3afdb">libmicroemu::Machine</a></li>
-<li>~MemMapRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_map_rw.html#a7b784c29a2a2b65d7befe5388b1b7e13">libmicroemu::internal::MemMapRw&lt; Id, VadrOffset, VadrRange, TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TPeripherals &gt;</a></li>
-<li>~MemRo()&#160;:&#160;<a class="el" href="classlibmicroemu_01_1_1internal_1_1_mem_ro.html#aef906fd5e37b5bb48efb75634e8d76fa">libmicroemu ::internal::MemRo&lt; Id, TProcessorStates, TEndianessC &gt;</a></li>
-<li>~MemRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html#a3e56995b748d98cedbeaed7325715258">libmicroemu::internal::MemRw&lt; Id, TProcessorStates, TEndianessC &gt;</a></li>
-<li>~MemRwOptional()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#ac5dd2d829943e65e9b0906143afd8d4d">libmicroemu::internal::MemRwOptional&lt; Id, TProcessorStates, TEndianessC &gt;</a></li>
-<li>~ProcessorStates()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1_processor_states.html#a49c11e59d22bf5e7901e58f735f0e921">libmicroemu::ProcessorStates</a></li>
+<li>~MemMapRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_map_rw.html#a76ec28cc5cc63c036d7164fa32de1724">libmicroemu::internal::MemMapRw&lt; Id, VadrOffset, VadrRange, TCpuAccessor, TExceptionTrigger, TLogger, TPeripherals &gt;</a></li>
+<li>~MemRo()&#160;:&#160;<a class="el" href="classlibmicroemu_01_1_1internal_1_1_mem_ro.html#afccca3a4918720d2e4e85ef6ebc1b3d7">libmicroemu ::internal::MemRo&lt; Id, TCpuAccessor, TEndianessC &gt;</a></li>
+<li>~MemRw()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html#ad9bda34a04ef954fb4b79da2d23b0e19">libmicroemu::internal::MemRw&lt; Id, TCpuAccessor, TEndianessC &gt;</a></li>
+<li>~MemRwOptional()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html#a79b9ae07c9221f349941879eea7deddc">libmicroemu::internal::MemRwOptional&lt; Id, TCpuAccessor, TEndianessC &gt;</a></li>
 <li>~RArg()&#160;:&#160;<a class="el" href="class_r_arg.html#a10c4d38b220b9814140cd304d86d6930">RArg&lt; T &gt;</a></li>
 <li>~RArgConst()&#160;:&#160;<a class="el" href="class_r_arg_const.html#a0b4df03e775b551d567b36b732c67b80">RArgConst&lt; Rid &gt;</a></li>
-<li>~RegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#a04d0744378b221f0b33e8454ad935023">libmicroemu::internal::RegAccessor&lt; TProcessorStates, TRegOps, TSpecRegOps &gt;</a></li>
-<li>~SpecialRegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a82b9df7ad346e841d38a49d238fd23ad">libmicroemu::internal::SpecialRegAccessor&lt; TProcessorStates, TSpecRegOps &gt;</a></li>
+<li>~RegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_reg_accessor.html#aae4111e0cbb80e011372565a56ddabf6">libmicroemu::internal::RegAccessor&lt; TCpuAccessor &gt;</a></li>
+<li>~SpecialRegAccessor()&#160;:&#160;<a class="el" href="classlibmicroemu_1_1internal_1_1_special_reg_accessor.html#a26edf82faafadee927dc06c2bfb8ff5d">libmicroemu::internal::SpecialRegAccessor&lt; TCpuAccessor &gt;</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -119,13 +119,17 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_control_register.html">ControlRegister</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_cpu_states.html">CpuStates</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cpu states class.  <a href="classlibmicroemu_1_1_cpu_states.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_emu_result.html">EmuResult</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_epsr_register.html">EpsrRegister</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_exception_states.html">ExceptionStates</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_exec_result.html">ExecResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returned by the <a class="el" href="classlibmicroemu_1_1_machine.html#a7f302218280c95778710a790296b9514" title="Executes the loaded program.">libmicroemu::Machine::Exec</a> method. Contains the status code of the execution and the program exit code.  <a href="classlibmicroemu_1_1_exec_result.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_i_instr_to_mnemonic.html">IInstrToMnemonic</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,26 +144,22 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_istate_register.html">IstateRegister</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_machine.html">Machine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the main emulation machine for handling microcontroller emulation.  <a href="classlibmicroemu_1_1_machine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_null_logger.html">NullLogger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Null logger class Used to disable logging.  <a href="classlibmicroemu_1_1_null_logger.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_op_code.html">OpCode</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_processor_states.html">ProcessorStates</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processor states class.  <a href="classlibmicroemu_1_1_processor_states.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_raw_instr.html">RawInstr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_register_offsets.html">RegisterOffsets</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_result_3_01void_01_4.html">Result&lt; void &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_single_exception_state.html">SingleExceptionState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the state of a single exception.  <a href="structlibmicroemu_1_1_single_exception_state.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static logger class.  <a href="classlibmicroemu_1_1_static_logger.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlibmicroemu_1_1_sys_ctrl_register.html">SysCtrlRegister</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,21 +175,18 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a3f5e395490be7b492b8327fb8112e465" id="r_a3f5e395490be7b492b8327fb8112e465"><td class="memItemLeft" align="right" valign="top"><a id="a3f5e395490be7b492b8327fb8112e465" name="a3f5e395490be7b492b8327fb8112e465"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>RawInstrFlagsSet</b> = u8</td></tr>
 <tr class="separator:a3f5e395490be7b492b8327fb8112e465"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb3f562eccd9ad6694b00fba99470cb0" id="r_acb3f562eccd9ad6694b00fba99470cb0"><td class="memItemLeft" align="right" valign="top"><a id="acb3f562eccd9ad6694b00fba99470cb0" name="acb3f562eccd9ad6694b00fba99470cb0"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>EmuFlagsSet</b> = u8</td></tr>
-<tr class="separator:acb3f562eccd9ad6694b00fba99470cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13ef77e2f5a9a3cd4490450106ced1dc" id="r_a13ef77e2f5a9a3cd4490450106ced1dc"><td class="memItemLeft" align="right" valign="top"><a id="a13ef77e2f5a9a3cd4490450106ced1dc" name="a13ef77e2f5a9a3cd4490450106ced1dc"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExceptionFlagsSet</b> = u8</td></tr>
 <tr class="separator:a13ef77e2f5a9a3cd4490450106ced1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c247e4d7c4cc67c8f15a21efdd6b5da" id="r_a4c247e4d7c4cc67c8f15a21efdd6b5da"><td class="memItemLeft" align="right" valign="top"><a id="a4c247e4d7c4cc67c8f15a21efdd6b5da" name="a4c247e4d7c4cc67c8f15a21efdd6b5da"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>FPreExecStepCallback</b> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;)&gt;</td></tr>
-<tr class="separator:a4c247e4d7c4cc67c8f15a21efdd6b5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7580d19a29992c8623a22c393729f64c" id="r_a7580d19a29992c8623a22c393729f64c"><td class="memItemLeft" align="right" valign="top"><a id="a7580d19a29992c8623a22c393729f64c" name="a7580d19a29992c8623a22c393729f64c"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>FPostExecStepCallback</b> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;)&gt;</td></tr>
-<tr class="separator:a7580d19a29992c8623a22c393729f64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7157c6ef7ed47ca411230b5c6d5c9332" id="r_a7157c6ef7ed47ca411230b5c6d5c9332"><td class="memItemLeft" align="right" valign="top"><a id="a7157c6ef7ed47ca411230b5c6d5c9332" name="a7157c6ef7ed47ca411230b5c6d5c9332"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>FStateCallback</b> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_i_reg_accessor.html">IRegAccessor</a> &amp;, <a class="el" href="classlibmicroemu_1_1_i_special_reg_accessor.html">ISpecialRegAccessor</a> &amp;)&gt;</td></tr>
-<tr class="separator:a7157c6ef7ed47ca411230b5c6d5c9332"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9665187b406afc6969442d406ede52fe" id="r_a9665187b406afc6969442d406ede52fe"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9665187b406afc6969442d406ede52fe">FPreExecStepCallback</a> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;ctx)&gt;</td></tr>
+<tr class="memdesc:a9665187b406afc6969442d406ede52fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to be called before each instruction is executed.  <br /></td></tr>
+<tr class="separator:a9665187b406afc6969442d406ede52fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8da8afecd38ff5558b61b78fadf3eb9" id="r_aa8da8afecd38ff5558b61b78fadf3eb9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8da8afecd38ff5558b61b78fadf3eb9">FPostExecStepCallback</a> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;ctx)&gt;</td></tr>
+<tr class="memdesc:aa8da8afecd38ff5558b61b78fadf3eb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to be called after each instruction is executed.  <br /></td></tr>
+<tr class="separator:aa8da8afecd38ff5558b61b78fadf3eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ce484f6828c4d852200ad37697628c" id="r_a64ce484f6828c4d852200ad37697628c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64ce484f6828c4d852200ad37697628c">FStateCallback</a></td></tr>
+<tr class="memdesc:a64ce484f6828c4d852200ad37697628c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to evaluate the state of the processor.  <br /></td></tr>
+<tr class="separator:a64ce484f6828c4d852200ad37697628c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedccb6f32d627e723c89e1c88ec1c1e6" id="r_aedccb6f32d627e723c89e1c88ec1c1e6"><td class="memItemLeft" align="right" valign="top"><a id="aedccb6f32d627e723c89e1c88ec1c1e6" name="aedccb6f32d627e723c89e1c88ec1c1e6"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>u64</b> = uint64_t</td></tr>
 <tr class="separator:aedccb6f32d627e723c89e1c88ec1c1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,11 +229,6 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a1a6f9fc5e8ac5bdb2671233f118ec3a7" id="r_a1a6f9fc5e8ac5bdb2671233f118ec3a7"><td class="memItemLeft" align="right" valign="top"><a id="a1a6f9fc5e8ac5bdb2671233f118ec3a7" name="a1a6f9fc5e8ac5bdb2671233f118ec3a7"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>RawInstrFlagsMsk</b> : RawInstrFlagsSet { <b>k32Bit</b> = 1U &lt;&lt; static_cast&lt;u8&gt;(RawInstrFlagsPos::k32Bit)
  }</td></tr>
 <tr class="separator:a1a6f9fc5e8ac5bdb2671233f118ec3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f70e5ffb48a71d6041d98ce02523974" id="r_a9f70e5ffb48a71d6041d98ce02523974"><td class="memItemLeft" align="right" valign="top"><a id="a9f70e5ffb48a71d6041d98ce02523974" name="a9f70e5ffb48a71d6041d98ce02523974"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>EmuFlags</b> : EmuFlagsSet { <b>kEmuOk</b> = 1U &lt;&lt; 0U
-, <b>kEmuMaxInstructionsReached</b> = 1U &lt;&lt; 1U
-, <b>kEmuTerminated</b> = 1U &lt;&lt; 2U
- }</td></tr>
-<tr class="separator:a9f70e5ffb48a71d6041d98ce02523974"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae99da7199d704e915c0e82d1ebc51112" id="r_ae99da7199d704e915c0e82d1ebc51112"><td class="memItemLeft" align="right" valign="top"><a id="ae99da7199d704e915c0e82d1ebc51112" name="ae99da7199d704e915c0e82d1ebc51112"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>ExceptionFlags</b> : ExceptionFlagsSet { <b>kPending</b> = 1U &lt;&lt; 0U
 , <b>kActive</b> = 1U &lt;&lt; 1U
  }</td></tr>
@@ -265,16 +257,17 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a59fde2619e3c9f661be510ea9229c0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception enumeration.  <a href="#a59fde2619e3c9f661be510ea9229c0e1">More...</a><br /></td></tr>
 <tr class="separator:a59fde2619e3c9f661be510ea9229c0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16d382f14aaf41fc487a0137c23248c2" id="r_a16d382f14aaf41fc487a0137c23248c2"><td class="memItemLeft" align="right" valign="top"><a id="a16d382f14aaf41fc487a0137c23248c2" name="a16d382f14aaf41fc487a0137c23248c2"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>LogLevel</b> { <br />
-&#160;&#160;<b>kTrace</b>
-, <b>kDebug</b>
-, <b>kInfo</b>
-, <b>kWarn</b>
+<tr class="memitem:a16d382f14aaf41fc487a0137c23248c2" id="r_a16d382f14aaf41fc487a0137c23248c2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16d382f14aaf41fc487a0137c23248c2">LogLevel</a> { <br />
+&#160;&#160;<a class="el" href="#a16d382f14aaf41fc487a0137c23248c2afa21506cd249f400de4a974b5a0c8e0e">kTrace</a>
+, <a class="el" href="#a16d382f14aaf41fc487a0137c23248c2abb53ce21b7c0b7c8a8f7860a41901d29">kDebug</a>
+, <a class="el" href="#a16d382f14aaf41fc487a0137c23248c2a176a473e63c17ccdac91640c67f149bf">kInfo</a>
+, <a class="el" href="#a16d382f14aaf41fc487a0137c23248c2a61a920eb4a24199ec6a36dd90f2a30b7">kWarn</a>
 , <br />
-&#160;&#160;<b>kError</b>
-, <b>kCritical</b>
+&#160;&#160;<a class="el" href="#a16d382f14aaf41fc487a0137c23248c2ae3587c730cc1aa530fa4ddc9c4204e97">kError</a>
+, <a class="el" href="#a16d382f14aaf41fc487a0137c23248c2a5a20548c220f372fc701cae6de94040b">kCritical</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a16d382f14aaf41fc487a0137c23248c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum class for log levels Used to indicate the log level of a message.  <a href="#a16d382f14aaf41fc487a0137c23248c2">More...</a><br /></td></tr>
 <tr class="separator:a16d382f14aaf41fc487a0137c23248c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae4aa07185daf886d479bcaefc5fb94e" id="r_aae4aa07185daf886d479bcaefc5fb94e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> : u8 { <br />
 &#160;&#160;<b>kR0</b> = 0U
@@ -304,34 +297,6 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aae4aa07185daf886d479bcaefc5fb94e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of register IDs.  <a href="#aae4aa07185daf886d479bcaefc5fb94e">More...</a><br /></td></tr>
 <tr class="separator:aae4aa07185daf886d479bcaefc5fb94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8986ac92210d741de2fbcbaf489c0ee0" id="r_a8986ac92210d741de2fbcbaf489c0ee0"><td class="memItemLeft" align="right" valign="top"><a id="a8986ac92210d741de2fbcbaf489c0ee0" name="a8986ac92210d741de2fbcbaf489c0ee0"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>StatusCode</b> : u32 { <br />
-&#160;&#160;<b>kScSuccess</b> = 0x0U
-, <b>kScError</b> = 0x1U
-, <b>kScUnexpected</b> = 0x1002U
-, <b>kScUnsuporrted</b> = 0x1003U
-, <br />
-&#160;&#160;<b>kScNotImplemented</b> = 0x1004U
-, <b>kScOutOfRange</b> = 0x2001U
-, <b>kScIteratorExhausted</b> = 0x2002U
-, <b>kScBufferTooSmall</b> = 0x2003U
-, <br />
-&#160;&#160;<b>kScOpenFileFailed</b> = 0x2004U
-, <b>kScMemInaccesible</b> = 0x3001U
-, <b>kScMemWriteNotAllowed</b> = 0x3002U
-, <b>kScDecoderUnknownOpCode</b> = 0x4001U
-, <br />
-&#160;&#160;<b>kScDecoderUnpredictable</b> = 0x4002U
-, <b>kScDecoderUndefined</b> = 0x4003U
-, <b>kScExecutorUnpredictable</b> = 0x5001U
-, <b>kScExecutorUndefined</b> = 0x5002U
-, <br />
-&#160;&#160;<b>kScExecutorExitWithError</b> = 0x5003U
-, <b>kScElfNotValid</b> = 0x6001U
-, <b>kScElfWrongHeader</b> = 0x6002U
-, <b>kScUsageFault</b> = 0x7001U
-<br />
- }</td></tr>
-<tr class="separator:a8986ac92210d741de2fbcbaf489c0ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75588e1206d1cb1c5a341ce8d4187af5" id="r_a75588e1206d1cb1c5a341ce8d4187af5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a> : u8 { <br />
 &#160;&#160;<a class="el" href="#a75588e1206d1cb1c5a341ce8d4187af5aca7f5ee84fd105bc7120257c949496e5">kSysCtrl</a> = 0U
 , <a class="el" href="#a75588e1206d1cb1c5a341ce8d4187af5acb493fa5aef678da06fca32495483c91">kApsr</a>
@@ -358,6 +323,37 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a75588e1206d1cb1c5a341ce8d4187af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of special register IDs.  <a href="#a75588e1206d1cb1c5a341ce8d4187af5">More...</a><br /></td></tr>
 <tr class="separator:a75588e1206d1cb1c5a341ce8d4187af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8986ac92210d741de2fbcbaf489c0ee0" id="r_a8986ac92210d741de2fbcbaf489c0ee0"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0">StatusCode</a> : u32 { <br />
+&#160;&#160;<a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a8c632159fa131f09d04f94e3cbcd8782">kSuccess</a> = 0x0U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0ae3587c730cc1aa530fa4ddc9c4204e97">kError</a> = 0x1U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a2d562a91ce24c11c8b140a5ab3ccf634">kUnexpected</a> = 0x1002U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a0c10a7e7fcb446eeedec789728449765">kUnsuporrted</a> = 0x1003U
+, <br />
+&#160;&#160;<a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0ae8024a6eeff9d90cc3babff8acaec9c9">kNotImplemented</a> = 0x1004U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0af2fcb517cfc19949e909cbc2607e0f27">kOutOfRange</a> = 0x2001U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a2e9f9ebad08fad7db5563ac82512b4ff">kIteratorExhausted</a> = 0x2002U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a14408858097a2b34837a53ccce7d4660">kBufferTooSmall</a> = 0x2003U
+, <br />
+&#160;&#160;<a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a15f2bc164a3f5f940ccf9b44bd56806d">kOpenFileFailed</a> = 0x2004U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0aa71910be0a5fa645b07ebca77e4d5d91">kMemInaccesible</a> = 0x3001U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0ab91fb9855579c9180e3775495c5b7b7e">kMemWriteNotAllowed</a> = 0x3002U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a755bfa1391e3cfd13de492ea9a0d42dd">kDecoderUnknownOpCode</a> = 0x4001U
+, <br />
+&#160;&#160;<a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0abf902da6573412ac739e8661767005b6">kDecoderUnpredictable</a> = 0x4002U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a671dc271271a75f26b69d4cf79274fa5">kDecoderUndefined</a> = 0x4003U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0ac0ec2e5aa4e774712c7aa16e44ec9470">kExecutorUnpredictable</a> = 0x5001U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a7f710bdc063a56fc6530bfb35f669dd2">kExecutorUndefined</a> = 0x5002U
+, <br />
+&#160;&#160;<a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a2e4a811d2a9d626a6ce76fb5bbc1b959">kExecutorExitWithError</a> = 0x5003U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a0a3f57239eef1f77303d9a3453b37f4d">kElfNotValid</a> = 0x6001U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0ad6b89d977fa3b92a5d7f7b9a349bf878">kElfWrongHeader</a> = 0x6002U
+, <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a966f486a56f5dca290269a1e57772c5e">kUsageFault</a> = 0x7001U
+, <br />
+&#160;&#160;<a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0a22662de14e8bc2e424bc3fbabec0c230">kMaxInstructionsReached</a> = 0x8001U
+<br />
+ }</td></tr>
+<tr class="memdesc:a8986ac92210d741de2fbcbaf489c0ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum representing various status codes used throughout the system.  <a href="#a8986ac92210d741de2fbcbaf489c0ee0">More...</a><br /></td></tr>
+<tr class="separator:a8986ac92210d741de2fbcbaf489c0ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -365,9 +361,40 @@ Functions</h2></td></tr>
 template&lt;std::size_t... Indices&gt; </td></tr>
 <tr class="memitem:a1acb3fcc948e8bbab1ded7026c684d51"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>MakeExceptionArray</b> (std::index_sequence&lt; Indices... &gt;)</td></tr>
 <tr class="separator:a1acb3fcc948e8bbab1ded7026c684d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6867de061644e4a5782eaa7b411eef2c" id="r_a6867de061644e4a5782eaa7b411eef2c"><td class="memItemLeft" align="right" valign="top"><a id="a6867de061644e4a5782eaa7b411eef2c" name="a6867de061644e4a5782eaa7b411eef2c"></a>
+static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><b>CountInternalExceptions</b> () noexcept</td></tr>
+<tr class="separator:a6867de061644e4a5782eaa7b411eef2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0e53ef723467f1b151ced4acdad76e7" id="r_ae0e53ef723467f1b151ced4acdad76e7"><td class="memItemLeft" align="right" valign="top"><a id="ae0e53ef723467f1b151ced4acdad76e7" name="ae0e53ef723467f1b151ced4acdad76e7"></a>
+static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><b>CountExceptions</b> () noexcept</td></tr>
+<tr class="separator:ae0e53ef723467f1b151ced4acdad76e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9683d8f39559f717e9dcc2d8eef2d7ed" id="r_a9683d8f39559f717e9dcc2d8eef2d7ed"><td class="memTemplParams" colspan="2"><a id="a9683d8f39559f717e9dcc2d8eef2d7ed" name="a9683d8f39559f717e9dcc2d8eef2d7ed"></a>
+template&lt;unsigned last_bit, unsigned first_bit&gt; </td></tr>
+<tr class="memitem:a9683d8f39559f717e9dcc2d8eef2d7ed"><td class="memTemplItemLeft" align="right" valign="top">static constexpr u32&#160;</td><td class="memTemplItemRight" valign="bottom"><b>BitMask</b> ()</td></tr>
+<tr class="separator:a9683d8f39559f717e9dcc2d8eef2d7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a150c6241e782e7ac40b32723abbe8a0d" id="r_a150c6241e782e7ac40b32723abbe8a0d"><td class="memItemLeft" align="right" valign="top">static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a150c6241e782e7ac40b32723abbe8a0d">CountRegisters</a> () noexcept</td></tr>
+<tr class="memdesc:a150c6241e782e7ac40b32723abbe8a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of general-purpose registers.  <br /></td></tr>
+<tr class="separator:a150c6241e782e7ac40b32723abbe8a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc65f55869d1b489116fb87c6a438134" id="r_acc65f55869d1b489116fb87c6a438134"><td class="memItemLeft" align="right" valign="top">static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc65f55869d1b489116fb87c6a438134">CountPersistentSpecialRegisters</a> () noexcept</td></tr>
+<tr class="memdesc:acc65f55869d1b489116fb87c6a438134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of persistent special registers.  <br /></td></tr>
+<tr class="separator:acc65f55869d1b489116fb87c6a438134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2a3061c5e6cce29ee1a21d14a01fecd" id="r_aa2a3061c5e6cce29ee1a21d14a01fecd"><td class="memItemLeft" align="right" valign="top">static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2a3061c5e6cce29ee1a21d14a01fecd">CountSpecialRegisters</a> () noexcept</td></tr>
+<tr class="memdesc:aa2a3061c5e6cce29ee1a21d14a01fecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of special registers.  <br /></td></tr>
+<tr class="separator:aa2a3061c5e6cce29ee1a21d14a01fecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da8a573bad8d05e2e1feec699dfdbab" id="r_a6da8a573bad8d05e2e1feec699dfdbab"><td class="memItemLeft" align="right" valign="top">static std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6da8a573bad8d05e2e1feec699dfdbab">StatusCodeToString</a> (const <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0">StatusCode</a> &amp;status_code) noexcept</td></tr>
+<tr class="memdesc:a6da8a573bad8d05e2e1feec699dfdbab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a status code to a string.  <br /></td></tr>
+<tr class="separator:a6da8a573bad8d05e2e1feec699dfdbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a73b8644b725b614b6664b8872fd3c779" id="r_a73b8644b725b614b6664b8872fd3c779"><td class="memItemLeft" align="right" valign="top"><a id="a73b8644b725b614b6664b8872fd3c779" name="a73b8644b725b614b6664b8872fd3c779"></a>
+static constexpr i16&#160;</td><td class="memItemRight" valign="bottom"><b>kLowestExceptionPriority</b> = 255U</td></tr>
+<tr class="separator:a73b8644b725b614b6664b8872fd3c779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d8e0443fc45da937e62a84785bc226" id="r_ac0d8e0443fc45da937e62a84785bc226"><td class="memItemLeft" align="right" valign="top"><a id="ac0d8e0443fc45da937e62a84785bc226" name="ac0d8e0443fc45da937e62a84785bc226"></a>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kNoOfExternalIrqs</b> = 32U</td></tr>
+<tr class="separator:ac0d8e0443fc45da937e62a84785bc226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfa6cd5449b8a2d0c7b624b832bb43fb" id="r_adfa6cd5449b8a2d0c7b624b832bb43fb"><td class="memItemLeft" align="right" valign="top"><a id="adfa6cd5449b8a2d0c7b624b832bb43fb" name="adfa6cd5449b8a2d0c7b624b832bb43fb"></a>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kLastInternalException</b> = <a class="el" href="#a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936">ExceptionType::kSysTick</a></td></tr>
+<tr class="separator:adfa6cd5449b8a2d0c7b624b832bb43fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad142d2e1b62ca3ccb79a6e4c3399ef2" id="r_aad142d2e1b62ca3ccb79a6e4c3399ef2"><td class="memItemLeft" align="right" valign="top"><a id="aad142d2e1b62ca3ccb79a6e4c3399ef2" name="aad142d2e1b62ca3ccb79a6e4c3399ef2"></a>
 constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kLastRegister</b> = RegisterId::kR15</td></tr>
 <tr class="memdesc:aad142d2e1b62ca3ccb79a6e4c3399ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last register ID. <br /></td></tr>
@@ -387,7 +414,77 @@ constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kLastSpecia
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="namespacelibmicroemu.html">libmicroemu</a> namespace contains all classes and functions of the libmicroemu which are public. </p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="aa8da8afecd38ff5558b61b78fadf3eb9" name="aa8da8afecd38ff5558b61b78fadf3eb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8da8afecd38ff5558b61b78fadf3eb9">&#9670;&#160;</a></span>FPostExecStepCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#aa8da8afecd38ff5558b61b78fadf3eb9">libmicroemu::FPostExecStepCallback</a> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;ctx)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to be called after each instruction is executed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context of the emulator </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9665187b406afc6969442d406ede52fe" name="a9665187b406afc6969442d406ede52fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9665187b406afc6969442d406ede52fe">&#9670;&#160;</a></span>FPreExecStepCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a9665187b406afc6969442d406ede52fe">libmicroemu::FPreExecStepCallback</a> = std::function&lt;void(<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;ctx)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to be called before each instruction is executed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context of the emulator </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a64ce484f6828c4d852200ad37697628c" name="a64ce484f6828c4d852200ad37697628c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ce484f6828c4d852200ad37697628c">&#9670;&#160;</a></span>FStateCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a64ce484f6828c4d852200ad37697628c">libmicroemu::FStateCallback</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"> </div>
+<div class="line">    std::function&lt;void(IRegAccessor &amp;reg_access, ISpecialRegAccessor &amp;spec_reg_access)&gt;</div>
+</div><!-- fragment -->
+<p>Callback function to evaluate the state of the processor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg_access</td><td>The register accessor </td></tr>
+    <tr><td class="paramname">spec_reg_access</td><td>The special register accessor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a59fde2619e3c9f661be510ea9229c0e1" name="a59fde2619e3c9f661be510ea9229c0e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59fde2619e3c9f661be510ea9229c0e1">&#9670;&#160;</a></span>ExceptionType</h2>
 
@@ -442,6 +539,44 @@ constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kLastSpecia
 <tr><td class="fieldname"><a id="a59fde2619e3c9f661be510ea9229c0e1aabf10ac1082046bb5c8d1094f06bdaee" name="a59fde2619e3c9f661be510ea9229c0e1aabf10ac1082046bb5c8d1094f06bdaee"></a>kPendSV&#160;</td><td class="fielddoc"><p>PendSV exception, used for context switching. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936" name="a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936"></a>kSysTick&#160;</td><td class="fielddoc"><p>SysTick exception, used for system timer. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a16d382f14aaf41fc487a0137c23248c2" name="a16d382f14aaf41fc487a0137c23248c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16d382f14aaf41fc487a0137c23248c2">&#9670;&#160;</a></span>LogLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a16d382f14aaf41fc487a0137c23248c2">libmicroemu::LogLevel</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enum class for log levels Used to indicate the log level of a message. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a16d382f14aaf41fc487a0137c23248c2afa21506cd249f400de4a974b5a0c8e0e" name="a16d382f14aaf41fc487a0137c23248c2afa21506cd249f400de4a974b5a0c8e0e"></a>kTrace&#160;</td><td class="fielddoc"><p>Trace log level. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16d382f14aaf41fc487a0137c23248c2abb53ce21b7c0b7c8a8f7860a41901d29" name="a16d382f14aaf41fc487a0137c23248c2abb53ce21b7c0b7c8a8f7860a41901d29"></a>kDebug&#160;</td><td class="fielddoc"><p>Debug log level. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16d382f14aaf41fc487a0137c23248c2a176a473e63c17ccdac91640c67f149bf" name="a16d382f14aaf41fc487a0137c23248c2a176a473e63c17ccdac91640c67f149bf"></a>kInfo&#160;</td><td class="fielddoc"><p>Info log level. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16d382f14aaf41fc487a0137c23248c2a61a920eb4a24199ec6a36dd90f2a30b7" name="a16d382f14aaf41fc487a0137c23248c2a61a920eb4a24199ec6a36dd90f2a30b7"></a>kWarn&#160;</td><td class="fielddoc"><p>Warn log level. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16d382f14aaf41fc487a0137c23248c2ae3587c730cc1aa530fa4ddc9c4204e97" name="a16d382f14aaf41fc487a0137c23248c2ae3587c730cc1aa530fa4ddc9c4204e97"></a>kError&#160;</td><td class="fielddoc"><p>Error log level. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a16d382f14aaf41fc487a0137c23248c2a5a20548c220f372fc701cae6de94040b" name="a16d382f14aaf41fc487a0137c23248c2a5a20548c220f372fc701cae6de94040b"></a>kCritical&#160;</td><td class="fielddoc"><p>Critical log level. </p>
 </td></tr>
 </table>
 
@@ -538,6 +673,195 @@ constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kLastSpecia
 <tr><td class="fieldname"><a id="a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb" name="a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb"></a>kControl&#160;</td><td class="fielddoc"><p>Control register, CONTROL. </p>
 </td></tr>
 </table>
+
+</div>
+</div>
+<a id="a8986ac92210d741de2fbcbaf489c0ee0" name="a8986ac92210d741de2fbcbaf489c0ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8986ac92210d741de2fbcbaf489c0ee0">&#9670;&#160;</a></span>StatusCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0">libmicroemu::StatusCode</a> : u32</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enum representing various status codes used throughout the system. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a8c632159fa131f09d04f94e3cbcd8782" name="a8986ac92210d741de2fbcbaf489c0ee0a8c632159fa131f09d04f94e3cbcd8782"></a>kSuccess&#160;</td><td class="fielddoc"><p>Operation succeeded successfully. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0ae3587c730cc1aa530fa4ddc9c4204e97" name="a8986ac92210d741de2fbcbaf489c0ee0ae3587c730cc1aa530fa4ddc9c4204e97"></a>kError&#160;</td><td class="fielddoc"><p>An unspecified error occurred. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a2d562a91ce24c11c8b140a5ab3ccf634" name="a8986ac92210d741de2fbcbaf489c0ee0a2d562a91ce24c11c8b140a5ab3ccf634"></a>kUnexpected&#160;</td><td class="fielddoc"><p>An unexpected error occurred. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a0c10a7e7fcb446eeedec789728449765" name="a8986ac92210d741de2fbcbaf489c0ee0a0c10a7e7fcb446eeedec789728449765"></a>kUnsuporrted&#160;</td><td class="fielddoc"><p>Operation or feature is unsupported. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0ae8024a6eeff9d90cc3babff8acaec9c9" name="a8986ac92210d741de2fbcbaf489c0ee0ae8024a6eeff9d90cc3babff8acaec9c9"></a>kNotImplemented&#160;</td><td class="fielddoc"><p>Operation or feature is not implemented. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0af2fcb517cfc19949e909cbc2607e0f27" name="a8986ac92210d741de2fbcbaf489c0ee0af2fcb517cfc19949e909cbc2607e0f27"></a>kOutOfRange&#160;</td><td class="fielddoc"><p>Value is out of the allowed range. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a2e9f9ebad08fad7db5563ac82512b4ff" name="a8986ac92210d741de2fbcbaf489c0ee0a2e9f9ebad08fad7db5563ac82512b4ff"></a>kIteratorExhausted&#160;</td><td class="fielddoc"><p>Iterator has been exhausted. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a14408858097a2b34837a53ccce7d4660" name="a8986ac92210d741de2fbcbaf489c0ee0a14408858097a2b34837a53ccce7d4660"></a>kBufferTooSmall&#160;</td><td class="fielddoc"><p>Provided buffer is too small. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a15f2bc164a3f5f940ccf9b44bd56806d" name="a8986ac92210d741de2fbcbaf489c0ee0a15f2bc164a3f5f940ccf9b44bd56806d"></a>kOpenFileFailed&#160;</td><td class="fielddoc"><p>Failed to open the file. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0aa71910be0a5fa645b07ebca77e4d5d91" name="a8986ac92210d741de2fbcbaf489c0ee0aa71910be0a5fa645b07ebca77e4d5d91"></a>kMemInaccesible&#160;</td><td class="fielddoc"><p>Memory is inaccessible. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0ab91fb9855579c9180e3775495c5b7b7e" name="a8986ac92210d741de2fbcbaf489c0ee0ab91fb9855579c9180e3775495c5b7b7e"></a>kMemWriteNotAllowed&#160;</td><td class="fielddoc"><p>Memory write operation is not allowed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a755bfa1391e3cfd13de492ea9a0d42dd" name="a8986ac92210d741de2fbcbaf489c0ee0a755bfa1391e3cfd13de492ea9a0d42dd"></a>kDecoderUnknownOpCode&#160;</td><td class="fielddoc"><p>Decoder encountered an unknown opcode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0abf902da6573412ac739e8661767005b6" name="a8986ac92210d741de2fbcbaf489c0ee0abf902da6573412ac739e8661767005b6"></a>kDecoderUnpredictable&#160;</td><td class="fielddoc"><p>Decoder encountered an unpredictable operation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a671dc271271a75f26b69d4cf79274fa5" name="a8986ac92210d741de2fbcbaf489c0ee0a671dc271271a75f26b69d4cf79274fa5"></a>kDecoderUndefined&#160;</td><td class="fielddoc"><p>Decoder encountered an undefined operation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0ac0ec2e5aa4e774712c7aa16e44ec9470" name="a8986ac92210d741de2fbcbaf489c0ee0ac0ec2e5aa4e774712c7aa16e44ec9470"></a>kExecutorUnpredictable&#160;</td><td class="fielddoc"><p>Executor encountered an unpredictable operation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a7f710bdc063a56fc6530bfb35f669dd2" name="a8986ac92210d741de2fbcbaf489c0ee0a7f710bdc063a56fc6530bfb35f669dd2"></a>kExecutorUndefined&#160;</td><td class="fielddoc"><p>Executor encountered an undefined operation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a2e4a811d2a9d626a6ce76fb5bbc1b959" name="a8986ac92210d741de2fbcbaf489c0ee0a2e4a811d2a9d626a6ce76fb5bbc1b959"></a>kExecutorExitWithError&#160;</td><td class="fielddoc"><p>Executor exited with an error. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a0a3f57239eef1f77303d9a3453b37f4d" name="a8986ac92210d741de2fbcbaf489c0ee0a0a3f57239eef1f77303d9a3453b37f4d"></a>kElfNotValid&#160;</td><td class="fielddoc"><p>ELF file is not valid. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0ad6b89d977fa3b92a5d7f7b9a349bf878" name="a8986ac92210d741de2fbcbaf489c0ee0ad6b89d977fa3b92a5d7f7b9a349bf878"></a>kElfWrongHeader&#160;</td><td class="fielddoc"><p>ELF file has a wrong header. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a966f486a56f5dca290269a1e57772c5e" name="a8986ac92210d741de2fbcbaf489c0ee0a966f486a56f5dca290269a1e57772c5e"></a>kUsageFault&#160;</td><td class="fielddoc"><p>Usage fault occurred. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8986ac92210d741de2fbcbaf489c0ee0a22662de14e8bc2e424bc3fbabec0c230" name="a8986ac92210d741de2fbcbaf489c0ee0a22662de14e8bc2e424bc3fbabec0c230"></a>kMaxInstructionsReached&#160;</td><td class="fielddoc"><p>Maximum instruction count reached. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="acc65f55869d1b489116fb87c6a438134" name="acc65f55869d1b489116fb87c6a438134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc65f55869d1b489116fb87c6a438134">&#9670;&#160;</a></span>CountPersistentSpecialRegisters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr u32 libmicroemu::CountPersistentSpecialRegisters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of persistent special registers. </p>
+<p>This function returns the total number of persistent special registers, i.e., registers that are part of the processor and have a state that persists.</p>
+<dl class="section return"><dt>Returns</dt><dd>The number of persistent special registers. </dd></dl>
+
+</div>
+</div>
+<a id="a150c6241e782e7ac40b32723abbe8a0d" name="a150c6241e782e7ac40b32723abbe8a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a150c6241e782e7ac40b32723abbe8a0d">&#9670;&#160;</a></span>CountRegisters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr u32 libmicroemu::CountRegisters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of general-purpose registers. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of general-purpose registers. </dd></dl>
+
+</div>
+</div>
+<a id="aa2a3061c5e6cce29ee1a21d14a01fecd" name="aa2a3061c5e6cce29ee1a21d14a01fecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2a3061c5e6cce29ee1a21d14a01fecd">&#9670;&#160;</a></span>CountSpecialRegisters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr u32 libmicroemu::CountSpecialRegisters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of special registers. </p>
+<p>This function returns the total number of special registers.</p>
+<dl class="section return"><dt>Returns</dt><dd>The number of special registers. </dd></dl>
+
+</div>
+</div>
+<a id="a6da8a573bad8d05e2e1feec699dfdbab" name="a6da8a573bad8d05e2e1feec699dfdbab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da8a573bad8d05e2e1feec699dfdbab">&#9670;&#160;</a></span>StatusCodeToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::string_view libmicroemu::StatusCodeToString </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a8986ac92210d741de2fbcbaf489c0ee0">StatusCode</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>status_code</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a status code to a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">status_code</td><td>the status code to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a string representation of the status code </dd></dl>
 
 </div>
 </div>

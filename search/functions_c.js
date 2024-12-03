@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['tbhh_0',['Tbhh',['../classlibmicroemu_1_1internal_1_1_special_instr.html#a856d25fbc7eca9fe0de101a22f70a9d0',1,'libmicroemu::internal::SpecialInstr']]]
+  ['takereset_0',['TakeReset',['../classlibmicroemu_1_1internal_1_1_reset_logic.html#afbe0de5d750032abcb21606b58da1534',1,'libmicroemu::internal::ResetLogic']]],
+  ['tostring_1',['ToString',['../classlibmicroemu_1_1_exec_result.html#a4fced3c29193422b8d26f91232d88121',1,'libmicroemu::ExecResult']]]
 ];

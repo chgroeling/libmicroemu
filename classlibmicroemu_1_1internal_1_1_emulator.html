@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::Emulator&lt; TProcessorStates &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::Emulator&lt; TCpuStates &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,112 +93,117 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_emulator-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::Emulator&lt; TProcessorStates &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::Emulator&lt; TCpuStates &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a2b096ef53f5bf8cdeea0727dd0447c74" id="r_a2b096ef53f5bf8cdeea0727dd0447c74"><td class="memItemLeft" align="right" valign="top"><a id="a2b096ef53f5bf8cdeea0727dd0447c74" name="a2b096ef53f5bf8cdeea0727dd0447c74"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessorStates</b> = TProcessorStates</td></tr>
-<tr class="separator:a2b096ef53f5bf8cdeea0727dd0447c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20ce03ac4eac0f573dc59adbf9c185be" id="r_a20ce03ac4eac0f573dc59adbf9c185be"><td class="memItemLeft" align="right" valign="top"><a id="a20ce03ac4eac0f573dc59adbf9c185be" name="a20ce03ac4eac0f573dc59adbf9c185be"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SpecRegOps</b> = SpecRegOps&lt;TProcessorStates, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:a20ce03ac4eac0f573dc59adbf9c185be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5000ac9f52aeebd7cec654be68cb693" id="r_af5000ac9f52aeebd7cec654be68cb693"><td class="memItemLeft" align="right" valign="top"><a id="af5000ac9f52aeebd7cec654be68cb693" name="af5000ac9f52aeebd7cec654be68cb693"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>RegOps</b> = RegOps&lt;TProcessorStates, SpecRegOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:af5000ac9f52aeebd7cec654be68cb693"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e7d16b3860182beb5d843d83e00ecb4" id="r_a0e7d16b3860182beb5d843d83e00ecb4"><td class="memItemLeft" align="right" valign="top"><a id="a0e7d16b3860182beb5d843d83e00ecb4" name="a0e7d16b3860182beb5d843d83e00ecb4"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SysCtrlBlock</b> = SysCtrlBlock&lt;TProcessorStates, SpecRegOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:a0e7d16b3860182beb5d843d83e00ecb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa761f880284a178bcce6fcd7b13b9167" id="r_aa761f880284a178bcce6fcd7b13b9167"><td class="memItemLeft" align="right" valign="top"><a id="aa761f880284a178bcce6fcd7b13b9167" name="aa761f880284a178bcce6fcd7b13b9167"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SysTick</b> = SysTick&lt;TProcessorStates, SpecRegOps, ExceptionTrigger, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:aa761f880284a178bcce6fcd7b13b9167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12dfa30401d774c715b7320dc69117c8" id="r_a12dfa30401d774c715b7320dc69117c8"><td class="memItemLeft" align="right" valign="top"><a id="a12dfa30401d774c715b7320dc69117c8" name="a12dfa30401d774c715b7320dc69117c8"></a>
+<tr class="memitem:a70f4c31a7c63ef3c6b510fb973cd93e9" id="r_a70f4c31a7c63ef3c6b510fb973cd93e9"><td class="memItemLeft" align="right" valign="top"><a id="a70f4c31a7c63ef3c6b510fb973cd93e9" name="a70f4c31a7c63ef3c6b510fb973cd93e9"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SpecRegOps</b> = SpecRegOps&lt;TCpuStates, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:a70f4c31a7c63ef3c6b510fb973cd93e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac345e9dbc6e6c33dd05356c217e87071" id="r_ac345e9dbc6e6c33dd05356c217e87071"><td class="memItemLeft" align="right" valign="top"><a id="ac345e9dbc6e6c33dd05356c217e87071" name="ac345e9dbc6e6c33dd05356c217e87071"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>RegOps</b> = RegOps&lt;TCpuStates, SpecRegOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:ac345e9dbc6e6c33dd05356c217e87071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30538a577bb9df544efcbb0eee3ff73d" id="r_a30538a577bb9df544efcbb0eee3ff73d"><td class="memItemLeft" align="right" valign="top"><a id="a30538a577bb9df544efcbb0eee3ff73d" name="a30538a577bb9df544efcbb0eee3ff73d"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CpuAccessor</b> = CpuAccessor&lt;TCpuStates, RegOps, SpecRegOps&gt;</td></tr>
+<tr class="separator:a30538a577bb9df544efcbb0eee3ff73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a6d7662e0cff3bfd51b94ac7ba6c05" id="r_ae3a6d7662e0cff3bfd51b94ac7ba6c05"><td class="memItemLeft" align="right" valign="top"><a id="ae3a6d7662e0cff3bfd51b94ac7ba6c05" name="ae3a6d7662e0cff3bfd51b94ac7ba6c05"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SysCtrlBlock</b> = SysCtrlBlock&lt;CpuAccessor, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:ae3a6d7662e0cff3bfd51b94ac7ba6c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a46cc1b5e7d85299c09c33b454db3ac" id="r_a8a46cc1b5e7d85299c09c33b454db3ac"><td class="memItemLeft" align="right" valign="top"><a id="a8a46cc1b5e7d85299c09c33b454db3ac" name="a8a46cc1b5e7d85299c09c33b454db3ac"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SysTick</b> = SysTick&lt;CpuAccessor, ExceptionTrigger, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:a8a46cc1b5e7d85299c09c33b454db3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f102b0c23feee99b2a222d8d94edecb" id="r_a6f102b0c23feee99b2a222d8d94edecb"><td class="memItemLeft" align="right" valign="top"><a id="a6f102b0c23feee99b2a222d8d94edecb" name="a6f102b0c23feee99b2a222d8d94edecb"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>EndConv</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">LittleToLittleEndianConverter</a></td></tr>
-<tr class="separator:a12dfa30401d774c715b7320dc69117c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9036cd9d020f75830829dc9c1d6d8a" id="r_a1e9036cd9d020f75830829dc9c1d6d8a"><td class="memItemLeft" align="right" valign="top"><a id="a1e9036cd9d020f75830829dc9c1d6d8a" name="a1e9036cd9d020f75830829dc9c1d6d8a"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Flash</b> = MemRo&lt;0U, TProcessorStates, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">EndConv</a>&gt;</td></tr>
-<tr class="separator:a1e9036cd9d020f75830829dc9c1d6d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a626e695239b991a76136628817354e24" id="r_a626e695239b991a76136628817354e24"><td class="memItemLeft" align="right" valign="top"><a id="a626e695239b991a76136628817354e24" name="a626e695239b991a76136628817354e24"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Ram0</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt;1U, TProcessorStates, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">EndConv</a>&gt;</td></tr>
-<tr class="separator:a626e695239b991a76136628817354e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add1bd6e29145a8be028a112562a9ad52" id="r_add1bd6e29145a8be028a112562a9ad52"><td class="memItemLeft" align="right" valign="top"><a id="add1bd6e29145a8be028a112562a9ad52" name="add1bd6e29145a8be028a112562a9ad52"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Ram1</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html">MemRwOptional</a>&lt;2U, TProcessorStates, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">EndConv</a>&gt;</td></tr>
-<tr class="separator:add1bd6e29145a8be028a112562a9ad52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80aacb17efb36d7f57a3c799d1298821" id="r_a80aacb17efb36d7f57a3c799d1298821"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80aacb17efb36d7f57a3c799d1298821">Peripherals</a></td></tr>
-<tr class="separator:a80aacb17efb36d7f57a3c799d1298821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9756cfe3c4dd01134b3116b3271c920" id="r_ac9756cfe3c4dd01134b3116b3271c920"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9756cfe3c4dd01134b3116b3271c920">Bus</a></td></tr>
-<tr class="separator:ac9756cfe3c4dd01134b3116b3271c920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a630039f0fec0c98733249532972da8f9" id="r_a630039f0fec0c98733249532972da8f9"><td class="memItemLeft" align="right" valign="top"><a id="a630039f0fec0c98733249532972da8f9" name="a630039f0fec0c98733249532972da8f9"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>PcOps</b> = PcOps&lt;TProcessorStates, Bus, RegOps, SpecRegOps, ExceptionReturn, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:a630039f0fec0c98733249532972da8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70c5e1ec2d518fa8f3139391120b2db3" id="r_a70c5e1ec2d518fa8f3139391120b2db3"><td class="memItemLeft" align="right" valign="top"><a id="a70c5e1ec2d518fa8f3139391120b2db3" name="a70c5e1ec2d518fa8f3139391120b2db3"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcOps</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_exceptions_ops.html">ExceptionsOps</a>&lt;TProcessorStates, RegOps, SpecRegOps, PcOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:a70c5e1ec2d518fa8f3139391120b2db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac76432c7afaee0f24a6d516e1c086b3d" id="r_ac76432c7afaee0f24a6d516e1c086b3d"><td class="memItemLeft" align="right" valign="top"><a id="ac76432c7afaee0f24a6d516e1c086b3d" name="ac76432c7afaee0f24a6d516e1c086b3d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ItOps</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html">IfThenOps</a>&lt;TProcessorStates, SpecRegOps&gt;</td></tr>
-<tr class="separator:ac76432c7afaee0f24a6d516e1c086b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae129c29f0ec7cacc3b73b6f48b80b700" id="r_ae129c29f0ec7cacc3b73b6f48b80b700"><td class="memItemLeft" align="right" valign="top"><a id="ae129c29f0ec7cacc3b73b6f48b80b700" name="ae129c29f0ec7cacc3b73b6f48b80b700"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Semihosting</b> = Semihosting&lt;TProcessorStates, Bus, RegOps, SpecRegOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
-<tr class="separator:ae129c29f0ec7cacc3b73b6f48b80b700"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae68fcf8563d09ac7102fa14b8e415725" id="r_ae68fcf8563d09ac7102fa14b8e415725"><td class="memItemLeft" align="right" valign="top"><a id="ae68fcf8563d09ac7102fa14b8e415725" name="ae68fcf8563d09ac7102fa14b8e415725"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Fetcher</b> = Fetcher&lt;TProcessorStates, Bus&gt;</td></tr>
-<tr class="separator:ae68fcf8563d09ac7102fa14b8e415725"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88271918f4832b017fcfdb1036f502d5" id="r_a88271918f4832b017fcfdb1036f502d5"><td class="memItemLeft" align="right" valign="top"><a id="a88271918f4832b017fcfdb1036f502d5" name="a88271918f4832b017fcfdb1036f502d5"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Decoder</b> = Decoder&lt;TProcessorStates, SpecRegOps, <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html">ItOps</a>&gt;</td></tr>
-<tr class="separator:a88271918f4832b017fcfdb1036f502d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5418478c3be7f2b89c068ac0d9765d19" id="r_a5418478c3be7f2b89c068ac0d9765d19"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5418478c3be7f2b89c068ac0d9765d19">Executor</a></td></tr>
-<tr class="separator:a5418478c3be7f2b89c068ac0d9765d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b7ccea62621754ba5aa55b133237e4b" id="r_a3b7ccea62621754ba5aa55b133237e4b"><td class="memItemLeft" align="right" valign="top"><a id="a3b7ccea62621754ba5aa55b133237e4b" name="a3b7ccea62621754ba5aa55b133237e4b"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessorOps</b> = ProcessorOps&lt;RegOps, SpecRegOps, <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html">ItOps</a>, PcOps, <a class="el" href="classlibmicroemu_1_1internal_1_1_exceptions_ops.html">ExcOps</a>, ExceptionTrigger&gt;</td></tr>
-<tr class="separator:a3b7ccea62621754ba5aa55b133237e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7e8b86afc5f1509601f3500f18f718b" id="r_ab7e8b86afc5f1509601f3500f18f718b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7e8b86afc5f1509601f3500f18f718b">Processor</a></td></tr>
-<tr class="separator:ab7e8b86afc5f1509601f3500f18f718b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6f102b0c23feee99b2a222d8d94edecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f3bdac45600eec6a078446fcc337916" id="r_a6f3bdac45600eec6a078446fcc337916"><td class="memItemLeft" align="right" valign="top"><a id="a6f3bdac45600eec6a078446fcc337916" name="a6f3bdac45600eec6a078446fcc337916"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Flash</b> = MemRo&lt;0U, CpuAccessor, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">EndConv</a>&gt;</td></tr>
+<tr class="separator:a6f3bdac45600eec6a078446fcc337916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a347154fe45f0bf2a07fb6cf5e9f9c136" id="r_a347154fe45f0bf2a07fb6cf5e9f9c136"><td class="memItemLeft" align="right" valign="top"><a id="a347154fe45f0bf2a07fb6cf5e9f9c136" name="a347154fe45f0bf2a07fb6cf5e9f9c136"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Ram0</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt;1U, CpuAccessor, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">EndConv</a>&gt;</td></tr>
+<tr class="separator:a347154fe45f0bf2a07fb6cf5e9f9c136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5daf6e94f9022fa701eac77bcfb2db12" id="r_a5daf6e94f9022fa701eac77bcfb2db12"><td class="memItemLeft" align="right" valign="top"><a id="a5daf6e94f9022fa701eac77bcfb2db12" name="a5daf6e94f9022fa701eac77bcfb2db12"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Ram1</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw_optional.html">MemRwOptional</a>&lt;2U, CpuAccessor, <a class="el" href="classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html">EndConv</a>&gt;</td></tr>
+<tr class="separator:a5daf6e94f9022fa701eac77bcfb2db12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0adf695610d3f6c7f048a2a3de61bbc" id="r_ae0adf695610d3f6c7f048a2a3de61bbc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0adf695610d3f6c7f048a2a3de61bbc">Peripherals</a></td></tr>
+<tr class="separator:ae0adf695610d3f6c7f048a2a3de61bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a724d0e58f6ab481f18055a83ee4614bc" id="r_a724d0e58f6ab481f18055a83ee4614bc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a724d0e58f6ab481f18055a83ee4614bc">Bus</a></td></tr>
+<tr class="separator:a724d0e58f6ab481f18055a83ee4614bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a693e59b3473c61d77662a87798f5ce12" id="r_a693e59b3473c61d77662a87798f5ce12"><td class="memItemLeft" align="right" valign="top"><a id="a693e59b3473c61d77662a87798f5ce12" name="a693e59b3473c61d77662a87798f5ce12"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Semihosting</b> = Semihosting&lt;CpuAccessor, Bus, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:a693e59b3473c61d77662a87798f5ce12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7ef8788b96d90ab4c3fbdbfc84fed27" id="r_ad7ef8788b96d90ab4c3fbdbfc84fed27"><td class="memItemLeft" align="right" valign="top"><a id="ad7ef8788b96d90ab4c3fbdbfc84fed27" name="ad7ef8788b96d90ab4c3fbdbfc84fed27"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PcOps</b> = PcOps&lt;CpuAccessor, Bus, ExceptionReturn, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:ad7ef8788b96d90ab4c3fbdbfc84fed27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af166c1e2ccfde09b4e3c8fed0396c11b" id="r_af166c1e2ccfde09b4e3c8fed0396c11b"><td class="memItemLeft" align="right" valign="top"><a id="af166c1e2ccfde09b4e3c8fed0396c11b" name="af166c1e2ccfde09b4e3c8fed0396c11b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcOps</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_exceptions_ops.html">ExceptionsOps</a>&lt;CpuAccessor, PcOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:af166c1e2ccfde09b4e3c8fed0396c11b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfbaced105ac8636ddfa16bf85297602" id="r_adfbaced105ac8636ddfa16bf85297602"><td class="memItemLeft" align="right" valign="top"><a id="adfbaced105ac8636ddfa16bf85297602" name="adfbaced105ac8636ddfa16bf85297602"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ItOps</b> = <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html">IfThenOps</a>&lt;CpuAccessor&gt;</td></tr>
+<tr class="separator:adfbaced105ac8636ddfa16bf85297602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9527235ea6b5ae2f287a902b71939c5f" id="r_a9527235ea6b5ae2f287a902b71939c5f"><td class="memItemLeft" align="right" valign="top"><a id="a9527235ea6b5ae2f287a902b71939c5f" name="a9527235ea6b5ae2f287a902b71939c5f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CpuOps</b> = CpuOps&lt;<a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html">ItOps</a>, PcOps, <a class="el" href="classlibmicroemu_1_1internal_1_1_exceptions_ops.html">ExcOps</a>, ExceptionTrigger&gt;</td></tr>
+<tr class="separator:a9527235ea6b5ae2f287a902b71939c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8a5174fe6f0714c13a59390ecf0c9b" id="r_afd8a5174fe6f0714c13a59390ecf0c9b"><td class="memItemLeft" align="right" valign="top"><a id="afd8a5174fe6f0714c13a59390ecf0c9b" name="afd8a5174fe6f0714c13a59390ecf0c9b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Fetcher</b> = Fetcher&lt;CpuAccessor, Bus&gt;</td></tr>
+<tr class="separator:afd8a5174fe6f0714c13a59390ecf0c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af79d5f7df4c5b3db79dc1476a02374ef" id="r_af79d5f7df4c5b3db79dc1476a02374ef"><td class="memItemLeft" align="right" valign="top"><a id="af79d5f7df4c5b3db79dc1476a02374ef" name="af79d5f7df4c5b3db79dc1476a02374ef"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Decoder</b> = Decoder&lt;CpuAccessor, <a class="el" href="classlibmicroemu_1_1internal_1_1_if_then_ops.html">ItOps</a>&gt;</td></tr>
+<tr class="separator:af79d5f7df4c5b3db79dc1476a02374ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa51290b54e056d44e0640fcdf106558" id="r_afa51290b54e056d44e0640fcdf106558"><td class="memItemLeft" align="right" valign="top"><a id="afa51290b54e056d44e0640fcdf106558" name="afa51290b54e056d44e0640fcdf106558"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Executor</b> = Executor&lt;CpuAccessor, Bus, CpuOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:afa51290b54e056d44e0640fcdf106558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4909adf1001c20ff4825fa1640ca00e" id="r_ac4909adf1001c20ff4825fa1640ca00e"><td class="memItemLeft" align="right" valign="top"><a id="ac4909adf1001c20ff4825fa1640ca00e" name="ac4909adf1001c20ff4825fa1640ca00e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ResetLogic</b> = ResetLogic&lt;CpuAccessor, Bus, CpuOps, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:ac4909adf1001c20ff4825fa1640ca00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42cdce92ded52d6f9b15e6f15c7e8ace" id="r_a42cdce92ded52d6f9b15e6f15c7e8ace"><td class="memItemLeft" align="right" valign="top"><a id="a42cdce92ded52d6f9b15e6f15c7e8ace" name="a42cdce92ded52d6f9b15e6f15c7e8ace"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Processor</b> = Processor&lt;CpuAccessor, Bus, CpuOps, Fetcher, Decoder, Executor, <a class="el" href="classlibmicroemu_1_1_static_logger.html">StaticLogger</a>&gt;</td></tr>
+<tr class="separator:a42cdce92ded52d6f9b15e6f15c7e8ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a67ae085112bfc992e10cee0d1b25c704" id="r_a67ae085112bfc992e10cee0d1b25c704"><td class="memItemLeft" align="right" valign="top"><a id="a67ae085112bfc992e10cee0d1b25c704" name="a67ae085112bfc992e10cee0d1b25c704"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Emulator</b> (TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:a67ae085112bfc992e10cee0d1b25c704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3b7e514d9adfe71ea0ea7841898656e" id="r_ad3b7e514d9adfe71ea0ea7841898656e"><td class="memItemLeft" align="right" valign="top"><a id="ad3b7e514d9adfe71ea0ea7841898656e" name="ad3b7e514d9adfe71ea0ea7841898656e"></a>
+<tr class="memitem:a3c5b8d3340d4ef6e66c57ca8d6ecb33b" id="r_a3c5b8d3340d4ef6e66c57ca8d6ecb33b"><td class="memItemLeft" align="right" valign="top"><a id="a3c5b8d3340d4ef6e66c57ca8d6ecb33b" name="a3c5b8d3340d4ef6e66c57ca8d6ecb33b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Emulator</b> (TCpuStates &amp;cpu_states)</td></tr>
+<tr class="separator:a3c5b8d3340d4ef6e66c57ca8d6ecb33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6bc7a412797065da5ee373a7a04f916" id="r_af6bc7a412797065da5ee373a7a04f916"><td class="memItemLeft" align="right" valign="top"><a id="af6bc7a412797065da5ee373a7a04f916" name="af6bc7a412797065da5ee373a7a04f916"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetFlashSegment</b> (const u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr)</td></tr>
-<tr class="separator:ad3b7e514d9adfe71ea0ea7841898656e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ef6b9bf38e2196b18a46727683c73fe" id="r_a0ef6b9bf38e2196b18a46727683c73fe"><td class="memItemLeft" align="right" valign="top"><a id="a0ef6b9bf38e2196b18a46727683c73fe" name="a0ef6b9bf38e2196b18a46727683c73fe"></a>
+<tr class="separator:af6bc7a412797065da5ee373a7a04f916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38b7be66b87fa2ebfe0ffdf18a008d0f" id="r_a38b7be66b87fa2ebfe0ffdf18a008d0f"><td class="memItemLeft" align="right" valign="top"><a id="a38b7be66b87fa2ebfe0ffdf18a008d0f" name="a38b7be66b87fa2ebfe0ffdf18a008d0f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRam1Segment</b> (u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr)</td></tr>
-<tr class="separator:a0ef6b9bf38e2196b18a46727683c73fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafd5059d31006e7dfcfc16040c9aa790" id="r_aafd5059d31006e7dfcfc16040c9aa790"><td class="memItemLeft" align="right" valign="top"><a id="aafd5059d31006e7dfcfc16040c9aa790" name="aafd5059d31006e7dfcfc16040c9aa790"></a>
+<tr class="separator:a38b7be66b87fa2ebfe0ffdf18a008d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d2a277ed338e475263b3ffbed2724f" id="r_a42d2a277ed338e475263b3ffbed2724f"><td class="memItemLeft" align="right" valign="top"><a id="a42d2a277ed338e475263b3ffbed2724f" name="a42d2a277ed338e475263b3ffbed2724f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRam2Segment</b> (u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr)</td></tr>
-<tr class="separator:aafd5059d31006e7dfcfc16040c9aa790"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0feba73e3d1106c3f818a161e77437b" id="r_af0feba73e3d1106c3f818a161e77437b"><td class="memItemLeft" align="right" valign="top"><a id="af0feba73e3d1106c3f818a161e77437b" name="af0feba73e3d1106c3f818a161e77437b"></a>
+<tr class="separator:a42d2a277ed338e475263b3ffbed2724f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad154ee148bb197325fbc2527865194a7" id="r_ad154ee148bb197325fbc2527865194a7"><td class="memItemLeft" align="right" valign="top"><a id="ad154ee148bb197325fbc2527865194a7" name="ad154ee148bb197325fbc2527865194a7"></a>
 Bus&#160;</td><td class="memItemRight" valign="bottom"><b>BuildBus</b> ()</td></tr>
-<tr class="separator:af0feba73e3d1106c3f818a161e77437b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a247a5fc7082e7ff9f141b368b4122b47" id="r_a247a5fc7082e7ff9f141b368b4122b47"><td class="memItemLeft" align="right" valign="top"><a id="a247a5fc7082e7ff9f141b368b4122b47" name="a247a5fc7082e7ff9f141b368b4122b47"></a>
-<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> ()</td></tr>
-<tr class="separator:a247a5fc7082e7ff9f141b368b4122b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7bdec614b1a9d2404cb76f01be06162" id="r_af7bdec614b1a9d2404cb76f01be06162"><td class="memItemLeft" align="right" valign="top"><a id="af7bdec614b1a9d2404cb76f01be06162" name="af7bdec614b1a9d2404cb76f01be06162"></a>
+<tr class="separator:ad154ee148bb197325fbc2527865194a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f70c0ad11e3929dcfb20d0721b9a299" id="r_a3f70c0ad11e3929dcfb20d0721b9a299"><td class="memItemLeft" align="right" valign="top"><a id="a3f70c0ad11e3929dcfb20d0721b9a299" name="a3f70c0ad11e3929dcfb20d0721b9a299"></a>
+<a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> ()</td></tr>
+<tr class="separator:a3f70c0ad11e3929dcfb20d0721b9a299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd6a137ea75d7dcdd9e3ffc95dac4890" id="r_afd6a137ea75d7dcdd9e3ffc95dac4890"><td class="memItemLeft" align="right" valign="top"><a id="afd6a137ea75d7dcdd9e3ffc95dac4890" name="afd6a137ea75d7dcdd9e3ffc95dac4890"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEntryPoint</b> (u32 entry_point)</td></tr>
-<tr class="separator:af7bdec614b1a9d2404cb76f01be06162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51adbe2ad0280204681f496a034e3fdd" id="r_a51adbe2ad0280204681f496a034e3fdd"><td class="memItemLeft" align="right" valign="top"><a id="a51adbe2ad0280204681f496a034e3fdd" name="a51adbe2ad0280204681f496a034e3fdd"></a>
-<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1_emu_result.html">EmuResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Exec</b> (i32 instr_limit, FPreExecStepCallback cb_pre_exec, FPostExecStepCallback cb_post_exec)</td></tr>
-<tr class="separator:a51adbe2ad0280204681f496a034e3fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:afd6a137ea75d7dcdd9e3ffc95dac4890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a048997f2eda6ff4ddd194634c6854bde" id="r_a048997f2eda6ff4ddd194634c6854bde"><td class="memItemLeft" align="right" valign="top"><a id="a048997f2eda6ff4ddd194634c6854bde" name="a048997f2eda6ff4ddd194634c6854bde"></a>
+<a class="el" href="classlibmicroemu_1_1_exec_result.html">ExecResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Exec</b> (i64 instr_limit, <a class="el" href="namespacelibmicroemu.html#a9665187b406afc6969442d406ede52fe">FPreExecStepCallback</a> cb_pre_exec, <a class="el" href="namespacelibmicroemu.html#aa8da8afecd38ff5558b61b78fadf3eb9">FPostExecStepCallback</a> cb_post_exec)</td></tr>
+<tr class="separator:a048997f2eda6ff4ddd194634c6854bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ac9756cfe3c4dd01134b3116b3271c920" name="ac9756cfe3c4dd01134b3116b3271c920"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9756cfe3c4dd01134b3116b3271c920">&#9670;&#160;</a></span>Bus</h2>
+<a id="a724d0e58f6ab481f18055a83ee4614bc" name="a724d0e58f6ab481f18055a83ee4614bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a724d0e58f6ab481f18055a83ee4614bc">&#9670;&#160;</a></span>Bus</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates &gt; </div>
+template&lt;typename TCpuStates &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classlibmicroemu_1_1internal_1_1_emulator.html">libmicroemu::internal::Emulator</a>&lt; TProcessorStates &gt;::Bus</td>
+          <td class="memname">using <a class="el" href="classlibmicroemu_1_1internal_1_1_emulator.html">libmicroemu::internal::Emulator</a>&lt; TCpuStates &gt;::Bus</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> Bus&lt;</div>
-<div class="line">      TProcessorStates, SpecRegOps, ExceptionTrigger, StaticLogger, </div>
+<div class="line">      CpuAccessor, ExceptionTrigger, StaticLogger, </div>
 <div class="line">      </div>
 <div class="line">      </div>
 <div class="line">      Flash,</div>
@@ -209,62 +214,26 @@ template&lt;typename TProcessorStates &gt; </div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a5418478c3be7f2b89c068ac0d9765d19" name="a5418478c3be7f2b89c068ac0d9765d19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5418478c3be7f2b89c068ac0d9765d19">&#9670;&#160;</a></span>Executor</h2>
+<a id="ae0adf695610d3f6c7f048a2a3de61bbc" name="ae0adf695610d3f6c7f048a2a3de61bbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0adf695610d3f6c7f048a2a3de61bbc">&#9670;&#160;</a></span>Peripherals</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates &gt; </div>
+template&lt;typename TCpuStates &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classlibmicroemu_1_1internal_1_1_emulator.html">libmicroemu::internal::Emulator</a>&lt; TProcessorStates &gt;::Executor</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"> Executor&lt;TProcessorStates, Bus, RegOps, SpecRegOps, PcOps, ItOps,</div>
-<div class="line">                            ExceptionTrigger, StaticLogger&gt;</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a80aacb17efb36d7f57a3c799d1298821" name="a80aacb17efb36d7f57a3c799d1298821"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80aacb17efb36d7f57a3c799d1298821">&#9670;&#160;</a></span>Peripherals</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TProcessorStates &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classlibmicroemu_1_1internal_1_1_emulator.html">libmicroemu::internal::Emulator</a>&lt; TProcessorStates &gt;::Peripherals</td>
+          <td class="memname">using <a class="el" href="classlibmicroemu_1_1internal_1_1_emulator.html">libmicroemu::internal::Emulator</a>&lt; TCpuStates &gt;::Peripherals</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> MemMapRw&lt;3U, 0xE0000000U, 0xFFFFU, </div>
-<div class="line">      TProcessorStates, SpecRegOps, ExceptionTrigger, StaticLogger,</div>
+<div class="line">      CpuAccessor, ExceptionTrigger, StaticLogger,</div>
 <div class="line"> </div>
 <div class="line">      </div>
 <div class="line">      SysCtrlBlock, </div>
 <div class="line">      SysTick</div>
 <div class="line">  &gt;</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ab7e8b86afc5f1509601f3500f18f718b" name="ab7e8b86afc5f1509601f3500f18f718b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7e8b86afc5f1509601f3500f18f718b">&#9670;&#160;</a></span>Processor</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TProcessorStates &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classlibmicroemu_1_1internal_1_1_emulator.html">libmicroemu::internal::Emulator</a>&lt; TProcessorStates &gt;::Processor</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"> </div>
-<div class="line">      Processor&lt;TProcessorStates, Bus, ProcessorOps, Fetcher, Decoder, Executor, StaticLogger&gt;</div>
 </div><!-- fragment -->
 </div>
 </div>

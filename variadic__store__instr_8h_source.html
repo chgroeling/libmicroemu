@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -94,98 +94,94 @@ $(function(){ initResizable(false); });
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;libmicroemu/internal/decoder/decoder.h&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;libmicroemu/internal/executor/exec_results.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;libmicroemu/internal/executor/instr_context.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;libmicroemu/internal/utils/rarg.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;libmicroemu/register_details.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;libmicroemu/result.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;libmicroemu/internal/executor/instr_context.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;libmicroemu/internal/executor/instr_exec_results.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="result_8h.html">libmicroemu/internal/result.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;libmicroemu/internal/utils/rarg.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;libmicroemu/register_details.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>internal {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">   15</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TInstrContext&gt; <span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">using </span>It = <span class="keyword">typename</span> TInstrContext::It;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keyword">using </span>Pc = <span class="keyword">typename</span> TInstrContext::Pc;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">using </span>Reg = <span class="keyword">typename</span> TInstrContext::Reg;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">using </span>SReg = <span class="keyword">typename</span> TInstrContext::SReg;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TArg&gt;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1_result.html">Result&lt;ExecResult&gt;</a> Call(TInstrContext &amp;ictx, <span class="keyword">const</span> InstrFlagsSet &amp;iflags,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                                 <span class="keyword">const</span> TArg &amp;arg_n, <span class="keyword">const</span> u32 &amp;registers) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> <span class="keyword">auto</span> is_32bit = (iflags &amp; <span class="keyword">static_cast&lt;</span>InstrFlagsSet<span class="keyword">&gt;</span>(InstrFlags::k32Bit)) != 0U;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    ExecFlagsSet eflags{0x0U};</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    TRY_ASSIGN(condition_passed, <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a>, It::ConditionPassed(ictx.pstates));</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (!condition_passed) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>      It::ITAdvance(ictx.pstates);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>      Pc::AdvanceInstr(ictx.pstates, is_32bit);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordflow">return</span> Ok(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a>{eflags});</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keyword">auto</span> rn = Reg::ReadRegister(ictx.pstates, arg_n.Get());</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">auto</span> reg_count = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">Bm32::BitCount</a>(registers);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    u32 address = rn;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_wback = (iflags &amp; <span class="keyword">static_cast&lt;</span>InstrFlagsSet<span class="keyword">&gt;</span>(InstrFlags::kWBack)) != 0U;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> lowest_bit_set = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">Bm8::LowestBitSet</a>(registers);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">for</span> (u32 reg = 0U; reg &lt;= 14U; ++reg) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      u32 bm = 0x1U &lt;&lt; reg;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      <span class="keywordflow">if</span> ((registers &amp; bm) != 0U) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">if</span> ((reg == <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(arg_n.Get())) &amp;&amp; (is_wback) &amp;&amp; (lowest_bit_set == reg)) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>          <span class="keywordflow">return</span> Err&lt;ExecResult&gt;(StatusCode::kScExecutorUndefined);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>          <span class="keyword">const</span> <span class="keyword">auto</span> r = Reg::ReadRegister(ictx.pstates, <span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a><span class="keyword">&gt;</span>(reg));</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>          TRY(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a>,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>              ictx.bus.template WriteOrRaise&lt;u32&gt;(ictx.pstates, address, r,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                                  BusExceptionType::kRaisePreciseDataBusError));</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        address += 4U;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// For debugging purposes</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// MemoryViewer&lt;TMemAccess&gt; mem_view(bus_);</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// mem_view.print(0x80000 - 0x32, 0x64);</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">   17</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TInstrContext&gt; <span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">using </span>It = <span class="keyword">typename</span> TInstrContext::It;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">using </span>Pc = <span class="keyword">typename</span> TInstrContext::Pc;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TArg0&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">static</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_result.html">Result&lt;InstrExecResult&gt;</a> Call(TInstrContext &amp;ictx, <span class="keyword">const</span> InstrFlagsSet &amp;iflags,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                                      <span class="keyword">const</span> TArg0 &amp;rn, <span class="keyword">const</span> u32 &amp;registers) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_define" href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a>(condition_passed, <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a>, It::ConditionPassed(ictx.cpua));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> (!condition_passed) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      PostExecAdvancePcAndIt::Call(ictx, iflags);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>      <span class="keywordflow">return</span> Ok(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a>{kNoInstrExecFlags});</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n = ictx.cpua.ReadRegister(rn.Get());</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">auto</span> reg_count = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">Bm32::BitCount</a>(registers);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    u32 address = n;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_wback = (iflags &amp; <span class="keyword">static_cast&lt;</span>InstrFlagsSet<span class="keyword">&gt;</span>(InstrFlags::kWBack)) != 0U;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> lowest_bit_set = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">Bm8::LowestBitSet</a>(registers);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (u32 reg = 0U; reg &lt;= 14U; ++reg) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      u32 bm = 0x1U &lt;&lt; reg;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      <span class="keywordflow">if</span> ((registers &amp; bm) != 0U) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">if</span> ((reg == <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(rn.Get())) &amp;&amp; (is_wback) &amp;&amp; (lowest_bit_set == reg)) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>          <span class="keywordflow">return</span> Err&lt;InstrExecResult&gt;(<a class="code hl_enumvalue" href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0a7f710bdc063a56fc6530bfb35f669dd2">StatusCode::kExecutorUndefined</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>          <span class="keyword">const</span> <span class="keyword">auto</span> r = ictx.cpua.ReadRegister(<span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a><span class="keyword">&gt;</span>(reg));</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>          <a class="code hl_define" href="result_8h.html#ac34595034fd8dfb5af9d2595fc899b0e">TRY</a>(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>              ictx.bus.template WriteOrRaise&lt;u32&gt;(ictx.cpua, address, r,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                                  BusExceptionType::kRaisePreciseDataBusError));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        address += 4U;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// For debugging purposes</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// MemoryViewer&lt;TMemAccess&gt; mem_view(bus_);</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// mem_view.Print(0x80000 - 0x32, 0x64);</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span> (is_wback) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>      <span class="keyword">const</span> <span class="keyword">auto</span> wback_val = n + 4U * reg_count;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (is_wback) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      <span class="keyword">const</span> <span class="keyword">auto</span> wback_val = rn + 4U * reg_count;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>      <span class="comment">// Update n register</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      Reg::WriteRegister(ictx.pstates, arg_n.Get(), wback_val);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    It::ITAdvance(ictx.pstates);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Pc::AdvanceInstr(ictx.pstates, is_32bit);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> Ok(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a>{eflags});</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>      <span class="comment">// Update n register</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      PostExecWriteRegPcExcluded::Call(ictx, rn, wback_val);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    PostExecAdvancePcAndIt::Call(ictx, iflags);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">return</span> Ok(<a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a>{kNoInstrExecFlags});</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">~VariadicStoreInstr</a>() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a>(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;r_src) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a>(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;operator=(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>};</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a>(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;operator=(<a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">VariadicStoreInstr</a> &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>};</div>
 </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>} <span class="comment">// namespace libmicroemu</span></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0b1296e534f594215bb7a15e110b89e4"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">libmicroemu::internal::BitManip::LowestBitSet</a></div><div class="ttdeci">static T LowestBitSet(const T &amp;value)</div><div class="ttdoc">Finds the position of the lowest bit set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:259</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ac7789c77f3ac47c67ce19347e181490c"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">libmicroemu::internal::BitManip::BitCount</a></div><div class="ttdeci">static T BitCount(const T &amp;value)</div><div class="ttdoc">Counts the number of bits set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:245</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_variadic_store_instr_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">libmicroemu::internal::VariadicStoreInstr</a></div><div class="ttdef"><b>Definition</b> variadic_store_instr.h:15</div></div>
-<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>} <span class="comment">// namespace libmicroemu::internal</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0b1296e534f594215bb7a15e110b89e4"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">libmicroemu::internal::BitManip::LowestBitSet</a></div><div class="ttdeci">static T LowestBitSet(const T &amp;value)</div><div class="ttdoc">Finds the position of the lowest bit set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:257</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ac7789c77f3ac47c67ce19347e181490c"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">libmicroemu::internal::BitManip::BitCount</a></div><div class="ttdeci">static T BitCount(const T &amp;value)</div><div class="ttdoc">Counts the number of bits set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:243</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_variadic_store_instr_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_variadic_store_instr.html">libmicroemu::internal::VariadicStoreInstr</a></div><div class="ttdoc">Store Multiple.</div><div class="ttdef"><b>Definition</b> variadic_store_instr.h:17</div></div>
+<div class="ttc" id="anamespacelibmicroemu_1_1internal_html"><div class="ttname"><a href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a></div><div class="ttdoc">The libmicroemu::internal namespace contains all classes and functions of libmicroemu which are priva...</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_a8986ac92210d741de2fbcbaf489c0ee0a7f710bdc063a56fc6530bfb35f669dd2"><div class="ttname"><a href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0a7f710bdc063a56fc6530bfb35f669dd2">libmicroemu::StatusCode::kExecutorUndefined</a></div><div class="ttdeci">@ kExecutorUndefined</div><div class="ttdoc">Executor encountered an undefined operation.</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_aae4aa07185daf886d479bcaefc5fb94e"><div class="ttname"><a href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">libmicroemu::RegisterId</a></div><div class="ttdeci">RegisterId</div><div class="ttdoc">Enumeration of register IDs.</div><div class="ttdef"><b>Definition</b> register_id.h:13</div></div>
-<div class="ttc" id="astructlibmicroemu_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1_result.html">libmicroemu::Result</a></div><div class="ttdef"><b>Definition</b> result.h:114</div></div>
-<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_exec_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_exec_result.html">libmicroemu::internal::ExecResult</a></div><div class="ttdef"><b>Definition</b> exec_results.h:23</div></div>
+<div class="ttc" id="aresult_8h_html"><div class="ttname"><a href="result_8h.html">result.h</a></div><div class="ttdoc">Contains the Result class which is used to return the result of a function.</div></div>
+<div class="ttc" id="aresult_8h_html_ab6d662840a76e3dfd9e5489f549d3393"><div class="ttname"><a href="result_8h.html#ab6d662840a76e3dfd9e5489f549d3393">TRY_ASSIGN</a></div><div class="ttdeci">#define TRY_ASSIGN(NAME, OUT_TYPE, CALL)</div><div class="ttdoc">Try to assign a value to a variable and return an error if the assignment fails.</div><div class="ttdef"><b>Definition</b> result.h:123</div></div>
+<div class="ttc" id="aresult_8h_html_ac34595034fd8dfb5af9d2595fc899b0e"><div class="ttname"><a href="result_8h.html#ac34595034fd8dfb5af9d2595fc899b0e">TRY</a></div><div class="ttdeci">#define TRY(OUT_TYPE, CALL)</div><div class="ttdoc">Try to call a function and return an error if the call fails.</div><div class="ttdef"><b>Definition</b> result.h:138</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_instr_exec_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">libmicroemu::internal::InstrExecResult</a></div><div class="ttdef"><b>Definition</b> instr_exec_results.h:23</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1_result_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1_result.html">libmicroemu::internal::Result</a></div><div class="ttdef"><b>Definition</b> result.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -97,47 +97,43 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>This class contains a function to convert the endianess from little endian to little endian.  
+<p>This class contains a function to convert the endianess from little to little endian.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="endianess__converters_8h_source.html">endianess_converters.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0072158e69e2c98f820d2a386b3e2e2d" id="r_a0072158e69e2c98f820d2a386b3e2e2d"><td class="memItemLeft" align="right" valign="top"><a id="a0072158e69e2c98f820d2a386b3e2e2d" name="a0072158e69e2c98f820d2a386b3e2e2d"></a>
-template&lt;&gt; </td></tr>
-<tr class="memitem:a0072158e69e2c98f820d2a386b3e2e2d"><td class="memTemplItemLeft" align="right" valign="top">constexpr u8&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Convert</b> (const u8 &amp;value)</td></tr>
-<tr class="memdesc:a0072158e69e2c98f820d2a386b3e2e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u8 value from little endian to little endian representation. <br /></td></tr>
+<tr class="memitem:a0072158e69e2c98f820d2a386b3e2e2d" id="r_a0072158e69e2c98f820d2a386b3e2e2d"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a0072158e69e2c98f820d2a386b3e2e2d"><td class="memTemplItemLeft" align="right" valign="top">constexpr u8&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a0072158e69e2c98f820d2a386b3e2e2d">Convert</a> (const u8 &amp;value)</td></tr>
+<tr class="memdesc:a0072158e69e2c98f820d2a386b3e2e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u8 value from little to little endian representation.  <br /></td></tr>
 <tr class="separator:a0072158e69e2c98f820d2a386b3e2e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ae54d44de2ca3e156b35ca7ed024e5d7d" id="r_ae54d44de2ca3e156b35ca7ed024e5d7d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae54d44de2ca3e156b35ca7ed024e5d7d"><td class="memTemplItemLeft" align="right" valign="top">static constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae54d44de2ca3e156b35ca7ed024e5d7d">Convert</a> (const T &amp;value)=delete</td></tr>
-<tr class="memdesc:ae54d44de2ca3e156b35ca7ed024e5d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an arbitrary value from little endian representation to little endian representation.  <br /></td></tr>
+<tr class="memdesc:ae54d44de2ca3e156b35ca7ed024e5d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an arbitrary value from little endian to little endian representation.  <br /></td></tr>
 <tr class="separator:ae54d44de2ca3e156b35ca7ed024e5d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4c9a275bfb26664e83ed3c3fd5f6743" id="r_ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="memItemLeft" align="right" valign="top"><a id="ae4c9a275bfb26664e83ed3c3fd5f6743" name="ae4c9a275bfb26664e83ed3c3fd5f6743"></a>
-template&lt;&gt; </td></tr>
-<tr class="memitem:ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="memTemplItemLeft" align="right" valign="top">constexpr u16&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Convert</b> (const u16 &amp;value)</td></tr>
-<tr class="memdesc:ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u16 value from little endian to little endian representation. <br /></td></tr>
+<tr class="memitem:ae4c9a275bfb26664e83ed3c3fd5f6743" id="r_ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="memTemplItemLeft" align="right" valign="top">constexpr u16&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae4c9a275bfb26664e83ed3c3fd5f6743">Convert</a> (const u16 &amp;value)</td></tr>
+<tr class="memdesc:ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u16 value from little to little endian representation.  <br /></td></tr>
 <tr class="separator:ae4c9a275bfb26664e83ed3c3fd5f6743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfdde873bfe835d0bfe87f43cf4092b3" id="r_acfdde873bfe835d0bfe87f43cf4092b3"><td class="memItemLeft" align="right" valign="top"><a id="acfdde873bfe835d0bfe87f43cf4092b3" name="acfdde873bfe835d0bfe87f43cf4092b3"></a>
-template&lt;&gt; </td></tr>
-<tr class="memitem:acfdde873bfe835d0bfe87f43cf4092b3"><td class="memTemplItemLeft" align="right" valign="top">constexpr u32&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Convert</b> (const u32 &amp;value)</td></tr>
-<tr class="memdesc:acfdde873bfe835d0bfe87f43cf4092b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u32 value from little endian to little endian representation. <br /></td></tr>
+<tr class="memitem:acfdde873bfe835d0bfe87f43cf4092b3" id="r_acfdde873bfe835d0bfe87f43cf4092b3"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:acfdde873bfe835d0bfe87f43cf4092b3"><td class="memTemplItemLeft" align="right" valign="top">constexpr u32&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#acfdde873bfe835d0bfe87f43cf4092b3">Convert</a> (const u32 &amp;value)</td></tr>
+<tr class="memdesc:acfdde873bfe835d0bfe87f43cf4092b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u32 value from little to little endian representation.  <br /></td></tr>
 <tr class="separator:acfdde873bfe835d0bfe87f43cf4092b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dd3ed6095f751b3dc2edb5088208264" id="r_a9dd3ed6095f751b3dc2edb5088208264"><td class="memItemLeft" align="right" valign="top"><a id="a9dd3ed6095f751b3dc2edb5088208264" name="a9dd3ed6095f751b3dc2edb5088208264"></a>
-template&lt;&gt; </td></tr>
-<tr class="memitem:a9dd3ed6095f751b3dc2edb5088208264"><td class="memTemplItemLeft" align="right" valign="top">constexpr u64&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Convert</b> (const u64 &amp;value)</td></tr>
-<tr class="memdesc:a9dd3ed6095f751b3dc2edb5088208264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u64 value from little endian to little endian representation. <br /></td></tr>
+<tr class="memitem:a9dd3ed6095f751b3dc2edb5088208264" id="r_a9dd3ed6095f751b3dc2edb5088208264"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a9dd3ed6095f751b3dc2edb5088208264"><td class="memTemplItemLeft" align="right" valign="top">constexpr u64&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9dd3ed6095f751b3dc2edb5088208264">Convert</a> (const u64 &amp;value)</td></tr>
+<tr class="memdesc:a9dd3ed6095f751b3dc2edb5088208264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization for converting a u64 value from little to little endian representation.  <br /></td></tr>
 <tr class="separator:a9dd3ed6095f751b3dc2edb5088208264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class contains a function to convert the endianess from little endian to little endian. </p>
+<div class="textblock"><p>This class contains a function to convert the endianess from little to little endian. </p>
 <p>For obvious reasons the mentioned conversion does nothing. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae54d44de2ca3e156b35ca7ed024e5d7d" name="ae54d44de2ca3e156b35ca7ed024e5d7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae54d44de2ca3e156b35ca7ed024e5d7d">&#9670;&#160;</a></span>Convert()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae54d44de2ca3e156b35ca7ed024e5d7d">&#9670;&#160;</a></span>Convert() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,7 +157,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an arbitrary value from little endian representation to little endian representation. </p>
+<p>Converts an arbitrary value from little endian to little endian representation. </p>
 <p>For obvious reasons the mentioned conversion does nothing. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>The type of the value to be converted. </td></tr>
@@ -175,6 +171,146 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>T the converted value </dd></dl>
+
+</div>
+</div>
+<a id="ae4c9a275bfb26664e83ed3c3fd5f6743" name="ae4c9a275bfb26664e83ed3c3fd5f6743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4c9a275bfb26664e83ed3c3fd5f6743">&#9670;&#160;</a></span>Convert() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 libmicroemu::internal::LittleToLittleEndianConverter::Convert </td>
+          <td>(</td>
+          <td class="paramtype">const u16 &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Specialization for converting a u16 value from little to little endian representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to be converted from little endian to little endian representation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acfdde873bfe835d0bfe87f43cf4092b3" name="acfdde873bfe835d0bfe87f43cf4092b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfdde873bfe835d0bfe87f43cf4092b3">&#9670;&#160;</a></span>Convert() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 libmicroemu::internal::LittleToLittleEndianConverter::Convert </td>
+          <td>(</td>
+          <td class="paramtype">const u32 &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Specialization for converting a u32 value from little to little endian representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to be converted from little endian to little endian representation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9dd3ed6095f751b3dc2edb5088208264" name="a9dd3ed6095f751b3dc2edb5088208264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dd3ed6095f751b3dc2edb5088208264">&#9670;&#160;</a></span>Convert() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u64 libmicroemu::internal::LittleToLittleEndianConverter::Convert </td>
+          <td>(</td>
+          <td class="paramtype">const u64 &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Specialization for converting a u64 value from little to little endian representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to be converted from little endian to little endian representation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0072158e69e2c98f820d2a386b3e2e2d" name="a0072158e69e2c98f820d2a386b3e2e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0072158e69e2c98f820d2a386b3e2e2d">&#9670;&#160;</a></span>Convert() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 libmicroemu::internal::LittleToLittleEndianConverter::Convert </td>
+          <td>(</td>
+          <td class="paramtype">const u8 &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Specialization for converting a u8 value from little to little endian representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to be converted from little endian to little endian representation. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

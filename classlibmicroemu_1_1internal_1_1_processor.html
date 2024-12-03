@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::Processor&lt; TProcessorStates, TBus, TProcessorOps, TFetcher, TDecoder, TExecutor, TLogger &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::Processor&lt; TCpuAccessor, TBus, TProcessorOps, TFetcher, TDecoder, TExecutor, TLogger &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,47 +93,38 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_processor-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::Processor&lt; TProcessorStates, TBus, TProcessorOps, TFetcher, TDecoder, TExecutor, TLogger &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::Processor&lt; TCpuAccessor, TBus, TProcessorOps, TFetcher, TDecoder, TExecutor, TLogger &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a0e7b2c64fd6fe2ac5bebcce46ddfbe49" id="r_a0e7b2c64fd6fe2ac5bebcce46ddfbe49"><td class="memItemLeft" align="right" valign="top"><a id="a0e7b2c64fd6fe2ac5bebcce46ddfbe49" name="a0e7b2c64fd6fe2ac5bebcce46ddfbe49"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TProcessorOps::Reg</td></tr>
-<tr class="separator:a0e7b2c64fd6fe2ac5bebcce46ddfbe49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d9abdd67a4038ac31d3c9d44ab9b500" id="r_a6d9abdd67a4038ac31d3c9d44ab9b500"><td class="memItemLeft" align="right" valign="top"><a id="a6d9abdd67a4038ac31d3c9d44ab9b500" name="a6d9abdd67a4038ac31d3c9d44ab9b500"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TProcessorOps::SReg</td></tr>
-<tr class="separator:a6d9abdd67a4038ac31d3c9d44ab9b500"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e425a3ee5b2578c4dcf5e2989145a30" id="r_a9e425a3ee5b2578c4dcf5e2989145a30"><td class="memItemLeft" align="right" valign="top"><a id="a9e425a3ee5b2578c4dcf5e2989145a30" name="a9e425a3ee5b2578c4dcf5e2989145a30"></a>
+<tr class="memitem:a5e3f8d5617e93ac4deae44c866ce5b57" id="r_a5e3f8d5617e93ac4deae44c866ce5b57"><td class="memItemLeft" align="right" valign="top"><a id="a5e3f8d5617e93ac4deae44c866ce5b57" name="a5e3f8d5617e93ac4deae44c866ce5b57"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TProcessorOps::It</td></tr>
-<tr class="separator:a9e425a3ee5b2578c4dcf5e2989145a30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7010fcee00650f60c9f337b326edbc55" id="r_a7010fcee00650f60c9f337b326edbc55"><td class="memItemLeft" align="right" valign="top"><a id="a7010fcee00650f60c9f337b326edbc55" name="a7010fcee00650f60c9f337b326edbc55"></a>
+<tr class="separator:a5e3f8d5617e93ac4deae44c866ce5b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79ae167e33f6aef04de95ae496af0b84" id="r_a79ae167e33f6aef04de95ae496af0b84"><td class="memItemLeft" align="right" valign="top"><a id="a79ae167e33f6aef04de95ae496af0b84" name="a79ae167e33f6aef04de95ae496af0b84"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Exc</b> = typename TProcessorOps::Exc</td></tr>
-<tr class="separator:a7010fcee00650f60c9f337b326edbc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849f41a011864e3f3ac092881e28592a" id="r_a849f41a011864e3f3ac092881e28592a"><td class="memItemLeft" align="right" valign="top"><a id="a849f41a011864e3f3ac092881e28592a" name="a849f41a011864e3f3ac092881e28592a"></a>
+<tr class="separator:a79ae167e33f6aef04de95ae496af0b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16510743261e5d279080ba9aaf8b507d" id="r_a16510743261e5d279080ba9aaf8b507d"><td class="memItemLeft" align="right" valign="top"><a id="a16510743261e5d279080ba9aaf8b507d" name="a16510743261e5d279080ba9aaf8b507d"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TProcessorOps::Pc</td></tr>
-<tr class="separator:a849f41a011864e3f3ac092881e28592a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5e6218f163ec226ef9a4a5bfcc8f1d5" id="r_ab5e6218f163ec226ef9a4a5bfcc8f1d5"><td class="memItemLeft" align="right" valign="top"><a id="ab5e6218f163ec226ef9a4a5bfcc8f1d5" name="ab5e6218f163ec226ef9a4a5bfcc8f1d5"></a>
+<tr class="separator:a16510743261e5d279080ba9aaf8b507d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46733ee6facb3c608bd7835d01636b73" id="r_a46733ee6facb3c608bd7835d01636b73"><td class="memItemLeft" align="right" valign="top"><a id="a46733ee6facb3c608bd7835d01636b73" name="a46733ee6facb3c608bd7835d01636b73"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcTrig</b> = typename TProcessorOps::ExcTrig</td></tr>
-<tr class="separator:ab5e6218f163ec226ef9a4a5bfcc8f1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a46733ee6facb3c608bd7835d01636b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ac4d2d1d77057cd9babfd215136656a39" id="r_ac4d2d1d77057cd9babfd215136656a39"><td class="memItemLeft" align="right" valign="top"><a id="ac4d2d1d77057cd9babfd215136656a39" name="ac4d2d1d77057cd9babfd215136656a39"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThumbModeOrRaise</b> (TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:ac4d2d1d77057cd9babfd215136656a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a72e168fd7ec9a12c12b226ea824343" id="r_a7a72e168fd7ec9a12c12b226ea824343"><td class="memTemplParams" colspan="2"><a id="a7a72e168fd7ec9a12c12b226ea824343" name="a7a72e168fd7ec9a12c12b226ea824343"></a>
+<tr class="memitem:a414217fbb0baf9468523ed3a1ffd9cac" id="r_a414217fbb0baf9468523ed3a1ffd9cac"><td class="memItemLeft" align="right" valign="top"><a id="a414217fbb0baf9468523ed3a1ffd9cac" name="a414217fbb0baf9468523ed3a1ffd9cac"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThumbModeOrRaise</b> (TCpuAccessor &amp;cpua)</td></tr>
+<tr class="separator:a414217fbb0baf9468523ed3a1ffd9cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b13c0fc502a1e6470a9e31f4ea7a551" id="r_a8b13c0fc502a1e6470a9e31f4ea7a551"><td class="memTemplParams" colspan="2"><a id="a8b13c0fc502a1e6470a9e31f4ea7a551" name="a8b13c0fc502a1e6470a9e31f4ea7a551"></a>
 template&lt;typename TDelegates &gt; </td></tr>
-<tr class="memitem:a7a72e168fd7ec9a12c12b226ea824343"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; StepFlagsSet &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Step</b> (TProcessorStates &amp;pstates, TBus &amp;bus, TDelegates &amp;delegates)</td></tr>
-<tr class="separator:a7a72e168fd7ec9a12c12b226ea824343"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada182b7a2f21987e4bf1c4c9612426ef" id="r_ada182b7a2f21987e4bf1c4c9612426ef"><td class="memTemplParams" colspan="2"><a id="ada182b7a2f21987e4bf1c4c9612426ef" name="ada182b7a2f21987e4bf1c4c9612426ef"></a>
+<tr class="memitem:a8b13c0fc502a1e6470a9e31f4ea7a551"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; StepFlagsSet &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Step</b> (TCpuAccessor &amp;cpua, TBus &amp;bus, TDelegates &amp;delegates)</td></tr>
+<tr class="separator:a8b13c0fc502a1e6470a9e31f4ea7a551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7321d04ddc8a100be12dc81d822a139" id="r_ac7321d04ddc8a100be12dc81d822a139"><td class="memTemplParams" colspan="2"><a id="ac7321d04ddc8a100be12dc81d822a139" name="ac7321d04ddc8a100be12dc81d822a139"></a>
 template&lt;typename TResult &gt; </td></tr>
-<tr class="memitem:ada182b7a2f21987e4bf1c4c9612426ef"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ErrorHandler</b> (TProcessorStates &amp;pstates, const TResult &amp;res, const TBus &amp;bus)</td></tr>
-<tr class="separator:ada182b7a2f21987e4bf1c4c9612426ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab35bc708175ce4e160d32710aa1699af" id="r_ab35bc708175ce4e160d32710aa1699af"><td class="memItemLeft" align="right" valign="top"><a id="ab35bc708175ce4e160d32710aa1699af" name="ab35bc708175ce4e160d32710aa1699af"></a>
-static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>TakeReset</b> (TProcessorStates &amp;pstates, TBus &amp;bus_)</td></tr>
-<tr class="separator:ab35bc708175ce4e160d32710aa1699af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7321d04ddc8a100be12dc81d822a139"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ErrorHandler</b> (TCpuAccessor &amp;cpua, const TResult &amp;res, const TBus &amp;bus)</td></tr>
+<tr class="separator:ac7321d04ddc8a100be12dc81d822a139"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/processor/<a class="el" href="processor_8h_source.html">processor.h</a></li>

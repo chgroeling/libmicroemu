@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -100,16 +100,16 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:aea73f309051b42d107e48f995221527f" id="r_aea73f309051b42d107e48f995221527f"><td class="memItemLeft" align="right" valign="top"><a id="aea73f309051b42d107e48f995221527f" name="aea73f309051b42d107e48f995221527f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>PreExecDelegate</b> = FPreExecStepCallback</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PreExecDelegate</b> = <a class="el" href="namespacelibmicroemu.html#a9665187b406afc6969442d406ede52fe">FPreExecStepCallback</a></td></tr>
 <tr class="separator:aea73f309051b42d107e48f995221527f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5350b2b9b6035bc46c1946647c5f6365" id="r_a5350b2b9b6035bc46c1946647c5f6365"><td class="memItemLeft" align="right" valign="top"><a id="a5350b2b9b6035bc46c1946647c5f6365" name="a5350b2b9b6035bc46c1946647c5f6365"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>PostExecDelegate</b> = FPostExecStepCallback</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PostExecDelegate</b> = <a class="el" href="namespacelibmicroemu.html#aa8da8afecd38ff5558b61b78fadf3eb9">FPostExecStepCallback</a></td></tr>
 <tr class="separator:a5350b2b9b6035bc46c1946647c5f6365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5193e6f1bb0c85ca4a2aba1341f5154" id="r_ac5193e6f1bb0c85ca4a2aba1341f5154"><td class="memItemLeft" align="right" valign="top"><a id="ac5193e6f1bb0c85ca4a2aba1341f5154" name="ac5193e6f1bb0c85ca4a2aba1341f5154"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>BkptDelegate</b> = std::function&lt;<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt;BkptFlagsSet&gt;(const u32 &amp;)&gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>BkptDelegate</b> = std::function&lt;<a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt;BkptFlagsSet&gt;(const u32 &amp;)&gt;</td></tr>
 <tr class="separator:ac5193e6f1bb0c85ca4a2aba1341f5154"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac757c7ea47343ce578a7f5a3de1e7d5e" id="r_ac757c7ea47343ce578a7f5a3de1e7d5e"><td class="memItemLeft" align="right" valign="top"><a id="ac757c7ea47343ce578a7f5a3de1e7d5e" name="ac757c7ea47343ce578a7f5a3de1e7d5e"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SvcDelegate</b> = std::function&lt;<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt;SvcFlagsSet&gt;(const u32 &amp;)&gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SvcDelegate</b> = std::function&lt;<a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt;SvcFlagsSet&gt;(const u32 &amp;)&gt;</td></tr>
 <tr class="separator:ac757c7ea47343ce578a7f5a3de1e7d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -148,10 +148,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PreExec</b> (<a class
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PostExec</b> (<a class="el" href="classlibmicroemu_1_1_emu_context.html">EmuContext</a> &amp;emu_ctx)</td></tr>
 <tr class="separator:a0112c1cf08ddb5c9adee9088f3f3f5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4d4d24841685a8b9ff18fb01a030d06" id="r_ac4d4d24841685a8b9ff18fb01a030d06"><td class="memItemLeft" align="right" valign="top"><a id="ac4d4d24841685a8b9ff18fb01a030d06" name="ac4d4d24841685a8b9ff18fb01a030d06"></a>
-<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; BkptFlagsSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Bkpt</b> (const u32 &amp;imm32)</td></tr>
+<a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; BkptFlagsSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Bkpt</b> (const u32 &amp;imm32)</td></tr>
 <tr class="separator:ac4d4d24841685a8b9ff18fb01a030d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b8192dc5e3e1cd8013be5ce6ad912ab" id="r_a1b8192dc5e3e1cd8013be5ce6ad912ab"><td class="memItemLeft" align="right" valign="top"><a id="a1b8192dc5e3e1cd8013be5ce6ad912ab" name="a1b8192dc5e3e1cd8013be5ce6ad912ab"></a>
-<a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; SvcFlagsSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Svc</b> (const u32 &amp;imm32)</td></tr>
+<a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; SvcFlagsSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Svc</b> (const u32 &amp;imm32)</td></tr>
 <tr class="separator:a1b8192dc5e3e1cd8013be5ce6ad912ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>

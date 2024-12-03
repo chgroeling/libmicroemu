@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::BinaryLoadInstrWithImm&lt; TOp, TInstrContext &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::BinaryLoadInstrWithImm&lt; TLoadOp, TInstrContext &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,7 +93,7 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_binary_load_instr_with_imm-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::BinaryLoadInstrWithImm&lt; TOp, TInstrContext &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::BinaryLoadInstrWithImm&lt; TLoadOp, TInstrContext &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -104,32 +104,26 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a243554f37446aa07617ebccd053983c9" id="r_a243554f37446aa07617ebccd053983c9"><td class="memItemLeft" align="right" valign="top"><a id="a243554f37446aa07617ebccd053983c9" name="a243554f37446aa07617ebccd053983c9"></a>
+<tr class="memitem:ae9d473dbd76304a9fc031fd5ca8d6915" id="r_ae9d473dbd76304a9fc031fd5ca8d6915"><td class="memItemLeft" align="right" valign="top"><a id="ae9d473dbd76304a9fc031fd5ca8d6915" name="ae9d473dbd76304a9fc031fd5ca8d6915"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TInstrContext::It</td></tr>
-<tr class="separator:a243554f37446aa07617ebccd053983c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68ed774ef975feeecef21dd9a56e49f3" id="r_a68ed774ef975feeecef21dd9a56e49f3"><td class="memItemLeft" align="right" valign="top"><a id="a68ed774ef975feeecef21dd9a56e49f3" name="a68ed774ef975feeecef21dd9a56e49f3"></a>
+<tr class="separator:ae9d473dbd76304a9fc031fd5ca8d6915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa2420f478dc09939564b57d10ba7152" id="r_afa2420f478dc09939564b57d10ba7152"><td class="memItemLeft" align="right" valign="top"><a id="afa2420f478dc09939564b57d10ba7152" name="afa2420f478dc09939564b57d10ba7152"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
-<tr class="separator:a68ed774ef975feeecef21dd9a56e49f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3dd8f2589feec6901a7d535133b0be8" id="r_af3dd8f2589feec6901a7d535133b0be8"><td class="memItemLeft" align="right" valign="top"><a id="af3dd8f2589feec6901a7d535133b0be8" name="af3dd8f2589feec6901a7d535133b0be8"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:af3dd8f2589feec6901a7d535133b0be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a483a4da737e0c65bd4abb27e3766c8a8" id="r_a483a4da737e0c65bd4abb27e3766c8a8"><td class="memItemLeft" align="right" valign="top"><a id="a483a4da737e0c65bd4abb27e3766c8a8" name="a483a4da737e0c65bd4abb27e3766c8a8"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:a483a4da737e0c65bd4abb27e3766c8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f214dcac730564ea9a39de0b9e6534" id="r_a84f214dcac730564ea9a39de0b9e6534"><td class="memItemLeft" align="right" valign="top"><a id="a84f214dcac730564ea9a39de0b9e6534" name="a84f214dcac730564ea9a39de0b9e6534"></a>
+<tr class="separator:afa2420f478dc09939564b57d10ba7152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75f93c971b70130fd2d0412e4f5babd4" id="r_a75f93c971b70130fd2d0412e4f5babd4"><td class="memItemLeft" align="right" valign="top"><a id="a75f93c971b70130fd2d0412e4f5babd4" name="a75f93c971b70130fd2d0412e4f5babd4"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcTrig</b> = typename TInstrContext::ExcTrig</td></tr>
-<tr class="separator:a84f214dcac730564ea9a39de0b9e6534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a75f93c971b70130fd2d0412e4f5babd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a14bebc6c5ed6351fef899f2cb52b4d2f" id="r_a14bebc6c5ed6351fef899f2cb52b4d2f"><td class="memTemplParams" colspan="2"><a id="a14bebc6c5ed6351fef899f2cb52b4d2f" name="a14bebc6c5ed6351fef899f2cb52b4d2f"></a>
-template&lt;typename TArg &gt; </td></tr>
-<tr class="memitem:a14bebc6c5ed6351fef899f2cb52b4d2f"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg &amp;arg_n, const u32 &amp;imm32, const TArg &amp;arg_t)</td></tr>
-<tr class="separator:a14bebc6c5ed6351fef899f2cb52b4d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66cc6432b8e7c5382d5b2532a361e5aa" id="r_a66cc6432b8e7c5382d5b2532a361e5aa"><td class="memTemplParams" colspan="2"><a id="a66cc6432b8e7c5382d5b2532a361e5aa" name="a66cc6432b8e7c5382d5b2532a361e5aa"></a>
+template&lt;typename TTgt , typename TArg0 &gt; </td></tr>
+<tr class="memitem:a66cc6432b8e7c5382d5b2532a361e5aa"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TTgt &amp;rt, const TArg0 &amp;rn, const u32 &amp;imm32)</td></tr>
+<tr class="separator:a66cc6432b8e7c5382d5b2532a361e5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename TOp, typename TInstrContext&gt;<br />
-class libmicroemu::internal::BinaryLoadInstrWithImm&lt; TOp, TInstrContext &gt;</div><p>Load from immediate adr to register. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename TLoadOp, typename TInstrContext&gt;<br />
+class libmicroemu::internal::BinaryLoadInstrWithImm&lt; TLoadOp, TInstrContext &gt;</div><p>Load from immediate adr to register. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="binary__load__instr__with__imm_8h_source.html">binary_load_instr_with_imm.h</a></li>
 </ul>

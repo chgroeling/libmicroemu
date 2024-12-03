@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,7 +96,6 @@ $(function(){ initResizable(false); });
 <li><b>Embedding ARM emulation</b> seamlessly into larger projects</li>
 </ul>
 <p>While shipped with a command-line application (called <em>microemu</em>), <em>libmicroemu</em> can be used independently, allowing for flexible integration.</p>
-<p><em>libmicroemu</em> provides ARM emulation with simplicity and flexibility for embedding in C++ applications.</p>
 <p><a href="https://github.com/chgroeling/libmicroemu/releases"><img src="https://img.shields.io/github/v/release/chgroeling/libmicroemu?label=release&amp;sort=semver" alt="GitHub release (latest SemVer)" class="inline"/></a><a href="https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml"><img src="https://github.com/chgroeling/libmicroemu/actions/workflows/tests.yml/badge.svg" alt="tests" style="pointer-events: none;" class="inline"/></a><a href="https://chgroeling.github.io/libmicroemu"><img src="https://github.com/chgroeling/libmicroemu/actions/workflows/docs.yml/badge.svg" alt="docs" style="pointer-events: none;" class="inline"/></a><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" style="pointer-events: none;" class="inline"/></a></p>
 <h2><a class="anchor" id="autotoc_md1"></a>
 Key Features</h2>
@@ -112,8 +111,8 @@ Key Features</h2>
 <li><b>No C++ Exceptions</b> <br  />
  The emulator is implemented without the use of C++ exceptions, providing a predictable control flow and simplifying integration into projects that avoid exception handling.</li>
 <li><b>Optional Command-Line Interface</b> <br  />
- The companion CLI program <em>microemu</em> simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while <em>libmicroemu</em> itself remains dependency-free. Semihosting Support</li>
-<li><b>Semihosting</b> <br  />
+ The companion CLI program <em>microemu</em> simplifies testing and debugging. It requires Conan for managing dependencies (fmt, spdlog, cxxopts), while <em>libmicroemu</em> itself remains dependency-free.</li>
+<li><b>Semihosting Support</b> <br  />
  Provides built-in semihosting, enabling communication between the emulator and the host system for tasks such as file I/O and console output.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
@@ -167,51 +166,50 @@ Embedding libmicroemu in Your Project</h1>
 <p><em>libmicroemu</em> is designed to be easily integrated into larger C++ projects to provide ARM emulation capabilities. Below is a basic example demonstrating how to set up and execute an ELF binary using the library.</p>
 <h2><a class="anchor" id="autotoc_md9"></a>
 Example: Integrating libmicroemu</h2>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;libmicroemu/machine.h&quot;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="machine_8h.html">libmicroemu/machine.h</a>&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Change this to the path of your ELF file</span></div>
+<div class="line"><span class="comment">// Path to the ELF file</span></div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *kElfPath = <span class="stringliteral">&quot;coremark/prebuilt/bin/coremark.elf&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">static</span> libmicroemu::me_adr_t kFlashSegVadr = 0x0U;</div>
 <div class="line"><span class="keyword">constexpr</span> <span class="keyword">static</span> libmicroemu::me_adr_t kRam1SegVadr = 0x20000000U;</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main()</div>
-<div class="line">{</div>
-<div class="line">    <a class="code hl_class" href="classlibmicroemu_1_1_machine.html">libmicroemu::Machine</a> machine;</div>
-<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Using libmicroemu version: &quot;</span> &lt;&lt; machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#a41d9ccc5599dde9f3f214135a66aae9b">GetVersion</a>() &lt;&lt; std::endl;</div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">  <a class="code hl_class" href="classlibmicroemu_1_1_machine.html">libmicroemu::Machine</a> machine;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Using libmicroemu version: &quot;</span> &lt;&lt; machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#a41d9ccc5599dde9f3f214135a66aae9b">GetVersion</a>() &lt;&lt; std::endl;</div>
 <div class="line"> </div>
-<div class="line">    <span class="keyword">auto</span> flash_seg = std::vector&lt;uint8_t&gt;(0x20000u); <span class="comment">// allocate 128KB for FLASH segment</span></div>
-<div class="line">    <span class="keyword">auto</span> ram1_seg = std::vector&lt;uint8_t&gt;(0x40000u);  <span class="comment">// allocate 256KB for RAM1 segment</span></div>
+<div class="line">  <span class="comment">// Allocate memory for FLASH and RAM1 segments</span></div>
+<div class="line">  <span class="keyword">auto</span> flash_seg = std::vector&lt;uint8_t&gt;(0x20000u); <span class="comment">// 128KB for FLASH</span></div>
+<div class="line">  <span class="keyword">auto</span> ram1_seg = std::vector&lt;uint8_t&gt;(0x40000u);  <span class="comment">// 256KB for RAM1</span></div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Set the FLASH and RAM1 segments</span></div>
-<div class="line">    machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#ae157cfa801f766a3641e02ad801e6aeb">SetFlashSegment</a>(flash_seg.data(), flash_seg.size(), kFlashSegVadr);</div>
-<div class="line">    machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#ad21e56744fbf8b9e17f84fc8c176341a">SetRam1Segment</a>(ram1_seg.data(), ram1_seg.size(), kRam1SegVadr);</div>
+<div class="line">  <span class="comment">// Set up memory segments</span></div>
+<div class="line">  machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#ae157cfa801f766a3641e02ad801e6aeb">SetFlashSegment</a>(flash_seg.data(), flash_seg.size(), kFlashSegVadr);</div>
+<div class="line">  machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#ad21e56744fbf8b9e17f84fc8c176341a">SetRam1Segment</a>(ram1_seg.data(), ram1_seg.size(), kRam1SegVadr);</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Load the ELF file and set the entry point to the one given in the ELF file</span></div>
-<div class="line">    <span class="keyword">auto</span> res = machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#ad50d119d83a629a0588765117bd904bd">Load</a>(kElfPath, <span class="keyword">true</span>);</div>
-<div class="line">    <span class="keywordflow">if</span> (res.IsErr())</div>
-<div class="line">    {</div>
-<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to load ELF file.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        <span class="keywordflow">return</span> EXIT_FAILURE;</div>
-<div class="line">    }</div>
+<div class="line">  <span class="comment">// Load the ELF file and set the entry point</span></div>
+<div class="line">  <span class="keywordflow">if</span> (machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#af2b65fd6dcefc96f69974afb3b4ee66e">Load</a>(kElfPath, <span class="keyword">true</span>) != <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0a8c632159fa131f09d04f94e3cbcd8782">libmicroemu::StatusCode::kSuccess</a>) {</div>
+<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to load ELF file.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
+<div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Execute the ELF file</span></div>
-<div class="line">    <span class="keyword">auto</span> res_exec = machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#a3106a65ee173063b3f9a591891345eab">Exec</a>();</div>
-<div class="line">    <span class="keywordflow">if</span> (res_exec.IsErr())</div>
-<div class="line">    {</div>
-<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to execute ELF file.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        <span class="keywordflow">return</span> EXIT_FAILURE;</div>
-<div class="line">    }</div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">  <span class="comment">// Execute the ELF file</span></div>
+<div class="line">  <span class="keyword">auto</span> res_exec = machine.<a class="code hl_function" href="classlibmicroemu_1_1_machine.html#a7f302218280c95778710a790296b9514">Exec</a>();</div>
+<div class="line">  <span class="keywordflow">if</span> (res_exec.IsErr()) {</div>
+<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to execute ELF file.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclasslibmicroemu_1_1_machine_html"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html">libmicroemu::Machine</a></div><div class="ttdef"><b>Definition</b> machine.h:34</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_a3106a65ee173063b3f9a591891345eab"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#a3106a65ee173063b3f9a591891345eab">libmicroemu::Machine::Exec</a></div><div class="ttdeci">Result&lt; EmuResult &gt; Exec(i32 max_instructions=-1, FPreExecStepCallback cb_pre_exec=nullptr, FPostExecStepCallback cb_post_exec=nullptr) noexcept</div><div class="ttdoc">Executes the loaded program.</div><div class="ttdef"><b>Definition</b> machine.cpp:116</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_a41d9ccc5599dde9f3f214135a66aae9b"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#a41d9ccc5599dde9f3f214135a66aae9b">libmicroemu::Machine::GetVersion</a></div><div class="ttdeci">std::string_view GetVersion() noexcept</div><div class="ttdoc">Gets the version of the library.</div><div class="ttdef"><b>Definition</b> machine.cpp:140</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_ad21e56744fbf8b9e17f84fc8c176341a"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#ad21e56744fbf8b9e17f84fc8c176341a">libmicroemu::Machine::SetRam1Segment</a></div><div class="ttdeci">void SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept</div><div class="ttdoc">Sets the RAM1 segment The RAM1 segment is where a microcontroller stores its data....</div><div class="ttdef"><b>Definition</b> machine.cpp:98</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_ad50d119d83a629a0588765117bd904bd"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#ad50d119d83a629a0588765117bd904bd">libmicroemu::Machine::Load</a></div><div class="ttdeci">Result&lt; void &gt; Load(const char *elf_file, bool set_entry_point=true) noexcept</div><div class="ttdoc">Loads an elf file into memory.</div><div class="ttdef"><b>Definition</b> machine.cpp:27</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_ae157cfa801f766a3641e02ad801e6aeb"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#ae157cfa801f766a3641e02ad801e6aeb">libmicroemu::Machine::SetFlashSegment</a></div><div class="ttdeci">void SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept</div><div class="ttdoc">Sets the Flash segment The flash segment is where a microcontroller stores its program code....</div><div class="ttdef"><b>Definition</b> machine.cpp:92</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_machine_html"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html">libmicroemu::Machine</a></div><div class="ttdoc">Represents the main emulation machine for handling microcontroller emulation.</div><div class="ttdef"><b>Definition</b> machine.h:54</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_a41d9ccc5599dde9f3f214135a66aae9b"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#a41d9ccc5599dde9f3f214135a66aae9b">libmicroemu::Machine::GetVersion</a></div><div class="ttdeci">std::string_view GetVersion() noexcept</div><div class="ttdoc">Gets the version of the library.</div><div class="ttdef"><b>Definition</b> machine.cpp:146</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_a7f302218280c95778710a790296b9514"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#a7f302218280c95778710a790296b9514">libmicroemu::Machine::Exec</a></div><div class="ttdeci">ExecResult Exec(i64 max_instructions=-1, FPreExecStepCallback cb_pre_exec=nullptr, FPostExecStepCallback cb_post_exec=nullptr) noexcept</div><div class="ttdoc">Executes the loaded program.</div><div class="ttdef"><b>Definition</b> machine.cpp:123</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_ad21e56744fbf8b9e17f84fc8c176341a"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#ad21e56744fbf8b9e17f84fc8c176341a">libmicroemu::Machine::SetRam1Segment</a></div><div class="ttdeci">void SetRam1Segment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept</div><div class="ttdoc">Sets the RAM1 segment The RAM1 segment is where a microcontroller stores its data....</div><div class="ttdef"><b>Definition</b> machine.cpp:101</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_ae157cfa801f766a3641e02ad801e6aeb"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#ae157cfa801f766a3641e02ad801e6aeb">libmicroemu::Machine::SetFlashSegment</a></div><div class="ttdeci">void SetFlashSegment(u8 *seg_ptr, me_size_t seg_size, me_adr_t seg_vadr) noexcept</div><div class="ttdoc">Sets the Flash segment The flash segment is where a microcontroller stores its program code....</div><div class="ttdef"><b>Definition</b> machine.cpp:95</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1_machine_html_af2b65fd6dcefc96f69974afb3b4ee66e"><div class="ttname"><a href="classlibmicroemu_1_1_machine.html#af2b65fd6dcefc96f69974afb3b4ee66e">libmicroemu::Machine::Load</a></div><div class="ttdeci">StatusCode Load(const char *elf_file, bool set_entry_point=false) noexcept</div><div class="ttdoc">Loads an ELF file into memory and optionally sets the entry point.</div><div class="ttdef"><b>Definition</b> machine.cpp:27</div></div>
+<div class="ttc" id="amachine_8h_html"><div class="ttname"><a href="machine_8h.html">machine.h</a></div><div class="ttdoc">Contains the Machine class which is the main emulation machine for handling microcontroller emulation...</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_a8986ac92210d741de2fbcbaf489c0ee0a8c632159fa131f09d04f94e3cbcd8782"><div class="ttname"><a href="namespacelibmicroemu.html#a8986ac92210d741de2fbcbaf489c0ee0a8c632159fa131f09d04f94e3cbcd8782">libmicroemu::StatusCode::kSuccess</a></div><div class="ttdeci">@ kSuccess</div><div class="ttdoc">Operation succeeded successfully.</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
 Embedding Considerations</h2>
 <ul>

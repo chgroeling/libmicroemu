@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -105,19 +105,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TI
 <tr class="memitem:a147d36b19349cea6a20bc7eb69c0c367" id="r_a147d36b19349cea6a20bc7eb69c0c367"><td class="memItemLeft" align="right" valign="top"><a id="a147d36b19349cea6a20bc7eb69c0c367" name="a147d36b19349cea6a20bc7eb69c0c367"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
 <tr class="separator:a147d36b19349cea6a20bc7eb69c0c367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac50e3097713fe5f926c0630c791ba508" id="r_ac50e3097713fe5f926c0630c791ba508"><td class="memItemLeft" align="right" valign="top"><a id="ac50e3097713fe5f926c0630c791ba508" name="ac50e3097713fe5f926c0630c791ba508"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:ac50e3097713fe5f926c0630c791ba508"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41257274abcaeb2fb6ca71c7803fa28d" id="r_a41257274abcaeb2fb6ca71c7803fa28d"><td class="memItemLeft" align="right" valign="top"><a id="a41257274abcaeb2fb6ca71c7803fa28d" name="a41257274abcaeb2fb6ca71c7803fa28d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:a41257274abcaeb2fb6ca71c7803fa28d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aff5eb2e9819864caf5c8a6f0b46ed074" id="r_aff5eb2e9819864caf5c8a6f0b46ed074"><td class="memTemplParams" colspan="2"><a id="aff5eb2e9819864caf5c8a6f0b46ed074" name="aff5eb2e9819864caf5c8a6f0b46ed074"></a>
-template&lt;typename TArg0 &gt; </td></tr>
-<tr class="memitem:aff5eb2e9819864caf5c8a6f0b46ed074"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg0 &amp;arg_d, const <a class="el" href="structlibmicroemu_1_1_thumb_immediate_result.html">ThumbImmediateResult</a> &amp;imm_carry)</td></tr>
-<tr class="separator:aff5eb2e9819864caf5c8a6f0b46ed074"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc3ce1ae2e3bd302ae8f9cc15982cade" id="r_afc3ce1ae2e3bd302ae8f9cc15982cade"><td class="memTemplParams" colspan="2"><a id="afc3ce1ae2e3bd302ae8f9cc15982cade" name="afc3ce1ae2e3bd302ae8f9cc15982cade"></a>
+template&lt;typename TDest &gt; </td></tr>
+<tr class="memitem:afc3ce1ae2e3bd302ae8f9cc15982cade"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const <a class="el" href="structlibmicroemu_1_1_thumb_immediate_result.html">ThumbImmediateResult</a> &amp;imm_carry)</td></tr>
+<tr class="separator:afc3ce1ae2e3bd302ae8f9cc15982cade"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="unary__instr__imm__carry_8h_source.html">unary_instr_imm_carry.h</a></li>

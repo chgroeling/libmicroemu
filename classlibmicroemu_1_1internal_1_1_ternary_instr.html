@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -105,19 +105,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TI
 <tr class="memitem:a4b89fbd1063618773958bd6f576b2ac6" id="r_a4b89fbd1063618773958bd6f576b2ac6"><td class="memItemLeft" align="right" valign="top"><a id="a4b89fbd1063618773958bd6f576b2ac6" name="a4b89fbd1063618773958bd6f576b2ac6"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
 <tr class="separator:a4b89fbd1063618773958bd6f576b2ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a737ccdfc8fcfabe95496cbc85bc13e4e" id="r_a737ccdfc8fcfabe95496cbc85bc13e4e"><td class="memItemLeft" align="right" valign="top"><a id="a737ccdfc8fcfabe95496cbc85bc13e4e" name="a737ccdfc8fcfabe95496cbc85bc13e4e"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:a737ccdfc8fcfabe95496cbc85bc13e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae6678bc7ed97224942ad8ff5ff782d5" id="r_aae6678bc7ed97224942ad8ff5ff782d5"><td class="memItemLeft" align="right" valign="top"><a id="aae6678bc7ed97224942ad8ff5ff782d5" name="aae6678bc7ed97224942ad8ff5ff782d5"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:aae6678bc7ed97224942ad8ff5ff782d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:abb4b7daad21f9bd23bcdc976ff9b998d" id="r_abb4b7daad21f9bd23bcdc976ff9b998d"><td class="memTemplParams" colspan="2"><a id="abb4b7daad21f9bd23bcdc976ff9b998d" name="abb4b7daad21f9bd23bcdc976ff9b998d"></a>
-template&lt;typename TArg0 , typename TArg1 , typename TArg2 , typename TArg3 &gt; </td></tr>
-<tr class="memitem:abb4b7daad21f9bd23bcdc976ff9b998d"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg0 &amp;arg_n, const TArg1 &amp;arg_m, const TArg2 &amp;arg_d, const TArg3 &amp;arg_a)</td></tr>
-<tr class="separator:abb4b7daad21f9bd23bcdc976ff9b998d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6089206663b9a438b88e748ad7a733a2" id="r_a6089206663b9a438b88e748ad7a733a2"><td class="memTemplParams" colspan="2"><a id="a6089206663b9a438b88e748ad7a733a2" name="a6089206663b9a438b88e748ad7a733a2"></a>
+template&lt;typename TDest , typename TArg0 , typename TArg1 , typename TArg2 &gt; </td></tr>
+<tr class="memitem:a6089206663b9a438b88e748ad7a733a2"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const TArg0 &amp;rn, const TArg1 &amp;rm, const TArg2 &amp;ra)</td></tr>
+<tr class="separator:a6089206663b9a438b88e748ad7a733a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="ternary__instr_8h_source.html">ternary_instr.h</a></li>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -98,59 +98,59 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1">   10</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1">ExceptionType</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ac372b1b54561a3ca533a61adafccfc8b">kReset</a> = 1U, </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1">   12</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1">ExceptionType</a> {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1aa59fe8cd08f566a321324bf42dccc51f">kNMI</a> = 2U,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1aad638babbb55ab33cb9e26d5dcc62373">kHardFault</a> = 3U,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a326943687e5f9e431585a085d39b0f8e">kMemoryManagementFault</a> = 4U,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">kBusFault</a> = 5U,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a966f486a56f5dca290269a1e57772c5e">kUsageFault</a> = 6U,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a7df7b177c448e0198264dc64974bea94">kReserved1</a> = 7U,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae63c0c4600bc07f48d795951385bb785">kReserved2</a> = 8U,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ad01df7ee71fb30753be759dbfb8786fc">kReserved3</a> = 9U,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a7054d7e4b2dd68f34d7c57d8b8338809">kReserved4</a> = 9U,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ad40ba9d6b49481a011bd099baf4a4ac0">kReserved5</a> = 10U,</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a8d51cb853b3624a9256a2204482ba688">kSVCall</a> = 11U,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a3257ead45469fcbd1950991d3f87398e">kDebugMonitor</a> = 12U,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5c86e03039f37fb5fc9715a05f89dfc2">kReserved6</a> = 13U,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1aabf10ac1082046bb5c8d1094f06bdaee">kPendSV</a> = 14U,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936">kSysTick</a> = 15U</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
-</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ac372b1b54561a3ca533a61adafccfc8b">kReset</a> = 1U, </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1aa59fe8cd08f566a321324bf42dccc51f">kNMI</a> = 2U,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1aad638babbb55ab33cb9e26d5dcc62373">kHardFault</a> = 3U,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a326943687e5f9e431585a085d39b0f8e">kMemoryManagementFault</a> = 4U,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae4d6066c5f7d6a637b99a974a03f8b46">kBusFault</a> = 5U,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a966f486a56f5dca290269a1e57772c5e">kUsageFault</a> = 6U,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a7df7b177c448e0198264dc64974bea94">kReserved1</a> = 7U,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ae63c0c4600bc07f48d795951385bb785">kReserved2</a> = 8U,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ad01df7ee71fb30753be759dbfb8786fc">kReserved3</a> = 9U,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a7054d7e4b2dd68f34d7c57d8b8338809">kReserved4</a> = 9U,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1ad40ba9d6b49481a011bd099baf4a4ac0">kReserved5</a> = 10U,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a8d51cb853b3624a9256a2204482ba688">kSVCall</a> = 11U,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a3257ead45469fcbd1950991d3f87398e">kDebugMonitor</a> = 12U,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5c86e03039f37fb5fc9715a05f89dfc2">kReserved6</a> = 13U,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1aabf10ac1082046bb5c8d1094f06bdaee">kPendSV</a> = 14U,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936">kSysTick</a> = 15U</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> kNoOfExternalIrqs = 32U;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> kLastInternalException = <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936">ExceptionType::kSysTick</a>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountInternalExceptions() noexcept {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(kLastInternalException) + 1U;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>};</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountExceptions() noexcept {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">return</span> CountInternalExceptions() + kNoOfExternalIrqs;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace libmicroemu</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> kNoOfExternalIrqs = 32U;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> kLastInternalException = <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936">ExceptionType::kSysTick</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountInternalExceptions() noexcept {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(kLastInternalException) + 1U;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountExceptions() noexcept {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keywordflow">return</span> CountInternalExceptions() + kNoOfExternalIrqs;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace libmicroemu</span></div>
 <div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1">libmicroemu::ExceptionType</a></div><div class="ttdeci">ExceptionType</div><div class="ttdoc">Exception enumeration.</div><div class="ttdef"><b>Definition</b> exception_type.h:10</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1">libmicroemu::ExceptionType</a></div><div class="ttdeci">ExceptionType</div><div class="ttdoc">Exception enumeration.</div><div class="ttdef"><b>Definition</b> exception_type.h:12</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1a3257ead45469fcbd1950991d3f87398e"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a3257ead45469fcbd1950991d3f87398e">libmicroemu::ExceptionType::kDebugMonitor</a></div><div class="ttdeci">@ kDebugMonitor</div><div class="ttdoc">Debugging related ExceptionsOps.</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1a326943687e5f9e431585a085d39b0f8e"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a326943687e5f9e431585a085d39b0f8e">libmicroemu::ExceptionType::kMemoryManagementFault</a></div><div class="ttdeci">@ kMemoryManagementFault</div><div class="ttdoc">Memory related fault (bus access error either for instructions or data)</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936"><div class="ttname"><a href="namespacelibmicroemu.html#a59fde2619e3c9f661be510ea9229c0e1a5771e9df610ca43dfbcd4baf40fc6936">libmicroemu::ExceptionType::kSysTick</a></div><div class="ttdeci">@ kSysTick</div><div class="ttdoc">SysTick exception, used for system timer.</div></div>

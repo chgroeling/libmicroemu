@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -94,23 +94,22 @@ $(function(){ initResizable(false); });
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;libmicroemu/result.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="result_8h.html">libmicroemu/internal/result.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;libmicroemu/types.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>internal {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">enum class</span> SvcFlags : u8 {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  kRequestExit = 0x1U &lt;&lt; 0U,      <span class="comment">// Application exits via exit keyword</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  kRequestErrorExit = 0x1U &lt;&lt; 1U, <span class="comment">// Application exit was by unusual way.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  kOmitException = 0x1U &lt;&lt; 2U     <span class="comment">// Omit Exception ..svc does not execute Exception</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>};</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using </span>SvcFlagsSet = uint8_t;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace libmicroemu</span></div>
-<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">enum class</span> SvcFlags : u8 {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  kRequestExit = 0x1U &lt;&lt; 0U,      <span class="comment">// Application exits via exit keyword</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  kRequestErrorExit = 0x1U &lt;&lt; 1U, <span class="comment">// Application exit was by unusual way.</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  kOmitException = 0x1U &lt;&lt; 2U     <span class="comment">// Omit Exception ..svc does not execute Exception</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>};</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using </span>SvcFlagsSet = uint8_t;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace libmicroemu::internal</span></div>
+<div class="ttc" id="anamespacelibmicroemu_1_1internal_html"><div class="ttname"><a href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a></div><div class="ttdoc">The libmicroemu::internal namespace contains all classes and functions of libmicroemu which are priva...</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="aresult_8h_html"><div class="ttname"><a href="result_8h.html">result.h</a></div><div class="ttdoc">Contains the Result class which is used to return the result of a function.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -100,253 +100,251 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu.html">libmicroemu</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>internal {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html">   12</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bit_manip.html">BitManip</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="comment">// clang-format off</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">static_assert</span>(</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        std::is_same&lt;T, u64&gt;::value ||</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        std::is_same&lt;T, u32&gt;::value ||</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        std::is_same&lt;T, u16&gt;::value || </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        std::is_same&lt;T, u8&gt;::value,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="stringliteral">&quot;BitManip only works for u32, u16 and u8&quot;</span>);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="comment">// clang-format on</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">   36</a></span>  <span class="keyword">template</span> &lt;T alignment&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">AlignDown</a>(<span class="keyword">const</span> T &amp;address) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (alignment == 0U)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      <span class="keywordflow">return</span> address;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">return</span> address &amp; ~(alignment - 1U);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  }</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html">   11</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bit_manip.html">BitManip</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <span class="comment">// clang-format off</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        std::is_same&lt;T, u64&gt;::value ||</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        std::is_same&lt;T, u32&gt;::value ||</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        std::is_same&lt;T, u16&gt;::value || </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        std::is_same&lt;T, u8&gt;::value,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="stringliteral">&quot;BitManip only works for u32, u16 and u8&quot;</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="comment">// clang-format on</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">   35</a></span>  <span class="keyword">template</span> &lt;T alignment&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">AlignDown</a>(<span class="keyword">const</span> T &amp;address) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (alignment == 0U)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      <span class="keywordflow">return</span> address;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> address &amp; ~(alignment - 1U);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  }</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">   56</a></span>  <span class="keyword">template</span> &lt;T alignment&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">AlignUp</a>(<span class="keyword">const</span> T &amp;address) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span> (alignment == 0U) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>      <span class="keywordflow">return</span> address;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> (address + (alignment - 1U)) &amp; ~(alignment - 1U);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">   55</a></span>  <span class="keyword">template</span> &lt;T alignment&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">AlignUp</a>(<span class="keyword">const</span> T &amp;address) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (alignment == 0U) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      <span class="keywordflow">return</span> address;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> (address + (alignment - 1U)) &amp; ~(alignment - 1U);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  }</div>
 </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">   68</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask</a>() {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) &lt;&lt; bit);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">   67</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask</a>() {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) &lt;&lt; bit);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  }</div>
 </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a9fc28e84ade69b1e8fae777e113f3643">   78</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> last_bit, <span class="keywordtype">unsigned</span> first_bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a9fc28e84ade69b1e8fae777e113f3643">GenerateBitMask</a>() {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (last_bit == <span class="keyword">sizeof</span>(T) * 8U - 1U) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      T <span class="keyword">constexpr</span> msk = ~static_cast&lt;T&gt;(0U);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      <span class="keyword">auto</span> <span class="keyword">constexpr</span> shift_range = last_bit - first_bit + 1U;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      T <span class="keyword">constexpr</span> one = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      T <span class="keyword">constexpr</span> msk = (one &lt;&lt; shift_range) - one;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a9fc28e84ade69b1e8fae777e113f3643">   77</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> last_bit, <span class="keywordtype">unsigned</span> first_bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a9fc28e84ade69b1e8fae777e113f3643">GenerateBitMask</a>() {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (last_bit == <span class="keyword">sizeof</span>(T) * 8U - 1U) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      T <span class="keyword">constexpr</span> msk = ~static_cast&lt;T&gt;(0U);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      <span class="keyword">auto</span> <span class="keyword">constexpr</span> shift_range = last_bit - first_bit + 1U;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      T <span class="keyword">constexpr</span> one = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      T <span class="keyword">constexpr</span> msk = (one &lt;&lt; shift_range) - one;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  }</div>
 </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad077b7df3af1c488667b25790933c5a4">   97</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad077b7df3af1c488667b25790933c5a4">GenerateBitMask</a>(<span class="keywordtype">unsigned</span> last_bit, <span class="keywordtype">unsigned</span> first_bit) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">if</span> (last_bit == <span class="keyword">sizeof</span>(T) * 8U - 1U) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>      T <span class="keyword">constexpr</span> msk = ~static_cast&lt;T&gt;(0U);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      <span class="keyword">auto</span> shift_range = last_bit - first_bit + 1U;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      T <span class="keyword">constexpr</span> one = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      T msk = (one &lt;&lt; shift_range) - one;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad077b7df3af1c488667b25790933c5a4">   96</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad077b7df3af1c488667b25790933c5a4">GenerateBitMask</a>(<span class="keywordtype">unsigned</span> last_bit, <span class="keywordtype">unsigned</span> first_bit) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (last_bit == <span class="keyword">sizeof</span>(T) * 8U - 1U) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      T <span class="keyword">constexpr</span> msk = ~static_cast&lt;T&gt;(0U);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      <span class="keyword">auto</span> shift_range = last_bit - first_bit + 1U;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      T <span class="keyword">constexpr</span> one = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      T msk = (one &lt;&lt; shift_range) - one;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(msk &lt;&lt; first_bit);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  }</div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">  115</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">IsolateBit</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> (value &amp; (<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) &lt;&lt; bit)) &gt;&gt; bit;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">  114</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">IsolateBit</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">return</span> (value &amp; (<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) &lt;&lt; bit)) &gt;&gt; bit;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  }</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">  125</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">IsBitSet</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">return</span> (value &amp; (<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) &lt;&lt; bit)) != 0;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">  124</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">IsBitSet</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> (value &amp; (<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) &lt;&lt; bit)) != 0;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  }</div>
 </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  <span class="comment">// TODO: Rename to ExtractBits1R</span></div>
-<div class="foldopen" id="foldopen00138" data-start="{" data-end="}">
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">  138</a></span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> last_bit, <span class="keywordtype">unsigned</span> first_bit&gt; <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">Slice1R</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordflow">return</span> (value &amp; <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask&lt;last_bit, first_bit&gt;</a>()) &gt;&gt; first_bit;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> last_bit, <span class="keywordtype">unsigned</span> first_bit&gt;</div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">  136</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">ExtractBits1R</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">return</span> (value &amp; <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask&lt;last_bit, first_bit&gt;</a>()) &gt;&gt; first_bit;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  }</div>
 </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">  154</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <span class="keyword">static</span> U <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">ExtractType</a>(T value, u32 start_byte) {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    assert(start_byte &gt;= 0U &amp;&amp; start_byte &lt;= (<span class="keyword">sizeof</span>(T) - 1U));</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">auto</span> bitpos = start_byte * 8U;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keyword">auto</span> <span class="keyword">constexpr</span> bitmask = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask</a>&lt;<span class="keyword">sizeof</span>(U) * 8U - 1U, 0U&gt;() - 1U;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>((value &gt;&gt; bitpos) &amp; bitmask);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">  152</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <span class="keyword">static</span> U <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">ExtractType</a>(T value, u32 start_byte) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    assert(start_byte &gt;= 0U &amp;&amp; start_byte &lt;= (<span class="keyword">sizeof</span>(T) - 1U));</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keyword">auto</span> bitpos = start_byte * 8U;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keyword">auto</span> <span class="keyword">constexpr</span> bitmask = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask</a>&lt;<span class="keyword">sizeof</span>(U) * 8U - 1U, 0U&gt;() - 1U;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>((value &gt;&gt; bitpos) &amp; bitmask);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  }</div>
 </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">  169</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">InsertType</a>(T value, u32 start_byte, U insert_val) {</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    assert(start_byte &gt;= 0U &amp;&amp; start_byte &lt;= (<span class="keyword">sizeof</span>(T) - 1U));</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keyword">auto</span> start_pos = start_byte * 8U;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">auto</span> end_pos = start_pos + <span class="keyword">sizeof</span>(U) * 8 - 1U;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">auto</span> mask = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask</a>(end_pos, start_pos);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">auto</span> shifted_bits = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(insert_val) &lt;&lt; start_pos;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordflow">return</span> (value &amp; (~mask)) | (shifted_bits &amp; mask);</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>  }</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">  167</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">InsertType</a>(T value, u32 start_byte, U insert_val) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    assert(start_byte &gt;= 0U &amp;&amp; start_byte &lt;= (<span class="keyword">sizeof</span>(T) - 1U));</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keyword">auto</span> start_pos = start_byte * 8U;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">auto</span> end_pos = start_pos + <span class="keyword">sizeof</span>(U) * 8 - 1U;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">auto</span> mask = <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask</a>(end_pos, start_pos);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keyword">auto</span> shifted_bits = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(insert_val) &lt;&lt; start_pos;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">return</span> (value &amp; (~mask)) | (shifted_bits &amp; mask);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  }</div>
 </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> r2_last_bit, <span class="keywordtype">unsigned</span> r2_first_bit, <span class="keywordtype">unsigned</span> r1_last_bit,</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordtype">unsigned</span> r1_first_bit&gt;</div>
-<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ab4d50cdefef2e31532940ffc5097671a">  190</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ab4d50cdefef2e31532940ffc5097671a">Slice2R</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">return</span> ((value &amp; <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask&lt;r2_last_bit, r2_first_bit&gt;</a>()) &gt;&gt;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            (r2_first_bit - r1_last_bit + r1_first_bit - 1U)) +</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>           ((value &amp; <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask&lt;r1_last_bit, r1_first_bit&gt;</a>()) &gt;&gt; (r1_first_bit));</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> r2_last_bit, <span class="keywordtype">unsigned</span> r2_first_bit, <span class="keywordtype">unsigned</span> r1_last_bit,</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordtype">unsigned</span> r1_first_bit&gt;</div>
+<div class="foldopen" id="foldopen00188" data-start="{" data-end="}">
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a2c72c88ad7c411b5bdaa257b6ecdbf49">  188</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a2c72c88ad7c411b5bdaa257b6ecdbf49">ExtractBits2R</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordflow">return</span> ((value &amp; <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask&lt;r2_last_bit, r2_first_bit&gt;</a>()) &gt;&gt;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            (r2_first_bit - r1_last_bit + r1_first_bit - 1U)) +</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>           ((value &amp; <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">GenerateBitMask&lt;r1_last_bit, r1_first_bit&gt;</a>()) &gt;&gt; (r1_first_bit));</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  }</div>
 </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="foldopen" id="foldopen00202" data-start="{" data-end="}">
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">  202</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <span class="keyword">static</span> <span class="keyword">inline</span> U <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">ZeroExtend</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keyword">static_assert</span>(std::is_same&lt;U, u32&gt;::value || std::is_same&lt;U, u16&gt;::value ||</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                      std::is_same&lt;U, u8&gt;::value,</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                  <span class="stringliteral">&quot;ZeroExtend only works for u32, u16 and u8&quot;</span>);</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(value);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="foldopen" id="foldopen00200" data-start="{" data-end="}">
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">  200</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <span class="keyword">static</span> <span class="keyword">inline</span> U <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">ZeroExtend</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">static_assert</span>(std::is_same&lt;U, u32&gt;::value || std::is_same&lt;U, u16&gt;::value ||</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                      std::is_same&lt;U, u8&gt;::value,</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                  <span class="stringliteral">&quot;ZeroExtend only works for u32, u16 and u8&quot;</span>);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(value);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  }</div>
 </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">  216</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keywordtype">unsigned</span> top_bit&gt; <span class="keyword">static</span> <span class="keyword">inline</span> U <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">SignExtend</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keyword">static_assert</span>(std::is_same&lt;U, u32&gt;::value || std::is_same&lt;U, u16&gt;::value ||</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                      std::is_same&lt;U, u8&gt;::value,</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                  <span class="stringliteral">&quot;ZeroExtend only works for u32, u16 and u8&quot;</span>);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    T s = (value &gt;&gt; top_bit) &amp; 0x1U;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    U bitmask = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bit_manip.html">BitManip&lt;U&gt;::template</a> GenerateBitMask&lt;no_of_bits&lt;U&gt;::N, top_bit&gt;();</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    U value_u = <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(value);</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">if</span> (s) {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      value_u = value_u | bitmask;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>      value_u = value_u &amp; ~bitmask;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">return</span> value_u;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  }</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="foldopen" id="foldopen00214" data-start="{" data-end="}">
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">  214</a></span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keywordtype">unsigned</span> top_bit&gt; <span class="keyword">static</span> <span class="keyword">inline</span> U <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">SignExtend</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keyword">static_assert</span>(std::is_same&lt;U, u32&gt;::value || std::is_same&lt;U, u16&gt;::value ||</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>                      std::is_same&lt;U, u8&gt;::value,</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                  <span class="stringliteral">&quot;ZeroExtend only works for u32, u16 and u8&quot;</span>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    T s = (value &gt;&gt; top_bit) &amp; 0x1U;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    U bitmask = <a class="code hl_class" href="classlibmicroemu_1_1internal_1_1_bit_manip.html">BitManip&lt;U&gt;::template</a> GenerateBitMask&lt;no_of_bits&lt;U&gt;::N, top_bit&gt;();</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    U value_u = <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(value);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordflow">if</span> (s) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>      value_u = value_u | bitmask;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      value_u = value_u &amp; ~bitmask;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">return</span> value_u;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  }</div>
 </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="foldopen" id="foldopen00236" data-start="{" data-end="}">
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">  236</a></span>  <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">IsZeroBit</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordflow">return</span> value == <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(0U) ? <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) : <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(0U);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>  }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="}">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">  234</a></span>  <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">IsZeroBit</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">return</span> value == <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(0U) ? <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1U) : <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(0U);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>  }</div>
 </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="foldopen" id="foldopen00245" data-start="{" data-end="}">
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">  245</a></span>  <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">BitCount</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    T v{value};</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    T c{0U}; <span class="comment">// c accumulates the total bits set in v</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">for</span> (; v; c++) {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>      v &amp;= v - 1U; <span class="comment">// clear the least significant bit set</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">return</span> c;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="foldopen" id="foldopen00243" data-start="{" data-end="}">
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">  243</a></span>  <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">BitCount</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    T v{value};</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    T c{0U}; <span class="comment">// c accumulates the total bits set in v</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">for</span> (; v; c++) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>      v &amp;= v - 1U; <span class="comment">// clear the least significant bit set</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordflow">return</span> c;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>  }</div>
 </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
-<div class="foldopen" id="foldopen00259" data-start="{" data-end="}">
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">  259</a></span>  <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">LowestBitSet</a>(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    T x{value};</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keywordflow">if</span> (x == 0)</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>      <span class="keywordflow">return</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1no__of__bits.html">no_of_bits&lt;T&gt;::N</a>;</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    T result = 0;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordflow">while</span> ((x &amp; 1) == 0) {</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>      x &gt;&gt;= 1;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>      result++;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="foldopen" id="foldopen00257" data-start="{" data-end="}">
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">  257</a></span>  <span class="keyword">static</span> T <a class="code hl_function" href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">LowestBitSet</a>(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    T x{value};</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">if</span> (x == 0)</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <span class="keywordflow">return</span> <a class="code hl_struct" href="structlibmicroemu_1_1internal_1_1no__of__bits.html">no_of_bits&lt;T&gt;::N</a>;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    T result = 0;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">while</span> ((x &amp; 1) == 0) {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>      x &gt;&gt;= 1;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>      result++;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    }</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>  }</div>
 </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>  <span class="keyword">static</span> T CountLeadingZeros(<span class="keyword">const</span> T &amp;value) {</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">int</span> n{32U};</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    u32 y{0U};</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    u32 x{value};</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    y = x &gt;&gt; 16U;</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>      n = n - 16U;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      x = y;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    }</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    y = x &gt;&gt; 8U;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>      n = n - 8U;</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>      x = y;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    }</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    y = x &gt;&gt; 4U;</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>      n = n - 4U;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>      x = y;</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    y = x &gt;&gt; 2U;</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>      n = n - 2U;</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>      x = y;</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    }</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    y = x &gt;&gt; 1U;</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>      <span class="keywordflow">return</span> n - 2U;</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    }</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordflow">return</span> n - x;</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>  }</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>  <span class="keyword">static</span> T CountLeadingZeros(<span class="keyword">const</span> T &amp;value) {</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordtype">int</span> n{32U};</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    u32 y{0U};</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    u32 x{value};</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    y = x &gt;&gt; 16U;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>      n = n - 16U;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>      x = y;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    y = x &gt;&gt; 8U;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>      n = n - 8U;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>      x = y;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    }</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    y = x &gt;&gt; 4U;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>      n = n - 4U;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>      x = y;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    y = x &gt;&gt; 2U;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>      n = n - 2U;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>      x = y;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    }</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    y = x &gt;&gt; 1U;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keywordflow">if</span> (y != 0U) {</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>      <span class="keywordflow">return</span> n - 2U;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    }</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">return</span> n - x;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>  }</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>  BitManip() = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>  ~BitManip() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>  BitManip(<span class="keyword">const</span> BitManip &amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  BitManip &amp;operator=(<span class="keyword">const</span> BitManip &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>  ~BitManip() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  BitManip(<span class="keyword">const</span> BitManip &amp;r_src) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>  BitManip(BitManip &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>  BitManip &amp;operator=(BitManip &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>};</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>  BitManip &amp;operator=(<span class="keyword">const</span> BitManip &amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>  BitManip(BitManip &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>  BitManip &amp;operator=(BitManip &amp;&amp;r_src) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>};</div>
 </div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="keyword">using </span>Bm8 = BitManip&lt;u8&gt;;</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="keyword">using </span>Bm16 = BitManip&lt;u16&gt;;</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="keyword">using </span>Bm32 = BitManip&lt;u32&gt;;</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>} <span class="comment">// namespace internal</span></div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>} <span class="comment">// namespace libmicroemu</span></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html">libmicroemu::internal::BitManip</a></div><div class="ttdef"><b>Definition</b> bit_manip.h:12</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0ae4919e05e93e2c23e08c9a63cd50ea"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">libmicroemu::internal::BitManip::ZeroExtend</a></div><div class="ttdeci">static U ZeroExtend(const T &amp;value)</div><div class="ttdoc">Takes a value of type T and converts it to type U by extending the missing bits with 0.</div><div class="ttdef"><b>Definition</b> bit_manip.h:202</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0b1296e534f594215bb7a15e110b89e4"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">libmicroemu::internal::BitManip::LowestBitSet</a></div><div class="ttdeci">static T LowestBitSet(const T &amp;value)</div><div class="ttdoc">Finds the position of the lowest bit set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:259</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a146bdd48b59a9e96348fe8e7dec91c82"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">libmicroemu::internal::BitManip::GenerateBitMask</a></div><div class="ttdeci">static constexpr T GenerateBitMask()</div><div class="ttdoc">Generates a mask for the bit 'bit'.</div><div class="ttdef"><b>Definition</b> bit_manip.h:68</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a3a5b46ca9fade5271b5ec5415613c0f0"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">libmicroemu::internal::BitManip::IsBitSet</a></div><div class="ttdeci">static constexpr bool IsBitSet(const T &amp;value)</div><div class="ttdoc">Checks if the given bit &quot;bit&quot; is set in the value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:125</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a454d21edae1b97355b1feac066a3f171"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">libmicroemu::internal::BitManip::SignExtend</a></div><div class="ttdeci">static U SignExtend(const T &amp;value)</div><div class="ttdoc">Takes a value of type T and converts it to type U by extending the given top bit.</div><div class="ttdef"><b>Definition</b> bit_manip.h:216</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a466f55176e898161bdd18550b04d4f81"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">libmicroemu::internal::BitManip::AlignUp</a></div><div class="ttdeci">static constexpr T AlignUp(const T &amp;address)</div><div class="ttdoc">Aligns the given address up to the nearest multiple of the specified alignment.</div><div class="ttdef"><b>Definition</b> bit_manip.h:56</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a6caafbee0159edcf54c2f0e0f07a19ea"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">libmicroemu::internal::BitManip::ExtractType</a></div><div class="ttdeci">static U ExtractType(T value, u32 start_byte)</div><div class="ttdoc">Extracts bits from an value and returns the result as the specified type.</div><div class="ttdef"><b>Definition</b> bit_manip.h:154</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a6ead5fbf07de4b9cb900f7f646b4145c"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">libmicroemu::internal::BitManip::IsZeroBit</a></div><div class="ttdeci">static T IsZeroBit(const T &amp;value)</div><div class="ttdoc">Checks if the given value is zero.</div><div class="ttdef"><b>Definition</b> bit_manip.h:236</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a7246872b758456004f3cb32134803939"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a7246872b758456004f3cb32134803939">libmicroemu::internal::BitManip::Slice1R</a></div><div class="ttdeci">static constexpr T Slice1R(const T &amp;value)</div><div class="ttdoc">Extracts bits from value in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:138</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a8d270866b5117dac10540439dad66950"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">libmicroemu::internal::BitManip::AlignDown</a></div><div class="ttdeci">static constexpr T AlignDown(const T &amp;address)</div><div class="ttdoc">Aligns the given address down to the nearest multiple of the specified alignment.</div><div class="ttdef"><b>Definition</b> bit_manip.h:36</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a9fc28e84ade69b1e8fae777e113f3643"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a9fc28e84ade69b1e8fae777e113f3643">libmicroemu::internal::BitManip::GenerateBitMask</a></div><div class="ttdeci">static constexpr T GenerateBitMask()</div><div class="ttdoc">Generates a mask of 1 bits in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:78</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ab4d50cdefef2e31532940ffc5097671a"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ab4d50cdefef2e31532940ffc5097671a">libmicroemu::internal::BitManip::Slice2R</a></div><div class="ttdeci">static constexpr T Slice2R(const T &amp;value)</div><div class="ttdoc">Extracts bits from value in 2 bit regions and concatenates them.</div><div class="ttdef"><b>Definition</b> bit_manip.h:190</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ac7789c77f3ac47c67ce19347e181490c"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">libmicroemu::internal::BitManip::BitCount</a></div><div class="ttdeci">static T BitCount(const T &amp;value)</div><div class="ttdoc">Counts the number of bits set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:245</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ad077b7df3af1c488667b25790933c5a4"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad077b7df3af1c488667b25790933c5a4">libmicroemu::internal::BitManip::GenerateBitMask</a></div><div class="ttdeci">static constexpr T GenerateBitMask(unsigned last_bit, unsigned first_bit)</div><div class="ttdoc">Generates a mask of 1 bits in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:97</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ad5d26f4c523c265474256bc60725c8f5"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">libmicroemu::internal::BitManip::InsertType</a></div><div class="ttdeci">static T InsertType(T value, u32 start_byte, U insert_val)</div><div class="ttdoc">Inserts bits of a shorter type into a value at the specified byte position.</div><div class="ttdef"><b>Definition</b> bit_manip.h:169</div></div>
-<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ae141d36dc88ad613047eea57363f4bd0"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">libmicroemu::internal::BitManip::IsolateBit</a></div><div class="ttdeci">static constexpr T IsolateBit(const T &amp;value)</div><div class="ttdoc">Isolates the given bit &quot;bit&quot; in the value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:115</div></div>
-<div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
-<div class="ttc" id="astructlibmicroemu_1_1internal_1_1no__of__bits_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1no__of__bits.html">libmicroemu::internal::no_of_bits</a></div><div class="ttdef"><b>Definition</b> traits.h:32</div></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="keyword">using </span>Bm8 = BitManip&lt;u8&gt;;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="keyword">using </span>Bm16 = BitManip&lt;u16&gt;;</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="keyword">using </span>Bm32 = BitManip&lt;u32&gt;;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>} <span class="comment">// namespace libmicroemu::internal</span></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html">libmicroemu::internal::BitManip</a></div><div class="ttdef"><b>Definition</b> bit_manip.h:11</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0ae4919e05e93e2c23e08c9a63cd50ea"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0ae4919e05e93e2c23e08c9a63cd50ea">libmicroemu::internal::BitManip::ZeroExtend</a></div><div class="ttdeci">static U ZeroExtend(const T &amp;value)</div><div class="ttdoc">Takes a value of type T and converts it to type U by extending the missing bits with 0.</div><div class="ttdef"><b>Definition</b> bit_manip.h:200</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a0b1296e534f594215bb7a15e110b89e4"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4">libmicroemu::internal::BitManip::LowestBitSet</a></div><div class="ttdeci">static T LowestBitSet(const T &amp;value)</div><div class="ttdoc">Finds the position of the lowest bit set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:257</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a146bdd48b59a9e96348fe8e7dec91c82"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a146bdd48b59a9e96348fe8e7dec91c82">libmicroemu::internal::BitManip::GenerateBitMask</a></div><div class="ttdeci">static constexpr T GenerateBitMask()</div><div class="ttdoc">Generates a mask for the bit 'bit'.</div><div class="ttdef"><b>Definition</b> bit_manip.h:67</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a2c72c88ad7c411b5bdaa257b6ecdbf49"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a2c72c88ad7c411b5bdaa257b6ecdbf49">libmicroemu::internal::BitManip::ExtractBits2R</a></div><div class="ttdeci">static constexpr T ExtractBits2R(const T &amp;value)</div><div class="ttdoc">Extracts bits from value in 2 bit regions and concatenates them.</div><div class="ttdef"><b>Definition</b> bit_manip.h:188</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a3a5b46ca9fade5271b5ec5415613c0f0"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a3a5b46ca9fade5271b5ec5415613c0f0">libmicroemu::internal::BitManip::IsBitSet</a></div><div class="ttdeci">static constexpr bool IsBitSet(const T &amp;value)</div><div class="ttdoc">Checks if the given bit &quot;bit&quot; is set in the value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:124</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a454d21edae1b97355b1feac066a3f171"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a454d21edae1b97355b1feac066a3f171">libmicroemu::internal::BitManip::SignExtend</a></div><div class="ttdeci">static U SignExtend(const T &amp;value)</div><div class="ttdoc">Takes a value of type T and converts it to type U by extending the given top bit.</div><div class="ttdef"><b>Definition</b> bit_manip.h:214</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a466f55176e898161bdd18550b04d4f81"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81">libmicroemu::internal::BitManip::AlignUp</a></div><div class="ttdeci">static constexpr T AlignUp(const T &amp;address)</div><div class="ttdoc">Aligns the given address up to the nearest multiple of the specified alignment.</div><div class="ttdef"><b>Definition</b> bit_manip.h:55</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a53aa94a3acff11d47e1af8b90ebc37a6"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a53aa94a3acff11d47e1af8b90ebc37a6">libmicroemu::internal::BitManip::ExtractBits1R</a></div><div class="ttdeci">static constexpr T ExtractBits1R(const T &amp;value)</div><div class="ttdoc">Extracts bits from value in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:136</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a6caafbee0159edcf54c2f0e0f07a19ea"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6caafbee0159edcf54c2f0e0f07a19ea">libmicroemu::internal::BitManip::ExtractType</a></div><div class="ttdeci">static U ExtractType(T value, u32 start_byte)</div><div class="ttdoc">Extracts bits from an value and returns the result as the specified type.</div><div class="ttdef"><b>Definition</b> bit_manip.h:152</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a6ead5fbf07de4b9cb900f7f646b4145c"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a6ead5fbf07de4b9cb900f7f646b4145c">libmicroemu::internal::BitManip::IsZeroBit</a></div><div class="ttdeci">static T IsZeroBit(const T &amp;value)</div><div class="ttdoc">Checks if the given value is zero.</div><div class="ttdef"><b>Definition</b> bit_manip.h:234</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a8d270866b5117dac10540439dad66950"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950">libmicroemu::internal::BitManip::AlignDown</a></div><div class="ttdeci">static constexpr T AlignDown(const T &amp;address)</div><div class="ttdoc">Aligns the given address down to the nearest multiple of the specified alignment.</div><div class="ttdef"><b>Definition</b> bit_manip.h:35</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_a9fc28e84ade69b1e8fae777e113f3643"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#a9fc28e84ade69b1e8fae777e113f3643">libmicroemu::internal::BitManip::GenerateBitMask</a></div><div class="ttdeci">static constexpr T GenerateBitMask()</div><div class="ttdoc">Generates a mask of 1 bits in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:77</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ac7789c77f3ac47c67ce19347e181490c"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c">libmicroemu::internal::BitManip::BitCount</a></div><div class="ttdeci">static T BitCount(const T &amp;value)</div><div class="ttdoc">Counts the number of bits set in the given value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:243</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ad077b7df3af1c488667b25790933c5a4"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad077b7df3af1c488667b25790933c5a4">libmicroemu::internal::BitManip::GenerateBitMask</a></div><div class="ttdeci">static constexpr T GenerateBitMask(unsigned last_bit, unsigned first_bit)</div><div class="ttdoc">Generates a mask of 1 bits in the region [last_bit:first_bit].</div><div class="ttdef"><b>Definition</b> bit_manip.h:96</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ad5d26f4c523c265474256bc60725c8f5"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ad5d26f4c523c265474256bc60725c8f5">libmicroemu::internal::BitManip::InsertType</a></div><div class="ttdeci">static T InsertType(T value, u32 start_byte, U insert_val)</div><div class="ttdoc">Inserts bits of a shorter type into a value at the specified byte position.</div><div class="ttdef"><b>Definition</b> bit_manip.h:167</div></div>
+<div class="ttc" id="aclasslibmicroemu_1_1internal_1_1_bit_manip_html_ae141d36dc88ad613047eea57363f4bd0"><div class="ttname"><a href="classlibmicroemu_1_1internal_1_1_bit_manip.html#ae141d36dc88ad613047eea57363f4bd0">libmicroemu::internal::BitManip::IsolateBit</a></div><div class="ttdeci">static constexpr T IsolateBit(const T &amp;value)</div><div class="ttdoc">Isolates the given bit &quot;bit&quot; in the value.</div><div class="ttdef"><b>Definition</b> bit_manip.h:114</div></div>
+<div class="ttc" id="anamespacelibmicroemu_1_1internal_html"><div class="ttname"><a href="namespacelibmicroemu_1_1internal.html">libmicroemu::internal</a></div><div class="ttdoc">The libmicroemu::internal namespace contains all classes and functions of libmicroemu which are priva...</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
+<div class="ttc" id="astructlibmicroemu_1_1internal_1_1no__of__bits_html"><div class="ttname"><a href="structlibmicroemu_1_1internal_1_1no__of__bits.html">libmicroemu::internal::no_of_bits</a></div><div class="ttdef"><b>Definition</b> traits.h:31</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -97,6 +97,9 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Store Multiple.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="variadic__store__instr_8h_source.html">variadic_store_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -107,23 +110,18 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TI
 <tr class="memitem:a2d8b61dc38b4c7fe6eec33bd64c1e5eb" id="r_a2d8b61dc38b4c7fe6eec33bd64c1e5eb"><td class="memItemLeft" align="right" valign="top"><a id="a2d8b61dc38b4c7fe6eec33bd64c1e5eb" name="a2d8b61dc38b4c7fe6eec33bd64c1e5eb"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
 <tr class="separator:a2d8b61dc38b4c7fe6eec33bd64c1e5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7120252cbf8b5e316f90a2a95e03a996" id="r_a7120252cbf8b5e316f90a2a95e03a996"><td class="memItemLeft" align="right" valign="top"><a id="a7120252cbf8b5e316f90a2a95e03a996" name="a7120252cbf8b5e316f90a2a95e03a996"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:a7120252cbf8b5e316f90a2a95e03a996"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01496edf86109dc0e335d81ef1d7aa73" id="r_a01496edf86109dc0e335d81ef1d7aa73"><td class="memItemLeft" align="right" valign="top"><a id="a01496edf86109dc0e335d81ef1d7aa73" name="a01496edf86109dc0e335d81ef1d7aa73"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:a01496edf86109dc0e335d81ef1d7aa73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af07800081f9a6e4d2814bf2f3e02e61c" id="r_af07800081f9a6e4d2814bf2f3e02e61c"><td class="memTemplParams" colspan="2"><a id="af07800081f9a6e4d2814bf2f3e02e61c" name="af07800081f9a6e4d2814bf2f3e02e61c"></a>
-template&lt;typename TArg &gt; </td></tr>
-<tr class="memitem:af07800081f9a6e4d2814bf2f3e02e61c"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg &amp;arg_n, const u32 &amp;registers)</td></tr>
-<tr class="separator:af07800081f9a6e4d2814bf2f3e02e61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ae70d0ae9fb0d1792bff8ef5c6d52e" id="r_a73ae70d0ae9fb0d1792bff8ef5c6d52e"><td class="memTemplParams" colspan="2"><a id="a73ae70d0ae9fb0d1792bff8ef5c6d52e" name="a73ae70d0ae9fb0d1792bff8ef5c6d52e"></a>
+template&lt;typename TArg0 &gt; </td></tr>
+<tr class="memitem:a73ae70d0ae9fb0d1792bff8ef5c6d52e"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg0 &amp;rn, const u32 &amp;registers)</td></tr>
+<tr class="separator:a73ae70d0ae9fb0d1792bff8ef5c6d52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::VariadicStoreInstr&lt; TInstrContext &gt;</div><p>Store Multiple STM - see Armv7-M Architecture Reference Manual Issue E.e p.383 </p>
+class libmicroemu::internal::VariadicStoreInstr&lt; TInstrContext &gt;</div><p>Store Multiple. </p>
+<p>STM - see Armv7-M Architecture Reference Manual Issue E.e p.383 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="variadic__store__instr_8h_source.html">variadic_store_instr.h</a></li>
 </ul>

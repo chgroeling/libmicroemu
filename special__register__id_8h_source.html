@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -137,13 +137,17 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">constexpr</span> <span class="keyword">auto</span> kLastRuntimeSpecialRegister = <a class="code hl_enumvalue" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb">SpecialRegisterId::kControl</a>;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">constexpr</span> <span class="keyword">auto</span> kLastSpecialRegister = kLastRuntimeSpecialRegister;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountPersistentSpecialRegisters() noexcept {</div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html#acc65f55869d1b489116fb87c6a438134">   62</a></span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 <a class="code hl_function" href="namespacelibmicroemu.html#acc65f55869d1b489116fb87c6a438134">CountPersistentSpecialRegisters</a>() noexcept {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(kLastPersistentSpecialRegister) + 1U;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 CountSpecialRegisters() noexcept {</div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="namespacelibmicroemu.html#aa2a3061c5e6cce29ee1a21d14a01fecd">   73</a></span><span class="keyword">static</span> <span class="keyword">constexpr</span> u32 <a class="code hl_function" href="namespacelibmicroemu.html#aa2a3061c5e6cce29ee1a21d14a01fecd">CountSpecialRegisters</a>() noexcept {</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>u32<span class="keyword">&gt;</span>(kLastSpecialRegister) + 1U;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace libmicroemu</span></div>
 <div class="ttc" id="anamespacelibmicroemu_html"><div class="ttname"><a href="namespacelibmicroemu.html">libmicroemu</a></div><div class="ttdoc">The libmicroemu namespace contains all classes and functions of the libmicroemu which are public.</div><div class="ttdef"><b>Definition</b> bkpt_flags.h:6</div></div>
@@ -165,6 +169,8 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="anamespacelibmicroemu_html_a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb"><div class="ttname"><a href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad206dcabae22951821cfb7585b4d2deb">libmicroemu::SpecialRegisterId::kControl</a></div><div class="ttdeci">@ kControl</div><div class="ttdoc">Control register, CONTROL.</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_a75588e1206d1cb1c5a341ce8d4187af5ad8a547f1a9433ae516d042318b6ef314"><div class="ttname"><a href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad8a547f1a9433ae516d042318b6ef314">libmicroemu::SpecialRegisterId::kCcr</a></div><div class="ttdeci">@ kCcr</div><div class="ttdoc">Configuration and Control Register, CCR.</div></div>
 <div class="ttc" id="anamespacelibmicroemu_html_a75588e1206d1cb1c5a341ce8d4187af5ad9dae8b0207b41a50e806a9596fce3d6"><div class="ttname"><a href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5ad9dae8b0207b41a50e806a9596fce3d6">libmicroemu::SpecialRegisterId::kXpsr</a></div><div class="ttdeci">@ kXpsr</div><div class="ttdoc">Program status register, XPSR.</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_aa2a3061c5e6cce29ee1a21d14a01fecd"><div class="ttname"><a href="namespacelibmicroemu.html#aa2a3061c5e6cce29ee1a21d14a01fecd">libmicroemu::CountSpecialRegisters</a></div><div class="ttdeci">static constexpr u32 CountSpecialRegisters() noexcept</div><div class="ttdoc">Returns the number of special registers.</div><div class="ttdef"><b>Definition</b> special_register_id.h:73</div></div>
+<div class="ttc" id="anamespacelibmicroemu_html_acc65f55869d1b489116fb87c6a438134"><div class="ttname"><a href="namespacelibmicroemu.html#acc65f55869d1b489116fb87c6a438134">libmicroemu::CountPersistentSpecialRegisters</a></div><div class="ttdeci">static constexpr u32 CountPersistentSpecialRegisters() noexcept</div><div class="ttdoc">Returns the number of persistent special registers.</div><div class="ttdef"><b>Definition</b> special_register_id.h:62</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

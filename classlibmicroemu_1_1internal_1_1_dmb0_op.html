@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,17 +96,22 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Dmb instruction.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="nullary__instr_8h_source.html">nullary_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aed691e0abdac712740e49477ae2e3584" id="r_aed691e0abdac712740e49477ae2e3584"><td class="memItemLeft" align="right" valign="top"><a id="aed691e0abdac712740e49477ae2e3584" name="aed691e0abdac712740e49477ae2e3584"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (const TInstrContext &amp;ictx)</td></tr>
-<tr class="separator:aed691e0abdac712740e49477ae2e3584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be700688eec535c418cface4ff33412" id="r_a1be700688eec535c418cface4ff33412"><td class="memItemLeft" align="right" valign="top"><a id="a1be700688eec535c418cface4ff33412" name="a1be700688eec535c418cface4ff33412"></a>
+static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; InstrExecFlagsSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags)</td></tr>
+<tr class="separator:a1be700688eec535c418cface4ff33412"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::Dmb0Op&lt; TInstrContext &gt;</div><p>Dmb instruction A Data Memory Barrier operation completes when all explicit memory accesses before the DMB On this emulator, it is a NOP see Armv7-M Architecture Reference Manual Issue E.e p.230 </p>
+class libmicroemu::internal::Dmb0Op&lt; TInstrContext &gt;</div><p>Dmb instruction. </p>
+<p>A Data Memory Barrier operation completes when all explicit memory accesses before the DMB. On this emulator, it is a NOP</p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.230 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="nullary__instr_8h_source.html">nullary_instr.h</a></li>
 </ul>

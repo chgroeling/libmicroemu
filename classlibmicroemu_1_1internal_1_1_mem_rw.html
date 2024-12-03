@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::MemRw&lt; Id, TProcessorStates, TEndianessC &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::MemRw&lt; Id, TCpuAccessor, TEndianessC &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,66 +93,66 @@ $(function(){ initResizable(false); });
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_mem_rw-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::MemRw&lt; Id, TProcessorStates, TEndianessC &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::MemRw&lt; Id, TCpuAccessor, TEndianessC &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5689fa6b6fffbb7b689dde38bc638294" id="r_a5689fa6b6fffbb7b689dde38bc638294"><td class="memItemLeft" align="right" valign="top"><a id="a5689fa6b6fffbb7b689dde38bc638294" name="a5689fa6b6fffbb7b689dde38bc638294"></a>
+<tr class="memitem:adc1ad112d71daa3e2c484c1da31ae054" id="r_adc1ad112d71daa3e2c484c1da31ae054"><td class="memItemLeft" align="right" valign="top"><a id="adc1ad112d71daa3e2c484c1da31ae054" name="adc1ad112d71daa3e2c484c1da31ae054"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MemRw</b> (u8 *const buf, const me_size_t buf_size, const me_adr_t vadr_offset)</td></tr>
-<tr class="memdesc:a5689fa6b6fffbb7b689dde38bc638294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a5689fa6b6fffbb7b689dde38bc638294"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e56995b748d98cedbeaed7325715258" id="r_a3e56995b748d98cedbeaed7325715258"><td class="memItemLeft" align="right" valign="top"><a id="a3e56995b748d98cedbeaed7325715258" name="a3e56995b748d98cedbeaed7325715258"></a>
+<tr class="memdesc:adc1ad112d71daa3e2c484c1da31ae054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
+<tr class="separator:adc1ad112d71daa3e2c484c1da31ae054"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9bda34a04ef954fb4b79da2d23b0e19" id="r_ad9bda34a04ef954fb4b79da2d23b0e19"><td class="memItemLeft" align="right" valign="top"><a id="ad9bda34a04ef954fb4b79da2d23b0e19" name="ad9bda34a04ef954fb4b79da2d23b0e19"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~MemRw</b> ()=default</td></tr>
-<tr class="memdesc:a3e56995b748d98cedbeaed7325715258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a3e56995b748d98cedbeaed7325715258"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e9a195d83c49e761e92cbff2fdb1c3c" id="r_a2e9a195d83c49e761e92cbff2fdb1c3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e9a195d83c49e761e92cbff2fdb1c3c">MemRw</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;r_src)=default</td></tr>
-<tr class="memdesc:a2e9a195d83c49e761e92cbff2fdb1c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for Mem.  <br /></td></tr>
-<tr class="separator:a2e9a195d83c49e761e92cbff2fdb1c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1574522f564895690de5f26de7519c6" id="r_aa1574522f564895690de5f26de7519c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1574522f564895690de5f26de7519c6">operator=</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;r_src)=default</td></tr>
-<tr class="memdesc:aa1574522f564895690de5f26de7519c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator for Mem.  <br /></td></tr>
-<tr class="separator:aa1574522f564895690de5f26de7519c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdedd8b59e786fd8b45f0e4126ce3cc1" id="r_abdedd8b59e786fd8b45f0e4126ce3cc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdedd8b59e786fd8b45f0e4126ce3cc1">MemRw</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&amp;r_src)=default</td></tr>
-<tr class="memdesc:abdedd8b59e786fd8b45f0e4126ce3cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor for Mem.  <br /></td></tr>
-<tr class="separator:abdedd8b59e786fd8b45f0e4126ce3cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b74fa8fcfe9d9ccaabbbce8944b867f" id="r_a8b74fa8fcfe9d9ccaabbbce8944b867f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b74fa8fcfe9d9ccaabbbce8944b867f">operator=</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&amp;r_src)=default</td></tr>
-<tr class="memdesc:a8b74fa8fcfe9d9ccaabbbce8944b867f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator for Mem.  <br /></td></tr>
-<tr class="separator:a8b74fa8fcfe9d9ccaabbbce8944b867f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0bf8547d53de75dc0f308f017d49d7e" id="r_aa0bf8547d53de75dc0f308f017d49d7e"><td class="memTemplParams" colspan="2"><a id="aa0bf8547d53de75dc0f308f017d49d7e" name="aa0bf8547d53de75dc0f308f017d49d7e"></a>
+<tr class="memdesc:ad9bda34a04ef954fb4b79da2d23b0e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:ad9bda34a04ef954fb4b79da2d23b0e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7991ae6065198f7d54d9da4cdc91da1" id="r_ae7991ae6065198f7d54d9da4cdc91da1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7991ae6065198f7d54d9da4cdc91da1">MemRw</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;r_src)=default</td></tr>
+<tr class="memdesc:ae7991ae6065198f7d54d9da4cdc91da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for Mem.  <br /></td></tr>
+<tr class="separator:ae7991ae6065198f7d54d9da4cdc91da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6928b65fb596772a23528ebb02f3240" id="r_ab6928b65fb596772a23528ebb02f3240"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6928b65fb596772a23528ebb02f3240">operator=</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;r_src)=default</td></tr>
+<tr class="memdesc:ab6928b65fb596772a23528ebb02f3240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator for Mem.  <br /></td></tr>
+<tr class="separator:ab6928b65fb596772a23528ebb02f3240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1372e952bd20e3d48ae99d1dbd62b37" id="r_ac1372e952bd20e3d48ae99d1dbd62b37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1372e952bd20e3d48ae99d1dbd62b37">MemRw</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&amp;r_src)=default</td></tr>
+<tr class="memdesc:ac1372e952bd20e3d48ae99d1dbd62b37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor for Mem.  <br /></td></tr>
+<tr class="separator:ac1372e952bd20e3d48ae99d1dbd62b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f2c98ebc9d88c66051b8cae2492411b" id="r_a9f2c98ebc9d88c66051b8cae2492411b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f2c98ebc9d88c66051b8cae2492411b">operator=</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp;&amp;r_src)=default</td></tr>
+<tr class="memdesc:a9f2c98ebc9d88c66051b8cae2492411b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator for Mem.  <br /></td></tr>
+<tr class="separator:a9f2c98ebc9d88c66051b8cae2492411b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c5e85efabcdb3a034c2aae869988036" id="r_a7c5e85efabcdb3a034c2aae869988036"><td class="memTemplParams" colspan="2"><a id="a7c5e85efabcdb3a034c2aae869988036" name="a7c5e85efabcdb3a034c2aae869988036"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa0bf8547d53de75dc0f308f017d49d7e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_read_result.html">ReadResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Read</b> (TProcessorStates &amp;pstates, me_adr_t vadr) const</td></tr>
-<tr class="separator:aa0bf8547d53de75dc0f308f017d49d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4f8e7ca31aee8835bcd03a8f441120f" id="r_ac4f8e7ca31aee8835bcd03a8f441120f"><td class="memTemplParams" colspan="2"><a id="ac4f8e7ca31aee8835bcd03a8f441120f" name="ac4f8e7ca31aee8835bcd03a8f441120f"></a>
+<tr class="memitem:a7c5e85efabcdb3a034c2aae869988036"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_read_result.html">ReadResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Read</b> (TCpuAccessor &amp;cpua, me_adr_t vadr) const</td></tr>
+<tr class="separator:a7c5e85efabcdb3a034c2aae869988036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acffc55a59986cbc9117f8c3bd64b1486" id="r_acffc55a59986cbc9117f8c3bd64b1486"><td class="memTemplParams" colspan="2"><a id="acffc55a59986cbc9117f8c3bd64b1486" name="acffc55a59986cbc9117f8c3bd64b1486"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac4f8e7ca31aee8835bcd03a8f441120f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_write_result.html">WriteResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Write</b> (TProcessorStates &amp;pstates, me_adr_t vadr, T value) const</td></tr>
-<tr class="separator:ac4f8e7ca31aee8835bcd03a8f441120f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d86f34d6f5ec2d491ca7a2dd114299d" id="r_a1d86f34d6f5ec2d491ca7a2dd114299d"><td class="memItemLeft" align="right" valign="top"><a id="a1d86f34d6f5ec2d491ca7a2dd114299d" name="a1d86f34d6f5ec2d491ca7a2dd114299d"></a>
+<tr class="memitem:acffc55a59986cbc9117f8c3bd64b1486"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_write_result.html">WriteResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Write</b> (TCpuAccessor &amp;cpua, me_adr_t vadr, T value) const</td></tr>
+<tr class="separator:acffc55a59986cbc9117f8c3bd64b1486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefa3071bb4c1482c3e4762cfd19f7282" id="r_aefa3071bb4c1482c3e4762cfd19f7282"><td class="memItemLeft" align="right" valign="top"><a id="aefa3071bb4c1482c3e4762cfd19f7282" name="aefa3071bb4c1482c3e4762cfd19f7282"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsVAdrInRange</b> (me_adr_t vadr) const</td></tr>
-<tr class="separator:a1d86f34d6f5ec2d491ca7a2dd114299d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aefa3071bb4c1482c3e4762cfd19f7282"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a3b9f8e7fac80cac118c0835bd09fad5f" id="r_a3b9f8e7fac80cac118c0835bd09fad5f"><td class="memItemLeft" align="right" valign="top"><a id="a3b9f8e7fac80cac118c0835bd09fad5f" name="a3b9f8e7fac80cac118c0835bd09fad5f"></a>
+<tr class="memitem:acbc31d44c6de3546f7372440624ab761" id="r_acbc31d44c6de3546f7372440624ab761"><td class="memItemLeft" align="right" valign="top"><a id="acbc31d44c6de3546f7372440624ab761" name="acbc31d44c6de3546f7372440624ab761"></a>
 static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>kReadOnly</b> = false</td></tr>
-<tr class="separator:a3b9f8e7fac80cac118c0835bd09fad5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:acbc31d44c6de3546f7372440624ab761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2e9a195d83c49e761e92cbff2fdb1c3c" name="a2e9a195d83c49e761e92cbff2fdb1c3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e9a195d83c49e761e92cbff2fdb1c3c">&#9670;&#160;</a></span>MemRw() <span class="overload">[1/2]</span></h2>
+<a id="ae7991ae6065198f7d54d9da4cdc91da1" name="ae7991ae6065198f7d54d9da4cdc91da1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7991ae6065198f7d54d9da4cdc91da1">&#9670;&#160;</a></span>MemRw() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; </div>
+template&lt;unsigned Id, typename TCpuAccessor , typename TEndianessC &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt;::MemRw </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt;::MemRw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -173,21 +173,21 @@ template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; <
 
 </div>
 </div>
-<a id="abdedd8b59e786fd8b45f0e4126ce3cc1" name="abdedd8b59e786fd8b45f0e4126ce3cc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdedd8b59e786fd8b45f0e4126ce3cc1">&#9670;&#160;</a></span>MemRw() <span class="overload">[2/2]</span></h2>
+<a id="ac1372e952bd20e3d48ae99d1dbd62b37" name="ac1372e952bd20e3d48ae99d1dbd62b37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1372e952bd20e3d48ae99d1dbd62b37">&#9670;&#160;</a></span>MemRw() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; </div>
+template&lt;unsigned Id, typename TCpuAccessor , typename TEndianessC &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt;::MemRw </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt;::MemRw </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -201,7 +201,7 @@ template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; <
 <p>Move constructor for Mem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r_src</td><td>the object to be copied </td></tr>
+    <tr><td class="paramname">r_src</td><td>the object to be moved </td></tr>
   </table>
   </dd>
 </dl>
@@ -209,21 +209,21 @@ template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; <
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa1574522f564895690de5f26de7519c6" name="aa1574522f564895690de5f26de7519c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1574522f564895690de5f26de7519c6">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="ab6928b65fb596772a23528ebb02f3240" name="ab6928b65fb596772a23528ebb02f3240"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6928b65fb596772a23528ebb02f3240">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; </div>
+template&lt;unsigned Id, typename TCpuAccessor , typename TEndianessC &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -244,21 +244,21 @@ template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; <
 
 </div>
 </div>
-<a id="a8b74fa8fcfe9d9ccaabbbce8944b867f" name="a8b74fa8fcfe9d9ccaabbbce8944b867f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b74fa8fcfe9d9ccaabbbce8944b867f">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a9f2c98ebc9d88c66051b8cae2492411b" name="a9f2c98ebc9d88c66051b8cae2492411b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f2c98ebc9d88c66051b8cae2492411b">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; </div>
+template&lt;unsigned Id, typename TCpuAccessor , typename TEndianessC &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">libmicroemu::internal::MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TProcessorStates, TEndianessC &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_mem_rw.html">MemRw</a>&lt; Id, TCpuAccessor, TEndianessC &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -272,7 +272,7 @@ template&lt;unsigned Id, typename TProcessorStates , typename TEndianessC &gt; <
 <p>Move assignment operator for Mem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r_src</td><td>the object to be copied </td></tr>
+    <tr><td class="paramname">r_src</td><td>the object to be moved </td></tr>
   </table>
   </dd>
 </dl>

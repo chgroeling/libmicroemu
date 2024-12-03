@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::PcOps&lt; TProcessorStates, TBus, TRegOps, TSpecRegOps, TExceptionReturn, TLogger &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::PcOps&lt; TCpuAccessor, TBus, TExceptionReturn, TLogger &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,59 +93,56 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_pc_ops-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::PcOps&lt; TProcessorStates, TBus, TRegOps, TSpecRegOps, TExceptionReturn, TLogger &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::PcOps&lt; TCpuAccessor, TBus, TExceptionReturn, TLogger &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a643092b22d3300a470743465c122fa85" id="r_a643092b22d3300a470743465c122fa85"><td class="memItemLeft" align="right" valign="top"><a id="a643092b22d3300a470743465c122fa85" name="a643092b22d3300a470743465c122fa85"></a>
+<tr class="memitem:aa2b5451f385d4c7b66b021670bb3b807" id="r_aa2b5451f385d4c7b66b021670bb3b807"><td class="memItemLeft" align="right" valign="top"><a id="aa2b5451f385d4c7b66b021670bb3b807" name="aa2b5451f385d4c7b66b021670bb3b807"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcRet</b> = TExceptionReturn</td></tr>
-<tr class="separator:a643092b22d3300a470743465c122fa85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7767cc5c071ff396ef2c888f4c3d7834" id="r_a7767cc5c071ff396ef2c888f4c3d7834"><td class="memItemLeft" align="right" valign="top"><a id="a7767cc5c071ff396ef2c888f4c3d7834" name="a7767cc5c071ff396ef2c888f4c3d7834"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = TSpecRegOps</td></tr>
-<tr class="separator:a7767cc5c071ff396ef2c888f4c3d7834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aa2b5451f385d4c7b66b021670bb3b807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad9ae043e663054d2caee1f9e34100f09" id="r_ad9ae043e663054d2caee1f9e34100f09"><td class="memItemLeft" align="right" valign="top"><a id="ad9ae043e663054d2caee1f9e34100f09" name="ad9ae043e663054d2caee1f9e34100f09"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>BranchTo</b> (TProcessorStates &amp;pstates, const u32 &amp;value)</td></tr>
-<tr class="separator:ad9ae043e663054d2caee1f9e34100f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4000b5a749742d880c43fe90933409b" id="r_ab4000b5a749742d880c43fe90933409b"><td class="memItemLeft" align="right" valign="top"><a id="ab4000b5a749742d880c43fe90933409b" name="ab4000b5a749742d880c43fe90933409b"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>BranchWritePC</b> (TProcessorStates &amp;pstates, const me_adr_t &amp;address)</td></tr>
-<tr class="separator:ab4000b5a749742d880c43fe90933409b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a679fb09571a0ea25c3dd97366484f2b0" id="r_a679fb09571a0ea25c3dd97366484f2b0"><td class="memItemLeft" align="right" valign="top"><a id="a679fb09571a0ea25c3dd97366484f2b0" name="a679fb09571a0ea25c3dd97366484f2b0"></a>
-static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>BXWritePC</b> (TProcessorStates &amp;pstates, TBus &amp;bus, const me_adr_t &amp;address)</td></tr>
-<tr class="separator:a679fb09571a0ea25c3dd97366484f2b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae239f0a338a5a975d47b249e1d73ae64" id="r_ae239f0a338a5a975d47b249e1d73ae64"><td class="memItemLeft" align="right" valign="top"><a id="ae239f0a338a5a975d47b249e1d73ae64" name="ae239f0a338a5a975d47b249e1d73ae64"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>BLXWritePC</b> (TProcessorStates &amp;pstates, const me_adr_t &amp;address)</td></tr>
-<tr class="separator:ae239f0a338a5a975d47b249e1d73ae64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7d5d5fb32fcce7b9e7dbbd7a27fea85" id="r_ae7d5d5fb32fcce7b9e7dbbd7a27fea85"><td class="memItemLeft" align="right" valign="top"><a id="ae7d5d5fb32fcce7b9e7dbbd7a27fea85" name="ae7d5d5fb32fcce7b9e7dbbd7a27fea85"></a>
-static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>LoadWritePC</b> (TProcessorStates &amp;pstates, TBus &amp;bus, const me_adr_t &amp;address)</td></tr>
-<tr class="separator:ae7d5d5fb32fcce7b9e7dbbd7a27fea85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b2e323ee9999a3c1fb9c0bee8496b39" id="r_a6b2e323ee9999a3c1fb9c0bee8496b39"><td class="memItemLeft" align="right" valign="top"><a id="a6b2e323ee9999a3c1fb9c0bee8496b39" name="a6b2e323ee9999a3c1fb9c0bee8496b39"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>ALUWritePC</b> (TProcessorStates &amp;pstates, const me_adr_t &amp;address)</td></tr>
-<tr class="separator:a6b2e323ee9999a3c1fb9c0bee8496b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cad08df59410bf86e76bfdd2138f7c7" id="r_a8cad08df59410bf86e76bfdd2138f7c7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cad08df59410bf86e76bfdd2138f7c7">AdvanceInstr</a> (TProcessorStates &amp;pstates, bool is_32bit)</td></tr>
-<tr class="memdesc:a8cad08df59410bf86e76bfdd2138f7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the program counter to the next instruction.  <br /></td></tr>
-<tr class="separator:a8cad08df59410bf86e76bfdd2138f7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691ee2e7358273bf0032df2b2f0e0c45" id="r_a691ee2e7358273bf0032df2b2f0e0c45"><td class="memItemLeft" align="right" valign="top"><a id="a691ee2e7358273bf0032df2b2f0e0c45" name="a691ee2e7358273bf0032df2b2f0e0c45"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>BranchTo</b> (TCpuAccessor &amp;cpua, const me_adr_t &amp;pc)</td></tr>
+<tr class="separator:a691ee2e7358273bf0032df2b2f0e0c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aafad2c2a6e15ea2cea2a4a61a5054c" id="r_a4aafad2c2a6e15ea2cea2a4a61a5054c"><td class="memItemLeft" align="right" valign="top"><a id="a4aafad2c2a6e15ea2cea2a4a61a5054c" name="a4aafad2c2a6e15ea2cea2a4a61a5054c"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>BranchWritePC</b> (TCpuAccessor &amp;cpua, const me_adr_t &amp;address)</td></tr>
+<tr class="separator:a4aafad2c2a6e15ea2cea2a4a61a5054c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace791938a976e53a3d9812550830d5ea" id="r_ace791938a976e53a3d9812550830d5ea"><td class="memItemLeft" align="right" valign="top"><a id="ace791938a976e53a3d9812550830d5ea" name="ace791938a976e53a3d9812550830d5ea"></a>
+static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>BXWritePC</b> (TCpuAccessor &amp;cpua, TBus &amp;bus, const me_adr_t &amp;address)</td></tr>
+<tr class="separator:ace791938a976e53a3d9812550830d5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab36fdf88f791575562aa78f3573f4e81" id="r_ab36fdf88f791575562aa78f3573f4e81"><td class="memItemLeft" align="right" valign="top"><a id="ab36fdf88f791575562aa78f3573f4e81" name="ab36fdf88f791575562aa78f3573f4e81"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>BLXWritePC</b> (TCpuAccessor &amp;cpua, const me_adr_t &amp;address)</td></tr>
+<tr class="separator:ab36fdf88f791575562aa78f3573f4e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5bf0accbc813d298cb8dd52c1beeb1" id="r_abb5bf0accbc813d298cb8dd52c1beeb1"><td class="memItemLeft" align="right" valign="top"><a id="abb5bf0accbc813d298cb8dd52c1beeb1" name="abb5bf0accbc813d298cb8dd52c1beeb1"></a>
+static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>LoadWritePC</b> (TCpuAccessor &amp;cpua, TBus &amp;bus, const me_adr_t &amp;address)</td></tr>
+<tr class="separator:abb5bf0accbc813d298cb8dd52c1beeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31296d9b5c906865643075d2e2c6e5cc" id="r_a31296d9b5c906865643075d2e2c6e5cc"><td class="memItemLeft" align="right" valign="top"><a id="a31296d9b5c906865643075d2e2c6e5cc" name="a31296d9b5c906865643075d2e2c6e5cc"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>ALUWritePC</b> (TCpuAccessor &amp;cpua, const me_adr_t &amp;address)</td></tr>
+<tr class="separator:a31296d9b5c906865643075d2e2c6e5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1b1f6a6cafb04f0ff8538b648156446" id="r_aa1b1f6a6cafb04f0ff8538b648156446"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1b1f6a6cafb04f0ff8538b648156446">AdvanceInstr</a> (TCpuAccessor &amp;cpua, bool is_32bit)</td></tr>
+<tr class="memdesc:aa1b1f6a6cafb04f0ff8538b648156446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the program counter to the next instruction.  <br /></td></tr>
+<tr class="separator:aa1b1f6a6cafb04f0ff8538b648156446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8cad08df59410bf86e76bfdd2138f7c7" name="a8cad08df59410bf86e76bfdd2138f7c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cad08df59410bf86e76bfdd2138f7c7">&#9670;&#160;</a></span>AdvanceInstr()</h2>
+<a id="aa1b1f6a6cafb04f0ff8538b648156446" name="aa1b1f6a6cafb04f0ff8538b648156446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1b1f6a6cafb04f0ff8538b648156446">&#9670;&#160;</a></span>AdvanceInstr()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TBus , typename TRegOps , typename TSpecRegOps , typename TExceptionReturn , typename TLogger  = NullLogger&gt; </div>
+template&lt;typename TCpuAccessor , typename TBus , typename TExceptionReturn , typename TLogger  = NullLogger&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">libmicroemu::internal::PcOps</a>&lt; TProcessorStates, TBus, TRegOps, TSpecRegOps, TExceptionReturn, TLogger &gt;::AdvanceInstr </td>
+          <td class="memname">static void <a class="el" href="classlibmicroemu_1_1internal_1_1_pc_ops.html">libmicroemu::internal::PcOps</a>&lt; TCpuAccessor, TBus, TExceptionReturn, TLogger &gt;::AdvanceInstr </td>
           <td>(</td>
-          <td class="paramtype">TProcessorStates &amp;</td>          <td class="paramname"><span class="paramname"><em>pstates</em></span>, </td>
+          <td class="paramtype">TCpuAccessor &amp;</td>          <td class="paramname"><span class="paramname"><em>cpua</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,17 +96,22 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Clz.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="unary__instr_8h_source.html">unary_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab5cc9134c486d5f1e6425e0ce32caffa" id="r_ab5cc9134c486d5f1e6425e0ce32caffa"><td class="memItemLeft" align="right" valign="top"><a id="ab5cc9134c486d5f1e6425e0ce32caffa" name="ab5cc9134c486d5f1e6425e0ce32caffa"></a>
-static <a class="el" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (const TInstrContext &amp;ictx, const u32 &amp;rm)</td></tr>
-<tr class="separator:ab5cc9134c486d5f1e6425e0ce32caffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8da8916e9f4b54a5d66a77514991c03a" id="r_a8da8916e9f4b54a5d66a77514991c03a"><td class="memTemplParams" colspan="2"><a id="a8da8916e9f4b54a5d66a77514991c03a" name="a8da8916e9f4b54a5d66a77514991c03a"></a>
+template&lt;typename TDest , typename TArg1 &gt; </td></tr>
+<tr class="memitem:a8da8916e9f4b54a5d66a77514991c03a"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; InstrExecFlagsSet &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const TArg1 &amp;rm)</td></tr>
+<tr class="separator:a8da8916e9f4b54a5d66a77514991c03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::Clz1Op&lt; TInstrContext &gt;</div><p>Clz see Armv7-M Architecture Reference Manual Issue E.e p.220 </p>
+class libmicroemu::internal::Clz1Op&lt; TInstrContext &gt;</div><p>Clz. </p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.220 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="unary__instr_8h_source.html">unary_instr.h</a></li>
 </ul>

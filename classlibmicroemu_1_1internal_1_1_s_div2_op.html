@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -97,13 +97,13 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Sdiv.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="binary__instr_8h_source.html">binary_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a5858ee74b5a932e59c08ded3a572e526" id="r_a5858ee74b5a932e59c08ded3a572e526"><td class="memItemLeft" align="right" valign="top"><a id="a5858ee74b5a932e59c08ded3a572e526" name="a5858ee74b5a932e59c08ded3a572e526"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:a5858ee74b5a932e59c08ded3a572e526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72059103dacf55fd52fe6a380884ae7b" id="r_a72059103dacf55fd52fe6a380884ae7b"><td class="memItemLeft" align="right" valign="top"><a id="a72059103dacf55fd52fe6a380884ae7b" name="a72059103dacf55fd52fe6a380884ae7b"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcTrig</b> = typename TInstrContext::ExcTrig</td></tr>
 <tr class="separator:a72059103dacf55fd52fe6a380884ae7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,13 +116,15 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>IntegerZeroDiv
 <tr class="memitem:af93da798b34d468e7efb96d446e02134" id="r_af93da798b34d468e7efb96d446e02134"><td class="memItemLeft" align="right" valign="top"><a id="af93da798b34d468e7efb96d446e02134" name="af93da798b34d468e7efb96d446e02134"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>GenerateIntegerZeroDivide</b> (const TInstrContext &amp;ictx)</td></tr>
 <tr class="separator:af93da798b34d468e7efb96d446e02134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2efb9b880c7525b6b2709ee708b8f36" id="r_ad2efb9b880c7525b6b2709ee708b8f36"><td class="memItemLeft" align="right" valign="top"><a id="ad2efb9b880c7525b6b2709ee708b8f36" name="ad2efb9b880c7525b6b2709ee708b8f36"></a>
-static <a class="el" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (const TInstrContext &amp;ictx, const u32 &amp;rn, const u32 &amp;rm)</td></tr>
-<tr class="separator:ad2efb9b880c7525b6b2709ee708b8f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e1cff19848b66ac634aeb2968f63202" id="r_a3e1cff19848b66ac634aeb2968f63202"><td class="memTemplParams" colspan="2"><a id="a3e1cff19848b66ac634aeb2968f63202" name="a3e1cff19848b66ac634aeb2968f63202"></a>
+template&lt;typename TDest , typename TArg0 , typename TArg1 &gt; </td></tr>
+<tr class="memitem:a3e1cff19848b66ac634aeb2968f63202"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; InstrExecFlagsSet &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const TArg0 &amp;rn, const TArg1 &amp;rm)</td></tr>
+<tr class="separator:a3e1cff19848b66ac634aeb2968f63202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::SDiv2Op&lt; TInstrContext &gt;</div><p>Sdiv see Armv7-M Architecture Reference Manual Issue E.e p.350 </p>
+class libmicroemu::internal::SDiv2Op&lt; TInstrContext &gt;</div><p>Sdiv. </p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.350 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="binary__instr_8h_source.html">binary_instr.h</a></li>
 </ul>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -90,30 +90,28 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_lsr2_op-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">libmicroemu::internal::Lsr2Op&lt; TInstrContext &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
+<p>Lsr.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="binary__instr_8h_source.html">binary_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ae9f763181d79414847ecfaa9176afcc4" id="r_ae9f763181d79414847ecfaa9176afcc4"><td class="memItemLeft" align="right" valign="top"><a id="ae9f763181d79414847ecfaa9176afcc4" name="ae9f763181d79414847ecfaa9176afcc4"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:ae9f763181d79414847ecfaa9176afcc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a15863183b36dbc6578ab4eb77202faa6" id="r_a15863183b36dbc6578ab4eb77202faa6"><td class="memItemLeft" align="right" valign="top"><a id="a15863183b36dbc6578ab4eb77202faa6" name="a15863183b36dbc6578ab4eb77202faa6"></a>
-static <a class="el" href="structlibmicroemu_1_1internal_1_1_op_result.html">OpResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (const TInstrContext &amp;ictx, const u32 &amp;rn, const u32 &amp;rm)</td></tr>
-<tr class="separator:a15863183b36dbc6578ab4eb77202faa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c4af4e97464957250ef73df0edc18d" id="r_ad7c4af4e97464957250ef73df0edc18d"><td class="memTemplParams" colspan="2"><a id="ad7c4af4e97464957250ef73df0edc18d" name="ad7c4af4e97464957250ef73df0edc18d"></a>
+template&lt;typename TDest , typename TArg0 , typename TArg1 &gt; </td></tr>
+<tr class="memitem:ad7c4af4e97464957250ef73df0edc18d"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; InstrExecFlagsSet &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const TArg0 &amp;rn, const TArg1 &amp;rm)</td></tr>
+<tr class="separator:ad7c4af4e97464957250ef73df0edc18d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::Lsr2Op&lt; TInstrContext &gt;</div><p>Lsr see Armv7-M Architecture Reference Manual Issue E.e p.285 </p>
+class libmicroemu::internal::Lsr2Op&lt; TInstrContext &gt;</div><p>Lsr. </p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.285 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="binary__instr_8h_source.html">binary_instr.h</a></li>
 </ul>

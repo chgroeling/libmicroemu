@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['library_0',['ARM Microcontroller Emulator Library',['../index.html',1,'']]]
+  ['for_20libmicroemu_0',['Programmer&apos;s Manual for `libmicroemu`',['../manual.html',1,'']]]
 ];

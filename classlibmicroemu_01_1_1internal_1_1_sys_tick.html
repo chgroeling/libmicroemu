@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu ::internal::SysTick&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu ::internal::SysTick&lt; TCpuAccessor, TExceptionTrigger, TLogger &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -95,7 +95,7 @@ $(function(){ initResizable(false); });
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classlibmicroemu_01_1_1internal_1_1_sys_tick-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu ::internal::SysTick&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu ::internal::SysTick&lt; TCpuAccessor, TExceptionTrigger, TLogger &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
@@ -112,47 +112,44 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac5823284504a8e3eb178dd6be2fd6749" id="r_ac5823284504a8e3eb178dd6be2fd6749"><td class="memItemLeft" align="right" valign="top"><a id="ac5823284504a8e3eb178dd6be2fd6749" name="ac5823284504a8e3eb178dd6be2fd6749"></a>
+<tr class="memitem:aea0a5bed61b27608cdf5919a538550d2" id="r_aea0a5bed61b27608cdf5919a538550d2"><td class="memItemLeft" align="right" valign="top"><a id="aea0a5bed61b27608cdf5919a538550d2" name="aea0a5bed61b27608cdf5919a538550d2"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcTrig</b> = TExceptionTrigger</td></tr>
-<tr class="separator:ac5823284504a8e3eb178dd6be2fd6749"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6aa12d2d6ce9a81794d15272e0ea8e0" id="r_af6aa12d2d6ce9a81794d15272e0ea8e0"><td class="memItemLeft" align="right" valign="top"><a id="af6aa12d2d6ce9a81794d15272e0ea8e0" name="af6aa12d2d6ce9a81794d15272e0ea8e0"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = TSpecRegOps</td></tr>
-<tr class="separator:af6aa12d2d6ce9a81794d15272e0ea8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef3168082fa2a53e74aba4b846900a7c" id="r_aef3168082fa2a53e74aba4b846900a7c"><td class="memItemLeft" align="right" valign="top"><a id="aef3168082fa2a53e74aba4b846900a7c" name="aef3168082fa2a53e74aba4b846900a7c"></a>
+<tr class="separator:aea0a5bed61b27608cdf5919a538550d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85524ee03e0cc0c44b7256e5c654410" id="r_aa85524ee03e0cc0c44b7256e5c654410"><td class="memItemLeft" align="right" valign="top"><a id="aa85524ee03e0cc0c44b7256e5c654410" name="aa85524ee03e0cc0c44b7256e5c654410"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>MapEnum</b> = SysTickAddressMap</td></tr>
-<tr class="separator:aef3168082fa2a53e74aba4b846900a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aa85524ee03e0cc0c44b7256e5c654410"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:adc1d3ed34258afa3ed17445056107414" id="r_adc1d3ed34258afa3ed17445056107414"><td class="memItemLeft" align="right" valign="top"><a id="adc1d3ed34258afa3ed17445056107414" name="adc1d3ed34258afa3ed17445056107414"></a>
+<tr class="memitem:acf979d2dc7478901990b06a30a1a5152" id="r_acf979d2dc7478901990b06a30a1a5152"><td class="memItemLeft" align="right" valign="top"><a id="acf979d2dc7478901990b06a30a1a5152" name="acf979d2dc7478901990b06a30a1a5152"></a>
 static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><b>GetBeginPhysicalAddress</b> ()</td></tr>
-<tr class="separator:adc1d3ed34258afa3ed17445056107414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d2ee1296de683f704ac70933ec35b2d" id="r_a6d2ee1296de683f704ac70933ec35b2d"><td class="memItemLeft" align="right" valign="top"><a id="a6d2ee1296de683f704ac70933ec35b2d" name="a6d2ee1296de683f704ac70933ec35b2d"></a>
+<tr class="separator:acf979d2dc7478901990b06a30a1a5152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1707386d15a835530c187e32f0c1ab55" id="r_a1707386d15a835530c187e32f0c1ab55"><td class="memItemLeft" align="right" valign="top"><a id="a1707386d15a835530c187e32f0c1ab55" name="a1707386d15a835530c187e32f0c1ab55"></a>
 static constexpr u32&#160;</td><td class="memItemRight" valign="bottom"><b>GetEndPhysicalAddress</b> ()</td></tr>
-<tr class="separator:a6d2ee1296de683f704ac70933ec35b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c789876e4311021fb5e244310388a52" id="r_a4c789876e4311021fb5e244310388a52"><td class="memItemLeft" align="right" valign="top"><a id="a4c789876e4311021fb5e244310388a52" name="a4c789876e4311021fb5e244310388a52"></a>
-static Result&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Step</b> (TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:a4c789876e4311021fb5e244310388a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a1707386d15a835530c187e32f0c1ab55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b66b8ac91f2d85c54f5312ec62689e3" id="r_a3b66b8ac91f2d85c54f5312ec62689e3"><td class="memItemLeft" align="right" valign="top"><a id="a3b66b8ac91f2d85c54f5312ec62689e3" name="a3b66b8ac91f2d85c54f5312ec62689e3"></a>
+static Result&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Step</b> (TCpuAccessor &amp;cpua)</td></tr>
+<tr class="separator:a3b66b8ac91f2d85c54f5312ec62689e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a4ed644330a81269a0dad04d43e15efab" id="r_a4ed644330a81269a0dad04d43e15efab"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed644330a81269a0dad04d43e15efab">kRegisters</a></td></tr>
-<tr class="separator:a4ed644330a81269a0dad04d43e15efab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a240213b8ba040526852175e3e63a1b1f" id="r_a240213b8ba040526852175e3e63a1b1f"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a240213b8ba040526852175e3e63a1b1f">kRegisters</a></td></tr>
+<tr class="separator:a240213b8ba040526852175e3e63a1b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4ed644330a81269a0dad04d43e15efab" name="a4ed644330a81269a0dad04d43e15efab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ed644330a81269a0dad04d43e15efab">&#9670;&#160;</a></span>kRegisters</h2>
+<a id="a240213b8ba040526852175e3e63a1b1f" name="a240213b8ba040526852175e3e63a1b1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a240213b8ba040526852175e3e63a1b1f">&#9670;&#160;</a></span>kRegisters</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExceptionTrigger , typename TLogger  = NullLogger&gt; </div>
+template&lt;typename TCpuAccessor , typename TExceptionTrigger , typename TLogger  = NullLogger&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto libmicroemu ::internal::SysTick&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger &gt;::kRegisters</td>
+          <td class="memname">auto libmicroemu ::internal::SysTick&lt; TCpuAccessor, TExceptionTrigger, TLogger &gt;::kRegisters</td>
         </tr>
       </table>
   </td>

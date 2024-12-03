@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu ::internal::SysTick&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger &gt;::RegisterAccessCsr Class Reference</title>
+<title>libmicroemu: libmicroemu ::internal::SysTick&lt; TCpuAccessor, TExceptionTrigger, TLogger &gt;::RegisterAccessCsr Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,30 +93,30 @@ $(function(){ initResizable(false); });
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classlibmicroemu_01_1_1internal_1_1_sys_tick_1_1_register_access_csr-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu ::internal::SysTick&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger &gt;::RegisterAccessCsr Class Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu ::internal::SysTick&lt; TCpuAccessor, TExceptionTrigger, TLogger &gt;::RegisterAccessCsr Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a36bd2a5080bf574fcc6463aab838d4ae" id="r_a36bd2a5080bf574fcc6463aab838d4ae"><td class="memItemLeft" align="right" valign="top"><a id="a36bd2a5080bf574fcc6463aab838d4ae" name="a36bd2a5080bf574fcc6463aab838d4ae"></a>
-static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadRegister</b> (TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:a36bd2a5080bf574fcc6463aab838d4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa44b080b721c4b2bc8b0cac018f080f1" id="r_aa44b080b721c4b2bc8b0cac018f080f1"><td class="memItemLeft" align="right" valign="top"><a id="aa44b080b721c4b2bc8b0cac018f080f1" name="aa44b080b721c4b2bc8b0cac018f080f1"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteRegister</b> (TProcessorStates &amp;pstates, u32 value)</td></tr>
-<tr class="separator:aa44b080b721c4b2bc8b0cac018f080f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34b69b4ff9594df7f99aaef51134a15b" id="r_a34b69b4ff9594df7f99aaef51134a15b"><td class="memItemLeft" align="right" valign="top"><a id="a34b69b4ff9594df7f99aaef51134a15b" name="a34b69b4ff9594df7f99aaef51134a15b"></a>
+static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadRegister</b> (TCpuAccessor &amp;cpua)</td></tr>
+<tr class="separator:a34b69b4ff9594df7f99aaef51134a15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3da2781ba99c585d8db317435094991" id="r_ac3da2781ba99c585d8db317435094991"><td class="memItemLeft" align="right" valign="top"><a id="ac3da2781ba99c585d8db317435094991" name="ac3da2781ba99c585d8db317435094991"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteRegister</b> (TCpuAccessor &amp;cpua, u32 value)</td></tr>
+<tr class="separator:ac3da2781ba99c585d8db317435094991"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a5532f45511568978ccecfb10e25b23b6" id="r_a5532f45511568978ccecfb10e25b23b6"><td class="memItemLeft" align="right" valign="top"><a id="a5532f45511568978ccecfb10e25b23b6" name="a5532f45511568978ccecfb10e25b23b6"></a>
+<tr class="memitem:ab7b8262bd4eeef0511491979f989f46e" id="r_ab7b8262bd4eeef0511491979f989f46e"><td class="memItemLeft" align="right" valign="top"><a id="ab7b8262bd4eeef0511491979f989f46e" name="ab7b8262bd4eeef0511491979f989f46e"></a>
 static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>kAdr</b> = SysTickAddressMap::kCsr</td></tr>
-<tr class="separator:a5532f45511568978ccecfb10e25b23b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a437656278c068ba653a56c7271c84f48" id="r_a437656278c068ba653a56c7271c84f48"><td class="memItemLeft" align="right" valign="top"><a id="a437656278c068ba653a56c7271c84f48" name="a437656278c068ba653a56c7271c84f48"></a>
+<tr class="separator:ab7b8262bd4eeef0511491979f989f46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e78b40431015ce3eff6e800c4ad0538" id="r_a0e78b40431015ce3eff6e800c4ad0538"><td class="memItemLeft" align="right" valign="top"><a id="a0e78b40431015ce3eff6e800c4ad0538" name="a0e78b40431015ce3eff6e800c4ad0538"></a>
 static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>kUseReadModifyWrite</b> = false</td></tr>
-<tr class="separator:a437656278c068ba653a56c7271c84f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afaae2300aafd50d579b86ee75f67056c" id="r_afaae2300aafd50d579b86ee75f67056c"><td class="memItemLeft" align="right" valign="top"><a id="afaae2300aafd50d579b86ee75f67056c" name="afaae2300aafd50d579b86ee75f67056c"></a>
+<tr class="separator:a0e78b40431015ce3eff6e800c4ad0538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3b02af610a5c5588a3a18b203611dcb" id="r_ad3b02af610a5c5588a3a18b203611dcb"><td class="memItemLeft" align="right" valign="top"><a id="ad3b02af610a5c5588a3a18b203611dcb" name="ad3b02af610a5c5588a3a18b203611dcb"></a>
 static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>kReadOnly</b> = false</td></tr>
-<tr class="separator:afaae2300aafd50d579b86ee75f67056c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ad3b02af610a5c5588a3a18b203611dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/peripherals/<a class="el" href="sys__tick_8h_source.html">sys_tick.h</a></li>

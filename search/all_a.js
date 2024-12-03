@@ -1,25 +1,5 @@
 var searchData=
 [
-  ['ldrd_0',['Ldrd',['../classlibmicroemu_1_1internal_1_1_special_instr.html#aed92528035cc271cdbefda1cb9a20282',1,'libmicroemu::internal::SpecialInstr']]],
-  ['libmicroemu_1',['libmicroemu',['../index.html#autotoc_md9',1,'Example: Integrating libmicroemu'],['../namespacelibmicroemu.html',1,'libmicroemu']]],
-  ['libmicroemu_20in_20your_20project_2',['Embedding libmicroemu in Your Project',['../index.html#autotoc_md8',1,'']]],
-  ['libmicroemu_3a_3ainternal_3',['internal',['../namespacelibmicroemu_1_1internal.html',1,'libmicroemu']]],
-  ['libraries_20and_20releases_4',['Precompiled Libraries and Releases',['../index.html#autotoc_md7',1,'']]],
-  ['library_5',['ARM Microcontroller Emulator Library',['../index.html',1,'']]],
-  ['license_6',['License',['../index.html#autotoc_md14',1,'']]],
-  ['littletolittleendianconverter_7',['LittleToLittleEndianConverter',['../classlibmicroemu_1_1internal_1_1_little_to_little_endian_converter.html',1,'libmicroemu::internal']]],
-  ['load_8',['Load',['../classlibmicroemu_1_1_machine.html#ad50d119d83a629a0588765117bd904bd',1,'libmicroemu::Machine']]],
-  ['loadmemexu32_9',['LoadMemExU32',['../classlibmicroemu_1_1internal_1_1_load_mem_ex_u32.html',1,'libmicroemu::internal']]],
-  ['loadmemi16_10',['LoadMemI16',['../classlibmicroemu_1_1internal_1_1_load_mem_i16.html',1,'libmicroemu::internal']]],
-  ['loadmemi8_11',['LoadMemI8',['../classlibmicroemu_1_1internal_1_1_load_mem_i8.html',1,'libmicroemu::internal']]],
-  ['loadmemu16_12',['LoadMemU16',['../classlibmicroemu_1_1internal_1_1_load_mem_u16.html',1,'libmicroemu::internal']]],
-  ['loadmemu32_13',['LoadMemU32',['../classlibmicroemu_1_1internal_1_1_load_mem_u32.html',1,'libmicroemu::internal']]],
-  ['loadmemu8_14',['LoadMemU8',['../classlibmicroemu_1_1internal_1_1_load_mem_u8.html',1,'libmicroemu::internal']]],
-  ['lowestbitset_15',['LowestBitSet',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#a0b1296e534f594215bb7a15e110b89e4',1,'libmicroemu::internal::BitManip']]],
-  ['lsl1shiftop_16',['Lsl1ShiftOp',['../classlibmicroemu_1_1internal_1_1_lsl1_shift_op.html',1,'libmicroemu::internal']]],
-  ['lsl2op_17',['Lsl2Op',['../classlibmicroemu_1_1internal_1_1_lsl2_op.html',1,'libmicroemu::internal']]],
-  ['lsl_5fc_5fresults_18',['LSL_C_Results',['../structlibmicroemu_1_1internal_1_1_alu_1_1_l_s_l___c___results.html',1,'libmicroemu::internal::Alu']]],
-  ['lsr1shiftop_19',['Lsr1ShiftOp',['../classlibmicroemu_1_1internal_1_1_lsr1_shift_op.html',1,'libmicroemu::internal']]],
-  ['lsr2op_20',['Lsr2Op',['../classlibmicroemu_1_1internal_1_1_lsr2_op.html',1,'libmicroemu::internal']]],
-  ['lsr_5fc_5fresults_21',['LSR_C_Results',['../structlibmicroemu_1_1internal_1_1_alu_1_1_l_s_r___c___results.html',1,'libmicroemu::internal::Alu']]]
+  ['has_5fkregisters_0',['has_kRegisters',['../structhas__k_registers.html',1,'']]],
+  ['has_5fkregisters_3c_20t_2c_20void_5ft_3c_20decltype_28t_3a_3akregisters_29_3e_20_3e_1',['has_kRegisters&lt; T, void_t&lt; decltype(T::kRegisters)&gt; &gt;',['../structhas__k_registers_3_01_t_00_01void__t_3_01decltype_07_t_1_1k_registers_08_4_01_4.html',1,'']]]
 ];

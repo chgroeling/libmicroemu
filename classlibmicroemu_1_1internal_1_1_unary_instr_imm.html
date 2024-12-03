@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -105,19 +105,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TI
 <tr class="memitem:aff82eab50f0a6c54066c945979fbc580" id="r_aff82eab50f0a6c54066c945979fbc580"><td class="memItemLeft" align="right" valign="top"><a id="aff82eab50f0a6c54066c945979fbc580" name="aff82eab50f0a6c54066c945979fbc580"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
 <tr class="separator:aff82eab50f0a6c54066c945979fbc580"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0770b8c321b139b565208435dfe66256" id="r_a0770b8c321b139b565208435dfe66256"><td class="memItemLeft" align="right" valign="top"><a id="a0770b8c321b139b565208435dfe66256" name="a0770b8c321b139b565208435dfe66256"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:a0770b8c321b139b565208435dfe66256"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e8776c26df494a5e731d90ee31a02da" id="r_a7e8776c26df494a5e731d90ee31a02da"><td class="memItemLeft" align="right" valign="top"><a id="a7e8776c26df494a5e731d90ee31a02da" name="a7e8776c26df494a5e731d90ee31a02da"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:a7e8776c26df494a5e731d90ee31a02da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:abd7bf1d1764e37333cf3783c29f9b409" id="r_abd7bf1d1764e37333cf3783c29f9b409"><td class="memTemplParams" colspan="2"><a id="abd7bf1d1764e37333cf3783c29f9b409" name="abd7bf1d1764e37333cf3783c29f9b409"></a>
-template&lt;typename TArg0 &gt; </td></tr>
-<tr class="memitem:abd7bf1d1764e37333cf3783c29f9b409"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg0 &amp;arg_d, const u32 &amp;imm32)</td></tr>
-<tr class="separator:abd7bf1d1764e37333cf3783c29f9b409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ce1df2c075b7388a842ac2d943a248" id="r_af4ce1df2c075b7388a842ac2d943a248"><td class="memTemplParams" colspan="2"><a id="af4ce1df2c075b7388a842ac2d943a248" name="af4ce1df2c075b7388a842ac2d943a248"></a>
+template&lt;typename TDest &gt; </td></tr>
+<tr class="memitem:af4ce1df2c075b7388a842ac2d943a248"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const u32 &amp;imm32)</td></tr>
+<tr class="separator:af4ce1df2c075b7388a842ac2d943a248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="unary__instr__imm_8h_source.html">unary_instr_imm.h</a></li>

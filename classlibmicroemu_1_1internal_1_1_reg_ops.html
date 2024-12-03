@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::RegOps&lt; TProcessorStates, TSpecRegOps, TLogger &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::RegOps&lt; TCpuStates, TSpecRegOps, TLogger &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,50 +93,47 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_reg_ops-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::RegOps&lt; TProcessorStates, TSpecRegOps, TLogger &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::RegOps&lt; TCpuStates, TSpecRegOps, TLogger &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6a8842d3ea27a92ed3c5ae8fab2443e3" id="r_a6a8842d3ea27a92ed3c5ae8fab2443e3"><td class="memItemLeft" align="right" valign="top"><a id="a6a8842d3ea27a92ed3c5ae8fab2443e3" name="a6a8842d3ea27a92ed3c5ae8fab2443e3"></a>
+<tr class="memitem:a49e9c6699485c4cdf4593f5918d62fef" id="r_a49e9c6699485c4cdf4593f5918d62fef"><td class="memItemLeft" align="right" valign="top"><a id="a49e9c6699485c4cdf4593f5918d62fef" name="a49e9c6699485c4cdf4593f5918d62fef"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = TSpecRegOps</td></tr>
-<tr class="separator:a6a8842d3ea27a92ed3c5ae8fab2443e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a49e9c6699485c4cdf4593f5918d62fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3f7e749ebcfa08f912f2e31da79055d5" id="r_a3f7e749ebcfa08f912f2e31da79055d5"><td class="memItemLeft" align="right" valign="top"><a id="a3f7e749ebcfa08f912f2e31da79055d5" name="a3f7e749ebcfa08f912f2e31da79055d5"></a>
+<tr class="memitem:a843a981c8537332f7b067d0c01df60fb" id="r_a843a981c8537332f7b067d0c01df60fb"><td class="memItemLeft" align="right" valign="top"><a id="a843a981c8537332f7b067d0c01df60fb" name="a843a981c8537332f7b067d0c01df60fb"></a>
 static std::string_view&#160;</td><td class="memItemRight" valign="bottom"><b>GetRegisterName</b> (const <a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> &amp;id)</td></tr>
-<tr class="separator:a3f7e749ebcfa08f912f2e31da79055d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08360406ce4a19871887858a91b4579d" id="r_a08360406ce4a19871887858a91b4579d"><td class="memItemLeft" align="right" valign="top"><a id="a08360406ce4a19871887858a91b4579d" name="a08360406ce4a19871887858a91b4579d"></a>
-static <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LookUpSP</b> (const TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:a08360406ce4a19871887858a91b4579d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf4d0d9586cf7937f6cf40e891a81dda" id="r_aaf4d0d9586cf7937f6cf40e891a81dda"><td class="memItemLeft" align="right" valign="top"><a id="aaf4d0d9586cf7937f6cf40e891a81dda" name="aaf4d0d9586cf7937f6cf40e891a81dda"></a>
-static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadSP</b> (const TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:aaf4d0d9586cf7937f6cf40e891a81dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e05581ced30c5833b5817743a47bbb0" id="r_a0e05581ced30c5833b5817743a47bbb0"><td class="memItemLeft" align="right" valign="top"><a id="a0e05581ced30c5833b5817743a47bbb0" name="a0e05581ced30c5833b5817743a47bbb0"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteSP</b> (TProcessorStates &amp;pstates, const u32 &amp;value)</td></tr>
-<tr class="separator:a0e05581ced30c5833b5817743a47bbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e2682871c385da78af85befab3940d" id="r_af9e2682871c385da78af85befab3940d"><td class="memItemLeft" align="right" valign="top"><a id="af9e2682871c385da78af85befab3940d" name="af9e2682871c385da78af85befab3940d"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>ForceWritePC</b> (TProcessorStates &amp;pstates, const u32 &amp;pc)</td></tr>
-<tr class="separator:af9e2682871c385da78af85befab3940d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8362d894bdaf372d667e6e04f8544835" id="r_a8362d894bdaf372d667e6e04f8544835"><td class="memItemLeft" align="right" valign="top"><a id="a8362d894bdaf372d667e6e04f8544835" name="a8362d894bdaf372d667e6e04f8544835"></a>
-static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadPC</b> (const TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:a8362d894bdaf372d667e6e04f8544835"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a899c35e8cb2d1eb035c3bb4e53312efa" id="r_a899c35e8cb2d1eb035c3bb4e53312efa"><td class="memTemplParams" colspan="2"><a id="a899c35e8cb2d1eb035c3bb4e53312efa" name="a899c35e8cb2d1eb035c3bb4e53312efa"></a>
+<tr class="separator:a843a981c8537332f7b067d0c01df60fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c02ce3906779010bb8ed31d27d9ec0" id="r_ac4c02ce3906779010bb8ed31d27d9ec0"><td class="memItemLeft" align="right" valign="top"><a id="ac4c02ce3906779010bb8ed31d27d9ec0" name="ac4c02ce3906779010bb8ed31d27d9ec0"></a>
+static <a class="el" href="namespacelibmicroemu.html#a75588e1206d1cb1c5a341ce8d4187af5">SpecialRegisterId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LookUpSP</b> (const TCpuStates &amp;cpus)</td></tr>
+<tr class="separator:ac4c02ce3906779010bb8ed31d27d9ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6f1e8b7d5f23490b48da55eb8b8f73b" id="r_af6f1e8b7d5f23490b48da55eb8b8f73b"><td class="memItemLeft" align="right" valign="top"><a id="af6f1e8b7d5f23490b48da55eb8b8f73b" name="af6f1e8b7d5f23490b48da55eb8b8f73b"></a>
+static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadSP</b> (const TCpuStates &amp;cpus)</td></tr>
+<tr class="separator:af6f1e8b7d5f23490b48da55eb8b8f73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a315fd3bfc3461f7b25ff30556d2b2a6c" id="r_a315fd3bfc3461f7b25ff30556d2b2a6c"><td class="memItemLeft" align="right" valign="top"><a id="a315fd3bfc3461f7b25ff30556d2b2a6c" name="a315fd3bfc3461f7b25ff30556d2b2a6c"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteSP</b> (TCpuStates &amp;cpus, const u32 &amp;value)</td></tr>
+<tr class="separator:a315fd3bfc3461f7b25ff30556d2b2a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d9ea7d6405d08388210b151752e5182" id="r_a3d9ea7d6405d08388210b151752e5182"><td class="memItemLeft" align="right" valign="top"><a id="a3d9ea7d6405d08388210b151752e5182" name="a3d9ea7d6405d08388210b151752e5182"></a>
+static me_adr_t&#160;</td><td class="memItemRight" valign="bottom"><b>ReadPC</b> (const TCpuStates &amp;cpus)</td></tr>
+<tr class="separator:a3d9ea7d6405d08388210b151752e5182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2073074bae3945ae99b134a656e8426d" id="r_a2073074bae3945ae99b134a656e8426d"><td class="memTemplParams" colspan="2"><a id="a2073074bae3945ae99b134a656e8426d" name="a2073074bae3945ae99b134a656e8426d"></a>
 template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> Id&gt; </td></tr>
-<tr class="memitem:a899c35e8cb2d1eb035c3bb4e53312efa"><td class="memTemplItemLeft" align="right" valign="top">static u32&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ReadRegister</b> (const TProcessorStates &amp;pstates)</td></tr>
-<tr class="separator:a899c35e8cb2d1eb035c3bb4e53312efa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91e19ada2fb0fa3593d0d88385ac2973" id="r_a91e19ada2fb0fa3593d0d88385ac2973"><td class="memItemLeft" align="right" valign="top"><a id="a91e19ada2fb0fa3593d0d88385ac2973" name="a91e19ada2fb0fa3593d0d88385ac2973"></a>
-static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadRegister</b> (const TProcessorStates &amp;pstates, <a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> id)</td></tr>
-<tr class="separator:a91e19ada2fb0fa3593d0d88385ac2973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2880cdf34b8a82ad29103d7c55c7830d" id="r_a2880cdf34b8a82ad29103d7c55c7830d"><td class="memTemplParams" colspan="2"><a id="a2880cdf34b8a82ad29103d7c55c7830d" name="a2880cdf34b8a82ad29103d7c55c7830d"></a>
+<tr class="memitem:a2073074bae3945ae99b134a656e8426d"><td class="memTemplItemLeft" align="right" valign="top">static u32&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ReadRegister</b> (const TCpuStates &amp;cpus)</td></tr>
+<tr class="separator:a2073074bae3945ae99b134a656e8426d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a418ddbc1a38d8361a43e3c27ba8b4af6" id="r_a418ddbc1a38d8361a43e3c27ba8b4af6"><td class="memItemLeft" align="right" valign="top"><a id="a418ddbc1a38d8361a43e3c27ba8b4af6" name="a418ddbc1a38d8361a43e3c27ba8b4af6"></a>
+static u32&#160;</td><td class="memItemRight" valign="bottom"><b>ReadRegister</b> (const TCpuStates &amp;cpus, <a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> id)</td></tr>
+<tr class="separator:a418ddbc1a38d8361a43e3c27ba8b4af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d281a90e9a423dab2d5981b877cbe6" id="r_a09d281a90e9a423dab2d5981b877cbe6"><td class="memTemplParams" colspan="2"><a id="a09d281a90e9a423dab2d5981b877cbe6" name="a09d281a90e9a423dab2d5981b877cbe6"></a>
 template&lt;<a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> Id&gt; </td></tr>
-<tr class="memitem:a2880cdf34b8a82ad29103d7c55c7830d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>WriteRegister</b> (TProcessorStates &amp;pstates, const u32 &amp;value)</td></tr>
-<tr class="separator:a2880cdf34b8a82ad29103d7c55c7830d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad730bbb13d35c97d19e5b98688745c5b" id="r_ad730bbb13d35c97d19e5b98688745c5b"><td class="memItemLeft" align="right" valign="top"><a id="ad730bbb13d35c97d19e5b98688745c5b" name="ad730bbb13d35c97d19e5b98688745c5b"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteRegister</b> (TProcessorStates &amp;pstates, <a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> id, u32 value)</td></tr>
-<tr class="separator:ad730bbb13d35c97d19e5b98688745c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d281a90e9a423dab2d5981b877cbe6"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>WriteRegister</b> (TCpuStates &amp;cpus, const u32 &amp;value)</td></tr>
+<tr class="separator:a09d281a90e9a423dab2d5981b877cbe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f0f99d38b38f67ab7465a1ed2dfef7" id="r_ab5f0f99d38b38f67ab7465a1ed2dfef7"><td class="memItemLeft" align="right" valign="top"><a id="ab5f0f99d38b38f67ab7465a1ed2dfef7" name="ab5f0f99d38b38f67ab7465a1ed2dfef7"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>WriteRegister</b> (TCpuStates &amp;cpus, <a class="el" href="namespacelibmicroemu.html#aae4aa07185daf886d479bcaefc5fb94e">RegisterId</a> id, u32 value)</td></tr>
+<tr class="separator:ab5f0f99d38b38f67ab7465a1ed2dfef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/logic/<a class="el" href="reg__ops_8h_source.html">reg_ops.h</a></li>

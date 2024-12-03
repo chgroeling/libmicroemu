@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -105,19 +105,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>It</b> = typename TI
 <tr class="memitem:aacf2c60530b6391b21b8bfeef35913c6" id="r_aacf2c60530b6391b21b8bfeef35913c6"><td class="memItemLeft" align="right" valign="top"><a id="aacf2c60530b6391b21b8bfeef35913c6" name="aacf2c60530b6391b21b8bfeef35913c6"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Pc</b> = typename TInstrContext::Pc</td></tr>
 <tr class="separator:aacf2c60530b6391b21b8bfeef35913c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2c1aa660ccdbbc65f16d4e4c917918d" id="r_ad2c1aa660ccdbbc65f16d4e4c917918d"><td class="memItemLeft" align="right" valign="top"><a id="ad2c1aa660ccdbbc65f16d4e4c917918d" name="ad2c1aa660ccdbbc65f16d4e4c917918d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Reg</b> = typename TInstrContext::Reg</td></tr>
-<tr class="separator:ad2c1aa660ccdbbc65f16d4e4c917918d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4682dc12133651e92be5cd8e1b65ad3f" id="r_a4682dc12133651e92be5cd8e1b65ad3f"><td class="memItemLeft" align="right" valign="top"><a id="a4682dc12133651e92be5cd8e1b65ad3f" name="a4682dc12133651e92be5cd8e1b65ad3f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = typename TInstrContext::SReg</td></tr>
-<tr class="separator:a4682dc12133651e92be5cd8e1b65ad3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a33c6db7969eadb4b8fa7b2b2597f95e4" id="r_a33c6db7969eadb4b8fa7b2b2597f95e4"><td class="memTemplParams" colspan="2"><a id="a33c6db7969eadb4b8fa7b2b2597f95e4" name="a33c6db7969eadb4b8fa7b2b2597f95e4"></a>
-template&lt;typename TArg0 , typename TArg1 , typename TArg2 &gt; </td></tr>
-<tr class="memitem:a33c6db7969eadb4b8fa7b2b2597f95e4"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_exec_result.html">ExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TArg0 &amp;arg_n, const TArg1 &amp;arg_m, const TArg2 &amp;arg_d, const <a class="el" href="structlibmicroemu_1_1internal_1_1_imm_shift_results.html">ImmShiftResults</a> &amp;shift_res)</td></tr>
-<tr class="separator:a33c6db7969eadb4b8fa7b2b2597f95e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c1317254647e6453d42433b7de31ace" id="r_a7c1317254647e6453d42433b7de31ace"><td class="memTemplParams" colspan="2"><a id="a7c1317254647e6453d42433b7de31ace" name="a7c1317254647e6453d42433b7de31ace"></a>
+template&lt;typename TDest , typename TArg0 , typename TArg1 &gt; </td></tr>
+<tr class="memitem:a7c1317254647e6453d42433b7de31ace"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; <a class="el" href="structlibmicroemu_1_1internal_1_1_instr_exec_result.html">InstrExecResult</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags, const TDest &amp;rd, const TArg0 &amp;rn, const TArg1 &amp;rm, const <a class="el" href="structlibmicroemu_1_1internal_1_1_imm_shift_results.html">ImmShiftResults</a> &amp;shift_res)</td></tr>
+<tr class="separator:a7c1317254647e6453d42433b7de31ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="ternary__instr__with__shift_8h_source.html">ternary_instr_with_shift.h</a></li>

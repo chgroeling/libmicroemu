@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -93,11 +93,11 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_bus-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;:</div>
+Inheritance diagram for libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classlibmicroemu_1_1internal_1_1_bus.png" alt=""/>
@@ -105,67 +105,64 @@ Inheritance diagram for libmicroemu::internal::Bus&lt; TProcessorStates, TSpecRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac700556d9c1fba829bc49aac5bf65b40" id="r_ac700556d9c1fba829bc49aac5bf65b40"><td class="memItemLeft" align="right" valign="top"><a id="ac700556d9c1fba829bc49aac5bf65b40" name="ac700556d9c1fba829bc49aac5bf65b40"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SReg</b> = TSpecRegOps</td></tr>
-<tr class="separator:ac700556d9c1fba829bc49aac5bf65b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a253be77615095ede6d759dc497fac1e0" id="r_a253be77615095ede6d759dc497fac1e0"><td class="memItemLeft" align="right" valign="top"><a id="a253be77615095ede6d759dc497fac1e0" name="a253be77615095ede6d759dc497fac1e0"></a>
+<tr class="memitem:a7dbac18beb907c589ebd78bdfb856e61" id="r_a7dbac18beb907c589ebd78bdfb856e61"><td class="memItemLeft" align="right" valign="top"><a id="a7dbac18beb907c589ebd78bdfb856e61" name="a7dbac18beb907c589ebd78bdfb856e61"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ExcTrig</b> = TExceptionTrigger</td></tr>
-<tr class="separator:a253be77615095ede6d759dc497fac1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7dbac18beb907c589ebd78bdfb856e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5845871f63735b3c30a46fb660e6e3ae" id="r_a5845871f63735b3c30a46fb660e6e3ae"><td class="memItemLeft" align="right" valign="top"><a id="a5845871f63735b3c30a46fb660e6e3ae" name="a5845871f63735b3c30a46fb660e6e3ae"></a>
+<tr class="memitem:a657d819931642e643958414cd974c3b7" id="r_a657d819931642e643958414cd974c3b7"><td class="memItemLeft" align="right" valign="top"><a id="a657d819931642e643958414cd974c3b7" name="a657d819931642e643958414cd974c3b7"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Bus</b> (const TBusParticipant &amp;...participant)</td></tr>
-<tr class="separator:a5845871f63735b3c30a46fb660e6e3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73168dcee54d3bacf06ac51ec984bd6a" id="r_a73168dcee54d3bacf06ac51ec984bd6a"><td class="memItemLeft" align="right" valign="top"><a id="a73168dcee54d3bacf06ac51ec984bd6a" name="a73168dcee54d3bacf06ac51ec984bd6a"></a>
+<tr class="separator:a657d819931642e643958414cd974c3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c80cfa499b40896d1dc5d856e856f20" id="r_a0c80cfa499b40896d1dc5d856e856f20"><td class="memItemLeft" align="right" valign="top"><a id="a0c80cfa499b40896d1dc5d856e856f20" name="a0c80cfa499b40896d1dc5d856e856f20"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Bus</b> ()=default</td></tr>
-<tr class="memdesc:a73168dcee54d3bacf06ac51ec984bd6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
-<tr class="separator:a73168dcee54d3bacf06ac51ec984bd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa16dac9bed0c6d0d9eb0887fa125deca" id="r_aa16dac9bed0c6d0d9eb0887fa125deca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa16dac9bed0c6d0d9eb0887fa125deca">Bus</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src)=default</td></tr>
-<tr class="memdesc:aa16dac9bed0c6d0d9eb0887fa125deca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
-<tr class="separator:aa16dac9bed0c6d0d9eb0887fa125deca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeda303584c9b23ee0b0a813743a38a8d" id="r_aeda303584c9b23ee0b0a813743a38a8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeda303584c9b23ee0b0a813743a38a8d">operator=</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src)=default</td></tr>
-<tr class="memdesc:aeda303584c9b23ee0b0a813743a38a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
-<tr class="separator:aeda303584c9b23ee0b0a813743a38a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50e85e6fc140b8652cdf8dbdffe9f944" id="r_a50e85e6fc140b8652cdf8dbdffe9f944"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50e85e6fc140b8652cdf8dbdffe9f944">Bus</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src)=default</td></tr>
-<tr class="memdesc:a50e85e6fc140b8652cdf8dbdffe9f944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
-<tr class="separator:a50e85e6fc140b8652cdf8dbdffe9f944"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a076f1daf84417051a05e87c967bbbcbf" id="r_a076f1daf84417051a05e87c967bbbcbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a076f1daf84417051a05e87c967bbbcbf">operator=</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src)=default</td></tr>
-<tr class="memdesc:a076f1daf84417051a05e87c967bbbcbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
-<tr class="separator:a076f1daf84417051a05e87c967bbbcbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0518f6e203fab0f636318867d828d338" id="r_a0518f6e203fab0f636318867d828d338"><td class="memTemplParams" colspan="2"><a id="a0518f6e203fab0f636318867d828d338" name="a0518f6e203fab0f636318867d828d338"></a>
+<tr class="memdesc:a0c80cfa499b40896d1dc5d856e856f20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
+<tr class="separator:a0c80cfa499b40896d1dc5d856e856f20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6996418ec9dd8f56c792863cc11c252a" id="r_a6996418ec9dd8f56c792863cc11c252a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6996418ec9dd8f56c792863cc11c252a">Bus</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src)=default</td></tr>
+<tr class="memdesc:a6996418ec9dd8f56c792863cc11c252a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
+<tr class="separator:a6996418ec9dd8f56c792863cc11c252a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a096ef43a2cc77a9dd70c9b79ba1353ad" id="r_a096ef43a2cc77a9dd70c9b79ba1353ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a096ef43a2cc77a9dd70c9b79ba1353ad">operator=</a> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;r_src)=default</td></tr>
+<tr class="memdesc:a096ef43a2cc77a9dd70c9b79ba1353ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
+<tr class="separator:a096ef43a2cc77a9dd70c9b79ba1353ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4de9b0ad218a6903ce5a6b2f948d2ef" id="r_ac4de9b0ad218a6903ce5a6b2f948d2ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4de9b0ad218a6903ce5a6b2f948d2ef">Bus</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src)=default</td></tr>
+<tr class="memdesc:ac4de9b0ad218a6903ce5a6b2f948d2ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
+<tr class="separator:ac4de9b0ad218a6903ce5a6b2f948d2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c2d17424c9cfd319b646ffde7f69505" id="r_a0c2d17424c9cfd319b646ffde7f69505"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c2d17424c9cfd319b646ffde7f69505">operator=</a> (<a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp;&amp;r_src)=default</td></tr>
+<tr class="memdesc:a0c2d17424c9cfd319b646ffde7f69505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>.  <br /></td></tr>
+<tr class="separator:a0c2d17424c9cfd319b646ffde7f69505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e08bf64ce6493ed5b951fb1ee4a1408" id="r_a3e08bf64ce6493ed5b951fb1ee4a1408"><td class="memTemplParams" colspan="2"><a id="a3e08bf64ce6493ed5b951fb1ee4a1408" name="a3e08bf64ce6493ed5b951fb1ee4a1408"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a0518f6e203fab0f636318867d828d338"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Read</b> (TProcessorStates &amp;pstates, me_adr_t vadr) const</td></tr>
-<tr class="separator:a0518f6e203fab0f636318867d828d338"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a155885a38b5f0255f87ed13b8196e1b0" id="r_a155885a38b5f0255f87ed13b8196e1b0"><td class="memTemplParams" colspan="2"><a id="a155885a38b5f0255f87ed13b8196e1b0" name="a155885a38b5f0255f87ed13b8196e1b0"></a>
+<tr class="memitem:a3e08bf64ce6493ed5b951fb1ee4a1408"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Read</b> (TCpuAccessor &amp;cpua, me_adr_t vadr) const</td></tr>
+<tr class="separator:a3e08bf64ce6493ed5b951fb1ee4a1408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc4b03c2b6b2edc79ebbb25572decbb5" id="r_adc4b03c2b6b2edc79ebbb25572decbb5"><td class="memTemplParams" colspan="2"><a id="adc4b03c2b6b2edc79ebbb25572decbb5" name="adc4b03c2b6b2edc79ebbb25572decbb5"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a155885a38b5f0255f87ed13b8196e1b0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ReadOrRaise</b> (TProcessorStates &amp;pstates, me_adr_t vadr, BusExceptionType exc_type) const</td></tr>
-<tr class="separator:a155885a38b5f0255f87ed13b8196e1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7b7a24793c5f1d9bbdaf1f3ed77e111" id="r_aa7b7a24793c5f1d9bbdaf1f3ed77e111"><td class="memTemplParams" colspan="2"><a id="aa7b7a24793c5f1d9bbdaf1f3ed77e111" name="aa7b7a24793c5f1d9bbdaf1f3ed77e111"></a>
+<tr class="memitem:adc4b03c2b6b2edc79ebbb25572decbb5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ReadOrRaise</b> (TCpuAccessor &amp;cpua, me_adr_t vadr, BusExceptionType exc_type) const</td></tr>
+<tr class="separator:adc4b03c2b6b2edc79ebbb25572decbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870a755ad55ccd677eb88dd8ed933735" id="r_a870a755ad55ccd677eb88dd8ed933735"><td class="memTemplParams" colspan="2"><a id="a870a755ad55ccd677eb88dd8ed933735" name="a870a755ad55ccd677eb88dd8ed933735"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa7b7a24793c5f1d9bbdaf1f3ed77e111"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Write</b> (TProcessorStates &amp;pstates, me_adr_t vadr, T value) const</td></tr>
-<tr class="separator:aa7b7a24793c5f1d9bbdaf1f3ed77e111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1cb25e7943bb2ca9b75a38f3f003bc6" id="r_ae1cb25e7943bb2ca9b75a38f3f003bc6"><td class="memTemplParams" colspan="2"><a id="ae1cb25e7943bb2ca9b75a38f3f003bc6" name="ae1cb25e7943bb2ca9b75a38f3f003bc6"></a>
+<tr class="memitem:a870a755ad55ccd677eb88dd8ed933735"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Write</b> (TCpuAccessor &amp;cpua, me_adr_t vadr, T value) const</td></tr>
+<tr class="separator:a870a755ad55ccd677eb88dd8ed933735"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7577f17fd5a6eed4192119e119ebe2a" id="r_af7577f17fd5a6eed4192119e119ebe2a"><td class="memTemplParams" colspan="2"><a id="af7577f17fd5a6eed4192119e119ebe2a" name="af7577f17fd5a6eed4192119e119ebe2a"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae1cb25e7943bb2ca9b75a38f3f003bc6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>WriteOrRaise</b> (TProcessorStates &amp;pstates, me_adr_t vadr, T value, BusExceptionType exc_type) const</td></tr>
-<tr class="separator:ae1cb25e7943bb2ca9b75a38f3f003bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7577f17fd5a6eed4192119e119ebe2a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>WriteOrRaise</b> (TCpuAccessor &amp;cpua, me_adr_t vadr, T value, BusExceptionType exc_type) const</td></tr>
+<tr class="separator:af7577f17fd5a6eed4192119e119ebe2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa16dac9bed0c6d0d9eb0887fa125deca" name="aa16dac9bed0c6d0d9eb0887fa125deca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa16dac9bed0c6d0d9eb0887fa125deca">&#9670;&#160;</a></span>Bus() <span class="overload">[1/2]</span></h2>
+<a id="a6996418ec9dd8f56c792863cc11c252a" name="a6996418ec9dd8f56c792863cc11c252a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6996418ec9dd8f56c792863cc11c252a">&#9670;&#160;</a></span>Bus() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
+template&lt;typename TCpuAccessor , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;::Bus </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;::Bus </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -186,21 +183,21 @@ template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExcepti
 
 </div>
 </div>
-<a id="a50e85e6fc140b8652cdf8dbdffe9f944" name="a50e85e6fc140b8652cdf8dbdffe9f944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50e85e6fc140b8652cdf8dbdffe9f944">&#9670;&#160;</a></span>Bus() <span class="overload">[2/2]</span></h2>
+<a id="ac4de9b0ad218a6903ce5a6b2f948d2ef" name="ac4de9b0ad218a6903ce5a6b2f948d2ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4de9b0ad218a6903ce5a6b2f948d2ef">&#9670;&#160;</a></span>Bus() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
+template&lt;typename TCpuAccessor , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;::Bus </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;::Bus </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -214,7 +211,7 @@ template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExcepti
 <p>Move constructor for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r_src</td><td>the object to be copied </td></tr>
+    <tr><td class="paramname">r_src</td><td>the object to be moved </td></tr>
   </table>
   </dd>
 </dl>
@@ -222,21 +219,21 @@ template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExcepti
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a076f1daf84417051a05e87c967bbbcbf" name="a076f1daf84417051a05e87c967bbbcbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a076f1daf84417051a05e87c967bbbcbf">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a0c2d17424c9cfd319b646ffde7f69505" name="a0c2d17424c9cfd319b646ffde7f69505"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c2d17424c9cfd319b646ffde7f69505">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
+template&lt;typename TCpuAccessor , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -250,28 +247,28 @@ template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExcepti
 <p>Move assignment operator for <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r_src</td><td>the object to be copied </td></tr>
+    <tr><td class="paramname">r_src</td><td>the object to be moved </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aeda303584c9b23ee0b0a813743a38a8d" name="aeda303584c9b23ee0b0a813743a38a8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeda303584c9b23ee0b0a813743a38a8d">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a096ef43a2cc77a9dd70c9b79ba1353ad" name="a096ef43a2cc77a9dd70c9b79ba1353ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a096ef43a2cc77a9dd70c9b79ba1353ad">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TSpecRegOps , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
+template&lt;typename TCpuAccessor , typename TExceptionTrigger , typename TLogger , typename... TBusParticipant&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a> &amp; <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">libmicroemu::internal::Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TProcessorStates, TSpecRegOps, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classlibmicroemu_1_1internal_1_1_bus.html">Bus</a>&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r_src</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

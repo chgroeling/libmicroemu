@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>libmicroemu: libmicroemu::internal::InstrToMnemonic&lt; TProcessorStates, TItOps, TRegOps, TSpecRegOps &gt; Class Template Reference</title>
+<title>libmicroemu: libmicroemu::internal::InstrToMnemonic&lt; TCpuAccessor, TItOps &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -90,56 +90,66 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">libmicroemu::internal::InstrToMnemonic&lt; TProcessorStates, TItOps, TRegOps, TSpecRegOps &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">libmicroemu::internal::InstrToMnemonic&lt; TCpuAccessor, TItOps &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for libmicroemu::internal::InstrToMnemonic&lt; TProcessorStates, TItOps, TRegOps, TSpecRegOps &gt;:</div>
+Inheritance diagram for libmicroemu::internal::InstrToMnemonic&lt; TCpuAccessor, TItOps &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.png" usemap="#libmicroemu::internal::InstrToMnemonic_3C_20TProcessorStates_2C_20TItOps_2C_20TRegOps_2C_20TSpecRegOps_20_3E_map" alt=""/>
-  <map id="libmicroemu::internal::InstrToMnemonic_3C_20TProcessorStates_2C_20TItOps_2C_20TRegOps_2C_20TSpecRegOps_20_3E_map" name="libmicroemu::internal::InstrToMnemonic_3C_20TProcessorStates_2C_20TItOps_2C_20TRegOps_2C_20TSpecRegOps_20_3E_map">
-<area href="classlibmicroemu_1_1_i_instr_to_mnemonic.html" alt="libmicroemu::IInstrToMnemonic" shape="rect" coords="0,0,548,24"/>
+  <img src="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.png" usemap="#libmicroemu::internal::InstrToMnemonic_3C_20TCpuAccessor_2C_20TItOps_20_3E_map" alt=""/>
+  <map id="libmicroemu::internal::InstrToMnemonic_3C_20TCpuAccessor_2C_20TItOps_20_3E_map" name="libmicroemu::internal::InstrToMnemonic_3C_20TCpuAccessor_2C_20TItOps_20_3E_map">
+<area href="classlibmicroemu_1_1_i_instr_to_mnemonic.html" alt="libmicroemu::IInstrToMnemonic" shape="rect" coords="0,0,382,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7ee754c30b2c65f58487a01ea82fa17b" id="r_a7ee754c30b2c65f58487a01ea82fa17b"><td class="memItemLeft" align="right" valign="top"><a id="a7ee754c30b2c65f58487a01ea82fa17b" name="a7ee754c30b2c65f58487a01ea82fa17b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>RegOps</b> = typename TCpuAccessor::Reg</td></tr>
+<tr class="separator:a7ee754c30b2c65f58487a01ea82fa17b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b030d0a6a23c60ae7e337afc0beb721" id="r_a7b030d0a6a23c60ae7e337afc0beb721"><td class="memItemLeft" align="right" valign="top"><a id="a7b030d0a6a23c60ae7e337afc0beb721" name="a7b030d0a6a23c60ae7e337afc0beb721"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SRegOps</b> = typename TCpuAccessor::SReg</td></tr>
+<tr class="separator:a7b030d0a6a23c60ae7e337afc0beb721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a352c1ed0174ebf495fb777fd551f736c" id="r_a352c1ed0174ebf495fb777fd551f736c"><td class="memItemLeft" align="right" valign="top"><a id="a352c1ed0174ebf495fb777fd551f736c" name="a352c1ed0174ebf495fb777fd551f736c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>InstrToMnemonic</b> (const TProcessorStates &amp;pstates, const <a class="el" href="unionlibmicroemu_1_1internal_1_1_instr.html">Instr</a> &amp;instr)</td></tr>
-<tr class="separator:a352c1ed0174ebf495fb777fd551f736c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a408a0cad0b9d201dcc9f0956e0fa1991" id="r_a408a0cad0b9d201dcc9f0956e0fa1991"><td class="memItemLeft" align="right" valign="top"><a id="a408a0cad0b9d201dcc9f0956e0fa1991" name="a408a0cad0b9d201dcc9f0956e0fa1991"></a>
+<tr class="memitem:a31f312a566c80f0c38467484c0e35d1e" id="r_a31f312a566c80f0c38467484c0e35d1e"><td class="memItemLeft" align="right" valign="top"><a id="a31f312a566c80f0c38467484c0e35d1e" name="a31f312a566c80f0c38467484c0e35d1e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>InstrToMnemonic</b> (const TCpuAccessor &amp;cpua, const <a class="el" href="unionlibmicroemu_1_1internal_1_1_instr.html">Instr</a> &amp;instr)</td></tr>
+<tr class="separator:a31f312a566c80f0c38467484c0e35d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b6d8368968f673c22b30071a70e70b7" id="r_a6b6d8368968f673c22b30071a70e70b7"><td class="memItemLeft" align="right" valign="top"><a id="a6b6d8368968f673c22b30071a70e70b7" name="a6b6d8368968f673c22b30071a70e70b7"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>InstrToMnemonic</b> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic</a> &amp;r_src)=delete</td></tr>
-<tr class="separator:a408a0cad0b9d201dcc9f0956e0fa1991"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33673cf6a210650dccca25331c5b5d84" id="r_a33673cf6a210650dccca25331c5b5d84"><td class="memItemLeft" align="right" valign="top"><a id="a33673cf6a210650dccca25331c5b5d84" name="a33673cf6a210650dccca25331c5b5d84"></a>
+<tr class="separator:a6b6d8368968f673c22b30071a70e70b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321ab71c51c1c86d428ff6406ded0db8" id="r_a321ab71c51c1c86d428ff6406ded0db8"><td class="memItemLeft" align="right" valign="top"><a id="a321ab71c51c1c86d428ff6406ded0db8" name="a321ab71c51c1c86d428ff6406ded0db8"></a>
 <a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic</a> &amp;r_src)=delete</td></tr>
-<tr class="separator:a33673cf6a210650dccca25331c5b5d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61ef470e2d4af0fd39b952ca2abf2583" id="r_a61ef470e2d4af0fd39b952ca2abf2583"><td class="memItemLeft" align="right" valign="top"><a id="a61ef470e2d4af0fd39b952ca2abf2583" name="a61ef470e2d4af0fd39b952ca2abf2583"></a>
+<tr class="separator:a321ab71c51c1c86d428ff6406ded0db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fc395ada9eb721b21f7032c4cb73275" id="r_a4fc395ada9eb721b21f7032c4cb73275"><td class="memItemLeft" align="right" valign="top"><a id="a4fc395ada9eb721b21f7032c4cb73275" name="a4fc395ada9eb721b21f7032c4cb73275"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>InstrToMnemonic</b> (<a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic</a> &amp;&amp;r_src)=delete</td></tr>
-<tr class="separator:a61ef470e2d4af0fd39b952ca2abf2583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acacfa7a121f53c9ae9c63bac8eed563b" id="r_acacfa7a121f53c9ae9c63bac8eed563b"><td class="memItemLeft" align="right" valign="top"><a id="acacfa7a121f53c9ae9c63bac8eed563b" name="acacfa7a121f53c9ae9c63bac8eed563b"></a>
+<tr class="separator:a4fc395ada9eb721b21f7032c4cb73275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8795f041736e8b957896e322bd0a786f" id="r_a8795f041736e8b957896e322bd0a786f"><td class="memItemLeft" align="right" valign="top"><a id="a8795f041736e8b957896e322bd0a786f" name="a8795f041736e8b957896e322bd0a786f"></a>
 <a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">InstrToMnemonic</a> &amp;&amp;r_src)=delete</td></tr>
-<tr class="separator:acacfa7a121f53c9ae9c63bac8eed563b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac351606be57f37ba0882a69c9cbc78db" id="r_ac351606be57f37ba0882a69c9cbc78db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac351606be57f37ba0882a69c9cbc78db">Build</a> (char *buf, std::size_t buf_len) const override</td></tr>
-<tr class="separator:ac351606be57f37ba0882a69c9cbc78db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a8795f041736e8b957896e322bd0a786f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6553da8a8e446b53f64a0846c7bf2572" id="r_a6553da8a8e446b53f64a0846c7bf2572"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6553da8a8e446b53f64a0846c7bf2572">Build</a> (char *buf, std::size_t buf_len) const override</td></tr>
+<tr class="separator:a6553da8a8e446b53f64a0846c7bf2572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classlibmicroemu_1_1_i_instr_to_mnemonic"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classlibmicroemu_1_1_i_instr_to_mnemonic')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classlibmicroemu_1_1_i_instr_to_mnemonic.html">libmicroemu::IInstrToMnemonic</a></td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac351606be57f37ba0882a69c9cbc78db" name="ac351606be57f37ba0882a69c9cbc78db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac351606be57f37ba0882a69c9cbc78db">&#9670;&#160;</a></span>Build()</h2>
+<a id="a6553da8a8e446b53f64a0846c7bf2572" name="a6553da8a8e446b53f64a0846c7bf2572"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6553da8a8e446b53f64a0846c7bf2572">&#9670;&#160;</a></span>Build()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TProcessorStates , typename TItOps , typename TRegOps , typename TSpecRegOps &gt; </div>
+template&lt;typename TCpuAccessor , typename TItOps &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">libmicroemu::internal::InstrToMnemonic</a>&lt; TProcessorStates, TItOps, TRegOps, TSpecRegOps &gt;::Build </td>
+          <td class="memname">void <a class="el" href="classlibmicroemu_1_1internal_1_1_instr_to_mnemonic.html">libmicroemu::internal::InstrToMnemonic</a>&lt; TCpuAccessor, TItOps &gt;::Build </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
         </tr>

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,17 +96,21 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Loads u16 from memory and extends the result to u32.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="load__mem_8h_source.html">load_mem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d1bb4b9726e9c11fe5d3efa380c4de8" id="r_a4d1bb4b9726e9c11fe5d3efa380c4de8"><td class="memItemLeft" align="right" valign="top"><a id="a4d1bb4b9726e9c11fe5d3efa380c4de8" name="a4d1bb4b9726e9c11fe5d3efa380c4de8"></a>
-static <a class="el" href="structlibmicroemu_1_1_result.html">Result</a>&lt; u32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (const TInstrContext &amp;ictx, const me_adr_t &amp;address)</td></tr>
+static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; u32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Read</b> (const TInstrContext &amp;ictx, const me_adr_t &amp;address)</td></tr>
 <tr class="separator:a4d1bb4b9726e9c11fe5d3efa380c4de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::LoadMemU16&lt; TInstrContext &gt;</div><p>Loads u16 from memory and extends the result to u32 see Armv7-M Architecture Reference Manual Issue E.e p.264 </p>
+class libmicroemu::internal::LoadMemU16&lt; TInstrContext &gt;</div><p>Loads u16 from memory and extends the result to u32. </p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.264 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/load_store/<a class="el" href="load__mem_8h_source.html">load_mem.h</a></li>
 </ul>

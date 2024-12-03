@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.1.1</span>
+   <div id="projectname">libmicroemu<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">ARM Microcontroller Emulator Library</div>
   </td>
@@ -96,17 +96,21 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>Nop instruction.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="nullary__instr_8h_source.html">nullary_instr.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab81260ca8d4d35b8a687e099980d9f85" id="r_ab81260ca8d4d35b8a687e099980d9f85"><td class="memItemLeft" align="right" valign="top"><a id="ab81260ca8d4d35b8a687e099980d9f85" name="ab81260ca8d4d35b8a687e099980d9f85"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (const TInstrContext &amp;ictx)</td></tr>
-<tr class="separator:ab81260ca8d4d35b8a687e099980d9f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbc964b5bde109910dc6c7ed27c30cbc" id="r_afbc964b5bde109910dc6c7ed27c30cbc"><td class="memItemLeft" align="right" valign="top"><a id="afbc964b5bde109910dc6c7ed27c30cbc" name="afbc964b5bde109910dc6c7ed27c30cbc"></a>
+static <a class="el" href="structlibmicroemu_1_1internal_1_1_result.html">Result</a>&lt; InstrExecFlagsSet &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Call</b> (TInstrContext &amp;ictx, const InstrFlagsSet &amp;iflags)</td></tr>
+<tr class="separator:afbc964b5bde109910dc6c7ed27c30cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TInstrContext&gt;<br />
-class libmicroemu::internal::Nop0Op&lt; TInstrContext &gt;</div><p>Nop instruction see Armv7-M Architecture Reference Manual Issue E.e p.212 </p>
+class libmicroemu::internal::Nop0Op&lt; TInstrContext &gt;</div><p>Nop instruction. </p>
+<p>see Armv7-M Architecture Reference Manual Issue E.e p.212 </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/libmicroemu/internal/executor/instr/<a class="el" href="nullary__instr_8h_source.html">nullary_instr.h</a></li>
 </ul>
