@@ -141,7 +141,7 @@ Installation</h2>
 <div class="line">cd libmicroemu</div>
 </div><!-- fragment --></li>
 <li><p class="startli"><b>Install Dependencies:</b> <em>libmicroemu</em> uses Conan 2 for dependency management, with profiles for different machines stored in the ./profiles directory. While Conan is primarily needed for the <em>microemu</em> CLI, it also installs toolchains and GTest, making its use advisable. Run the following command to install dependencies and set options for building standalone components:</p>
-<div class="fragment"><div class="line">conan install . -pr ./profiles/&lt;your_build_profile&gt; -o build_tests=True -o build_microemu=True --build=missing</div>
+<div class="fragment"><div class="line">conan install . -pr ./profiles/&lt;your_build_profile&gt; --build=missing</div>
 </div><!-- fragment --><p class="startli">Replace &lt;your_build_profile&gt; with the appropriate profile names for your setup. This version uses the conan -o option for enabling <em>build_tests</em> and <em>build_microemu</em> when installing dependencies.</p>
 </li>
 <li><p class="startli"><b>Build the Project with CMake:</b> Create a build directory, configure the project, and compile it:</p>
