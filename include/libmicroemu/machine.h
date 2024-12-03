@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Contains the Machine class which is the main emulation machine for handling
+ * microcontroller emulation.
+ */
 #pragma once
 
 #include "libmicroemu/cpu_states.h"

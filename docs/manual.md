@@ -21,30 +21,54 @@ It is a work in progress and will be updated regularly.
 - **libmicroemu::Machine**:  
   The primary class for controlling the emulator. It allows configuration, ELF loading, and execution.
 
-- **libmicroemu::StatusCode**:
-  Enum class defining operation outcomes, including success (libmicroemu::StatusCode::kSuccess) and various error categories such as memory issues (libmicroemu::StatusCode::kMemInaccesible), decoding failures (libmicroemu::StatusCode::kDecoderUnknownOpCode), and ELF-related errors (libmicroemu::StatusCode::kElfNotValid).
+- **libmicroemu::CpuStates**:  
+  Encapsulates the emulator's state, including CPU registers and exception states.
 
 - **libmicroemu::ExecResult**:  
   Represents the result of an emulation run, detailing why execution stopped.
 
-- **libmicroemu::CpuStates**:  
-  Encapsulates the emulator's state, including CPU registers and exception states.
+## Error Management
 
-### Error Management
-- The error management system in libmicroemu ensures consistent and predictable handling of errors across all APIs.
-- Focused on performance and simplicity, it avoids exceptions in favor of lightweight mechanisms.
-- `libmicroemu::StatusCode` Enum:
-  - Defines all possible error codes returned by the API.
-  - Each error code corresponds to a specific failure or state condition.
-- `libmicroemu::StatusCodeToString`:
-  - Converts a StatusCode into a human-readable string for debugging and logging purposes.
-- `libmicroemu::internal::Result` Class:
-  - Used within the library to encapsulate either a result or a StatusCode in case of failure.
-  - Provides a flexible mechanism for handling functions that may return complex results.
-- Macros for Error Propagation
+- **Consistent Error Handling**:  
+  The error management system in `libmicroemu` ensures consistent and predictable handling of errors across all APIs. Focused on performance and simplicity, it avoids exceptions in favor of lightweight mechanisms.
+
+- **Key Components**:
+  - `libmicroemu::StatusCode`:  
+    Enum class defining operation outcomes, including success (`libmicroemu::StatusCode::kSuccess`) and various error categories such as memory issues (`libmicroemu::StatusCode::kMemInaccesible`), decoding failures (`libmicroemu::StatusCode::kDecoderUnknownOpCode`), and ELF-related errors (`libmicroemu::StatusCode::kElfNotValid`).
+  - `libmicroemu::StatusCodeToString`:  
+    Converts a `StatusCode` into a human-readable string for debugging and logging purposes.
+  - `libmicroemu::internal::Result` Class:  
+    Used internally to encapsulate either a result or a `StatusCode` in case of failure. Provides flexibility for handling complex results.
+  
+- **Macros for Error Propagation**:
   - \ref TRY : Forwards results to the caller if a function returns an error.
   - \ref TRY_ASSIGN : Combines result assignment and error propagation in a single step.
-  - TODO: Add example how to use
+
+## Logging
+
+### Overview
+- **Purpose**:  
+  Logging in `libmicroemu` is used for tracking emulator activity, debugging, and performance monitoring.
+
+### Logging Configuration
+1. **Registering a Callback**:  
+   - Use `libmicroemu::Machine::RegisterLoggerCallback`.  
+   - Callback is static for performance reasons.  
+   - Expected function signature is clearly defined.
+
+2. **Log Levels**:  
+   - Log levels are build-dependent and defined in `libmicroemu::LogLevel`:  
+     - Debug: `libmicroemu::LogLevel::kTrace` and above.  
+     - Release: `libmicroemu::LogLevel::kInfo` and above.
+
+### Built-In Loggers
+1. **libmicroemu::StaticLogger**:  
+   Outputs logs to static files or predefined locations.
+
+2. **libmicroemu::NullLogger**:  
+   Disables logging entirely for performance-critical applications.
+
+
 
 ## Typical Usage
 
@@ -61,7 +85,7 @@ Here’s an example demonstrating a typical use case for the emulator:
   - Flash: Starts at `0x00000000`
   - SRAM: Starts at `0x20000000`
 - Define FLASH memory using `libmicroemu::Machine::SetFlashSegment`.
-- Set up RAM memory using `libmicroemu::Machine::SetRam1Segment` (optionally `SetRam2Segment` for additional RAM).
+- Set up RAM memory using `libmicroemu::Machine::SetRam1Segment` (optionally `libmicroemu::Machine::SetRam2Segment` for additional RAM).
 
 ### Step 2: Load ELF Files
 - Load an ELF file using `libmicroemu::Machine::Load`.
@@ -76,30 +100,6 @@ Here’s an example demonstrating a typical use case for the emulator:
   - Program exit via:
     - **SVC call**.
     - **Semihosting**, e.g., `exit()` in the emulated program (handles termination automatically).
-
-
-## Logging
-
-### Overview
-- Purpose of logging in `libmicroemu` (e.g., tracking emulator activity, debugging, performance monitoring).
-
-### Logging Configuration
-1. **Registering a Callback**  
-   - Use `libmicroemu::Machine::RegisterLoggerCallback`.
-   - Callback nature (static for performance reasons).
-   - Expected function signature.
-
-2. **Log Levels**  
-   - Build-dependent levels are given in `libmicroemu::LogLevel`:
-     - Debug: `libmicroemu::LogLevel::kTrace` and above.
-     - Release: `libmicroemu::LogLevel::kInfo` and above.
-
-### Built-In Loggers
-1. `libmicroemu::StaticLogger` 
-   - Outputs logs to static files or predefined locations.
-
-2. `libmicroemu::NullLogger`  
-   - Disables logging entirely for performance-critical applications.
 
 ## Extensibility
 TBD
