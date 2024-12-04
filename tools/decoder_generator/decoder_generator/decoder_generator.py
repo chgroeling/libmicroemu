@@ -25,6 +25,20 @@ def camel(inp: str):
     return "".join(out)
 
 
+def unfold_pattern(pattern):
+    ALLOWED_CHARS = {"0", "1", "."}
+    assert "lo" in pattern
+    assert len(pattern["lo"]) == 16
+    assert set(pattern["lo"]).issubset(ALLOWED_CHARS)
+
+    if "hi" in pattern:
+        assert len(pattern["hi"]) == 16
+        assert set(pattern["hi"]).issubset(ALLOWED_CHARS)
+
+    # print(pattern)
+    return pattern
+
+
 def decgen():
     print("Decoder generator")
     config = None
@@ -58,6 +72,8 @@ def decgen():
 
         item = dict(v)
 
+        if "pattern" in v:
+            unfolded_pattern = unfold_pattern(v["pattern"])
         item["name_struct"] = instruction["name_struct"]
         item["name_callback"] = cc_name + NAME_SUFFIX_DECODER
         item["name_enum"] = instruction["name_enum"]

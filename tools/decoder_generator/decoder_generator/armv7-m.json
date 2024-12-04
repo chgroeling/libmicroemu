@@ -965,6 +965,9 @@
             "instruction": "nop",
             "encoding": "t1",
             "flags": [],
+            "pattern": {
+                "lo": "1011111100000000"
+            },
             "pre_block": [
                 "static_cast<void>(rinstr);"
             ],
@@ -979,6 +982,10 @@
             "flags": [
                 "32bit"
             ],
+            "pattern": {
+                "lo": "1111001110111111",
+                "hi": "100011110101...."
+            },
             "pre_block": [
                 "assert(rinstr.low == 0b1111001110111111U);",
                 "assert((Bm16::ExtractBits1R<15U, 4U>(rinstr.high)) == 0b100011110101U);",
@@ -7297,8 +7304,7 @@
             "encoding": "t1",
             "flags": [],
             "pattern": {
-                "lo": "1011x0xxxxxxxxxx",
-                "hi": "0xxxxxxxxxxxxxxx"
+                "lo": "1011.0.1........"
             },
             "pre_block": [
                 "assert((Bm16::ExtractBits1R<15U, 12U>(rinstr.low)) == 0b1011U);",
@@ -7337,7 +7343,7 @@
             "encoding": "t1",
             "flags": [],
             "pattern": {
-                "lo": "11011111xxxxxxxx"
+                "lo": "11011111........"
             },
             "pre_block": [
                 "assert((Bm16::ExtractBits1R<15U, 8U>(rinstr.low)) == 0b11011111U);"
