@@ -1065,6 +1065,10 @@
             "flags": [
                 "32bit"
             ],
+            "pattern": {
+                "lo": "11101010010.1111",
+                "hi": "0.........00...."
+            },
             "pre_block": [
                 "assert((Bm16::ExtractBits1R<15U, 5U>(rinstr.low)) == 0b11101010010U);",
                 "assert((Bm16::ExtractBits1R<3U, 0U>(rinstr.low)) == 0b1111U);",

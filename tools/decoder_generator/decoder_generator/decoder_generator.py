@@ -25,17 +25,58 @@ def camel(inp: str):
     return "".join(out)
 
 
-def unfold_pattern(pattern):
+def unfold_bit_pattern(bit_pattern):
+    unfolded_bit_patterns = []
+    range_start = 0  # Start of the range
+    range_end = 0  # End of the range
+
+    for idx, bit in enumerate(bit_pattern):
+        range_end = idx
+        if bit == ".":
+            # If the bit is a wildcard, we need to check if the range is
+            # continuous
+            if range_start == range_end:
+                range_start = range_end + 1
+                continue
+
+            # If the range is not continuous, we need to add the range to the
+            # list of ranges
+            bit_range = (
+                range_start,
+                range_end - 1,
+                bit_pattern[range_start:range_end],
+            )
+            unfolded_bit_patterns.append(bit_range)
+            range_start = range_end + 1
+
+    # If the range is not continuous, we need to add the range to the list of
+    # ranges
+    if range_start != range_end and range_start < len(bit_pattern):
+        bit_range = (
+            range_start,
+            range_end,
+            bit_pattern[range_start:range_end],
+        )
+        unfolded_bit_patterns.append(bit_range)
+    return unfolded_bit_patterns
+
+
+def unfold_patterns(pattern):
     ALLOWED_CHARS = {"0", "1", "."}
+    unfold_bit_patterns = {}
     assert "lo" in pattern
     assert len(pattern["lo"]) == 16
     assert set(pattern["lo"]).issubset(ALLOWED_CHARS)
+    unfold_bit_patterns["lo"] = unfold_bit_pattern(pattern["lo"])
 
     if "hi" in pattern:
         assert len(pattern["hi"]) == 16
         assert set(pattern["hi"]).issubset(ALLOWED_CHARS)
+        unfold_bit_patterns["hi"] = unfold_bit_pattern(pattern["hi"])
 
-    # print(pattern)
+    print(pattern)
+    print(unfold_bit_patterns)
+    print("---")
     return pattern
 
 
@@ -73,7 +114,7 @@ def decgen():
         item = dict(v)
 
         if "pattern" in v:
-            unfolded_pattern = unfold_pattern(v["pattern"])
+            unfolded_pattern = unfold_patterns(v["pattern"])
         item["name_struct"] = instruction["name_struct"]
         item["name_callback"] = cc_name + NAME_SUFFIX_DECODER
         item["name_enum"] = instruction["name_enum"]
