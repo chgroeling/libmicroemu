@@ -7,18 +7,6 @@ NAME_PREFIX_STRUCT = "Instr"
 NAME_SUFFIX_DECODER = "Decoder"
 
 
-def create_file(template_name, path, template_env):
-    env = Environment(
-        loader=PackageLoader("decoder_generator"),
-    )
-    template_ = env.get_template(template_name)
-    out_template = template_.render({"data": template_env})
-
-    # to save the results
-    with open(path, "w") as fh:
-        fh.write(out_template)
-
-
 def camel(inp: str):
     out = inp.split("_")
     out = [i.capitalize() for i in out]
@@ -61,23 +49,58 @@ def unfold_bit_pattern(bit_pattern):
     return unfolded_bit_patterns
 
 
+def generate_assert(item):
+    type_ = item[0]
+    pattern_ = item[3]
+    variable = None
+    if type_ == "lo":
+        variable = "instr.low"
+    elif type_ == "hi":
+        variable = "instr.high"
+    else:
+        raise Exception("Unknown type")
+
+    assertion = f"{variable} -- 0b{pattern_}U"
+    return assertion
+
+
 def unfold_patterns(pattern):
     ALLOWED_CHARS = {"0", "1", "."}
-    unfold_bit_patterns = {}
+    unfold_bit_patterns = []
     assert "lo" in pattern
     assert len(pattern["lo"]) == 16
     assert set(pattern["lo"]).issubset(ALLOWED_CHARS)
-    unfold_bit_patterns["lo"] = unfold_bit_pattern(pattern["lo"])
+    unfold_bit_patterns.extend([("lo", *i) for i in unfold_bit_pattern(pattern["lo"])])
 
     if "hi" in pattern:
         assert len(pattern["hi"]) == 16
         assert set(pattern["hi"]).issubset(ALLOWED_CHARS)
-        unfold_bit_patterns["hi"] = unfold_bit_pattern(pattern["hi"])
+        unfold_bit_patterns.extend(
+            [("hi", *i) for i in unfold_bit_pattern(pattern["hi"])]
+        )
 
-    print(pattern)
-    print(unfold_bit_patterns)
-    print("---")
-    return pattern
+    # print(pattern)
+    # print(unfold_bit_patterns)
+    # print("---")
+    return unfold_bit_patterns
+
+
+def create_file(template_name, path, template_env):
+    env = Environment(
+        loader=PackageLoader("decoder_generator"),
+    )
+    template_ = env.get_template(template_name)
+    out_template = template_.render(
+        {
+            "data": template_env,
+            "unfold_patterns": unfold_patterns,
+            "generate_assert": generate_assert,
+        }
+    )
+
+    # to save the results
+    with open(path, "w") as fh:
+        fh.write(out_template)
 
 
 def decgen():

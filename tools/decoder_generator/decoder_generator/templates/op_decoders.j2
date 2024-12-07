@@ -36,6 +36,11 @@ static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TCpuAccessor
   const InstrId iid{InstrId::{{i['name_enum']}} };
   u8 flags = 0x0U;
    {{""}}
+        {%- if 'pattern' in i %}
+            {%- for  pat in unfold_patterns(i['pattern'] ) %}
+   // {{generate_assert(pat)}}
+            {%- endfor %}
+        {%- endif %}
         {%- if 'pre_block' in i %}
             {%- for line in i['pre_block'] %}
   {{line}}
@@ -62,7 +67,7 @@ static Result<Instr> {{i['name_callback']}}(const RawInstr& rinstr, TCpuAccessor
         {%- endif %}
 
         {%-if '32bit' in i['flags'] %}
-        flags |= static_cast<u8>(InstrFlags::k32Bit);
+  flags |= static_cast<u8>(InstrFlags::k32Bit);
         {%- endif %}
         {{""}}
         {#- Return of result as part of an union #}
