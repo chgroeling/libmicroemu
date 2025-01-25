@@ -13,7 +13,8 @@ var searchData=
   ['exceptionpostfetch_10',['ExceptionPostFetch',['../classlibmicroemu_1_1internal_1_1_exception_post_fetch.html',1,'libmicroemu::internal']]],
   ['exceptionprefetch_11',['ExceptionPreFetch',['../classlibmicroemu_1_1internal_1_1_exception_pre_fetch.html',1,'libmicroemu::internal']]],
   ['exceptionsops_12',['ExceptionsOps',['../classlibmicroemu_1_1internal_1_1_exceptions_ops.html',1,'libmicroemu::internal']]],
-  ['exceptionstates_13',['ExceptionStates',['../structlibmicroemu_1_1_exception_states.html',1,'libmicroemu']]],
-  ['execresult_14',['ExecResult',['../classlibmicroemu_1_1_exec_result.html',1,'libmicroemu']]],
-  ['executor_15',['Executor',['../classlibmicroemu_1_1internal_1_1_executor.html',1,'libmicroemu::internal']]]
+  ['exceptionsops_3c_20cpuaccessor_2c_20pcops_2c_20staticlogger_20_3e_13',['ExceptionsOps&lt; CpuAccessor, PcOps, StaticLogger &gt;',['../classlibmicroemu_1_1internal_1_1_exceptions_ops.html',1,'libmicroemu::internal']]],
+  ['exceptionstates_14',['ExceptionStates',['../structlibmicroemu_1_1_exception_states.html',1,'libmicroemu']]],
+  ['execresult_15',['ExecResult',['../classlibmicroemu_1_1_exec_result.html',1,'libmicroemu']]],
+  ['executor_16',['Executor',['../classlibmicroemu_1_1internal_1_1_executor.html',1,'libmicroemu::internal']]]
 ];

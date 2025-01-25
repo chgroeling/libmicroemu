@@ -20,12 +20,15 @@ var searchData=
   ['binarystoreinstrwithimm_17',['BinaryStoreInstrWithImm',['../classlibmicroemu_1_1internal_1_1_binary_store_instr_with_imm.html',1,'libmicroemu::internal']]],
   ['bitcount_18',['BitCount',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#ac7789c77f3ac47c67ce19347e181490c',1,'libmicroemu::internal::BitManip']]],
   ['bitmanip_19',['BitManip',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
-  ['bkpt_20',['Bkpt',['../classlibmicroemu_1_1internal_1_1_special_instr.html#a7fb1309d9ee880938e44022dd55d95f5',1,'libmicroemu::internal::SpecialInstr']]],
-  ['bl1immop_21',['Bl1ImmOp',['../classlibmicroemu_01_1_1internal_1_1_bl1_imm_op.html',1,'libmicroemu ::internal']]],
-  ['blx1op_22',['Blx1Op',['../classlibmicroemu_1_1internal_1_1_blx1_op.html',1,'libmicroemu::internal']]],
-  ['build_23',['Build',['../classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a8a60a02cfc1b945d2ca5c34601378bd9',1,'libmicroemu::internal::RelativeAdrBuilder']]],
-  ['buildmnemonic_24',['BuildMnemonic',['../classlibmicroemu_1_1_emu_context.html#a11a0fba3705192b4fcb7ae12a9cc97eb',1,'libmicroemu::EmuContext']]],
-  ['built_20in_20loggers_25',['Built-In Loggers',['../manual.html#autotoc_md23',1,'']]],
-  ['bus_26',['Bus',['../classlibmicroemu_1_1internal_1_1_bus.html',1,'libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;'],['../classlibmicroemu_1_1internal_1_1_bus.html#a6996418ec9dd8f56c792863cc11c252a',1,'libmicroemu::internal::Bus::Bus(const Bus &amp;r_src)=default'],['../classlibmicroemu_1_1internal_1_1_bus.html#ac4de9b0ad218a6903ce5a6b2f948d2ef',1,'libmicroemu::internal::Bus::Bus(Bus &amp;&amp;r_src)=default']]],
-  ['bx1op_27',['Bx1Op',['../classlibmicroemu_1_1internal_1_1_bx1_op.html',1,'libmicroemu::internal']]]
+  ['bitmanip_3c_20u16_20_3e_20',['BitManip&lt; u16 &gt;',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
+  ['bitmanip_3c_20u32_20_3e_21',['BitManip&lt; u32 &gt;',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
+  ['bitmanip_3c_20u8_20_3e_22',['BitManip&lt; u8 &gt;',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
+  ['bkpt_23',['Bkpt',['../classlibmicroemu_1_1internal_1_1_special_instr.html#a7fb1309d9ee880938e44022dd55d95f5',1,'libmicroemu::internal::SpecialInstr']]],
+  ['bl1immop_24',['Bl1ImmOp',['../classlibmicroemu_01_1_1internal_1_1_bl1_imm_op.html',1,'libmicroemu ::internal']]],
+  ['blx1op_25',['Blx1Op',['../classlibmicroemu_1_1internal_1_1_blx1_op.html',1,'libmicroemu::internal']]],
+  ['build_26',['Build',['../classlibmicroemu_1_1internal_1_1_relative_adr_builder.html#a8a60a02cfc1b945d2ca5c34601378bd9',1,'libmicroemu::internal::RelativeAdrBuilder']]],
+  ['buildmnemonic_27',['BuildMnemonic',['../classlibmicroemu_1_1_emu_context.html#a11a0fba3705192b4fcb7ae12a9cc97eb',1,'libmicroemu::EmuContext']]],
+  ['built_20in_20loggers_28',['Built-In Loggers',['../manual.html#autotoc_md23',1,'']]],
+  ['bus_29',['Bus',['../classlibmicroemu_1_1internal_1_1_bus.html',1,'libmicroemu::internal::Bus&lt; TCpuAccessor, TExceptionTrigger, TLogger, TBusParticipant &gt;'],['../classlibmicroemu_1_1internal_1_1_bus.html#a6996418ec9dd8f56c792863cc11c252a',1,'libmicroemu::internal::Bus::Bus(const Bus &amp;r_src)=default'],['../classlibmicroemu_1_1internal_1_1_bus.html#ac4de9b0ad218a6903ce5a6b2f948d2ef',1,'libmicroemu::internal::Bus::Bus(Bus &amp;&amp;r_src)=default']]],
+  ['bx1op_30',['Bx1Op',['../classlibmicroemu_1_1internal_1_1_bx1_op.html',1,'libmicroemu::internal']]]
 ];

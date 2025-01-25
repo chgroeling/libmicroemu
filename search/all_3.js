@@ -11,12 +11,15 @@ var searchData=
   ['aligndown_8',['AlignDown',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#a8d270866b5117dac10540439dad66950',1,'libmicroemu::internal::BitManip']]],
   ['alignup_9',['AlignUp',['../classlibmicroemu_1_1internal_1_1_bit_manip.html#a466f55176e898161bdd18550b04d4f81',1,'libmicroemu::internal::BitManip']]],
   ['alu_10',['Alu',['../classlibmicroemu_1_1internal_1_1_alu.html',1,'libmicroemu::internal']]],
-  ['and_20releases_11',['Precompiled Libraries and Releases',['../index.html#autotoc_md7',1,'']]],
-  ['and1immcarryop_12',['And1ImmCarryOp',['../classlibmicroemu_1_1internal_1_1_and1_imm_carry_op.html',1,'libmicroemu::internal']]],
-  ['and2shiftop_13',['And2ShiftOp',['../classlibmicroemu_1_1internal_1_1_and2_shift_op.html',1,'libmicroemu::internal']]],
-  ['apsrregister_14',['ApsrRegister',['../structlibmicroemu_1_1_apsr_register.html',1,'libmicroemu']]],
-  ['arm_20microcontroller_20emulator_20library_15',['ARM Microcontroller Emulator Library',['../index.html',1,'']]],
-  ['asr1shiftop_16',['Asr1ShiftOp',['../classlibmicroemu_1_1internal_1_1_asr1_shift_op.html',1,'libmicroemu::internal']]],
-  ['asr2op_17',['Asr2Op',['../classlibmicroemu_1_1internal_1_1_asr2_op.html',1,'libmicroemu::internal']]],
-  ['asr_5fc_5fresults_18',['ASR_C_Results',['../structlibmicroemu_1_1internal_1_1_alu_1_1_a_s_r___c___results.html',1,'libmicroemu::internal::Alu']]]
+  ['alu_3c_20u16_20_3e_11',['Alu&lt; u16 &gt;',['../classlibmicroemu_1_1internal_1_1_alu.html',1,'libmicroemu::internal']]],
+  ['alu_3c_20u32_20_3e_12',['Alu&lt; u32 &gt;',['../classlibmicroemu_1_1internal_1_1_alu.html',1,'libmicroemu::internal']]],
+  ['alu_3c_20u8_20_3e_13',['Alu&lt; u8 &gt;',['../classlibmicroemu_1_1internal_1_1_alu.html',1,'libmicroemu::internal']]],
+  ['and_20releases_14',['Precompiled Libraries and Releases',['../index.html#autotoc_md7',1,'']]],
+  ['and1immcarryop_15',['And1ImmCarryOp',['../classlibmicroemu_1_1internal_1_1_and1_imm_carry_op.html',1,'libmicroemu::internal']]],
+  ['and2shiftop_16',['And2ShiftOp',['../classlibmicroemu_1_1internal_1_1_and2_shift_op.html',1,'libmicroemu::internal']]],
+  ['apsrregister_17',['ApsrRegister',['../structlibmicroemu_1_1_apsr_register.html',1,'libmicroemu']]],
+  ['arm_20microcontroller_20emulator_20library_18',['ARM Microcontroller Emulator Library',['../index.html',1,'']]],
+  ['asr1shiftop_19',['Asr1ShiftOp',['../classlibmicroemu_1_1internal_1_1_asr1_shift_op.html',1,'libmicroemu::internal']]],
+  ['asr2op_20',['Asr2Op',['../classlibmicroemu_1_1internal_1_1_asr2_op.html',1,'libmicroemu::internal']]],
+  ['asr_5fc_5fresults_21',['ASR_C_Results',['../structlibmicroemu_1_1internal_1_1_alu_1_1_a_s_r___c___results.html',1,'libmicroemu::internal::Alu']]]
 ];

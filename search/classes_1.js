@@ -17,8 +17,11 @@ var searchData=
   ['binarynullinstrwithimmcarry_14',['BinaryNullInstrWithImmCarry',['../classlibmicroemu_1_1internal_1_1_binary_null_instr_with_imm_carry.html',1,'libmicroemu::internal']]],
   ['binarystoreinstrwithimm_15',['BinaryStoreInstrWithImm',['../classlibmicroemu_1_1internal_1_1_binary_store_instr_with_imm.html',1,'libmicroemu::internal']]],
   ['bitmanip_16',['BitManip',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
-  ['bl1immop_17',['Bl1ImmOp',['../classlibmicroemu_01_1_1internal_1_1_bl1_imm_op.html',1,'libmicroemu ::internal']]],
-  ['blx1op_18',['Blx1Op',['../classlibmicroemu_1_1internal_1_1_blx1_op.html',1,'libmicroemu::internal']]],
-  ['bus_19',['Bus',['../classlibmicroemu_1_1internal_1_1_bus.html',1,'libmicroemu::internal']]],
-  ['bx1op_20',['Bx1Op',['../classlibmicroemu_1_1internal_1_1_bx1_op.html',1,'libmicroemu::internal']]]
+  ['bitmanip_3c_20u16_20_3e_17',['BitManip&lt; u16 &gt;',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
+  ['bitmanip_3c_20u32_20_3e_18',['BitManip&lt; u32 &gt;',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
+  ['bitmanip_3c_20u8_20_3e_19',['BitManip&lt; u8 &gt;',['../classlibmicroemu_1_1internal_1_1_bit_manip.html',1,'libmicroemu::internal']]],
+  ['bl1immop_20',['Bl1ImmOp',['../classlibmicroemu_01_1_1internal_1_1_bl1_imm_op.html',1,'libmicroemu ::internal']]],
+  ['blx1op_21',['Blx1Op',['../classlibmicroemu_1_1internal_1_1_blx1_op.html',1,'libmicroemu::internal']]],
+  ['bus_22',['Bus',['../classlibmicroemu_1_1internal_1_1_bus.html',1,'libmicroemu::internal']]],
+  ['bx1op_23',['Bx1Op',['../classlibmicroemu_1_1internal_1_1_bx1_op.html',1,'libmicroemu::internal']]]
 ];

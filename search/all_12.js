@@ -20,7 +20,7 @@ var searchData=
   ['releases_17',['Precompiled Libraries and Releases',['../index.html#autotoc_md7',1,'']]],
   ['reset_5flogic_2eh_18',['reset_logic.h',['../reset__logic_8h.html',1,'']]],
   ['resetlogic_19',['ResetLogic',['../classlibmicroemu_1_1internal_1_1_reset_logic.html',1,'libmicroemu::internal']]],
-  ['result_20',['Result',['../structlibmicroemu_1_1internal_1_1_result.html',1,'libmicroemu::internal']]],
+  ['result_20',['Result',['../structlibmicroemu_1_1internal_1_1_result.html',1,'libmicroemu::internal::Result&lt; T, TStatusCode &gt;'],['../struct_result.html',1,'Result&lt; T, TStatusCode &gt;']]],
   ['result_2eh_21',['result.h',['../result_8h.html',1,'']]],
   ['result_3c_20void_20_3e_22',['Result&lt; void &gt;',['../structlibmicroemu_1_1internal_1_1_result_3_01void_01_4.html',1,'libmicroemu::internal']]],
   ['results_23',['Performance Results',['../index.html#autotoc_md11',1,'']]],

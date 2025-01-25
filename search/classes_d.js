@@ -16,7 +16,7 @@ var searchData=
   ['regops_13',['RegOps',['../classlibmicroemu_1_1internal_1_1_reg_ops.html',1,'libmicroemu::internal']]],
   ['relativeadrbuilder_14',['RelativeAdrBuilder',['../classlibmicroemu_1_1internal_1_1_relative_adr_builder.html',1,'libmicroemu::internal']]],
   ['resetlogic_15',['ResetLogic',['../classlibmicroemu_1_1internal_1_1_reset_logic.html',1,'libmicroemu::internal']]],
-  ['result_16',['Result',['../structlibmicroemu_1_1internal_1_1_result.html',1,'libmicroemu::internal']]],
+  ['result_16',['Result',['../structlibmicroemu_1_1internal_1_1_result.html',1,'libmicroemu::internal::Result&lt; T, TStatusCode &gt;'],['../struct_result.html',1,'Result&lt; T, TStatusCode &gt;']]],
   ['result_3c_20void_20_3e_17',['Result&lt; void &gt;',['../structlibmicroemu_1_1internal_1_1_result_3_01void_01_4.html',1,'libmicroemu::internal']]],
   ['ror_5fc_5fresults_18',['ROR_C_Results',['../structlibmicroemu_1_1internal_1_1_alu_1_1_r_o_r___c___results.html',1,'libmicroemu::internal::Alu']]],
   ['rrx1op_19',['Rrx1Op',['../classlibmicroemu_1_1internal_1_1_rrx1_op.html',1,'libmicroemu::internal']]],
