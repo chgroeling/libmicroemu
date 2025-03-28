@@ -39,6 +39,7 @@ build/
 __pycache__
 *egg-info
 venv
+.ropeproject
 
 # CMake
 CMakeUserPresets.json

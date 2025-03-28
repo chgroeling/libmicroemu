@@ -1,7 +1,7 @@
-from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2 import Environment, PackageLoader
 import json
 import importlib.resources as rimp
-import pprint
+
 
 def generate_pre_block(pattern):
     def process_bit_string(bit_string, instr_name):
@@ -10,13 +10,14 @@ def generate_pre_block(pattern):
         i = 0
         while i < length:
             if bit_string[i] in "01":  # Fixed bit detected
-                # Check if this bit is isolated (enclosed by 'x') or at the start/end
+                # Check if this bit is isolated (enclosed by 'x') or at the
+                # start/end
                 if (i == 0 or bit_string[i - 1] == "x") and (
                     i == length - 1 or bit_string[i + 1] == "x"
                 ):
                     bit_pos = length - 1 - i
                     pre_block.append(
-                        f"assert((Bm16::IsolateBit<{bit_pos}u>({instr_name})) == 0b{bit_string[i]}u);"
+                        f"assert((Bm16::IsolateBit<{bit_pos}U>({instr_name})) == 0b{bit_string[i]}U);"
                     )
                     i += 1
                 else:
@@ -31,7 +32,7 @@ def generate_pre_block(pattern):
                     bit_pos_start = length - 1 - slice_start
                     bit_pos_end = length - 1 - slice_end
                     pre_block.append(
-                        f"assert((Bm16::ExtractBits1R<{bit_pos_start}u, {bit_pos_end}u>({instr_name})) == 0b{fixed_bits}u);"
+                        f"assert((Bm16::ExtractBits1R<{bit_pos_start}U, {bit_pos_end}U>({instr_name})) == 0b{fixed_bits}U);"
                     )
             elif bit_string[i] == "x":  # Skip 'x' (don't care) bits
                 i += 1
@@ -40,8 +41,10 @@ def generate_pre_block(pattern):
     # Process the "lo" and "hi" parts of the pattern
     pre_block = []
     if "lo" in pattern:
+        assert(len(pattern["lo"]) == 16)
         pre_block += process_bit_string(pattern["lo"], "rinstr.low")
     if "hi" in pattern:
+        assert(len(pattern["hi"]) == 16)
         pre_block += process_bit_string(pattern["hi"], "rinstr.high")
 
     return pre_block
@@ -91,18 +94,13 @@ def decgen():
 
     decoders = {}
     for name, v in config["decoders"].items():
-        cc_encoding = camel(v["encoding"])
         instruction = instructions[v["instruction"]]
         cc_name = camel(name)
 
         item = dict(v)
 
-        if "pattern" in item:
-            pass
-            # Experimental: Generate assertions for the pattern
-            # print("\n".join(generate_pre_block(item["pattern"])))
-            # print("---")
-
+        item["pre_block"] = item.get("pre_block", list())
+        item["pre_block"] += generate_pre_block(item["pattern"])
         item["name_struct"] = instruction["name_struct"]
         item["name_callback"] = cc_name + name_suffix_decoder
         item["name_enum"] = instruction["name_enum"]
