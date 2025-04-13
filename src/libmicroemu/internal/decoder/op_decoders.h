@@ -228,7 +228,7 @@ static Result<Instr> CmpRegisterT1Decoder(const RawInstr &rinstr, TCpuAccessor &
   const InstrId iid{InstrId::kCmpRegister};
   u8 flags = 0x0U;
 
-  assert((Bm16::ExtractBits1R<10U, 6U>(rinstr.low)) == 0b01010U);
+  assert((Bm16::ExtractBits1R<15U, 6U>(rinstr.low)) == 0b0100001010U);
 
   const u16 Rn = Bm16::ExtractBits1R<2U, 0U>(rinstr.low);
   const u8 n = static_cast<u8>(Rn);
@@ -245,7 +245,7 @@ static Result<Instr> CmpRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const InstrId iid{InstrId::kCmpRegister};
   u8 flags = 0x0U;
 
-  assert((Bm16::ExtractBits1R<10U, 8U>(rinstr.low)) == 0b101U);
+  assert((Bm16::ExtractBits1R<15U, 8U>(rinstr.low)) == 0b01000101U);
 
   const u16 N = Bm16::IsolateBit<7U>(rinstr.low);
   const u16 Rn = Bm16::ExtractBits1R<2U, 0U>(rinstr.low);
@@ -1244,7 +1244,7 @@ static Result<Instr> ItT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const InstrId iid{InstrId::kIt};
   u8 flags = 0x0U;
 
-  assert((Bm16::ExtractBits1R<11U, 8U>(rinstr.low)) == 0b1111U);
+  assert((Bm16::ExtractBits1R<15U, 8U>(rinstr.low)) == 0b10111111U);
 
   const u32 firstcond_32 = Bm16::ExtractBits1R<7U, 4U>(rinstr.low);
   const u8 firstcond = static_cast<u8>(firstcond_32);
@@ -2391,7 +2391,7 @@ static Result<Instr> AddRegisterT2Decoder(const RawInstr &rinstr, TCpuAccessor &
   const InstrId iid{InstrId::kAddRegister};
   u8 flags = 0x0U;
 
-  assert((Bm16::ExtractBits1R<10U, 8U>(rinstr.low)) == 0b100U);
+  assert((Bm16::ExtractBits1R<15U, 8U>(rinstr.low)) == 0b01000100U);
 
   flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kSetFlags);
   const auto shift_res = ImmShiftResults{SRType::SRType_LSL, 0U};
@@ -2532,7 +2532,7 @@ static Result<Instr> PushT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const InstrId iid{InstrId::kPush};
   u8 flags = 0x0U;
 
-  assert((Bm16::ExtractBits1R<10U, 9U>(rinstr.low)) == 0b10U);
+  assert((Bm16::ExtractBits1R<15U, 9U>(rinstr.low)) == 0b1011010U);
 
   flags &= ~static_cast<InstrFlagsSet>(InstrFlags::kUnalignedAllow);
   const u32 M = Bm16::IsolateBit<8U>(rinstr.low);
@@ -2746,7 +2746,7 @@ static Result<Instr> UxtbT1Decoder(const RawInstr &rinstr, TCpuAccessor &cpua) {
   const InstrId iid{InstrId::kUxtb};
   u8 flags = 0x0U;
 
-  assert((Bm16::ExtractBits1R<11U, 6U>(rinstr.low)) == 0b001011U);
+  assert((Bm16::ExtractBits1R<15U, 6U>(rinstr.low)) == 0b1011001011U);
 
   const u16 Rm = Bm16::ExtractBits1R<5U, 3U>(rinstr.low);
   const u8 m = static_cast<u8>(Rm);
@@ -3114,6 +3114,7 @@ static Result<Instr> BicImmediateT1Decoder(const RawInstr &rinstr, TCpuAccessor 
   const InstrId iid{InstrId::kBicImmediate};
   u8 flags = 0x0U;
 
+  assert((Bm16::ExtractBits1R<15U, 11U>(rinstr.low)) == 0b11110U);
   assert((Bm16::ExtractBits1R<9U, 5U>(rinstr.low)) == 0b00001U);
   assert((Bm16::IsolateBit<15U>(rinstr.high)) == 0b0U);
 

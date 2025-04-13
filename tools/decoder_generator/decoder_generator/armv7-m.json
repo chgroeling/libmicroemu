@@ -1242,7 +1242,7 @@
       "encoding": "t1",
       "flags": [],
       "pattern": {
-        "lo": "xxxxx01010xxxxxx"
+        "lo": "0100001010xxxxxx"
       },
       "def": {
         "n": {
@@ -1270,7 +1270,7 @@
       "encoding": "t2",
       "flags": [],
       "pattern": {
-        "lo": "xxxxx101xxxxxxxx"
+        "lo": "01000101xxxxxxxx"
       },
       "def": {
         "n": {
@@ -2849,7 +2849,7 @@
       "encoding": "t1",
       "flags": [],
       "pattern": {
-        "lo": "xxxx1111xxxxxxxx"
+        "lo": "10111111xxxxxxxx"
       },
       "def": {
         "firstcond": {
@@ -4534,7 +4534,7 @@
       "encoding": "t2",
       "flags": [],
       "pattern": {
-        "lo": "xxxxx100xxxxxxxx"
+        "lo": "01000100xxxxxxxx"
       },
       "def": {
         "setflags": {
@@ -4764,7 +4764,7 @@
       "encoding": "t1",
       "flags": [],
       "pattern": {
-        "lo": "xxxxx10xxxxxxxxx"
+        "lo": "1011010xxxxxxxxx"
       },
       "def": {
         "UnalignedAllow": {
@@ -5068,7 +5068,7 @@
       "encoding": "t1",
       "flags": [],
       "pattern": {
-        "lo": "xxxx001011xxxxxx"
+        "lo": "1011001011xxxxxx"
       },
       "def": {
         "m": {
@@ -5668,7 +5668,7 @@
         "32bit"
       ],
       "pattern": {
-        "lo": "xxxxxx00001xxxxx",
+        "lo": "11110x00001xxxxx",
         "hi": "0xxxxxxxxxxxxxxx"
       },
       "def": {
