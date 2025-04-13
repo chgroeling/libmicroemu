@@ -23,8 +23,8 @@ def main():
         names.append(f"{dec}")
         patterns.append(f"{i['pattern']['lo']}{hi}")
 
-
-    patterns, names = zip(*sorted(zip(patterns,names)))
+   # patterns, names = zip(*sorted(zip(patterns,names), key=lambda x:(x[0].count("1") + x[0].count("0"), x[0])))
+    patterns, names = zip(*sorted(zip(patterns,names), key=lambda x:(x[0])))
     lines = []
     for name, pattern in zip(names,patterns):
         lines.append(f'{{"pattern": "{pattern}", "name": "{name}"}}')
